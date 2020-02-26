@@ -77,6 +77,11 @@
       <path value="$PROJECT_DIR$/symfony/vendor/nelmio/cors-bundle" />
       <path value="$PROJECT_DIR$/symfony/vendor/psr/link" />
       <path value="$PROJECT_DIR$/symfony/vendor/symfony/security-bundle" />
+      <path value="$PROJECT_DIR$/symfony/vendor/php-cs-fixer/diff" />
+      <path value="$PROJECT_DIR$/symfony/vendor/friendsofphp/php-cs-fixer" />
+      <path value="$PROJECT_DIR$/symfony/vendor/symfony/options-resolver" />
+      <path value="$PROJECT_DIR$/symfony/vendor/symfony/process" />
+      <path value="$PROJECT_DIR$/symfony/vendor/symfony/stopwatch" />
     </include_path>
   </component>
   <component name="PhpInterpreters">

@@ -16,6 +16,12 @@
             "src/Entity/.gitignore"
         ]
     },
+    "composer/semver": {
+        "version": "1.5.1"
+    },
+    "composer/xdebug-handler": {
+        "version": "1.4.0"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -79,6 +85,18 @@
     "fig/link-util": {
         "version": "1.1.0"
     },
+    "friendsofphp/php-cs-fixer": {
+        "version": "2.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.2",
+            "ref": "cc05ab6abf6894bddb9bbd6a252459010ebe040b"
+        },
+        "files": [
+            "./.php_cs.dist"
+        ]
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
@@ -102,6 +120,9 @@
     },
     "php": {
         "version": "7.3.14"
+    },
+    "php-cs-fixer/diff": {
+        "version": "v1.3.0"
     },
     "phpdocumentor/reflection-common": {
         "version": "2.0.0"
@@ -244,6 +265,9 @@
     "symfony/mime": {
         "version": "v5.0.4"
     },
+    "symfony/options-resolver": {
+        "version": "v5.0.4"
+    },
     "symfony/polyfill-intl-idn": {
         "version": "v1.14.0"
     },
@@ -252,6 +276,9 @@
     },
     "symfony/polyfill-php73": {
         "version": "v1.14.0"
+    },
+    "symfony/process": {
+        "version": "v5.0.4"
     },
     "symfony/property-access": {
         "version": "v5.0.4"
@@ -302,6 +329,9 @@
     },
     "symfony/service-contracts": {
         "version": "v2.0.1"
+    },
+    "symfony/stopwatch": {
+        "version": "v5.0.4"
     },
     "symfony/translation-contracts": {
         "version": "v2.0.1"
