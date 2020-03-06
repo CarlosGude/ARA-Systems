@@ -23,4 +23,4 @@ symfony/config/jwt/*.pem
 !.idea/
 !logs/
 /logs/nginx/
-.env
+database.env
