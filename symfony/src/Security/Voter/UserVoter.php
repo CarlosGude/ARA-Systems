@@ -70,7 +70,6 @@ class UserVoter extends Voter
 
     private function createUser(User $user, User $authenticatedUser)
     {
-
         if (in_array('ROLE_CREATE_USER', $authenticatedUser->getRoles(), true)) {
             return true;
         }

@@ -3,7 +3,6 @@
 
 namespace App\Security;
 
-
 use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;

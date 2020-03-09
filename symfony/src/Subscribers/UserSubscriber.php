@@ -3,7 +3,6 @@
 
 namespace App\Subscribers;
 
-
 use App\Entity\User;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
