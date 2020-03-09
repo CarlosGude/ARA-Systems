@@ -1,23 +1,43 @@
 security:
+  encoders:
+    App\Entity\User:
+      algorithm: 'auto'
+
+  access_decision_manager:
+    strategy: unanimous
+    allow_if_all_abstain: false
   # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
   providers:
-    users_in_memory: { memory: null }
+    # used to reload user from session & other features (e.g. switch_user)
+    app_user_provider:
+      id: App\Security\UserProvider
+
   firewalls:
     dev:
-      pattern: ^/(_(profiler|wdt)|css|images|js)/
+      pattern: ^/_(profiler|wdt)
       security: false
+
+    api:
+      pattern: ^/api/v1
+      stateless: true
+      anonymous: true
+      guard:
+        authenticators:
+          - lexik_jwt_authentication.jwt_token_authenticator
     main:
-      anonymous: lazy
-      provider: users_in_memory
+      anonymous: true
+      logout:
+        path: logout
+      json_login:
+        check_path: /authentication_token
+        provider: app_user_provider
+        username_path: email
+        password_path: password
+        success_handler: lexik_jwt_authentication.handler.authentication_success
+        failure_handler: lexik_jwt_authentication.handler.authentication_failure
 
-      # activate different ways to authenticate
-      # https://symfony.com/doc/current/security.html#firewalls-authentication
-
-      # https://symfony.com/doc/current/security/impersonating_user.html
-      # switch_user: true
-
-  # Easy way to control access for large sections of your site
-  # Note: Only the *first* access control that matches will be used
   access_control:
-  # - { path: ^/admin, roles: ROLE_ADMIN }
-  # - { path: ^/profile, roles: ROLE_USER }
+    - { path: ^/api/v1/docs, roles: IS_AUTHENTICATED_ANONYMOUSLY } # Allows accessing the Swagger UI
+    - { path: ^/api/v1/*, roles: IS_AUTHENTICATED_FULLY }
+    - { path: ^/authentication_token, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }

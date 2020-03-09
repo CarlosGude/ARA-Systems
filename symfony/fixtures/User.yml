@@ -1,0 +1,11 @@
+App\Entity\User:
+  god_user:
+    name: Carlos Gude
+    email: carlos.sgude@gmail.com
+    password: pasalacabra
+    roles: ['ROLE_GOD']
+
+  dummy_users_{1..10}:
+    name: '<firstName()> <lastName()>'
+    email: '<email()>'
+    password: '<password()>'
