@@ -4,6 +4,7 @@
 namespace App\Tests\Functional;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
+use App\Entity\User;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 use Symfony\Component\Console\Application;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
@@ -43,5 +44,17 @@ abstract class BaseTest extends ApiTestCase
     {
         $this->assertResponseIsSuccessful();
         $this->assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
+    }
+
+    protected function getUser(): ?User
+    {
+
+        return static::$container->get('doctrine')
+            ->getRepository(User::class)
+            ->findOneBy(
+                ['roles' => ['ROLE_GOD']]
+            );
+
+
     }
 }

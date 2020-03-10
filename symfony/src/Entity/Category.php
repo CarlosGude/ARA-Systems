@@ -45,6 +45,11 @@ class Category
      */
     private $updatedAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="categories")
+     */
+    private $user;
+
     public function __construct()
     {
         $this->createdAt = new DateTime();
@@ -147,6 +152,18 @@ class Category
     public function setUpdatedAt(DateTime $updatedAt): Category
     {
         $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
         return $this;
     }
 

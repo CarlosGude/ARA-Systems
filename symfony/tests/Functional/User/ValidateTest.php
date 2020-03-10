@@ -3,7 +3,7 @@
 
 namespace App\Tests\Functional\User;
 
-class ValidateUserTest extends ManagementTest
+class ValidateTest extends ManagementTest
 {
     public function testValidEmail()
     {

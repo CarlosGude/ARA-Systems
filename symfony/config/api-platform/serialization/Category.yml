@@ -8,6 +8,9 @@ App\Entity\Category:
     description:
       groups: ['category_read', 'category_write']
 
+    user:
+      groups: ['category_read', 'category_write']
+
     createdAt:
       groups: ['category_read']
 
