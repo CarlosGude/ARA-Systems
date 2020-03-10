@@ -45,4 +45,4 @@ App\Entity\User:
                     type: string
     delete:
       method: 'DELETE'
-      security: 'is_granted("DELTED", object)'
+      security: 'is_granted("DELETE", object)'
