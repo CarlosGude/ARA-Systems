@@ -5,7 +5,6 @@ namespace App\Entity;
 
 use DateTime;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class User implements UserInterface
 {
@@ -21,11 +20,7 @@ class User implements UserInterface
     /**@var string */
     private $name;
 
-    /**
-     * @var string
-     * @Assert\Email()
-     */
-
+    /**@var string */
     private $email;
 
     /** @var string */
