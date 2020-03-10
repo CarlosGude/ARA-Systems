@@ -3,7 +3,6 @@
 
 namespace App\Tests\Functional\User;
 
-
 use App\Entity\User;
 use App\Tests\Functional\BaseTest;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
@@ -63,7 +62,6 @@ class ManagementTest extends BaseTest
             $response['email'],
             'The expected email was ' . $response['email'] . ' but ' . $randomUser->getEmail() . ' has found'
         );
-
     }
 
     public function testAddAnUser()

@@ -3,7 +3,6 @@
 
 namespace App\Tests\Functional\User;
 
-
 use App\Tests\Functional\BaseTest;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -60,5 +59,4 @@ class LoginTest extends BaseTest
             'The response is ' . $response['message'] . ' "Invalid credentials." was expected.'
         );
     }
-
 }

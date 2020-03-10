@@ -3,7 +3,6 @@
 
 namespace App\Tests\Functional\User;
 
-
 class ValidateUserTest extends ManagementTest
 {
     public function testValidEmail()
@@ -46,7 +45,6 @@ class ValidateUserTest extends ManagementTest
             'email: This value should not be blank.',
             $response['hydra:description']
         );
-
     }
 
     public function testNameIsRequired()
@@ -68,7 +66,6 @@ class ValidateUserTest extends ManagementTest
             'name: This value should not be blank.',
             $response['hydra:description']
         );
-
     }
 
     public function testPasswordIsRequired()
@@ -90,6 +87,5 @@ class ValidateUserTest extends ManagementTest
             'password: This value should not be blank.',
             $response['hydra:description']
         );
-
     }
 }
