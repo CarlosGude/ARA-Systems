@@ -63,7 +63,7 @@ class ValidateUserTest extends ManagementTest
 
         $this->assertResponseStatusCodeSame(400, 'The response is not 400');
         $this->assertEquals(
-            'name: This value should not554555555555555555555555555555tttyr rr6 tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt555555555555555555555555555555555555555555555 be blank.',
+            'name: This value should not be blank.',
             $response['hydra:description']
         );
     }
