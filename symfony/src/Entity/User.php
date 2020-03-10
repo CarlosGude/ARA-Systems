@@ -4,8 +4,13 @@
 namespace App\Entity;
 
 use DateTime;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * @ORM\Entity()
+ * @ORM\HasLifecycleCallbacks()
+ */
 class User implements UserInterface
 {
     /** @var string */
@@ -14,28 +19,55 @@ class User implements UserInterface
     /** @var string */
     public const ROLE_USER = 'ROLE_USER';
 
-    /**@var string */
+    /**
+     * @var string
+     * @ORM\Id
+     * @ORM\Column(type="string", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
+     */
     private $id;
 
-    /**@var string */
+    /**
+     * @var string
+     * @ORM\Column(type="string", nullable=false)
+     */
     private $name;
 
-    /**@var string */
+    /**
+     * @var string
+     * @ORM\Column(type="string", nullable=false)
+     */
     private $email;
 
-    /** @var string */
+    /**
+     * @var string
+     * @ORM\Column(type="string", nullable=false)
+     */
     private $password;
 
-    /** @var array */
+    /**
+     * @var string
+     * @ORM\Column(type="simple_array", nullable=false)
+     */
     private $roles;
 
-    /** @var string */
+    /**
+     * @var string
+     * @ORM\Column(type="string", nullable=false)
+     */
     private $salt;
 
-    /** @var DateTime */
+    /**
+     * @var string
+     * @ORM\Column(type="datetime", nullable=false)
+     */
     private $createdAt;
 
-    /** @var DateTime */
+    /**
+     * @var string
+     * @ORM\Column(type="datetime", nullable=false)
+     */
     private $updatedAt;
 
     public function __construct()
@@ -46,6 +78,9 @@ class User implements UserInterface
         $this->salt = uniqid(mt_rand(), true);
     }
 
+    /**
+     * @ORM\PrePersist
+     */
     public function updatedAt()
     {
         $this->updatedAt = new DateTime();
