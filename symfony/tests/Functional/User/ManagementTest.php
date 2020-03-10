@@ -119,12 +119,11 @@ class ManagementTest extends BaseTest
 
     public function testDeleteARandomUser(): void
     {
-        $users = static::$container->get('doctrine')->getRepository(User::class)->findAll();
+        $user = static::$container->get('doctrine')->getRepository(User::class)->findOneBy([
+            'email' => 'remove@mail.es'
+        ]);
 
-        /** @var User $randomUser */
-        $randomUser = $users[array_rand($users)];
-
-        $response = static::createClient()->request('DELETE', parent::API . 'users/' . $randomUser->getId(), [
+        $response = static::createClient()->request('DELETE', parent::API . 'users/' . $user->getId(), [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->token['token'],
             ]

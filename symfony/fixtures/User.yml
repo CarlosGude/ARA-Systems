@@ -5,7 +5,12 @@ App\Entity\User:
     password: pasalacabra
     roles: ['ROLE_GOD']
 
-  dummy_users_{1..10}:
+  delete_user:
+    name: Remove
+    email: remove@mail.es
+    password: 1234
+
+  dummy_users_{1..9}:
     name: '<firstName()> <lastName()>'
     email: '<email()>'
     password: '<password()>'
