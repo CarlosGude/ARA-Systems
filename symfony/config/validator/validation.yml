@@ -14,3 +14,12 @@ App\Entity\Category:
       - NotBlank: ~
     user:
       - NotBlank: ~
+
+App\Entity\Product:
+  properties:
+    name:
+      - NotBlank: ~
+    user:
+      - NotBlank: ~
+    category:
+      - NotBlank: ~

@@ -77,6 +77,11 @@ class User implements UserInterface
      */
     private $categories;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="user", orphanRemoval=true)
+     */
+    private $products;
+
     public function __construct()
     {
         $this->roles = [self::ROLE_USER];
@@ -84,6 +89,7 @@ class User implements UserInterface
         $this->updatedAt = new DateTime();
         $this->salt = uniqid(mt_rand(), true);
         $this->categories = new ArrayCollection();
+        $this->products = new ArrayCollection();
     }
 
     /**
@@ -270,6 +276,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($category->getUser() === $this) {
                 $category->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): self
+    {
+        if ($this->products->contains($product)) {
+            $this->products->removeElement($product);
+            // set the owning side to null (unless already changed)
+            if ($product->getUser() === $this) {
+                $product->setUser(null);
             }
         }
 

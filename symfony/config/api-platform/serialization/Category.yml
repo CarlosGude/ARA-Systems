@@ -3,7 +3,7 @@ App\Entity\Category:
     id:
       groups: ['category_read']
     name:
-      groups: ['category_read', 'category_write']
+      groups: ['category_read', 'category_write','product_read']
 
     description:
       groups: ['category_read', 'category_write']

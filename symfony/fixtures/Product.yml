@@ -1,0 +1,5 @@
+App\Entity\Product:
+  dummy_products_{1..11}:
+    name: '<firstName()>'
+    user: '@god_user'
+    category: '@the_category'

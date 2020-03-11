@@ -1,5 +1,8 @@
 App\Entity\Category:
-  dummy_categories_{1..11}:
+  dummy_categories_{1..10}:
     name: '<firstName()>'
     user: '@god_user'
 
+  the_category:
+    name: 'The Category'
+    user: '@god_user'
