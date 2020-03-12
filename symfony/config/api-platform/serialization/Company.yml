@@ -1,0 +1,18 @@
+App\Entity\Company:
+  attributes:
+    id:
+      groups: ['company_read']
+    name:
+      groups: ['company_read', 'company_write','product_read']
+
+    description:
+      groups: ['company_read', 'company_write']
+
+    user:
+      groups: ['company_read', 'company_write']
+
+    createdAt:
+      groups: ['company_read']
+
+    updatedAt:
+      groups: ['company_read']

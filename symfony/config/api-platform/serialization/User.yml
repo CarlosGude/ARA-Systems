@@ -3,7 +3,7 @@ App\Entity\User:
     id:
       groups: ['user_read']
     name:
-      groups: ['user_read', 'user_write']
+      groups: ['user_read', 'user_write', 'category_read']
 
     email:
       groups: ['user_read', 'user_write']

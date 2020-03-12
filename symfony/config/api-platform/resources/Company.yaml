@@ -1,0 +1,29 @@
+App\Entity\Company:
+  attributes:
+    normalization_context:
+      groups: ['company_read']
+
+    denormalization_context:
+      groups: ['company_write']
+
+  collectionOperations:
+    get:
+      method: 'GET'
+      security: 'is_granted("ROLE_READ_COMPANY") or is_granted("ROLE_GOD")'
+
+    post:
+      menthod: 'POST'
+      security: 'is_granted("ROLE_CREATE_COMPANY") or is_granted("ROLE_GOD")'
+
+  itemOperations:
+    get:
+      method: 'GET'
+      security: 'is_granted("CREATED", object)'
+
+    put:
+      method: 'PUT'
+      security: 'is_granted("EDITED", object)'
+
+    delete:
+      method: 'DELETE'
+      security: 'is_granted("DELETE", object)'

@@ -88,4 +88,5 @@ class ValidateTest extends ManagementTest
             $response['hydra:description']
         );
     }
+
 }
