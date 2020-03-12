@@ -3,7 +3,6 @@
 
 namespace App\Tests\Functional\Category;
 
-
 use App\Tests\Functional\User\ManagementTest;
 
 class ValidateTest extends ManagementTest

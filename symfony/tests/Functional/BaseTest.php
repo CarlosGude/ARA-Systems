@@ -48,13 +48,10 @@ abstract class BaseTest extends ApiTestCase
 
     protected function getUser(): ?User
     {
-
         return static::$container->get('doctrine')
             ->getRepository(User::class)
             ->findOneBy(
                 ['roles' => ['ROLE_GOD']]
             );
-
-
     }
 }

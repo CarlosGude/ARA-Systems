@@ -3,7 +3,6 @@
 
 namespace App\Tests\Functional\Product;
 
-
 use App\Entity\Category;
 use App\Tests\Functional\User\ManagementTest;
 
