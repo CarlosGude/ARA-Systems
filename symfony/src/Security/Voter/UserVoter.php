@@ -60,20 +60,7 @@ class UserVoter extends Voter
             return true;
         }
 
-        switch ($subject) {
-            case self::CREATE:
-                $this->createUser($subject, $user);
-                break;
-        }
         return false;
     }
 
-    private function createUser(User $user, User $authenticatedUser)
-    {
-        if (in_array('ROLE_CREATE_USER', $authenticatedUser->getRoles(), true)) {
-            return true;
-        }
-
-        return false;
-    }
 }
