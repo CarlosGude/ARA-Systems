@@ -71,4 +71,104 @@ class ValidateTest extends ManagementTest
             $response['hydra:description']
         );
     }
+
+    public function testIvaInt()
+    {
+        $category = [
+            'name' => 'test',
+            'description' => 'test',
+            'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
+            'iva' => 'IVA not valid'
+        ];
+
+        $response = static::createClient()->request('POST', parent::API . 'categories', [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $this->token['token'],
+                'Content-Type' => 'application/json'
+            ],
+            'body' => json_encode($category)
+        ]);
+
+        $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
+
+        $this->assertEquals(
+            'The type of the "iva" attribute must be "int", "string" given.',
+            $response['hydra:description']
+        );
+    }
+
+    public function testStockMinInt()
+    {
+        $category = [
+            'name' => 'test',
+            'description' => 'test',
+            'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
+            'stockMin' => 'Stock not valid'
+        ];
+
+        $response = static::createClient()->request('POST', parent::API . 'categories', [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $this->token['token'],
+                'Content-Type' => 'application/json'
+            ],
+            'body' => json_encode($category)
+        ]);
+
+        $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
+
+        $this->assertEquals(
+            'The type of the "stockMin" attribute must be "int", "string" given.',
+            $response['hydra:description']
+        );
+    }
+
+    public function testStockMaxInt()
+    {
+        $category = [
+            'name' => 'test',
+            'description' => 'test',
+            'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
+            'stockMax' => 'Stock not valid'
+        ];
+
+        $response = static::createClient()->request('POST', parent::API . 'categories', [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $this->token['token'],
+                'Content-Type' => 'application/json'
+            ],
+            'body' => json_encode($category)
+        ]);
+
+        $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
+
+        $this->assertEquals(
+            'The type of the "stockMax" attribute must be "int", "string" given.',
+            $response['hydra:description']
+        );
+    }
+
+    public function testIvaValid()
+    {
+        $category = [
+            'name' => 'test',
+            'description' => 'test',
+            'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
+            'iva' => 999999
+        ];
+
+        $response = static::createClient()->request('POST', parent::API . 'categories', [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $this->token['token'],
+                'Content-Type' => 'application/json'
+            ],
+            'body' => json_encode($category)
+        ]);
+
+        $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
+
+        $this->assertEquals(
+            'iva: The value you selected is not a valid choice.',
+            $response['hydra:description']
+        );
+    }
 }

@@ -14,6 +14,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Category
 {
+
+    public const IVA_8 = 8;
+    public const IVA_10 = 10;
+    public const IVA_21 = 21;
+
     /**
      * @var string
      * @ORM\Id
@@ -64,11 +69,36 @@ class Category
      */
     private $company;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $iva;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $stockMin;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $stockMax;
+
     public function __construct()
     {
         $this->createdAt = new DateTime();
         $this->updatedAt = new DateTime();
         $this->products = new ArrayCollection();
+    }
+
+    public function getIvas()
+    {
+        return [
+            self::IVA_8,
+            self::IVA_10,
+            self::IVA_21,
+            null,
+        ];
     }
 
     /**
@@ -221,6 +251,42 @@ class Category
     public function setCompany(?Company $company): self
     {
         $this->company = $company;
+
+        return $this;
+    }
+
+    public function getIva(): ?int
+    {
+        return $this->iva;
+    }
+
+    public function setIva(int $iva): self
+    {
+        $this->iva = $iva;
+
+        return $this;
+    }
+
+    public function getStockMin(): ?int
+    {
+        return $this->stockMin;
+    }
+
+    public function setStockMin(int $stockMin): self
+    {
+        $this->stockMin = $stockMin;
+
+        return $this;
+    }
+
+    public function getStockMax(): ?int
+    {
+        return $this->stockMax;
+    }
+
+    public function setStockMax(int $stockMax): self
+    {
+        $this->stockMax = $stockMax;
 
         return $this;
     }

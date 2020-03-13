@@ -11,6 +11,15 @@ App\Entity\Category:
     user:
       groups: ['category_read', 'category_write']
 
+    iva:
+      groups: ['category_read', 'category_write']
+
+    stockMin:
+      groups: ['category_read', 'category_write']
+
+    stockMax:
+      groups: ['category_read', 'category_write']
+
     company:
       groups: ['category_read', 'category_write']
 
