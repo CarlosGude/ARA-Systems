@@ -64,5 +64,4 @@ class CompanyVoter extends Voter
 
         return false;
     }
-
 }

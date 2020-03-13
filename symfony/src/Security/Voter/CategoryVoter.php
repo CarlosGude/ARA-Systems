@@ -67,5 +67,4 @@ class CategoryVoter extends Voter
 
         return false;
     }
-
 }

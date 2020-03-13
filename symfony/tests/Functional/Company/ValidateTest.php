@@ -7,7 +7,6 @@ use App\Tests\Functional\User\ManagementTest;
 
 class ValidateTest extends ManagementTest
 {
-
     public function tesNameRequired()
     {
         $company = ['user' => parent::API . 'users/' . $this->getGodUser()->getId()];

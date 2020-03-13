@@ -62,5 +62,4 @@ class UserVoter extends Voter
 
         return false;
     }
-
 }
