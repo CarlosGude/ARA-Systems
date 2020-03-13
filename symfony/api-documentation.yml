@@ -673,15 +673,24 @@ components:
           format: date-time
         user:
           $ref: '#/components/schemas/User-category_read'
+        company:
+          type: string
+          format: iri-reference
+        iva:
+          type: integer
+        minStock:
+          type: integer
+        maxStock:
+          type: integer
       required:
         - name
-        - user
+        - company
     Category-category_write:
       type: object
       description: ''
       required:
         - name
-        - user
+        - company
       properties:
         name:
           type: string
@@ -689,6 +698,15 @@ components:
           type: string
         user:
           $ref: '#/components/schemas/User-category_write'
+        company:
+          type: string
+          format: iri-reference
+        iva:
+          type: integer
+        minStock:
+          type: integer
+        maxStock:
+          type: integer
     Category-product_read:
       type: object
       description: ''
@@ -730,15 +748,24 @@ components:
           format: date-time
         user:
           $ref: '#/components/schemas/User:jsonld-category_read'
+        company:
+          type: string
+          format: iri-reference
+        iva:
+          type: integer
+        minStock:
+          type: integer
+        maxStock:
+          type: integer
       required:
         - name
-        - user
+        - company
     'Category:jsonld-category_write':
       type: object
       description: ''
       required:
         - name
-        - user
+        - company
       properties:
         '@context':
           readOnly: true
@@ -755,6 +782,15 @@ components:
           type: string
         user:
           $ref: '#/components/schemas/User:jsonld-category_write'
+        company:
+          type: string
+          format: iri-reference
+        iva:
+          type: integer
+        minStock:
+          type: integer
+        maxStock:
+          type: integer
     'Category:jsonld-product_read':
       type: object
       description: ''
@@ -804,26 +840,29 @@ components:
           readOnly: true
           type: string
           format: date-time
-        user:
-          type: string
-          format: iri-reference
       required:
         - name
-        - user
     Company-company_write:
       type: object
       description: ''
       required:
         - name
-        - user
       properties:
         name:
           type: string
         description:
           type: string
-        user:
+    Company-product_read:
+      type: object
+      description: ''
+      required:
+        - name
+      properties:
+        name:
           type: string
-          format: iri-reference
+    Company-product_write:
+      type: object
+      description: ''
     'Company:jsonld-company_read':
       type: object
       description: ''
@@ -852,18 +891,13 @@ components:
           readOnly: true
           type: string
           format: date-time
-        user:
-          type: string
-          format: iri-reference
       required:
         - name
-        - user
     'Company:jsonld-company_write':
       type: object
       description: ''
       required:
         - name
-        - user
       properties:
         '@context':
           readOnly: true
@@ -878,9 +912,36 @@ components:
           type: string
         description:
           type: string
-        user:
+    'Company:jsonld-product_read':
+      type: object
+      description: ''
+      required:
+        - name
+      properties:
+        '@context':
+          readOnly: true
           type: string
-          format: iri-reference
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        name:
+          type: string
+    'Company:jsonld-product_write':
+      type: object
+      description: ''
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
     Product-product_read:
       type: object
       description: ''
@@ -905,17 +966,27 @@ components:
           format: date-time
         category:
           $ref: '#/components/schemas/Category-product_read'
+        company:
+          $ref: '#/components/schemas/Company-product_read'
+        iva:
+          type: integer
+        minStock:
+          type: integer
+        maxStock:
+          type: integer
+        stockAct:
+          type: integer
       required:
         - name
-        - user
         - category
+        - company
     Product-product_write:
       type: object
       description: ''
       required:
         - name
-        - user
         - category
+        - company
       properties:
         name:
           type: string
@@ -926,6 +997,16 @@ components:
           format: iri-reference
         category:
           $ref: '#/components/schemas/Category-product_write'
+        company:
+          $ref: '#/components/schemas/Company-product_write'
+        iva:
+          type: integer
+        minStock:
+          type: integer
+        maxStock:
+          type: integer
+        stockAct:
+          type: integer
     'Product:jsonld-product_read':
       type: object
       description: ''
@@ -959,17 +1040,27 @@ components:
           format: date-time
         category:
           $ref: '#/components/schemas/Category:jsonld-product_read'
+        company:
+          $ref: '#/components/schemas/Company:jsonld-product_read'
+        iva:
+          type: integer
+        minStock:
+          type: integer
+        maxStock:
+          type: integer
+        stockAct:
+          type: integer
       required:
         - name
-        - user
         - category
+        - company
     'Product:jsonld-product_write':
       type: object
       description: ''
       required:
         - name
-        - user
         - category
+        - company
       properties:
         '@context':
           readOnly: true
@@ -989,6 +1080,16 @@ components:
           format: iri-reference
         category:
           $ref: '#/components/schemas/Category:jsonld-product_write'
+        company:
+          $ref: '#/components/schemas/Company:jsonld-product_write'
+        iva:
+          type: integer
+        minStock:
+          type: integer
+        maxStock:
+          type: integer
+        stockAct:
+          type: integer
     User-category_read:
       type: object
       description: ''
