@@ -52,4 +52,23 @@ class ValidateTest extends ManagementTest
             $response['hydra:description']
         );
     }
+
+    public function testCategoriesWithProductsCanNotBeDeleted()
+    {
+        $response = static::createClient()->request(
+            'DELETE',
+            parent::API . 'categories/' . $this->getCategory()->getId(),
+            [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $this->token['token'],
+                ]
+            ]);
+
+        $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
+
+        $this->assertEquals(
+            'The category The Category can not be deleted because it has products nested.',
+            $response['hydra:description']
+        );
+    }
 }
