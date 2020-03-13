@@ -3,7 +3,6 @@
 
 namespace App\Subscribers;
 
-
 use App\Entity\Category;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;

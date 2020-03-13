@@ -267,6 +267,4 @@ class Product
         $this->stockAct = $stockAct;
         return $this;
     }
-
-
 }

@@ -6,6 +6,7 @@ namespace App\Tests\Functional;
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
 use App\Entity\Category;
 use App\Entity\Company;
+use App\Entity\Provider;
 use App\Entity\User;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 use Symfony\Component\Console\Application;
@@ -14,10 +15,17 @@ use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
+/**
+ * Class BaseTest
+ * @package App\Tests\Functional
+ */
 abstract class BaseTest extends ApiTestCase
 {
     use RefreshDatabaseTrait;
 
+    /**
+     *
+     */
     protected const API = '/api/v1/';
     protected $em;
     /**
@@ -42,10 +50,10 @@ abstract class BaseTest extends ApiTestCase
         return json_decode($response->getContent(), true);
     }
 
-    protected function assertResponseIsSuccessfulAndInJson()
+    protected function assertResponseIsSuccessfulAndInJson(): void
     {
-        $this->assertResponseIsSuccessful();
-        $this->assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
+        self::assertResponseIsSuccessful();
+        self::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
     }
 
     protected function getGodUser(): ?User
@@ -77,4 +85,15 @@ abstract class BaseTest extends ApiTestCase
 
         return $category;
     }
+
+    protected function getProvider($name = 'The Provider'): ?Provider
+    {
+        /** @var Provider $provider */
+        $provider = static::$container->get('doctrine')
+            ->getRepository(Provider::class)
+            ->findOneBy(['name' => $name]);
+
+        return $provider;
+    }
+
 }

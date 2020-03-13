@@ -9,7 +9,6 @@ class ValidateTest extends ManagementTest
 {
     public function testNameRequired()
     {
-
         $product = [
             'user' => parent::API . 'users/' . $this->getGodUser()->getId(),
             'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
@@ -59,7 +58,6 @@ class ValidateTest extends ManagementTest
 
     public function testCompanyRequired()
     {
-
         $product = [
             'name' => 'test',
             'description' => 'test',

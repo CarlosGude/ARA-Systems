@@ -2,13 +2,14 @@
 
 namespace App\Security\Voter;
 
+use App\Entity\Provider;
 use App\Entity\User;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
 
-class UserVoter extends Voter
+class ProviderVoter extends Voter
 {
     protected const CREATE = 'CREATED';
     protected const UPDATE = 'UPDATE';
@@ -29,7 +30,7 @@ class UserVoter extends Voter
      */
     protected function supports($attribute, $subject): bool
     {
-        if (!$subject instanceof User) {
+        if (!$subject instanceof Provider) {
             return false;
         }
 
@@ -44,7 +45,7 @@ class UserVoter extends Voter
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
-        if (!$subject instanceof User) {
+        if (!$subject instanceof Provider) {
             return false;
         }
 
@@ -57,6 +58,10 @@ class UserVoter extends Voter
         }
 
         if (in_array(User::ROLE_GOD, $user->getRoles(), true)) {
+            return true;
+        }
+
+        if ($subject->getCompany() === $user->getCompany()) {
             return true;
         }
 

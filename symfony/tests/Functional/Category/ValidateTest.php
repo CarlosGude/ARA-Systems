@@ -62,7 +62,8 @@ class ValidateTest extends ManagementTest
                 'headers' => [
                     'Authorization' => 'Bearer ' . $this->token['token'],
                 ]
-            ]);
+            ]
+        );
 
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
 

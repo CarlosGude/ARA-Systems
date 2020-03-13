@@ -14,7 +14,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Category
 {
-
     public const IVA_8 = 8;
     public const IVA_10 = 10;
     public const IVA_21 = 21;

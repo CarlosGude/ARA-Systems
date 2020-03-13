@@ -1,0 +1,8 @@
+App\Entity\Provider:
+  dummy_provider_{1..10}:
+    name: '<firstName()>'
+    company: '@the_company'
+
+  the_provider:
+    name: 'The Provider'
+    company: '@the_company'

@@ -60,6 +60,11 @@ class Company
      */
     private $users;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Provider", mappedBy="company")
+     */
+    private $providers;
+
     public function __construct()
     {
         $this->createdAt = new DateTime();
@@ -67,6 +72,7 @@ class Company
         $this->categories = new ArrayCollection();
         $this->products = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->providers = new ArrayCollection();
     }
 
     /**
@@ -261,4 +267,34 @@ class Company
         return $this;
     }
 
+    /**
+     * @return Collection|Provider[]
+     */
+    public function getProviders(): Collection
+    {
+        return $this->providers;
+    }
+
+    public function addProvider(Provider $provider): self
+    {
+        if (!$this->providers->contains($provider)) {
+            $this->providers[] = $provider;
+            $provider->setCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProvider(Provider $provider): self
+    {
+        if ($this->providers->contains($provider)) {
+            $this->providers->removeElement($provider);
+            // set the owning side to null (unless already changed)
+            if ($provider->getCompany() === $this) {
+                $provider->setCompany(null);
+            }
+        }
+
+        return $this;
+    }
 }

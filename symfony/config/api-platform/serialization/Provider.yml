@@ -1,0 +1,18 @@
+App\Entity\Provider:
+  attributes:
+    id:
+      groups: ['provider_read']
+    name:
+      groups: ['provider_read', 'provider_write']
+
+    description:
+      groups: ['provider_read', 'provider_write']
+
+    company:
+      groups: ['provider_read', 'provider_write']
+
+    createdAt:
+      groups: ['provider_read']
+
+    updatedAt:
+      groups: ['provider_read']
