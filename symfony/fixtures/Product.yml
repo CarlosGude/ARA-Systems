@@ -5,5 +5,5 @@ App\Entity\Product:
     category: '@the_category'
     company: '@the_company'
     iva: 21
-    stockMax: 21
-    stockMin: 0
+    MaxStock: 21
+    MinStock: 0

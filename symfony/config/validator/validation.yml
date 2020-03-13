@@ -17,10 +17,10 @@ App\Entity\Category:
     iva:
       - GreaterThan: 0
       - Choice: { callback: getIvas }
-    stockMin:
+    minStock:
       - GreaterThanOrEqual: 0
-    stockMax:
-      - GreaterThanOrEqual: { propertyPath: stockMin }
+    maxStock:
+      - GreaterThanOrEqual: { propertyPath: minStock }
 
 App\Entity\Company:
   properties:
@@ -38,7 +38,7 @@ App\Entity\Product:
     iva:
       - GreaterThan: 0
       - Choice: { callback: getIvas }
-    stockMin:
+    minStock:
       - GreaterThanOrEqual: 0
-    stockMax:
-      - GreaterThanOrEqual: { propertyPath: stockMin }
+    maxStock:
+      - GreaterThanOrEqual: { propertyPath: minStock }

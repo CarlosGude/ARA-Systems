@@ -77,12 +77,12 @@ class Category
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $stockMin = 0;
+    private $minStock = 0;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $stockMax = 0;
+    private $maxStock = 0;
 
     public function __construct()
     {
@@ -267,26 +267,26 @@ class Category
         return $this;
     }
 
-    public function getStockMin(): ?int
+    public function getMinStock(): ?int
     {
-        return $this->stockMin;
+        return $this->minStock;
     }
 
-    public function setStockMin(int $stockMin): self
+    public function setMinStock(int $minStock): self
     {
-        $this->stockMin = $stockMin;
+        $this->minStock = $minStock;
 
         return $this;
     }
 
-    public function getStockMax(): ?int
+    public function getMaxStock(): ?int
     {
-        return $this->stockMax;
+        return $this->maxStock;
     }
 
-    public function setStockMax(int $stockMax): self
+    public function setMaxStock(int $maxStock): self
     {
-        $this->stockMax = $stockMax;
+        $this->maxStock = $maxStock;
 
         return $this;
     }

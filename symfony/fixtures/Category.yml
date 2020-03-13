@@ -10,8 +10,8 @@ App\Entity\Category:
     user: '@god_user'
     company: '@the_company'
     iva: 21
-    stockMin: 10
-    stockMax: 99
+    MinStock: 10
+    MaxStock: 99
 
 
   another_category:

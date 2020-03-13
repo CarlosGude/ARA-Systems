@@ -14,10 +14,10 @@ App\Entity\Category:
     iva:
       groups: ['category_read', 'category_write']
 
-    stockMin:
+    minStock:
       groups: ['category_read', 'category_write']
 
-    stockMax:
+    maxStock:
       groups: ['category_read', 'category_write']
 
     company:

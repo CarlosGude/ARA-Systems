@@ -32,7 +32,7 @@ class ProductSubscriber implements EventSubscriber
         /** The products inherit some values from the category */
         $product
             ->setIva($product->getCategory()->getIva())
-            ->setStockMin($product->getCategory()->getStockMin())
-            ->setStockMax($product->getCategory()->getStockMax());
+            ->setMinStock($product->getCategory()->getMinStock())
+            ->setMaxStock($product->getCategory()->getMaxStock());
     }
 }

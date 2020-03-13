@@ -83,15 +83,15 @@ class ValidateTest extends ManagementTest
         );
     }
 
-    public function testStockMaxLowerThanStockMin()
+    public function testStockMaxLowerThanMinStock()
     {
         $product = [
             'name' => 'test',
             'description' => 'test',
             'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
             'category' => parent::API . 'categories/' . $this->getCategory()->getId(),
-            'stockMax' => 0,
-            'stockMin' => 100,
+            'maxStock' => 0,
+            'minStock' => 100,
         ];
 
         $response = static::createClient()->request('POST', parent::API . 'products', [
@@ -105,7 +105,7 @@ class ValidateTest extends ManagementTest
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
 
         $this->assertEquals(
-            'stockMax: This value should be greater than or equal to 100.',
+            'maxStock: This value should be greater than or equal to 100.',
             $response['hydra:description']
         );
     }
@@ -133,15 +133,15 @@ class ValidateTest extends ManagementTest
         $response = json_decode($response->getContent(), true);
 
         $this->assertEquals(
-            $category->getStockMin(),
-            $response['stockMin'],
-            'The expected name was ' . $category->getStockMin() . ' but ' . $response['stockMin'] . ' has found'
+            $category->getMinStock(),
+            $response['minStock'],
+            'The expected name was ' . $category->getMinStock() . ' but ' . $response['minStock'] . ' has found'
         );
 
         $this->assertEquals(
-            $category->getStockMax(),
-            $response['stockMax'],
-            'The expected name was ' . $category->getStockMax() . ' but ' . $response['stockMax'] . ' has found'
+            $category->getMaxStock(),
+            $response['maxStock'],
+            'The expected name was ' . $category->getMaxStock() . ' but ' . $response['maxStock'] . ' has found'
         );
 
         $this->assertEquals(

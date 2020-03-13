@@ -17,10 +17,10 @@ App\Entity\Product:
     iva:
       groups: ['product_read', 'product_write']
 
-    stockMin:
+    minStock:
       groups: ['product_read', 'product_write']
 
-    stockMax:
+    maxStock:
       groups: ['product_read', 'product_write']
 
     stockAct:

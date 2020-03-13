@@ -97,13 +97,13 @@ class ValidateTest extends ManagementTest
         );
     }
 
-    public function testStockMinInt()
+    public function testMinStockInt()
     {
         $category = [
             'name' => 'test',
             'description' => 'test',
             'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
-            'stockMin' => 'Stock not valid'
+            'minStock' => 'Stock not valid'
         ];
 
         $response = static::createClient()->request('POST', parent::API . 'categories', [
@@ -117,19 +117,19 @@ class ValidateTest extends ManagementTest
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
 
         $this->assertEquals(
-            'The type of the "stockMin" attribute must be "int", "string" given.',
+            'The type of the "minStock" attribute must be "int", "string" given.',
             $response['hydra:description']
         );
     }
 
-    public function testStockMaxLowerThanStockMin()
+    public function testStockMaxLowerThanMinStock()
     {
         $category = [
             'name' => 'test',
             'description' => 'test',
             'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
             'stockMax' => 0,
-            'stockMin' => 100,
+            'minStock' => 100,
         ];
 
         $response = static::createClient()->request('POST', parent::API . 'categories', [
@@ -143,7 +143,7 @@ class ValidateTest extends ManagementTest
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
 
         $this->assertEquals(
-            'stockMax: This value should be greater than or equal to 100.',
+            'maxStock: This value should be greater than or equal to 100.',
             $response['hydra:description']
         );
     }

@@ -70,12 +70,12 @@ class Product
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private $stockMin;
+    private $minStock;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private $stockMax;
+    private $maxStock;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
@@ -217,36 +217,36 @@ class Product
     /**
      * @return mixed
      */
-    public function getStockMin()
+    public function getMinStock()
     {
-        return $this->stockMin;
+        return $this->minStock;
     }
 
     /**
-     * @param mixed $stockMin
+     * @param mixed $minStock
      * @return Product
      */
-    public function setStockMin($stockMin)
+    public function setMinStock($minStock)
     {
-        $this->stockMin = $stockMin;
+        $this->minStock = $minStock;
         return $this;
     }
 
     /**
      * @return mixed
      */
-    public function getStockMax()
+    public function getMaxStock()
     {
-        return $this->stockMax;
+        return $this->maxStock;
     }
 
     /**
-     * @param mixed $stockMax
+     * @param mixed $maxStock
      * @return Product
      */
-    public function setStockMax($stockMax)
+    public function setMaxStock($maxStock)
     {
-        $this->stockMax = $stockMax;
+        $this->maxStock = $maxStock;
         return $this;
     }
 
