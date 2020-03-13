@@ -14,7 +14,7 @@ final class Version20200312125946 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Drop user reference';
     }
 
     public function up(Schema $schema): void

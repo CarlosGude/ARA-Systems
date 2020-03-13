@@ -14,7 +14,7 @@ final class Version20200313165926 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Add iva and stock to product';
     }
 
     public function up(Schema $schema): void

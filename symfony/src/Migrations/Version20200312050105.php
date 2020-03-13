@@ -14,7 +14,7 @@ final class Version20200312050105 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Add user to company';
     }
 
     public function up(Schema $schema): void
