@@ -72,7 +72,7 @@ class ManagementTest extends BaseTest
      */
     public function testAddAnCompany()
     {
-        $company = ['name' => 'test', 'description' => 'test', 'user' => parent::API . 'users/' . $this->getUser()->getId()];
+        $company = ['name' => 'test', 'description' => 'test'];
 
         $response = static::createClient()->request('POST', parent::API . 'companies', [
             'headers' => [

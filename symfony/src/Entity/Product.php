@@ -32,7 +32,7 @@ class Product
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="products")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $user;
 

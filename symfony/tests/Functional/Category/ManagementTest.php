@@ -72,7 +72,7 @@ class ManagementTest extends BaseTest
      */
     public function testAddAnCategory()
     {
-        $category = ['name' => 'test', 'description' => 'test', 'user' => parent::API . 'users/' . $this->getUser()->getId()];
+        $category = ['name' => 'test', 'description' => 'test'];
 
         $response = static::createClient()->request('POST', parent::API . 'categories', [
             'headers' => [

@@ -43,11 +43,6 @@ class Company
      */
     private $updatedAt;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="companies")
-     */
-    private $user;
-
     public function __construct()
     {
         $this->createdAt = new DateTime();
@@ -153,15 +148,4 @@ class Company
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
 }

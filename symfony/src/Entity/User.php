@@ -82,11 +82,6 @@ class User implements UserInterface
      */
     private $products;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Company", mappedBy="user")
-     */
-    private $companies;
-
     public function __construct()
     {
         $this->roles = [self::ROLE_USER];

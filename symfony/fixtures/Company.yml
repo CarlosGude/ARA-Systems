@@ -1,8 +1,6 @@
 App\Entity\Company:
   dummy_companies_{1..10}:
     name: '<firstName()>'
-    user: '@god_user'
 
   the_company:
     name: 'The Company'
-    user: '@god_user'

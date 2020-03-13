@@ -12,21 +12,15 @@ App\Entity\Category:
   properties:
     name:
       - NotBlank: ~
-    user:
-      - NotBlank: ~
 
 App\Entity\Company:
   properties:
     name:
       - NotBlank: ~
-    user:
-      - NotBlank: ~
 
 App\Entity\Product:
   properties:
     name:
-      - NotBlank: ~
-    user:
       - NotBlank: ~
     category:
       - NotBlank: ~

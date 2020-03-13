@@ -49,6 +49,7 @@ class Category
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="categories")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $user;
 
