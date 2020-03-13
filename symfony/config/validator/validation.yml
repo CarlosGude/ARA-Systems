@@ -17,6 +17,10 @@ App\Entity\Category:
     iva:
       - GreaterThan: 0
       - Choice: { callback: getIvas }
+    stockMin:
+      - GreaterThanOrEqual: 0
+    stockMax:
+      - GreaterThanOrEqual: { propertyPath: stockMin }
 
 App\Entity\Company:
   properties:
@@ -31,3 +35,10 @@ App\Entity\Product:
       - NotBlank: ~
     category:
       - NotBlank: ~
+    iva:
+      - GreaterThan: 0
+      - Choice: { callback: getIvas }
+    stockMin:
+      - GreaterThanOrEqual: 0
+    stockMax:
+      - GreaterThanOrEqual: { propertyPath: stockMin }

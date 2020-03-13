@@ -76,6 +76,7 @@ class ManagementTest extends BaseTest
             'name' => 'test',
             'description' => 'test',
             'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
+            'iva' => 21
         ];
 
         $response = static::createClient()->request('POST', parent::API . 'categories', [
@@ -128,12 +129,11 @@ class ManagementTest extends BaseTest
 
     public function testDeleteARandomCategory(): void
     {
-        $categories = static::$container->get('doctrine')->getRepository(Category::class)->findAll();
 
-        /** @var Category $randomCategory */
-        $randomCategory = $categories[array_rand($categories)];
+        /** @var Category $category */
+        $category = $this->getCategory('Another Category');
 
-        $response = static::createClient()->request('DELETE', parent::API . 'categories/' . $randomCategory->getId(), [
+        $response = static::createClient()->request('DELETE', parent::API . 'categories/' . $category->getId(), [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->token['token'],
             ]

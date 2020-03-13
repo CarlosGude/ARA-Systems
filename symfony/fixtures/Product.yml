@@ -4,3 +4,6 @@ App\Entity\Product:
     user: '@god_user'
     category: '@the_category'
     company: '@the_company'
+    iva: 21
+    stockMax: 21
+    stockMin: 0

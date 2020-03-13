@@ -18,7 +18,7 @@ class CategorySubscriber implements EventSubscriber
     public function getSubscribedEvents(): array
     {
         return [
-            Events::preRemove,
+            Events::preRemove
         ];
     }
 

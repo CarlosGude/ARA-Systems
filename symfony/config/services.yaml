@@ -39,3 +39,7 @@ services:
   App\Subscribers\CategorySubscriber:
     tags:
       - { name: 'doctrine.event_subscriber' }
+
+  App\Subscribers\ProductSubscriber:
+    tags:
+      - { name: 'doctrine.event_subscriber' }

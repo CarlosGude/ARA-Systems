@@ -11,6 +11,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Product
 {
+    public const IVA_8 = 8;
+    public const IVA_10 = 10;
+    public const IVA_21 = 21;
+
     /**
      * @var string
      * @ORM\Id
@@ -58,10 +62,40 @@ class Product
      */
     private $company;
 
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private $iva;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private $stockMin;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private $stockMax;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private $stockAct = 0;
+
     public function __construct()
     {
         $this->createdAt = new DateTime();
         $this->updatedAt = new DateTime();
+    }
+
+    public function getIvas()
+    {
+        return [
+            self::IVA_8,
+            self::IVA_10,
+            self::IVA_21,
+            null,
+        ];
     }
 
     /**
@@ -161,4 +195,78 @@ class Product
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIva()
+    {
+        return $this->iva;
+    }
+
+    /**
+     * @param mixed $iva
+     * @return Product
+     */
+    public function setIva($iva)
+    {
+        $this->iva = $iva;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStockMin()
+    {
+        return $this->stockMin;
+    }
+
+    /**
+     * @param mixed $stockMin
+     * @return Product
+     */
+    public function setStockMin($stockMin)
+    {
+        $this->stockMin = $stockMin;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStockMax()
+    {
+        return $this->stockMax;
+    }
+
+    /**
+     * @param mixed $stockMax
+     * @return Product
+     */
+    public function setStockMax($stockMax)
+    {
+        $this->stockMax = $stockMax;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStockAct(): int
+    {
+        return $this->stockAct;
+    }
+
+    /**
+     * @param int $stockAct
+     * @return Product
+     */
+    public function setStockAct(int $stockAct): Product
+    {
+        $this->stockAct = $stockAct;
+        return $this;
+    }
+
+
 }

@@ -122,13 +122,14 @@ class ValidateTest extends ManagementTest
         );
     }
 
-    public function testStockMaxInt()
+    public function testStockMaxLowerThanStockMin()
     {
         $category = [
             'name' => 'test',
             'description' => 'test',
             'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
-            'stockMax' => 'Stock not valid'
+            'stockMax' => 0,
+            'stockMin' => 100,
         ];
 
         $response = static::createClient()->request('POST', parent::API . 'categories', [
@@ -142,7 +143,7 @@ class ValidateTest extends ManagementTest
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
 
         $this->assertEquals(
-            'The type of the "stockMax" attribute must be "int", "string" given.',
+            'stockMax: This value should be greater than or equal to 100.',
             $response['hydra:description']
         );
     }

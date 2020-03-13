@@ -14,6 +14,18 @@ App\Entity\Product:
     category:
       groups: ['product_read', 'product_write']
 
+    iva:
+      groups: ['product_read', 'product_write']
+
+    stockMin:
+      groups: ['product_read', 'product_write']
+
+    stockMax:
+      groups: ['product_read', 'product_write']
+
+    stockAct:
+      groups: ['product_read', 'product_write']
+
     company:
       groups: ['product_read', 'product_write']
 

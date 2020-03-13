@@ -77,12 +77,12 @@ class Category
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $stockMin;
+    private $stockMin = 0;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $stockMax;
+    private $stockMax = 0;
 
     public function __construct()
     {

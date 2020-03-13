@@ -82,4 +82,72 @@ class ValidateTest extends ManagementTest
             $response['hydra:description']
         );
     }
+
+    public function testStockMaxLowerThanStockMin()
+    {
+        $product = [
+            'name' => 'test',
+            'description' => 'test',
+            'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
+            'category' => parent::API . 'categories/' . $this->getCategory()->getId(),
+            'stockMax' => 0,
+            'stockMin' => 100,
+        ];
+
+        $response = static::createClient()->request('POST', parent::API . 'products', [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $this->token['token'],
+                'Content-Type' => 'application/json'
+            ],
+            'body' => json_encode($product)
+        ]);
+
+        $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
+
+        $this->assertEquals(
+            'stockMax: This value should be greater than or equal to 100.',
+            $response['hydra:description']
+        );
+    }
+
+    public function testValidateInherit()
+    {
+        $category = $this->getCategory();
+
+        $product = [
+            'name' => 'test',
+            'description' => 'test',
+            'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
+            'category' => parent::API . 'categories/' . $category->getId(),
+        ];
+
+        $response = static::createClient()->request('POST', parent::API . 'products', [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $this->token['token'],
+                'Content-Type' => 'application/json'
+            ],
+            'body' => json_encode($product)
+        ]);
+
+        $this->assertResponseIsSuccessfulAndInJson();
+        $response = json_decode($response->getContent(), true);
+
+        $this->assertEquals(
+            $category->getStockMin(),
+            $response['stockMin'],
+            'The expected name was ' . $category->getStockMin() . ' but ' . $response['stockMin'] . ' has found'
+        );
+
+        $this->assertEquals(
+            $category->getStockMax(),
+            $response['stockMax'],
+            'The expected name was ' . $category->getStockMax() . ' but ' . $response['stockMax'] . ' has found'
+        );
+
+        $this->assertEquals(
+            $category->getIva(),
+            $response['iva'],
+            'The expected name was ' . $category->getIva() . ' but ' . $response['iva'] . ' has found'
+        );
+    }
 }
