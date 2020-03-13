@@ -10,7 +10,7 @@ class ValidateTest extends ManagementTest
 
     public function tesNameRequired()
     {
-        $company = ['user' => parent::API . 'users/' . $this->getUser()->getId()];
+        $company = ['user' => parent::API . 'users/' . $this->getGodUser()->getId()];
 
         $response = static::createClient()->request('POST', parent::API . 'companies', [
             'headers' => [

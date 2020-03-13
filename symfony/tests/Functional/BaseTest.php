@@ -4,6 +4,8 @@
 namespace App\Tests\Functional;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
+use App\Entity\Category;
+use App\Entity\Company;
 use App\Entity\User;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 use Symfony\Component\Console\Application;
@@ -46,12 +48,33 @@ abstract class BaseTest extends ApiTestCase
         $this->assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
     }
 
-    protected function getUser(): ?User
+    protected function getGodUser(): ?User
     {
-        return static::$container->get('doctrine')
+        /** @var User $user */
+        $user = static::$container->get('doctrine')
             ->getRepository(User::class)
-            ->findOneBy(
-                ['roles' => ['ROLE_GOD']]
-            );
+            ->findOneBy(['roles' => ['ROLE_GOD']]);
+
+        return $user;
+    }
+
+    protected function getCompany($name = 'The Company'): ?Company
+    {
+        /** @var Company $company */
+        $company = static::$container->get('doctrine')
+            ->getRepository(Company::class)
+            ->findOneBy(['name' => $name]);
+
+        return $company;
+    }
+
+    protected function getCategory($name = 'The Category'): ?Category
+    {
+        /** @var Category $category */
+        $category = static::$container->get('doctrine')
+            ->getRepository(Category::class)
+            ->findOneBy(['name' => $name]);
+
+        return $category;
     }
 }

@@ -3,26 +3,17 @@
 
 namespace App\Tests\Functional\Product;
 
-use App\Entity\Category;
-use App\Entity\Company;
 use App\Tests\Functional\User\ManagementTest;
 
 class ValidateTest extends ManagementTest
 {
     public function testNameRequired()
     {
-        $category = static::$container->get('doctrine')
-            ->getRepository(Category::class)
-            ->findOneBy(['name' => 'The Category']);
-
-        $company = static::$container->get('doctrine')
-            ->getRepository(Company::class)
-            ->findOneBy(['name' => 'The Company']);
 
         $product = [
-            'user' => parent::API . 'users/' . $this->getUser()->getId(),
-            'company' => parent::API . 'companies/' . $company->getId(),
-            'category' => parent::API . 'categories/' . $category->getId(),
+            'user' => parent::API . 'users/' . $this->getGodUser()->getId(),
+            'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
+            'category' => parent::API . 'categories/' . $this->getCategory()->getId(),
         ];
 
         $response = static::createClient()->request('POST', parent::API . 'products', [
@@ -43,15 +34,11 @@ class ValidateTest extends ManagementTest
 
     public function testCategoryRequired()
     {
-        $company = static::$container->get('doctrine')
-            ->getRepository(Company::class)
-            ->findOneBy(['name' => 'The Company']);
-
         $product = [
             'name' => 'test',
             'description' => 'test',
-            'user' => parent::API . 'users/' . $this->getUser()->getId(),
-            'company' => parent::API . 'companies/' . $company->getId(),
+            'user' => parent::API . 'users/' . $this->getGodUser()->getId(),
+            'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
         ];
 
         $response = static::createClient()->request('POST', parent::API . 'products', [
@@ -72,15 +59,12 @@ class ValidateTest extends ManagementTest
 
     public function testCompanyRequired()
     {
-        $category = static::$container->get('doctrine')
-            ->getRepository(Category::class)
-            ->findOneBy(['name' => 'The Category']);
 
         $product = [
             'name' => 'test',
             'description' => 'test',
-            'user' => parent::API . 'users/' . $this->getUser()->getId(),
-            'category' => parent::API . 'categories/' . $category->getId(),
+            'user' => parent::API . 'users/' . $this->getGodUser()->getId(),
+            'category' => parent::API . 'categories/' . $this->getCategory()->getId(),
         ];
 
         $response = static::createClient()->request('POST', parent::API . 'products', [

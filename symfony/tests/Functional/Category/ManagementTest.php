@@ -4,7 +4,6 @@
 namespace App\Tests\Functional\Category;
 
 use App\Entity\Category;
-use App\Entity\Company;
 use App\Tests\Functional\BaseTest;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -73,17 +72,10 @@ class ManagementTest extends BaseTest
      */
     public function testAddAnCategory()
     {
-        /** @var Company $company */
-        $company = static::$container->get('doctrine')
-            ->getRepository(Company::class)
-            ->findOneBy([
-                'name' => 'The Company'
-            ]);
-
         $category = [
             'name' => 'test',
             'description' => 'test',
-            'company' => parent::API . 'companies/' . $company->getId(),
+            'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
         ];
 
         $response = static::createClient()->request('POST', parent::API . 'categories', [
