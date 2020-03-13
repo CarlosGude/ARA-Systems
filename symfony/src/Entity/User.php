@@ -82,6 +82,11 @@ class User implements UserInterface
      */
     private $products;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="users")
+     */
+    private $company;
+
     public function __construct()
     {
         $this->roles = [self::ROLE_USER];
@@ -341,6 +346,18 @@ class User implements UserInterface
                 $company->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCompany(): ?Company
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?Company $company): self
+    {
+        $this->company = $company;
 
         return $this;
     }

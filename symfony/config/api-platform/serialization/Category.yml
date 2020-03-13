@@ -11,6 +11,9 @@ App\Entity\Category:
     user:
       groups: ['category_read', 'category_write']
 
+    company:
+      groups: ['category_read', 'category_write']
+
     createdAt:
       groups: ['category_read']
 

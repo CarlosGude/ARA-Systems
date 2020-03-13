@@ -12,6 +12,8 @@ App\Entity\Category:
   properties:
     name:
       - NotBlank: ~
+    company:
+      - NotBlank: ~
 
 App\Entity\Company:
   properties:
@@ -21,6 +23,8 @@ App\Entity\Company:
 App\Entity\Product:
   properties:
     name:
+      - NotBlank: ~
+    company:
       - NotBlank: ~
     category:
       - NotBlank: ~

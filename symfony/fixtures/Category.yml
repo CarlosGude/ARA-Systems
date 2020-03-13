@@ -2,7 +2,9 @@ App\Entity\Category:
   dummy_categories_{1..10}:
     name: '<firstName()>'
     user: '@god_user'
+    company: '@the_company'
 
   the_category:
     name: 'The Category'
     user: '@god_user'
+    company: '@the_company'

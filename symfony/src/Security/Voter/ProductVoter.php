@@ -61,6 +61,10 @@ class ProductVoter extends Voter
             return true;
         }
 
+        if ($subject->getCompany() === $user->getCompany()) {
+            return true;
+        }
+
         return false;
     }
 

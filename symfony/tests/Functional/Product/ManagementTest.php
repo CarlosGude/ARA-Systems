@@ -4,6 +4,7 @@
 namespace App\Tests\Functional\Product;
 
 use App\Entity\Category;
+use App\Entity\Company;
 use App\Entity\Product;
 use App\Tests\Functional\BaseTest;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
@@ -77,10 +78,18 @@ class ManagementTest extends BaseTest
             ->getRepository(Category::class)
             ->findOneBy(['name' => 'The Category']);
 
+        /** @var Company $company */
+        $company = static::$container->get('doctrine')
+            ->getRepository(Company::class)
+            ->findOneBy([
+                'name' => 'The Company'
+            ]);
+
         $product = [
             'name' => 'test',
             'description' => 'test',
             'user' => parent::API . 'users/' . $this->getUser()->getId(),
+            'company' => parent::API . 'companies/' . $company->getId(),
             'category' => parent::API . 'categories/' . $category->getId(),
         ];
 

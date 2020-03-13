@@ -3,3 +3,4 @@ App\Entity\Product:
     name: '<firstName()>'
     user: '@god_user'
     category: '@the_category'
+    company: '@the_company'

@@ -14,6 +14,9 @@ App\Entity\Product:
     category:
       groups: ['product_read', 'product_write']
 
+    company:
+      groups: ['product_read', 'product_write']
+
     createdAt:
       groups: ['product_read']
 
