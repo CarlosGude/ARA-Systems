@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use DateTime;
 use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -82,10 +84,16 @@ class Product
      */
     private $stockAct = 0;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Provider", inversedBy="products")
+     */
+    private $providers;
+
     public function __construct()
     {
         $this->createdAt = new DateTime();
         $this->updatedAt = new DateTime();
+        $this->providers = new ArrayCollection();
     }
 
     public function getIvas()
@@ -265,6 +273,32 @@ class Product
     public function setStockAct(int $stockAct): Product
     {
         $this->stockAct = $stockAct;
+        return $this;
+    }
+
+    /**
+     * @return Collection|Provider[]
+     */
+    public function getProviders(): Collection
+    {
+        return $this->providers;
+    }
+
+    public function addProvider(Provider $provider): self
+    {
+        if (!$this->providers->contains($provider)) {
+            $this->providers[] = $provider;
+        }
+
+        return $this;
+    }
+
+    public function removeProvider(Provider $provider): self
+    {
+        if ($this->providers->contains($provider)) {
+            $this->providers->removeElement($provider);
+        }
+
         return $this;
     }
 }

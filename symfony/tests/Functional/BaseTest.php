@@ -6,6 +6,7 @@ namespace App\Tests\Functional;
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
 use App\Entity\Category;
 use App\Entity\Company;
+use App\Entity\Product;
 use App\Entity\Provider;
 use App\Entity\User;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
@@ -94,6 +95,16 @@ abstract class BaseTest extends ApiTestCase
             ->findOneBy(['name' => $name]);
 
         return $provider;
+    }
+
+    protected function getProduct($name = 'The Product'): ?Product
+    {
+        /** @var Product $product */
+        $product = static::$container->get('doctrine')
+            ->getRepository(Product::class)
+            ->findOneBy(['name' => $name]);
+
+        return $product;
     }
 
 }

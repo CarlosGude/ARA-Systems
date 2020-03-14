@@ -113,13 +113,16 @@ class ManagementTest extends BaseTest
         /** @var Product $randomProduct */
         $randomProduct = $products[array_rand($products)];
 
-        $response = static::createClient()->request('PUT', parent::API . 'products/' . $randomProduct->getId(), [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token'],
-                'Content-Type' => 'application/json'
-            ],
-            'body' => json_encode(['name' => 'Fake Product'])
-        ]);
+        $response = static::createClient()->request(
+            'PUT',
+            parent::API . 'products/' . $randomProduct->getId(),
+            [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $this->token['token'],
+                    'Content-Type' => 'application/json'
+                ],
+                'body' => json_encode(['name' => 'Fake Product'])
+            ]);
 
         $response = json_decode($response->getContent(), true);
 
@@ -145,5 +148,26 @@ class ManagementTest extends BaseTest
         ]);
 
         $this->assertResponseStatusCodeSame(204, 'The response is not 204');
+    }
+
+    public function testAddProvider(): void
+    {
+        $response = static::createClient()->request('PUT', parent::API . 'products/' . $this->getProduct()->getId(), [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $this->token['token'],
+                'Content-Type' => 'application/json'
+            ],
+            'body' => json_encode(['providers' => [parent::API . 'providers/' . $this->getProvider()->getId()]])
+        ]);
+
+        $response = json_decode($response->getContent(), true);
+
+        $this->assertResponseIsSuccessfulAndInJson();
+        $this->assertEquals(
+            $this->getProvider()->getName(),
+            $response['providers'][0]['name'],
+            'The expected name was ' . $response['providers'][0]['name'] . ' but ' . $this->getProvider()->getName() . ' has found'
+        );
+
     }
 }

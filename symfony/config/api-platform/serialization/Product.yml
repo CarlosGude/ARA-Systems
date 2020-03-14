@@ -29,6 +29,9 @@ App\Entity\Product:
     company:
       groups: ['product_read', 'product_write']
 
+    providers:
+      groups: ['product_read', 'product_write']
+
     createdAt:
       groups: ['product_read']
 

@@ -3,12 +3,15 @@ App\Entity\Provider:
     id:
       groups: ['provider_read']
     name:
-      groups: ['provider_read', 'provider_write']
+      groups: ['provider_read', 'provider_write', 'product_read' ]
 
     description:
       groups: ['provider_read', 'provider_write']
 
     company:
+      groups: ['provider_read', 'provider_write']
+
+    product:
       groups: ['provider_read', 'provider_write']
 
     createdAt:
