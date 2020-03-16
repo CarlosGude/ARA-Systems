@@ -153,7 +153,7 @@ class ManagementTest extends BaseTest
         /** @var Provider $provider */
         $provider = $this->getProvider('The Provider');
 
-        $response = static::createClient()->request('DELETE', parent::API . 'providers/' . $provider->getId(), [
+        static::createClient()->request('DELETE', parent::API . 'providers/' . $provider->getId(), [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->token['token'],
             ]

@@ -10,8 +10,15 @@ use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
+/**
+ * Class ManagementTest
+ * @package App\Tests\Functional\Category
+ */
 class ManagementTest extends BaseTest
 {
+    /**
+     * @var array
+     */
     protected $token;
 
     /**
@@ -27,6 +34,12 @@ class ManagementTest extends BaseTest
     }
 
 
+    /**
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
     public function testReadAllCategories(): void
     {
         $response = static::createClient()->request('GET', parent::API . 'categories', [
@@ -41,6 +54,12 @@ class ManagementTest extends BaseTest
         $this->assertEquals(11, $response['hydra:totalItems']);
     }
 
+    /**
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
     public function testReadARandomCategory(): void
     {
         $categories = static::$container->get('doctrine')->getRepository(Category::class)->findAll();
@@ -70,7 +89,7 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testAddAnCategory()
+    public function testAddAnCategory(): void
     {
         $category = [
             'name' => 'test',
@@ -127,18 +146,21 @@ class ManagementTest extends BaseTest
         );
     }
 
+    /**
+     * @throws TransportExceptionInterface
+     */
     public function testDeleteARandomCategory(): void
     {
 
         /** @var Category $category */
         $category = $this->getCategory('Another Category');
 
-        $response = static::createClient()->request('DELETE', parent::API . 'categories/' . $category->getId(), [
+        static::createClient()->request('DELETE', parent::API . 'categories/' . $category->getId(), [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->token['token'],
             ]
         ]);
 
-        $this->assertResponseStatusCodeSame(204, 'The response is not 204');
+        self::assertResponseStatusCodeSame(204, 'The response is not 204');
     }
 }

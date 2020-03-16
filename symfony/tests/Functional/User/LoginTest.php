@@ -11,11 +11,14 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 class LoginTest extends BaseTest
 {
-    public function testAuthorisationIsRequired()
+    /**
+     * @throws TransportExceptionInterface
+     */
+    public function testAuthorisationIsRequired(): void
     {
-        $response = static::createClient()->request('GET', self::API);
+        static::createClient()->request('GET', self::API);
 
-        $this->assertResponseStatusCodeSame(401, 'Authorisation is not required to access to API');
+        self::assertResponseStatusCodeSame(401, 'Authorisation is not required to access to API');
     }
 
     /**
@@ -35,7 +38,7 @@ class LoginTest extends BaseTest
 
         $this->assertIsArray($response, 'The response is not an array.');
         $this->assertArrayHasKey('token', $response, 'The response has not token.');
-        $this->assertResponseIsSuccessful();
+        self::assertResponseIsSuccessful();
     }
 
     /**
@@ -47,7 +50,7 @@ class LoginTest extends BaseTest
             'email' => 'fake@email.com',
             'password' => '1234',
         ]]);
-        $this->assertResponseStatusCodeSame(401, 'The response in not equals at 401');
+        self::assertResponseStatusCodeSame(401, 'The response in not equals at 401');
 
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
 

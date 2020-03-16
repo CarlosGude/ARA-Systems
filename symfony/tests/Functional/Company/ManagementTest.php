@@ -10,8 +10,15 @@ use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
+/**
+ * Class ManagementTest
+ * @package App\Tests\Functional\Company
+ */
 class ManagementTest extends BaseTest
 {
+    /**
+     * @var array
+     */
     protected $token;
 
     /**
@@ -27,6 +34,12 @@ class ManagementTest extends BaseTest
     }
 
 
+    /**
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
     public function testReadAllCompanies(): void
     {
         $response = static::createClient()->request('GET', parent::API . 'companies', [
@@ -41,6 +54,12 @@ class ManagementTest extends BaseTest
         $this->assertEquals(3, $response['hydra:totalItems']);
     }
 
+    /**
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
     public function testReadARandomCompany(): void
     {
         $companies = static::$container->get('doctrine')->getRepository(Company::class)->findAll();
@@ -70,7 +89,7 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testAddAnCompany()
+    public function testAddAnCompany(): void
     {
         $company = ['name' => 'test', 'description' => 'test'];
 
@@ -122,13 +141,16 @@ class ManagementTest extends BaseTest
         );
     }
 
+    /**
+     * @throws TransportExceptionInterface
+     */
     public function testDeleteARandomCompany(): void
     {
 
         /** @var Company $company */
         $company = $this->getCompany('The Company 3');
 
-        $response = static::createClient()->request('DELETE', parent::API . 'companies/' . $company->getId(), [
+        static::createClient()->request('DELETE', parent::API . 'companies/' . $company->getId(), [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->token['token'],
             ]

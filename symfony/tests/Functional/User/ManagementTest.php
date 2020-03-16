@@ -10,8 +10,15 @@ use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
+/**
+ * Class ManagementTest
+ * @package App\Tests\Functional\User
+ */
 class ManagementTest extends BaseTest
 {
+    /**
+     * @var array
+     */
     protected $token;
 
     /**
@@ -27,6 +34,12 @@ class ManagementTest extends BaseTest
     }
 
 
+    /**
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
     public function testReadAllUsers(): void
     {
         $response = static::createClient()->request('GET', parent::API . 'users', [
@@ -41,6 +54,12 @@ class ManagementTest extends BaseTest
         $this->assertEquals(12, $response['hydra:totalItems']);
     }
 
+    /**
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
     public function testReadARandomUser(): void
     {
         $users = static::$container->get('doctrine')->getRepository(User::class)->findAll();
@@ -64,6 +83,12 @@ class ManagementTest extends BaseTest
         );
     }
 
+    /**
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
     public function testAddAnUser(): void
     {
         $user = [
@@ -122,18 +147,21 @@ class ManagementTest extends BaseTest
         );
     }
 
+    /**
+     * @throws TransportExceptionInterface
+     */
     public function testDeleteARandomUser(): void
     {
         $user = static::$container->get('doctrine')->getRepository(User::class)->findOneBy([
             'email' => 'another_user@fakemail.com'
         ]);
 
-        $response = static::createClient()->request('DELETE', parent::API . 'users/' . $user->getId(), [
+        static::createClient()->request('DELETE', parent::API . 'users/' . $user->getId(), [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->token['token'],
             ]
         ]);
 
-        $this->assertResponseStatusCodeSame(204, 'The response is not 204');
+        self::assertResponseStatusCodeSame(204, 'The response is not 204');
     }
 }

@@ -3,8 +3,18 @@
 
 namespace App\Tests\Functional\User;
 
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+
+/**
+ * Class ValidateTest
+ * @package App\Tests\Functional\User
+ */
 class ValidateTest extends ManagementTest
 {
+
+    /**
+     * @throws TransportExceptionInterface
+     */
     public function testValidEmail(): void
     {
         $user = [
@@ -31,6 +41,9 @@ class ValidateTest extends ManagementTest
         );
     }
 
+    /**
+     * @throws TransportExceptionInterface
+     */
     public function testEmailIsRequired(): void
     {
         $user = [
@@ -56,6 +69,9 @@ class ValidateTest extends ManagementTest
         );
     }
 
+    /**
+     * @throws TransportExceptionInterface
+     */
     public function testNameIsRequired(): void
     {
         $user = [
@@ -81,6 +97,9 @@ class ValidateTest extends ManagementTest
         );
     }
 
+    /**
+     * @throws TransportExceptionInterface
+     */
     public function testPasswordIsRequired(): void
     {
         $user = [

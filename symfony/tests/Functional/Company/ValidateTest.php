@@ -4,10 +4,14 @@
 namespace App\Tests\Functional\Company;
 
 use App\Tests\Functional\User\ManagementTest;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 class ValidateTest extends ManagementTest
 {
-    public function tesNameRequired()
+    /**
+     * @throws TransportExceptionInterface
+     */
+    public function tesNameRequired(): void
     {
         $company = ['user' => parent::API . 'users/' . $this->getGodUser()->getId()];
 
@@ -20,7 +24,7 @@ class ValidateTest extends ManagementTest
         ]);
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
 
-        $this->assertResponseStatusCodeSame(400, 'The response is not 204');
+        self::assertResponseStatusCodeSame(400, 'The response is not 204');
         $this->assertEquals(
             'name: This value should not be blank.',
             $response['hydra:description']

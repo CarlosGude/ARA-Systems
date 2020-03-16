@@ -10,7 +10,6 @@ use App\Entity\Product;
 use App\Entity\Provider;
 use App\Entity\User;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
-use Symfony\Component\Console\Application;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
@@ -28,11 +27,6 @@ abstract class BaseTest extends ApiTestCase
      *
      */
     protected const API = '/api/v1/';
-    protected $em;
-    /**
-     * @var Application
-     */
-    private $application;
 
     /**
      * @return array

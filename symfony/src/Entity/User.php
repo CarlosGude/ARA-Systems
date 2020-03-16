@@ -96,13 +96,12 @@ class User implements UserInterface
         $this->salt = uniqid(mt_rand(), true);
         $this->categories = new ArrayCollection();
         $this->products = new ArrayCollection();
-        $this->companies = new ArrayCollection();
     }
 
     /**
      * @ORM\PrePersist
      */
-    public function updatedAt()
+    public function updatedAt(): User
     {
         $this->updatedAt = new DateTime();
         return $this;
@@ -227,7 +226,7 @@ class User implements UserInterface
     /**
      * @inheritDoc
      */
-    public function getUsername()
+    public function getUsername(): string
     {
         return $this->getEmail();
     }
@@ -314,37 +313,6 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($product->getUser() === $this) {
                 $product->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Company[]
-     */
-    public function getCompanies(): Collection
-    {
-        return $this->companies;
-    }
-
-    public function addCompany(Company $company): self
-    {
-        if (!$this->companies->contains($company)) {
-            $this->companies[] = $company;
-            $company->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCompany(Company $company): self
-    {
-        if ($this->companies->contains($company)) {
-            $this->companies->removeElement($company);
-            // set the owning side to null (unless already changed)
-            if ($company->getUser() === $this) {
-                $company->setUser(null);
             }
         }
 

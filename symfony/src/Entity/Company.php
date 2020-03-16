@@ -78,7 +78,7 @@ class Company
     /**
      * @ORM\PrePersist
      */
-    public function updatedAt()
+    public function updatedAt(): Company
     {
         $this->updatedAt = new DateTime();
         return $this;

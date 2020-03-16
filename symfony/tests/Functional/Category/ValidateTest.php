@@ -4,10 +4,18 @@
 namespace App\Tests\Functional\Category;
 
 use App\Tests\Functional\User\ManagementTest;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
+/**
+ * Class ValidateTest
+ * @package App\Tests\Functional\Category
+ */
 class ValidateTest extends ManagementTest
 {
-    public function testNameRequired()
+    /**
+     * @throws TransportExceptionInterface
+     */
+    public function testNameRequired(): void
     {
         $category = [
             'description' => 'test',
@@ -23,14 +31,18 @@ class ValidateTest extends ManagementTest
         ]);
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
 
-        $this->assertResponseStatusCodeSame(400, 'The response is not 204');
+        self::assertResponseStatusCodeSame(400, 'The response is not 204');
         $this->assertEquals(
             'name: This value should not be blank.',
             $response['hydra:description']
         );
     }
 
-    public function testCompanyRequired()
+
+    /**
+     * @throws TransportExceptionInterface
+     */
+    public function testCompanyRequired(): void
     {
         $category = [
             'name' => 'test',
@@ -46,14 +58,17 @@ class ValidateTest extends ManagementTest
         ]);
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
 
-        $this->assertResponseStatusCodeSame(400, 'The response is not 204');
+        self::assertResponseStatusCodeSame(400, 'The response is not 204');
         $this->assertEquals(
             'company: This value should not be blank.',
             $response['hydra:description']
         );
     }
 
-    public function testCategoriesWithProductsCanNotBeDeleted()
+    /**
+     * @throws TransportExceptionInterface
+     */
+    public function testCategoriesWithProductsCanNotBeDeleted(): void
     {
         $response = static::createClient()->request(
             'DELETE',
@@ -73,7 +88,10 @@ class ValidateTest extends ManagementTest
         );
     }
 
-    public function testIvaInt()
+    /**
+     * @throws TransportExceptionInterface
+     */
+    public function testIvaInt(): void
     {
         $category = [
             'name' => 'test',
@@ -98,7 +116,10 @@ class ValidateTest extends ManagementTest
         );
     }
 
-    public function testMinStockInt()
+    /**
+     * @throws TransportExceptionInterface
+     */
+    public function testMinStockInt(): void
     {
         $category = [
             'name' => 'test',
@@ -123,7 +144,10 @@ class ValidateTest extends ManagementTest
         );
     }
 
-    public function testStockMaxLowerThanMinStock()
+    /**
+     * @throws TransportExceptionInterface
+     */
+    public function testStockMaxLowerThanMinStock(): void
     {
         $category = [
             'name' => 'test',
@@ -149,7 +173,10 @@ class ValidateTest extends ManagementTest
         );
     }
 
-    public function testIvaValid()
+    /**
+     * @throws TransportExceptionInterface
+     */
+    public function testIvaValid(): void
     {
         $category = [
             'name' => 'test',

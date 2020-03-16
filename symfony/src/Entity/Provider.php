@@ -62,7 +62,7 @@ class Provider
     /**
      * @ORM\PrePersist
      */
-    public function updatedAt()
+    public function updatedAt(): Provider
     {
         $this->updatedAt = new DateTime();
         return $this;

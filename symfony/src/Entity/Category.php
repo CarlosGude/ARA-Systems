@@ -90,7 +90,7 @@ class Category
         $this->products = new ArrayCollection();
     }
 
-    public function getIvas()
+    public function getIvas(): array
     {
         return [
             self::IVA_8,
@@ -103,7 +103,7 @@ class Category
     /**
      * @ORM\PrePersist
      */
-    public function updatedAt()
+    public function updatedAt(): Category
     {
         $this->updatedAt = new DateTime();
         return $this;

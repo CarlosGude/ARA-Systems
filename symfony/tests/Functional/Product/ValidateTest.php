@@ -4,10 +4,22 @@
 namespace App\Tests\Functional\Product;
 
 use App\Tests\Functional\User\ManagementTest;
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
+/**
+ * Class ValidateTest
+ * @package App\Tests\Functional\Product
+ */
 class ValidateTest extends ManagementTest
 {
-    public function testNameRequired()
+
+    /**
+     * @throws TransportExceptionInterface
+     */
+    public function testNameRequired(): void
     {
         $product = [
             'user' => parent::API . 'users/' . $this->getGodUser()->getId(),
@@ -24,14 +36,17 @@ class ValidateTest extends ManagementTest
         ]);
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
 
-        $this->assertResponseStatusCodeSame(400, 'The response is not 204');
+        self::assertResponseStatusCodeSame(400, 'The response is not 204');
         $this->assertEquals(
             'name: This value should not be blank.',
             $response['hydra:description']
         );
     }
 
-    public function testCategoryRequired()
+    /**
+     * @throws TransportExceptionInterface
+     */
+    public function testCategoryRequired(): void
     {
         $product = [
             'name' => 'test',
@@ -49,14 +64,17 @@ class ValidateTest extends ManagementTest
         ]);
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
 
-        $this->assertResponseStatusCodeSame(400, 'The response is not 204');
+        self::assertResponseStatusCodeSame(400, 'The response is not 204');
         $this->assertEquals(
             'category: This value should not be blank.',
             $response['hydra:description']
         );
     }
 
-    public function testCompanyRequired()
+    /**
+     * @throws TransportExceptionInterface
+     */
+    public function testCompanyRequired(): void
     {
         $product = [
             'name' => 'test',
@@ -74,14 +92,17 @@ class ValidateTest extends ManagementTest
         ]);
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
 
-        $this->assertResponseStatusCodeSame(400, 'The response is not 204');
+        self::assertResponseStatusCodeSame(400, 'The response is not 204');
         $this->assertEquals(
             'company: This value should not be blank.',
             $response['hydra:description']
         );
     }
 
-    public function testStockMaxLowerThanMinStock()
+    /**
+     * @throws TransportExceptionInterface
+     */
+    public function testStockMaxLowerThanMinStock(): void
     {
         $product = [
             'name' => 'test',
@@ -108,7 +129,13 @@ class ValidateTest extends ManagementTest
         );
     }
 
-    public function testValidateInherit()
+    /**
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
+    public function testValidateInherit(): void
     {
         $category = $this->getCategory();
 

@@ -10,8 +10,15 @@ use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
+/**
+ * Class ManagementTest
+ * @package App\Tests\Functional\Product
+ */
 class ManagementTest extends BaseTest
 {
+    /**
+     * @var array
+     */
     protected $token;
 
     /**
@@ -26,7 +33,12 @@ class ManagementTest extends BaseTest
         $this->token = $this->getToken();
     }
 
-
+    /**
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
     public function testReadAllProducts(): void
     {
         $response = static::createClient()->request('GET', parent::API . 'products', [
@@ -41,6 +53,12 @@ class ManagementTest extends BaseTest
         $this->assertEquals(11, $response['hydra:totalItems']);
     }
 
+    /**
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
     public function testReadARandomProduct(): void
     {
         $products = static::$container->get('doctrine')->getRepository(Product::class)->findAll();
@@ -70,7 +88,7 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testAddAnProduct()
+    public function testAddAnProduct(): void
     {
         $product = [
             'name' => 'test',
@@ -135,6 +153,9 @@ class ManagementTest extends BaseTest
         );
     }
 
+    /**
+     * @throws TransportExceptionInterface
+     */
     public function testDeleteARandomProduct(): void
     {
         $products = static::$container->get('doctrine')->getRepository(Product::class)->findAll();
@@ -142,15 +163,21 @@ class ManagementTest extends BaseTest
         /** @var Product $randomProduct */
         $randomProduct = $products[array_rand($products)];
 
-        $response = static::createClient()->request('DELETE', parent::API . 'products/' . $randomProduct->getId(), [
+        static::createClient()->request('DELETE', parent::API . 'products/' . $randomProduct->getId(), [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->token['token'],
             ]
         ]);
 
-        $this->assertResponseStatusCodeSame(204, 'The response is not 204');
+        self::assertResponseStatusCodeSame(204, 'The response is not 204');
     }
 
+    /**
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
     public function testAddProvider(): void
     {
         $response = static::createClient()->request('PUT', parent::API . 'products/' . $this->getProduct()->getId(), [

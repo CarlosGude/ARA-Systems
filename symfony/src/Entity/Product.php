@@ -96,7 +96,7 @@ class Product
         $this->providers = new ArrayCollection();
     }
 
-    public function getIvas()
+    public function getIvas(): array
     {
         return [
             self::IVA_8,
@@ -109,7 +109,7 @@ class Product
     /**
      * @ORM\PrePersist
      */
-    public function updatedAt()
+    public function updatedAt(): Product
     {
         $this->updatedAt = new DateTime();
         return $this;
@@ -180,12 +180,12 @@ class Product
         return $this;
     }
 
-    public function getCategory(): ?Category
+    public function getCategory(): Category
     {
         return $this->category;
     }
 
-    public function setCategory(?Category $category): self
+    public function setCategory(Category $category): self
     {
         $this->category = $category;
 
@@ -216,7 +216,7 @@ class Product
      * @param mixed $iva
      * @return Product
      */
-    public function setIva($iva)
+    public function setIva($iva): Product
     {
         $this->iva = $iva;
         return $this;
@@ -234,7 +234,7 @@ class Product
      * @param mixed $minStock
      * @return Product
      */
-    public function setMinStock($minStock)
+    public function setMinStock($minStock): Product
     {
         $this->minStock = $minStock;
         return $this;
@@ -252,7 +252,7 @@ class Product
      * @param mixed $maxStock
      * @return Product
      */
-    public function setMaxStock($maxStock)
+    public function setMaxStock($maxStock): Product
     {
         $this->maxStock = $maxStock;
         return $this;
