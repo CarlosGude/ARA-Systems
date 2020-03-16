@@ -4,13 +4,28 @@ App\Entity\User:
     email: carlos.sgude@gmail.com
     password: pasalacabra
     roles: ['ROLE_GOD']
+    company: '@the_company'
 
-  delete_user:
-    name: Remove
-    email: remove@mail.es
-    password: 1234
+  the_user:
+    name: The User
+    email: user@fakemail.com
+    password: thepass
+    company: '@the_company'
+
+  another_user:
+    name: Another User
+    email: another_user@fakemail.com
+    password: thepass
+    company: '@the_company'
 
   dummy_users_{1..9}:
     name: '<firstName()> <lastName()>'
     email: '<email()>'
     password: '<password()>'
+    company: '@the_company'
+
+  dummy_users_another_company_{1..8}:
+    name: '<firstName()> <lastName()>'
+    email: '<email()>'
+    password: '<password()>'
+    company: '@another_company'

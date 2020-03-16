@@ -38,7 +38,7 @@ class ManagementTest extends BaseTest
         $response = json_decode($response->getContent(), true);
 
         $this->assertResponseIsSuccessfulAndInJson();
-        $this->assertEquals(11, $response['hydra:totalItems']);
+        $this->assertEquals(3, $response['hydra:totalItems']);
     }
 
     public function testReadARandomCompany(): void
@@ -124,17 +124,16 @@ class ManagementTest extends BaseTest
 
     public function testDeleteARandomCompany(): void
     {
-        $companies = static::$container->get('doctrine')->getRepository(Company::class)->findAll();
 
-        /** @var Company $randomCompany */
-        $randomCompany = $companies[array_rand($companies)];
+        /** @var Company $company */
+        $company = $this->getCompany('The Company 3');
 
-        $response = static::createClient()->request('DELETE', parent::API . 'companies/' . $randomCompany->getId(), [
+        $response = static::createClient()->request('DELETE', parent::API . 'companies/' . $company->getId(), [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->token['token'],
             ]
         ]);
 
-        $this->assertResponseStatusCodeSame(204, 'The response is not 204');
+        self::assertResponseStatusCodeSame(204, 'The response is not 204');
     }
 }

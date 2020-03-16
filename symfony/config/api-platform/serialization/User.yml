@@ -11,6 +11,9 @@ App\Entity\User:
     password:
       groups: ['user_write']
 
+    company:
+      groups: ['user_read', 'user_write']
+
     roles:
       groups: ['user_read', 'user_write']
 

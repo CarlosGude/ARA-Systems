@@ -7,6 +7,8 @@ App\Entity\User:
     email:
       - NotBlank: ~
       - Email: ~
+    company:
+      - NotBlank: ~
 
 App\Entity\Category:
   properties:

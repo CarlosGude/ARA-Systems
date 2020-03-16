@@ -122,7 +122,8 @@ class ManagementTest extends BaseTest
                     'Content-Type' => 'application/json'
                 ],
                 'body' => json_encode(['name' => 'Fake Product'])
-            ]);
+            ]
+        );
 
         $response = json_decode($response->getContent(), true);
 
@@ -168,6 +169,5 @@ class ManagementTest extends BaseTest
             $response['providers'][0]['name'],
             'The expected name was ' . $response['providers'][0]['name'] . ' but ' . $this->getProvider()->getName() . ' has found'
         );
-
     }
 }

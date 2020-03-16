@@ -38,7 +38,7 @@ class ManagementTest extends BaseTest
         $response = json_decode($response->getContent(), true);
 
         $this->assertResponseIsSuccessfulAndInJson();
-        $this->assertEquals(11, $response['hydra:totalItems']);
+        $this->assertEquals(12, $response['hydra:totalItems']);
     }
 
     public function testReadARandomUser(): void
@@ -64,9 +64,14 @@ class ManagementTest extends BaseTest
         );
     }
 
-    public function testAddAnUser()
+    public function testAddAnUser(): void
     {
-        $user = ['email' => 'test@email.com', 'name' => 'test', 'password' => 'test'];
+        $user = [
+            'email' => 'test@email.com',
+            'name' => 'test',
+            'password' => 'test',
+            'company' => parent::API . 'companies/' . $this->getCompany()->getId()
+        ];
 
         $response = static::createClient()->request('POST', parent::API . 'users', [
             'headers' => [
@@ -120,7 +125,7 @@ class ManagementTest extends BaseTest
     public function testDeleteARandomUser(): void
     {
         $user = static::$container->get('doctrine')->getRepository(User::class)->findOneBy([
-            'email' => 'remove@mail.es'
+            'email' => 'another_user@fakemail.com'
         ]);
 
         $response = static::createClient()->request('DELETE', parent::API . 'users/' . $user->getId(), [

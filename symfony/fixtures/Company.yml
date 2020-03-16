@@ -1,6 +1,9 @@
 App\Entity\Company:
-  dummy_companies_{1..10}:
-    name: '<firstName()>'
+  another_company:
+    name: 'Another company'
 
   the_company:
     name: 'The Company'
+
+  the_company_3:
+    name: 'The Company 3'

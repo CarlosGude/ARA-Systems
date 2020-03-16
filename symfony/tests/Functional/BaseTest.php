@@ -106,5 +106,4 @@ abstract class BaseTest extends ApiTestCase
 
         return $product;
     }
-
 }
