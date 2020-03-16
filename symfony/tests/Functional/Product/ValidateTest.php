@@ -144,6 +144,7 @@ class ValidateTest extends ManagementTest
             'description' => 'test',
             'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
             'category' => parent::API . 'categories/' . $category->getId(),
+            'user' => parent::API . 'users/' . $this->getGodUser()->getId(),
         ];
 
         $response = static::createClient()->request('POST', parent::API . 'products', [

@@ -185,7 +185,10 @@ class ManagementTest extends BaseTest
                 'Authorization' => 'Bearer ' . $this->token['token'],
                 'Content-Type' => 'application/json'
             ],
-            'body' => json_encode(['providers' => [parent::API . 'providers/' . $this->getProvider()->getId()]])
+            'body' => json_encode([
+                'providers' => [parent::API . 'providers/' . $this->getProvider()->getId()],
+                'user' => parent::API . 'users/' . $this->getGodUser()->getId(),
+            ])
         ]);
 
         $response = json_decode($response->getContent(), true);

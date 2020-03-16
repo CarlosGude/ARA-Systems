@@ -1,7 +1,6 @@
 App\Entity\Product:
   dummy_products_{1..10}:
     name: '<firstName()>'
-    user: '@god_user'
     category: '@the_category'
     company: '@the_company'
     iva: 21
@@ -10,9 +9,16 @@ App\Entity\Product:
 
   the_product:
     name: 'The Product'
-    user: '@god_user'
     category: '@the_category'
     company: '@the_company'
+    iva: 21
+    MaxStock: 21
+    MinStock: 0
+
+  dummy_products_another_company{1..10}:
+    name: '<firstName()>'
+    category: '@another_category_another_company'
+    company: '@another_company'
     iva: 21
     MaxStock: 21
     MinStock: 0

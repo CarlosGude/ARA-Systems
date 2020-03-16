@@ -68,7 +68,7 @@ class Provider
         return $this;
     }
 
-    public function getId(): ?string
+    public function getId(): string
     {
         return $this->id;
     }

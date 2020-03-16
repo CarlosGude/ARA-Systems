@@ -10,7 +10,7 @@ App\Entity\User:
     name: The User
     email: user@fakemail.com
     password: thepass
-    company: '@the_company'
+    company: '@another_company'
 
   another_user:
     name: Another User

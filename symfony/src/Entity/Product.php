@@ -115,7 +115,7 @@ class Product
         return $this;
     }
 
-    public function getId(): ?string
+    public function getId(): string
     {
         return $this->id;
     }
@@ -192,12 +192,12 @@ class Product
         return $this;
     }
 
-    public function getCompany(): ?Company
+    public function getCompany(): Company
     {
         return $this->company;
     }
 
-    public function setCompany(?Company $company): self
+    public function setCompany(Company $company): self
     {
         $this->company = $company;
 

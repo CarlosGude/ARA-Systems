@@ -1,26 +1,27 @@
 App\Entity\Category:
   dummy_categories_{1..9}:
     name: '<firstName()>'
-    user: '@god_user'
     company: '@the_company'
     iva: 21
 
-  dummy_categories_another_category{1..9}:
+  dummy_categories_another_category{1..8}:
     name: '<firstName()>'
-    user: '@god_user'
     company: '@another_company'
     iva: 21
 
   the_category:
     name: 'The Category'
-    user: '@god_user'
     company: '@the_company'
     iva: 21
     MinStock: 10
     MaxStock: 99
 
+  another_category_another_company:
+    name: 'Another Category 2'
+    company: '@another_company'
+    iva: 21
+
   another_category:
     name: 'Another Category'
-    user: '@god_user'
     company: '@the_company'
     iva: 21
