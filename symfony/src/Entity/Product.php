@@ -89,11 +89,17 @@ class Product
      */
     private $providers;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\MediaObject", inversedBy="products")
+     */
+    private $images;
+
     public function __construct()
     {
         $this->createdAt = new DateTime();
         $this->updatedAt = new DateTime();
         $this->providers = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getIvas(): array
@@ -297,6 +303,32 @@ class Product
     {
         if ($this->providers->contains($provider)) {
             $this->providers->removeElement($provider);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MediaObject[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(MediaObject $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+        }
+
+        return $this;
+    }
+
+    public function removeImage(MediaObject $image): self
+    {
+        if ($this->images->contains($image)) {
+            $this->images->removeElement($image);
         }
 
         return $this;

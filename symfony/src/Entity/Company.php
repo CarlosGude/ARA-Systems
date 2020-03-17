@@ -28,6 +28,14 @@ class Company
     private $name;
 
     /**
+     * @var MediaObject|null
+     *
+     * @ORM\ManyToOne(targetEntity=MediaObject::class)
+     * @ORM\JoinColumn(nullable=true)
+     */
+    public $image;
+
+    /**
      * @var string|null
      * @ORM\Column(type="text", nullable=true)
      */
@@ -297,4 +305,24 @@ class Company
 
         return $this;
     }
+
+    /**
+     * @return MediaObject|null
+     */
+    public function getImage(): ?MediaObject
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param MediaObject|null $image
+     * @return Company
+     */
+    public function setImage(?MediaObject $image): Company
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+
 }

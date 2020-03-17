@@ -16,7 +16,8 @@
   },
   "require-dev": {
     "symfony/profiler-pack": "^1.0",
-    "ext-json": "*"
+    "ext-json": "*",
+    "ext-gd": "*"
   },
   "config": {
     "platform": {

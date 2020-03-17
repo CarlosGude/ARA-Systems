@@ -37,6 +37,14 @@ class User implements UserInterface
     private $name;
 
     /**
+     * @var MediaObject|null
+     *
+     * @ORM\ManyToOne(targetEntity=MediaObject::class)
+     * @ORM\JoinColumn(nullable=true)
+     */
+    public $image;
+
+    /**
      * @var string
      * @ORM\Column(type="string", nullable=false, unique=true)
      */
@@ -330,4 +338,24 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return MediaObject|null
+     */
+    public function getImage(): ?MediaObject
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param MediaObject|null $image
+     * @return User
+     */
+    public function setImage(?MediaObject $image): User
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+
 }

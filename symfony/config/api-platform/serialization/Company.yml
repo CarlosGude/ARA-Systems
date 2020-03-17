@@ -9,6 +9,9 @@ App\Entity\Company:
     description:
       groups: ['company_read', 'company_write']
 
+    image:
+      groups: ['company_read', 'company_write']
+
     createdAt:
       groups: ['company_read']
 
