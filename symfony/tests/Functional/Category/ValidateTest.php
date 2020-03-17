@@ -58,7 +58,7 @@ class ValidateTest extends ManagementTest
         ]);
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
 
-        self::assertResponseStatusCodeSame(400, 'The response is not 204');
+        self::assertResponseStatusCodeSame(400, 'The response is not 400');
         $this->assertEquals(
             'company: This value should not be blank.',
             $response['hydra:description']
@@ -80,7 +80,13 @@ class ValidateTest extends ManagementTest
             ]
         );
 
+        $code = $response->getStatusCode();
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
+
+        self::assertResponseStatusCodeSame(
+            400,
+            'The response is ' . $code . ' but 400 is expected.'
+        );
 
         $this->assertEquals(
             'The category The Category can not be deleted because it has products nested.',

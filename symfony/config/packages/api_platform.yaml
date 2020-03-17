@@ -18,3 +18,5 @@ api_platform:
   description: 'ARA system multiERP'
   version: 1.0
   show_webby: false
+  exception_to_status:
+    \Exception: 400
