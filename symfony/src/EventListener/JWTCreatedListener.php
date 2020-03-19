@@ -3,8 +3,9 @@
 
 namespace App\EventListener;
 
-use http\Exception\RuntimeException;
+use App\Entity\User;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
+use RuntimeException;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class JWTCreatedListener
@@ -30,13 +31,23 @@ class JWTCreatedListener
     {
         $request = $this->requestStack->getCurrentRequest();
 
+        /** @var User $user */
+        $user = $event->getUser();
+
         if (!$request) {
             throw new RuntimeException('Invalid request.');
         }
 
         $payload = $event->getData();
+
         $payload['ip'] = $request->getClientIp();
-        $payload['user_id'] = $event->getUser()->getId();
+
+        $payload['user_id'] = $user->getId();
+        $payload['name'] = $user->getName();
+        $payload['email'] = $user->getEmail();
+
+        $payload['company']['id'] = $user->getCompany()->getId();
+        $payload['company']['name'] = $user->getCompany()->getName();
 
         $event->setData($payload);
 
