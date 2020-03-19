@@ -27,6 +27,14 @@ class Provider
     private $name;
 
     /**
+     * @var MediaObject|null
+     *
+     * @ORM\ManyToOne(targetEntity=MediaObject::class)
+     * @ORM\JoinColumn(nullable=true)
+     */
+    public $image;
+
+    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
@@ -172,4 +180,24 @@ class Provider
 
         return $this;
     }
+
+    /**
+     * @return MediaObject|null
+     */
+    public function getImage(): ?MediaObject
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param MediaObject|null $image
+     * @return Provider
+     */
+    public function setImage(?MediaObject $image): Provider
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+
 }
