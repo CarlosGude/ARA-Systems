@@ -10,13 +10,13 @@ use ApiPlatform\Core\DataProvider\CollectionDataProviderInterface;
 use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
 use App\Entity\Company;
 use App\Entity\User;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Security;
 
 class CustomDataProvider implements CollectionDataProviderInterface, RestrictedDataProviderInterface
 {
-
-
     /**
      * @var Security
      */
@@ -33,12 +33,23 @@ class CustomDataProvider implements CollectionDataProviderInterface, RestrictedD
      * @var array
      */
     private $context;
+    /**
+     * @var RequestStack
+     */
+    private $requestStack;
 
-    public function __construct(Security $security, ManagerRegistry $managerRegistry, PaginationExtension $paginationExtension)
+
+    public function __construct(
+        Security $security,
+        ManagerRegistry $managerRegistry,
+        PaginationExtension $paginationExtension,
+        RequestStack $requestStack
+    )
     {
         $this->security = $security;
         $this->managerRegistry = $managerRegistry;
         $this->paginationExtension = $paginationExtension;
+        $this->requestStack = $requestStack;
     }
 
     /**
@@ -49,14 +60,27 @@ class CustomDataProvider implements CollectionDataProviderInterface, RestrictedD
         /** @var User $user */
         $user = $this->security->getUser();
 
+        $parameters = $this->requestStack->getCurrentRequest()->query->all();
+
+        /** @var QueryBuilder $queryBuilder */
         $queryBuilder = $this->managerRegistry
             ->getManagerForClass($resourceClass)
             ->getRepository($resourceClass)->createQueryBuilder('u')
             ->where('u.company = :company')
             ->setParameter('company', $user->getCompany());
 
+        if (array_key_exists('order', $parameters)) {
+            $order = key($parameters['order']);
+            $queryBuilder->orderBy('u.' . $order, $parameters['order'][$order]);
+        }
 
-        $this->paginationExtension->applyToCollection($queryBuilder, new QueryNameGenerator(), $resourceClass, $operationName, $this->context);
+        $this->paginationExtension->applyToCollection(
+            $queryBuilder,
+            new QueryNameGenerator(),
+            $resourceClass,
+            $operationName,
+            $this->context
+        );
 
         if ($this->paginationExtension instanceof QueryResultCollectionExtensionInterface
             && $this->paginationExtension->supportsResult($resourceClass, $operationName, $this->context)) {
