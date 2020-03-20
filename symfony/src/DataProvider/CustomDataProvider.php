@@ -13,7 +13,7 @@ use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Security;
 
-class UsersCollectionDataProvider implements CollectionDataProviderInterface, RestrictedDataProviderInterface
+class CustomDataProvider implements CollectionDataProviderInterface, RestrictedDataProviderInterface
 {
 
 
