@@ -35,13 +35,21 @@ paths:
                 items:
                   $ref: '#/components/schemas/Category-category_read'
       parameters:
-        - name: _page
+        - name: page
           in: query
           required: false
           description: 'The collection page number'
           schema:
             type: integer
             default: 1
+        - name: perPage
+          in: query
+          required: false
+          description: 'The number of items per page'
+          schema:
+            type: integer
+            default: 30
+            minimum: 0
     post:
       tags:
         - Category
@@ -196,13 +204,21 @@ paths:
                 items:
                   $ref: '#/components/schemas/Company-company_read'
       parameters:
-        - name: _page
+        - name: page
           in: query
           required: false
           description: 'The collection page number'
           schema:
             type: integer
             default: 1
+        - name: perPage
+          in: query
+          required: false
+          description: 'The number of items per page'
+          schema:
+            type: integer
+            default: 30
+            minimum: 0
     post:
       tags:
         - Company
@@ -394,13 +410,21 @@ paths:
                 items:
                   $ref: '#/components/schemas/MediaObject-media_object_read'
       parameters:
-        - name: _page
+        - name: page
           in: query
           required: false
           description: 'The collection page number'
           schema:
             type: integer
             default: 1
+        - name: perPage
+          in: query
+          required: false
+          description: 'The number of items per page'
+          schema:
+            type: integer
+            default: 30
+            minimum: 0
   '/api/v1/media_objects/{id}':
     get:
       tags:
@@ -459,13 +483,21 @@ paths:
                 items:
                   $ref: '#/components/schemas/Product-product_read'
       parameters:
-        - name: _page
+        - name: page
           in: query
           required: false
           description: 'The collection page number'
           schema:
             type: integer
             default: 1
+        - name: perPage
+          in: query
+          required: false
+          description: 'The number of items per page'
+          schema:
+            type: integer
+            default: 30
+            minimum: 0
     post:
       tags:
         - Product
@@ -620,13 +652,21 @@ paths:
                 items:
                   $ref: '#/components/schemas/Provider-provider_read'
       parameters:
-        - name: _page
+        - name: page
           in: query
           required: false
           description: 'The collection page number'
           schema:
             type: integer
             default: 1
+        - name: perPage
+          in: query
+          required: false
+          description: 'The number of items per page'
+          schema:
+            type: integer
+            default: 30
+            minimum: 0
     post:
       tags:
         - Provider
@@ -781,13 +821,45 @@ paths:
                 items:
                   $ref: '#/components/schemas/User-user_read'
       parameters:
-        - name: _page
+        - name: 'sort[name]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        - name: 'sort[email]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        - name: 'sort[createdAt]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        - name: page
           in: query
           required: false
           description: 'The collection page number'
           schema:
             type: integer
             default: 1
+        - name: perPage
+          in: query
+          required: false
+          description: 'The number of items per page'
+          schema:
+            type: integer
+            default: 30
+            minimum: 0
     post:
       tags:
         - User
