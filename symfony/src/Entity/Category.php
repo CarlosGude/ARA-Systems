@@ -101,7 +101,7 @@ class Category
     }
 
     /**
-     * @ORM\PrePersist
+     * @ORM\PreUpdate
      */
     public function updatedAt(): Category
     {

@@ -68,7 +68,7 @@ class Provider
     }
 
     /**
-     * @ORM\PrePersist
+     * @ORM\PreUpdate
      */
     public function updatedAt(): Provider
     {

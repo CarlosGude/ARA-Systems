@@ -107,7 +107,7 @@ class User implements UserInterface
     }
 
     /**
-     * @ORM\PrePersist
+     * @ORM\PreUpdate
      */
     public function updatedAt(): User
     {

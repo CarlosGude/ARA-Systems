@@ -113,7 +113,7 @@ class Product
     }
 
     /**
-     * @ORM\PrePersist
+     * @ORM\PreUpdate
      */
     public function updatedAt(): Product
     {
