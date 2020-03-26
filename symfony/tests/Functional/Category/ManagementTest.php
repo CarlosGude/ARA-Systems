@@ -95,7 +95,7 @@ class ManagementTest extends BaseTest
             'name' => 'test',
             'description' => 'test',
             'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
-            'iva' => 21
+            'tax' => 21
         ];
 
         $response = static::createClient()->request('POST', parent::API . 'categories', [

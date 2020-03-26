@@ -171,9 +171,9 @@ class ValidateTest extends ManagementTest
         );
 
         $this->assertEquals(
-            $category->getIva(),
-            $response['iva'],
-            'The expected name was ' . $category->getIva() . ' but ' . $response['iva'] . ' has found'
+            $category->getTax(),
+            $response['tax'],
+            'The expected name was ' . $category->getTax() . ' but ' . $response['tax'] . ' has found'
         );
     }
 }

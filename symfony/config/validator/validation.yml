@@ -16,7 +16,7 @@ App\Entity\Category:
       - NotBlank: ~
     company:
       - NotBlank: ~
-    iva:
+    tax:
       - GreaterThan: 0
       - Choice: { callback: getIvas }
     minStock:
@@ -37,7 +37,7 @@ App\Entity\Product:
       - NotBlank: ~
     category:
       - NotBlank: ~
-    iva:
+    tax:
       - GreaterThan: 0
       - Choice: { callback: getIvas }
     minStock:

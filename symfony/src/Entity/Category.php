@@ -71,7 +71,7 @@ class Category
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $iva;
+    private $tax;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -254,14 +254,14 @@ class Category
         return $this;
     }
 
-    public function getIva(): ?int
+    public function getTax(): ?int
     {
-        return $this->iva;
+        return $this->tax;
     }
 
-    public function setIva(int $iva): self
+    public function setTax(int $tax): self
     {
-        $this->iva = $iva;
+        $this->tax = $tax;
 
         return $this;
     }

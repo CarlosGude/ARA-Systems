@@ -103,7 +103,7 @@ class ValidateTest extends ManagementTest
             'name' => 'test',
             'description' => 'test',
             'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
-            'iva' => 'IVA not valid'
+            'tax' => 'IVA not valid'
         ];
 
         $response = static::createClient()->request('POST', parent::API . 'categories', [
@@ -117,7 +117,7 @@ class ValidateTest extends ManagementTest
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
 
         $this->assertEquals(
-            'The type of the "iva" attribute must be "int", "string" given.',
+            'The type of the "tax" attribute must be "int", "string" given.',
             $response['hydra:description']
         );
     }
@@ -188,7 +188,7 @@ class ValidateTest extends ManagementTest
             'name' => 'test',
             'description' => 'test',
             'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
-            'iva' => 999999
+            'tax' => 999999
         ];
 
         $response = static::createClient()->request('POST', parent::API . 'categories', [
@@ -202,7 +202,7 @@ class ValidateTest extends ManagementTest
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
 
         $this->assertEquals(
-            'iva: The value you selected is not a valid choice.',
+            'tax: The value you selected is not a valid choice.',
             $response['hydra:description']
         );
     }

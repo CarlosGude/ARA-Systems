@@ -93,7 +93,7 @@ class ManagementTest extends BaseTest
         $product = [
             'name' => 'test',
             'description' => 'test',
-            'iva' => 21,
+            'tax' => 21,
             'minStock' => 0,
             'stockMax' => 999,
             'user' => parent::API . 'users/' . $this->getGodUser()->getId(),

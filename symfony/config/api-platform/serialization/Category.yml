@@ -11,7 +11,7 @@ App\Entity\Category:
     user:
       groups: ['category_read', 'category_write']
 
-    iva:
+    tax:
       groups: ['category_read', 'category_write']
 
     minStock:

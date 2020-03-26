@@ -14,7 +14,7 @@ App\Entity\Product:
     category:
       groups: ['product_read', 'product_write']
 
-    iva:
+    tax:
       groups: ['product_read', 'product_write']
 
     minStock:

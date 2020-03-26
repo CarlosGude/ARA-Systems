@@ -67,7 +67,7 @@ class Product
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    private $iva;
+    private $tax;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
@@ -83,6 +83,11 @@ class Product
      * @ORM\Column(type="integer", nullable=false)
      */
     private $stockAct = 0;
+
+    /**
+     * @ORM\Column(type="float", nullable=false)
+     */
+    private $price = 0;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Provider", inversedBy="products")
@@ -213,18 +218,18 @@ class Product
     /**
      * @return mixed
      */
-    public function getIva()
+    public function getTax()
     {
-        return $this->iva;
+        return $this->tax;
     }
 
     /**
-     * @param mixed $iva
+     * @param mixed $tax
      * @return Product
      */
-    public function setIva($iva): Product
+    public function setTax($tax): Product
     {
-        $this->iva = $iva;
+        $this->tax = $tax;
         return $this;
     }
 
@@ -333,4 +338,24 @@ class Product
 
         return $this;
     }
+
+    /**
+     * @return int
+     */
+    public function getPrice(): int
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param int $price
+     * @return Product
+     */
+    public function setPrice(int $price): Product
+    {
+        $this->price = $price;
+        return $this;
+    }
+
+
 }

@@ -3,7 +3,8 @@ App\Entity\Product:
     name: '<firstName()>'
     category: '@the_category'
     company: '@the_company'
-    iva: 21
+    tax: 21
+    price: 21
     MaxStock: 21
     MinStock: 0
 
@@ -11,7 +12,8 @@ App\Entity\Product:
     name: 'The Product'
     category: '@the_category'
     company: '@the_company'
-    iva: 21
+    tax: 21
+    price: 21
     MaxStock: 21
     MinStock: 0
 
@@ -19,6 +21,7 @@ App\Entity\Product:
     name: '<firstName()>'
     category: '@another_category_another_company'
     company: '@another_company'
-    iva: 21
+    tax: 21
+    price: 21
     MaxStock: 21
     MinStock: 0
