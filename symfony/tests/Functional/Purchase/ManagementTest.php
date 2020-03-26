@@ -3,7 +3,6 @@
 
 namespace App\Tests\Functional\Purchase;
 
-
 use App\Entity\Purchase;
 use App\Tests\Functional\BaseTest;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;

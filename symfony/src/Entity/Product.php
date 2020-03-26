@@ -356,6 +356,4 @@ class Product
         $this->price = $price;
         return $this;
     }
-
-
 }

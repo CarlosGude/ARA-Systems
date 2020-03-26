@@ -84,7 +84,6 @@ class CustomDataProvider implements CollectionDataProviderInterface, RestrictedD
 
         if ($this->paginationExtension instanceof QueryResultCollectionExtensionInterface
             && $this->paginationExtension->supportsResult($resourceClass, $operationName, $this->context)) {
-
             return $this->paginationExtension->getResult($queryBuilder, $resourceClass, $operationName, $this->context);
         }
 

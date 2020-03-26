@@ -191,6 +191,4 @@ class MediaObject
 
         return $this;
     }
-
-
 }

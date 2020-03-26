@@ -3,7 +3,6 @@
 
 namespace App\Tests\Functional\Purchase;
 
-
 use App\Tests\Functional\BaseTest;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -160,5 +159,4 @@ class ValidationTest extends BaseTest
             $response['hydra:description']
         );
     }
-
 }

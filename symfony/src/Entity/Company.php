@@ -360,6 +360,4 @@ class Company
 
         return $this;
     }
-
-
 }
