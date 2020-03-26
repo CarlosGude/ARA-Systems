@@ -94,6 +94,7 @@ class ManagementTest extends BaseTest
             'name' => 'test',
             'description' => 'test',
             'tax' => 21,
+            'price' => 21,
             'minStock' => 0,
             'stockMax' => 999,
             'user' => parent::API . 'users/' . $this->getGodUser()->getId(),

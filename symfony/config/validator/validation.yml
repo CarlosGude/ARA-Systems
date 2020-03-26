@@ -44,3 +44,5 @@ App\Entity\Product:
       - GreaterThanOrEqual: 0
     maxStock:
       - GreaterThanOrEqual: { propertyPath: minStock }
+    price:
+      - GreaterThan: 0

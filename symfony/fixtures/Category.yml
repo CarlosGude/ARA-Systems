@@ -1,13 +1,17 @@
 App\Entity\Category:
   dummy_categories_{1..9}:
-    name: '<firstName()>'
+    name: 'Category <current()>'
     company: '@the_company'
     tax: 21
+    createdAt: '<dateTimeBetween("-200 days", "now")>'
+    updatedAt: '<dateTimeBetween($createdAt, "now")>'
 
   dummy_categories_another_category{1..8}:
-    name: '<firstName()>'
+    name: 'Category <current()>'
     company: '@another_company'
     tax: 21
+    createdAt: '<dateTimeBetween("-200 days", "now")>'
+    updatedAt: '<dateTimeBetween($createdAt, "now")>'
 
   the_category:
     name: 'The Category'
@@ -15,13 +19,19 @@ App\Entity\Category:
     tax: 21
     MinStock: 10
     MaxStock: 99
+    createdAt: '<dateTimeBetween("-200 days", "now")>'
+    updatedAt: '<dateTimeBetween($createdAt, "now")>'
 
   another_category_another_company:
     name: 'Another Category 2'
     company: '@another_company'
     tax: 21
+    createdAt: '<dateTimeBetween("-200 days", "now")>'
+    updatedAt: '<dateTimeBetween($createdAt, "now")>'
 
   another_category:
     name: 'Another Category'
     company: '@the_company'
     tax: 21
+    createdAt: '<dateTimeBetween("-200 days", "now")>'
+    updatedAt: '<dateTimeBetween($createdAt, "now")>'

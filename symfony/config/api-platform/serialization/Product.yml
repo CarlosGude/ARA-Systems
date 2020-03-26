@@ -17,6 +17,9 @@ App\Entity\Product:
     tax:
       groups: ['product_read', 'product_write']
 
+    price:
+      groups: ['product_read', 'product_write']
+
     minStock:
       groups: ['product_read', 'product_write']
 

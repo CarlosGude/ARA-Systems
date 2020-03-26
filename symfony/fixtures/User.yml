@@ -5,27 +5,37 @@ App\Entity\User:
     password: pasalacabra
     roles: ['ROLE_GOD']
     company: '@the_company'
+    createdAt: '<dateTimeBetween("-200 days", "now")>'
+    updatedAt: '<dateTimeBetween($createdAt, "now")>'
 
   the_user:
     name: The User
     email: user@fakemail.com
     password: thepass
     company: '@another_company'
+    createdAt: '<dateTimeBetween("-200 days", "now")>'
+    updatedAt: '<dateTimeBetween($createdAt, "now")>'
 
   another_user:
     name: Another User
     email: another_user@fakemail.com
     password: thepass
     company: '@the_company'
+    createdAt: '<dateTimeBetween("-200 days", "now")>'
+    updatedAt: '<dateTimeBetween($createdAt, "now")>'
 
   dummy_users_{1..9}:
     name: '<firstName()> <lastName()>'
     email: '<email()>'
     password: '<password()>'
     company: '@the_company'
+    createdAt: '<dateTimeBetween("-200 days", "now")>'
+    updatedAt: '<dateTimeBetween($createdAt, "now")>'
 
   dummy_users_another_company_{1..8}:
     name: '<firstName()> <lastName()>'
     email: '<email()>'
     password: '<password()>'
     company: '@another_company'
+    createdAt: '<dateTimeBetween("-200 days", "now")>'
+    updatedAt: '<dateTimeBetween($createdAt, "now")>'

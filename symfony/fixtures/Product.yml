@@ -1,12 +1,14 @@
 App\Entity\Product:
   dummy_products_{1..10}:
-    name: '<firstName()>'
+    name: 'Product <current()>'
     category: '@the_category'
     company: '@the_company'
     tax: 21
     price: 21
     MaxStock: 21
     MinStock: 0
+    createdAt: '<dateTimeBetween("-200 days", "now")>'
+    updatedAt: '<dateTimeBetween($createdAt, "now")>'
 
   the_product:
     name: 'The Product'
@@ -16,12 +18,16 @@ App\Entity\Product:
     price: 21
     MaxStock: 21
     MinStock: 0
+    createdAt: '<dateTimeBetween("-200 days", "now")>'
+    updatedAt: '<dateTimeBetween($createdAt, "now")>'
 
   dummy_products_another_company{1..10}:
-    name: '<firstName()>'
+    name: 'Product <current()>'
     category: '@another_category_another_company'
     company: '@another_company'
     tax: 21
     price: 21
     MaxStock: 21
     MinStock: 0
+    createdAt: '<dateTimeBetween("-200 days", "now")>'
+    updatedAt: '<dateTimeBetween($createdAt, "now")>'
