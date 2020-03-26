@@ -59,12 +59,18 @@ class Provider
      */
     private $products;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Purchase", mappedBy="provider")
+     */
+    private $purchases;
+
 
     public function __construct()
     {
         $this->createdAt = new DateTime();
         $this->updatedAt = new DateTime();
         $this->products = new ArrayCollection();
+        $this->purchases = new ArrayCollection();
     }
 
     /**
@@ -196,6 +202,37 @@ class Provider
     public function setImage(?MediaObject $image): Provider
     {
         $this->image = $image;
+        return $this;
+    }
+
+    /**
+     * @return Collection|Purchase[]
+     */
+    public function getPurchases(): Collection
+    {
+        return $this->purchases;
+    }
+
+    public function addPurchase(Purchase $purchase): self
+    {
+        if (!$this->purchases->contains($purchase)) {
+            $this->purchases[] = $purchase;
+            $purchase->setProvider($this);
+        }
+
+        return $this;
+    }
+
+    public function removePurchase(Purchase $purchase): self
+    {
+        if ($this->purchases->contains($purchase)) {
+            $this->purchases->removeElement($purchase);
+            // set the owning side to null (unless already changed)
+            if ($purchase->getProvider() === $this) {
+                $purchase->setProvider(null);
+            }
+        }
+
         return $this;
     }
 

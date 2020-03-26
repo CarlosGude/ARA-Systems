@@ -1,6 +1,6 @@
 App\Entity\Provider:
   dummy_provider_{1..10}:
-    name: '<firstName()>'
+    name: 'Provider <current()>'
     company: '@the_company'
     createdAt: '<dateTimeBetween("-200 days", "now")>'
     updatedAt: '<dateTimeBetween($createdAt, "now")>'

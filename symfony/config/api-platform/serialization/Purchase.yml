@@ -1,0 +1,28 @@
+App\Entity\Purchase:
+  attributes:
+    id:
+      groups: ['purchase_read']
+
+    reference:
+      groups: ['purchase_read', 'purchase_write']
+
+    provider:
+      groups: ['purchase_read', 'purchase_write']
+
+    total:
+      groups: ['purchase_read']
+
+    taxes:
+      groups: ['purchase_read']
+
+    status:
+      groups: ['purchase_read', 'purchase_write']
+
+    company:
+      groups: ['purchase_read', 'purchase_write']
+
+    createdAt:
+      groups: ['purchase_read']
+
+    updatedAt:
+      groups: ['purchase_read']

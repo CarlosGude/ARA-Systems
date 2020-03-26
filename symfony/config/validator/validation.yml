@@ -46,3 +46,19 @@ App\Entity\Product:
       - GreaterThanOrEqual: { propertyPath: minStock }
     price:
       - GreaterThan: 0
+
+App\Entity\Purchase:
+  properties:
+    provider:
+      - NotBlank: ~
+    company:
+      - NotBlank: ~
+    taxes:
+      - GreaterThanOrEqual: 0
+    total:
+      - GreaterThanOrEqual: 0
+    status:
+      - NotBlank: ~
+      - Choice: { callback: getStatuses }
+    reference:
+      - NotBlank: ~

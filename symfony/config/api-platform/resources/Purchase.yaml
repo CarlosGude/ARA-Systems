@@ -1,0 +1,29 @@
+App\Entity\Purchase:
+  attributes:
+    normalization_context:
+      groups: ['purchase_read']
+
+    denormalization_context:
+      groups: ['purchase_write']
+
+  collectionOperations:
+    get:
+      method: 'GET'
+      security: 'is_granted("ROLE_READ_PURCHASE") or is_granted("ROLE_GOD")'
+
+    post:
+      menthod: 'POST'
+      security: 'is_granted("ROLE_CREATE_PURCHASE") or is_granted("ROLE_GOD")'
+
+  itemOperations:
+    get:
+      method: 'GET'
+      security: 'is_granted("CREATED", object)'
+
+    put:
+      method: 'PUT'
+      security: 'is_granted("EDITED", object)'
+
+    delete:
+      method: 'DELETE'
+      security: 'is_granted("DELETE", object)'

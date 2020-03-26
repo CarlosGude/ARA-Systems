@@ -73,6 +73,11 @@ class Company
      */
     private $providers;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Purchase", mappedBy="company")
+     */
+    private $purchases;
+
     public function __construct()
     {
         $this->createdAt = new DateTime();
@@ -81,6 +86,7 @@ class Company
         $this->products = new ArrayCollection();
         $this->users = new ArrayCollection();
         $this->providers = new ArrayCollection();
+        $this->purchases = new ArrayCollection();
     }
 
     /**
@@ -321,6 +327,37 @@ class Company
     public function setImage(?MediaObject $image): Company
     {
         $this->image = $image;
+        return $this;
+    }
+
+    /**
+     * @return Collection|Purchase[]
+     */
+    public function getPurchases(): Collection
+    {
+        return $this->purchases;
+    }
+
+    public function addPurchase(Purchase $purchase): self
+    {
+        if (!$this->purchases->contains($purchase)) {
+            $this->purchases[] = $purchase;
+            $purchase->setCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removePurchase(Purchase $purchase): self
+    {
+        if ($this->purchases->contains($purchase)) {
+            $this->purchases->removeElement($purchase);
+            // set the owning side to null (unless already changed)
+            if ($purchase->getCompany() === $this) {
+                $purchase->setCompany(null);
+            }
+        }
+
         return $this;
     }
 

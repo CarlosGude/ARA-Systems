@@ -96,6 +96,11 @@ class User implements UserInterface
      */
     private $company;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Purchase", mappedBy="user")
+     */
+    private $purchases;
+
     public function __construct()
     {
         $this->roles = [self::ROLE_USER];
@@ -104,6 +109,7 @@ class User implements UserInterface
         $this->salt = uniqid(mt_rand(), true);
         $this->categories = new ArrayCollection();
         $this->products = new ArrayCollection();
+        $this->purchases = new ArrayCollection();
     }
 
     /**
@@ -354,6 +360,37 @@ class User implements UserInterface
     public function setImage(?MediaObject $image): User
     {
         $this->image = $image;
+        return $this;
+    }
+
+    /**
+     * @return Collection|Purchase[]
+     */
+    public function getPurchases(): Collection
+    {
+        return $this->purchases;
+    }
+
+    public function addPurchase(Purchase $purchase): self
+    {
+        if (!$this->purchases->contains($purchase)) {
+            $this->purchases[] = $purchase;
+            $purchase->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePurchase(Purchase $purchase): self
+    {
+        if ($this->purchases->contains($purchase)) {
+            $this->purchases->removeElement($purchase);
+            // set the owning side to null (unless already changed)
+            if ($purchase->getUser() === $this) {
+                $purchase->setUser(null);
+            }
+        }
+
         return $this;
     }
 

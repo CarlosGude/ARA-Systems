@@ -1,0 +1,9 @@
+App\Entity\Purchase:
+  the_purchase:
+    reference: 'reference'
+    user: '@the_user'
+    company: '@the_company'
+    provider: '@the_provider'
+    taxes: 21
+    total: 10
+    status: 'pending'

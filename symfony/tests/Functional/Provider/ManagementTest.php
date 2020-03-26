@@ -151,7 +151,7 @@ class ManagementTest extends BaseTest
     public function testDeleteProvider(): void
     {
         /** @var Provider $provider */
-        $provider = $this->getProvider('The Provider');
+        $provider = $this->getProvider('Provider 1');
 
         static::createClient()->request('DELETE', parent::API . 'providers/' . $provider->getId(), [
             'headers' => [
