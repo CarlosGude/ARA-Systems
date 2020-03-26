@@ -10,6 +10,10 @@ use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
+/**
+ * Class ManagementTest
+ * @package App\Tests\Functional\Purchase
+ */
 class ManagementTest extends BaseTest
 {
     /**
@@ -29,6 +33,13 @@ class ManagementTest extends BaseTest
         $this->token = $this->getToken();
     }
 
+
+    /**
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
     public function testReadAllProviders(): void
     {
         $response = static::createClient()->request('GET', parent::API . 'purchases', [
@@ -43,6 +54,12 @@ class ManagementTest extends BaseTest
         $this->assertEquals(1, $response['hydra:totalItems']);
     }
 
+    /**
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
     public function testReadProvider(): void
     {
         /** @var Purchase $purchase */
@@ -127,6 +144,9 @@ class ManagementTest extends BaseTest
         );
     }
 
+    /**
+     * @throws TransportExceptionInterface
+     */
     public function testDeleteAPurchase(): void
     {
         /** @var Purchase $purchase */

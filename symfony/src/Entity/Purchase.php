@@ -78,7 +78,7 @@ class Purchase
         $this->updatedAt = new DateTime();
     }
 
-    public function getStatuses()
+    public function getStatuses(): array
     {
         return [
             self::STATUS_SUCCESS,

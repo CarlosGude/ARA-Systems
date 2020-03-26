@@ -65,7 +65,8 @@ class CustomDataProvider implements CollectionDataProviderInterface, RestrictedD
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = $this->managerRegistry
             ->getManagerForClass($resourceClass)
-            ->getRepository($resourceClass)->createQueryBuilder('u')
+            ->getRepository($resourceClass)
+            ->createQueryBuilder('u')
             ->where('u.company = :company')
             ->setParameter('company', $user->getCompany());
 
