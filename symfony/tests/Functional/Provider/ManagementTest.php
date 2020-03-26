@@ -40,7 +40,7 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testReadAllCategories(): void
+    public function testReadAllProviders(): void
     {
         $response = static::createClient()->request('GET', parent::API . 'providers', [
             'headers' => [
