@@ -40,7 +40,7 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testReadAllProviders(): void
+    public function testReadAllPurchases(): void
     {
         $response = static::createClient()->request('GET', parent::API . 'purchases', [
             'headers' => [
@@ -60,7 +60,7 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testReadProvider(): void
+    public function testReadPurchase(): void
     {
         /** @var Purchase $purchase */
         $purchase = static::$container->get('doctrine')
@@ -93,7 +93,7 @@ class ManagementTest extends BaseTest
         $purchase = [
             'reference' => 'test',
             'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
-            'provider' => parent::API . 'providers/' . $this->getProvider()->getId(),
+            'provider' => parent::API . 'providers/' . $this->getPurchase()->getId(),
             'status' => 'pending'
         ];
 
