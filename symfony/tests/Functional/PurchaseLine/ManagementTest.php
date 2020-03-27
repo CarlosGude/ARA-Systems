@@ -1,25 +1,19 @@
 <?php
 
 
-namespace App\Tests\Functional\Purchase;
+namespace App\Tests\Functional\PurchaseLine;
 
-use App\Entity\Purchase;
+
+use App\Entity\PurchaseLine;
 use App\Tests\Functional\BaseTest;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
-/**
- * Class ManagementTest
- * @package App\Tests\Functional\Purchase
- */
 class ManagementTest extends BaseTest
 {
-    /**
-     * @var array
-     */
-    protected $token;
+    private $token;
 
     /**
      * @throws ClientExceptionInterface
@@ -33,16 +27,15 @@ class ManagementTest extends BaseTest
         $this->token = $this->getToken();
     }
 
-
     /**
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testReadAllPurchases(): void
+    public function testReadAllPurchaseLines(): void
     {
-        $response = static::createClient()->request('GET', parent::API . 'purchases', [
+        $response = static::createClient()->request('GET', parent::API . 'purchase_lines', [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->token['token']
             ]
@@ -60,23 +53,28 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testReadPurchase(): void
+    public function testReadPurchaseLine(): void
     {
-        /** @var Purchase $purchase */
-        $purchase = $this->getPurchase($this->getCompany());
+        /** @var PurchaseLine $purchaseLine */
+        $purchaseLine = static::$container->get('doctrine')
+            ->getRepository(PurchaseLine::class)
+            ->findOneBy(['product' => $this->getProduct()]);
 
-        $response = static::createClient()->request('GET', parent::API . 'purchases/' . $purchase->getId(), [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token']
-            ]
-        ]);
+        $response = static::createClient()->request(
+            'GET',
+            parent::API . 'purchase_lines/' . $purchaseLine->getId(),
+            [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $this->token['token']
+                ]
+            ]);
 
         $response = json_decode($response->getContent(), true);
 
         $this->assertResponseIsSuccessfulAndInJson();
         $this->assertEquals(
-            $purchase->getReference(),
-            $response['reference']
+            $purchaseLine->getProduct()->getId(),
+            $response['product']['id']
         );
     }
 
@@ -86,16 +84,20 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testAddAPurchase(): void
+    public function testAddAPurchaseLine(): void
     {
+        $company = $this->getCompany();
+        $product = $this->getProduct();
+
         $purchase = [
-            'reference' => 'test',
-            'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
+            'purchase' => parent::API . 'purchases/' . $this->getPurchase($company)->getId(),
+            'product' => parent::API . 'products/' . $product->getId(),
+            'company' => parent::API . 'companies/' . $company->getId(),
             'provider' => parent::API . 'providers/' . $this->getProvider()->getId(),
-            'status' => 'pending'
+            'quantity' => 1
         ];
 
-        $response = static::createClient()->request('POST', parent::API . 'purchases', [
+        $response = static::createClient()->request('POST', parent::API . 'purchase_lines', [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->token['token'],
                 'Content-Type' => 'application/json'
@@ -106,8 +108,8 @@ class ManagementTest extends BaseTest
         $response = json_decode($response->getContent(), true);
 
         $this->assertEquals(
-            $purchase['reference'],
-            $response['reference']
+            $product->getId(),
+            $response['product']['id']
         );
     }
 
@@ -117,26 +119,27 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testEditAPurchase(): void
+    public function testEditAPurchaseLine(): void
     {
-        /** @var Purchase $purchase */
-        $purchase = $this->getPurchase($this->getCompany());
+        $product = $this->getProduct();
+        $purchaseLine = $this->getPurchaseLine($product);
 
-        $response = static::createClient()->request('PUT', parent::API . 'purchases/' . $purchase->getId(), [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token'],
-                'Content-Type' => 'application/json'
-            ],
-            'body' => json_encode([
-                'reference' => 'test',
-            ])
-        ]);
+        $response = static::createClient()->request(
+            'PUT',
+            parent::API . 'purchase_lines/' . $purchaseLine->getId(),
+            [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $this->token['token'],
+                    'Content-Type' => 'application/json'
+                ],
+                'body' => json_encode(['quantity' => 2])
+            ]);
         $this->assertResponseIsSuccessfulAndInJson();
         $response = json_decode($response->getContent(), true);
 
         $this->assertEquals(
-            'test',
-            $response['reference']
+            2,
+            $response['quantity']
         );
     }
 
@@ -145,10 +148,10 @@ class ManagementTest extends BaseTest
      */
     public function testDeleteAPurchase(): void
     {
-        /** @var Purchase $purchase */
-        $purchase = $this->getPurchase($this->getCompany());
+        $product = $this->getProduct();
+        $purchaseLine = $this->getPurchaseLine($product);
 
-        static::createClient()->request('DELETE', parent::API . 'purchases/' . $purchase->getId(), [
+        static::createClient()->request('DELETE', parent::API . 'purchase_lines/' . $purchaseLine->getId(), [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->token['token'],
                 'Content-Type' => 'application/json'

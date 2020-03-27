@@ -8,6 +8,8 @@ use App\Entity\Category;
 use App\Entity\Company;
 use App\Entity\Product;
 use App\Entity\Provider;
+use App\Entity\Purchase;
+use App\Entity\PurchaseLine;
 use App\Entity\User;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
@@ -99,5 +101,25 @@ abstract class BaseTest extends ApiTestCase
             ->findOneBy(['name' => $name]);
 
         return $product;
+    }
+
+    protected function getPurchase(Company $company): ?Purchase
+    {
+        /** @var Purchase $purchase */
+        $purchase = static::$container->get('doctrine')
+            ->getRepository(Purchase::class)
+            ->findOneBy(['company' => $company]);
+
+        return $purchase;
+    }
+
+    protected function getPurchaseLine(Product $product): ?PurchaseLine
+    {
+        /** @var PurchaseLine $purchaseLine */
+        $purchaseLine = static::$container->get('doctrine')
+            ->getRepository(PurchaseLine::class)
+            ->findOneBy(['product' => $product]);
+
+        return $purchaseLine;
     }
 }

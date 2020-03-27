@@ -78,6 +78,11 @@ class Company
      */
     private $purchases;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PurchaseLine", mappedBy="company")
+     */
+    private $purchaseLines;
+
     public function __construct()
     {
         $this->createdAt = new DateTime();
@@ -87,6 +92,7 @@ class Company
         $this->users = new ArrayCollection();
         $this->providers = new ArrayCollection();
         $this->purchases = new ArrayCollection();
+        $this->purchaseLines = new ArrayCollection();
     }
 
     /**
@@ -355,6 +361,37 @@ class Company
             // set the owning side to null (unless already changed)
             if ($purchase->getCompany() === $this) {
                 $purchase->setCompany(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PurchaseLine[]
+     */
+    public function getPurchaseLines(): Collection
+    {
+        return $this->purchaseLines;
+    }
+
+    public function addPurchaseLine(PurchaseLine $purchaseLine): self
+    {
+        if (!$this->purchaseLines->contains($purchaseLine)) {
+            $this->purchaseLines[] = $purchaseLine;
+            $purchaseLine->setCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removePurchaseLine(PurchaseLine $purchaseLine): self
+    {
+        if ($this->purchaseLines->contains($purchaseLine)) {
+            $this->purchaseLines->removeElement($purchaseLine);
+            // set the owning side to null (unless already changed)
+            if ($purchaseLine->getCompany() === $this) {
+                $purchaseLine->setCompany(null);
             }
         }
 

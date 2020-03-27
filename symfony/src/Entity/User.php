@@ -101,6 +101,11 @@ class User implements UserInterface
      */
     private $purchases;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PurchaseLine", mappedBy="user")
+     */
+    private $purchaseLines;
+
     public function __construct()
     {
         $this->roles = [self::ROLE_USER];
@@ -110,6 +115,7 @@ class User implements UserInterface
         $this->categories = new ArrayCollection();
         $this->products = new ArrayCollection();
         $this->purchases = new ArrayCollection();
+        $this->purchaseLines = new ArrayCollection();
     }
 
     /**
@@ -388,6 +394,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($purchase->getUser() === $this) {
                 $purchase->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PurchaseLine[]
+     */
+    public function getPurchaseLines(): Collection
+    {
+        return $this->purchaseLines;
+    }
+
+    public function addPurchaseLine(PurchaseLine $purchaseLine): self
+    {
+        if (!$this->purchaseLines->contains($purchaseLine)) {
+            $this->purchaseLines[] = $purchaseLine;
+            $purchaseLine->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePurchaseLine(PurchaseLine $purchaseLine): self
+    {
+        if ($this->purchaseLines->contains($purchaseLine)) {
+            $this->purchaseLines->removeElement($purchaseLine);
+            // set the owning side to null (unless already changed)
+            if ($purchaseLine->getUser() === $this) {
+                $purchaseLine->setUser(null);
             }
         }
 

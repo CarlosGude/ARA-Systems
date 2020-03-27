@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use DateTime;
+use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -72,10 +75,16 @@ class Purchase
      */
     private $user;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PurchaseLine", mappedBy="purchase", cascade={"remove"})
+     */
+    private $purchaseLines;
+
     public function __construct()
     {
         $this->createdAt = new DateTime();
         $this->updatedAt = new DateTime();
+        $this->purchaseLines = new ArrayCollection();
     }
 
     public function getStatuses(): array
@@ -184,6 +193,61 @@ class Purchase
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PurchaseLine[]
+     */
+    public function getPurchaseLines(): Collection
+    {
+        return $this->purchaseLines;
+    }
+
+    public function addPurchaseLine(PurchaseLine $purchaseLine): self
+    {
+        if (!$this->purchaseLines->contains($purchaseLine)) {
+            $this->purchaseLines[] = $purchaseLine;
+            $purchaseLine->setPurchase($this);
+        }
+
+        return $this;
+    }
+
+    public function removePurchaseLine(PurchaseLine $purchaseLine): self
+    {
+        if ($this->purchaseLines->contains($purchaseLine)) {
+            $this->purchaseLines->removeElement($purchaseLine);
+            // set the owning side to null (unless already changed)
+            if ($purchaseLine->getPurchase() === $this) {
+                $purchaseLine->setPurchase(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

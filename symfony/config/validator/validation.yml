@@ -62,3 +62,22 @@ App\Entity\Purchase:
       - Choice: { callback: getStatuses }
     reference:
       - NotBlank: ~
+
+App\Entity\PurchaseLine:
+  properties:
+    purchase:
+      - NotBlank: ~
+    provider:
+      - NotBlank: ~
+    product:
+      - NotBlank: ~
+    company:
+      - NotBlank: ~
+    tax:
+      - GreaterThanOrEqual: 0
+    totalWithoutTaxes:
+      - GreaterThanOrEqual: 0
+    quantity:
+      - NotBlank: ~
+      - GreaterThanOrEqual: 1
+      - LessThanOrEqual: { propertyPath: stockAvailability }

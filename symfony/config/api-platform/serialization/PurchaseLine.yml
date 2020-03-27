@@ -1,0 +1,40 @@
+App\Entity\PurchaseLine:
+  attributes:
+    id:
+      groups: ['purchase-line_read']
+
+    company:
+      groups: ['purchase-line_read', 'purchase-line_write']
+
+    purchase:
+      groups: ['purchase-line_read', 'purchase-line_write']
+
+    product:
+      groups: ['purchase-line_read', 'purchase-line_write']
+
+    provider:
+      groups: ['purchase-line_read', 'purchase-line_write']
+
+    quantity:
+      groups: ['purchase-line_read', 'purchase-line_write']
+
+    price:
+      groups: ['purchase-line_read']
+
+    tax:
+      groups: ['purchase-line_read']
+
+    total:
+      groups: ['purchase-line_read']
+
+    totalWithoutTaxes:
+      groups: ['purchase-line_read']
+
+    stockAvailability:
+      groups: ['purchase-line_read']
+
+    createdAt:
+      groups: ['purchase-line_read']
+
+    updatedAt:
+      groups: ['purchase-line_read']

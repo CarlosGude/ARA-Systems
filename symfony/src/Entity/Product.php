@@ -99,12 +99,18 @@ class Product
      */
     private $images;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PurchaseLine", mappedBy="product")
+     */
+    private $purchaseLines;
+
     public function __construct()
     {
         $this->createdAt = new DateTime();
         $this->updatedAt = new DateTime();
         $this->providers = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->purchaseLines = new ArrayCollection();
     }
 
     public function getIvas(): array
@@ -354,6 +360,37 @@ class Product
     public function setPrice(int $price): Product
     {
         $this->price = $price;
+        return $this;
+    }
+
+    /**
+     * @return Collection|PurchaseLine[]
+     */
+    public function getPurchaseLines(): Collection
+    {
+        return $this->purchaseLines;
+    }
+
+    public function addPurchaseLine(PurchaseLine $purchaseLine): self
+    {
+        if (!$this->purchaseLines->contains($purchaseLine)) {
+            $this->purchaseLines[] = $purchaseLine;
+            $purchaseLine->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removePurchaseLine(PurchaseLine $purchaseLine): self
+    {
+        if ($this->purchaseLines->contains($purchaseLine)) {
+            $this->purchaseLines->removeElement($purchaseLine);
+            // set the owning side to null (unless already changed)
+            if ($purchaseLine->getProduct() === $this) {
+                $purchaseLine->setProduct(null);
+            }
+        }
+
         return $this;
     }
 }

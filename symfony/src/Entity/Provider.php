@@ -64,6 +64,11 @@ class Provider
      */
     private $purchases;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PurchaseLine", mappedBy="provider")
+     */
+    private $purchaseLines;
+
 
     public function __construct()
     {
@@ -71,6 +76,7 @@ class Provider
         $this->updatedAt = new DateTime();
         $this->products = new ArrayCollection();
         $this->purchases = new ArrayCollection();
+        $this->purchaseLines = new ArrayCollection();
     }
 
     /**
@@ -230,6 +236,37 @@ class Provider
             // set the owning side to null (unless already changed)
             if ($purchase->getProvider() === $this) {
                 $purchase->setProvider(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PurchaseLine[]
+     */
+    public function getPurchaseLines(): Collection
+    {
+        return $this->purchaseLines;
+    }
+
+    public function addPurchaseLine(PurchaseLine $purchaseLine): self
+    {
+        if (!$this->purchaseLines->contains($purchaseLine)) {
+            $this->purchaseLines[] = $purchaseLine;
+            $purchaseLine->setProvider($this);
+        }
+
+        return $this;
+    }
+
+    public function removePurchaseLine(PurchaseLine $purchaseLine): self
+    {
+        if ($this->purchaseLines->contains($purchaseLine)) {
+            $this->purchaseLines->removeElement($purchaseLine);
+            // set the owning side to null (unless already changed)
+            if ($purchaseLine->getProvider() === $this) {
+                $purchaseLine->setProvider(null);
             }
         }
 

@@ -6,6 +6,9 @@ App\Entity\Purchase:
     reference:
       groups: ['purchase_read', 'purchase_write']
 
+    purchase:
+      groups: ['purchase_read', 'purchase_write']
+
     provider:
       groups: ['purchase_read', 'purchase_write']
 
