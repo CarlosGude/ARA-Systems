@@ -159,7 +159,7 @@ class ValidationTest extends BaseTest
 
         self::assertResponseStatusCodeSame(400, 'The response is not 400');
         $this->assertEquals(
-            'quantity: This value should be greater than or equal to 0.',
+            'quantity: This value should be greater than or equal to 1.',
             $response['hydra:description']
         );
     }
