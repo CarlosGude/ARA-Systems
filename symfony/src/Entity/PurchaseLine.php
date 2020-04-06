@@ -13,9 +13,11 @@ use Doctrine\ORM\Mapping as ORM;
 class PurchaseLine
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @var string
+     * @ORM\Id
+     * @ORM\Column(type="string", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
     private $id;
 
@@ -93,7 +95,7 @@ class PurchaseLine
         return $this;
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -127,7 +129,7 @@ class PurchaseLine
         return $this->purchase;
     }
 
-    public function setPurchase(Purchase $purchase): self
+    public function setPurchase(?Purchase $purchase): self
     {
         $this->purchase = $purchase;
 

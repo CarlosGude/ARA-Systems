@@ -43,3 +43,7 @@ services:
   App\Subscribers\ProductSubscriber:
     tags:
       - { name: 'doctrine.event_subscriber' }
+
+  App\Subscribers\PurchaseLineSubscriber:
+    tags:
+      - { name: 'doctrine.event_subscriber' }

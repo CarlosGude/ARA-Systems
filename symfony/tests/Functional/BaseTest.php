@@ -93,33 +93,65 @@ abstract class BaseTest extends ApiTestCase
         return $provider;
     }
 
-    protected function getProduct($name = 'The Product'): ?Product
+    protected function getProduct($name = 'The Product', Company $company = null): ?Product
     {
+        (!$company && $company = $this->getCompany());
+
         /** @var Product $product */
         $product = static::$container->get('doctrine')
             ->getRepository(Product::class)
-            ->findOneBy(['name' => $name]);
+            ->findOneBy([
+                'name' => $name,
+                'company' => $company
+            ]);
 
         return $product;
     }
 
-    protected function getPurchase(Company $company): ?Purchase
+    protected function getPurchase(Company $company = null, $reference = 'reference'): ?Purchase
     {
+        (!$company && $company = $this->getCompany());
+
         /** @var Purchase $purchase */
         $purchase = static::$container->get('doctrine')
             ->getRepository(Purchase::class)
-            ->findOneBy(['company' => $company]);
+            ->findOneBy([
+                'company' => $company,
+                'reference' => $reference
+            ]);
 
         return $purchase;
     }
 
-    protected function getPurchaseLine(Product $product): ?PurchaseLine
+    protected function getPurchaseLine(Product $product, $reference = 'reference'): ?PurchaseLine
     {
+        $purchase = $this->getPurchase($product->getCompany(), $reference);
+
         /** @var PurchaseLine $purchaseLine */
         $purchaseLine = static::$container->get('doctrine')
             ->getRepository(PurchaseLine::class)
-            ->findOneBy(['product' => $product]);
+            ->findOneBy([
+                'product' => $product,
+                'purchase' => $purchase
+            ]);
 
         return $purchaseLine;
+    }
+
+    protected function refresh($object): void
+    {
+        static::$container->get('doctrine')->getManager()->refresh($object);
+    }
+
+    protected function remove($object): void
+    {
+        static::$container->get('doctrine')->getManager()->remove($object);
+        static::$container->get('doctrine')->getManager()->flush();
+    }
+
+    protected function persist($object): void
+    {
+        static::$container->get('doctrine')->getManager()->persist($object);
+        static::$container->get('doctrine')->getManager()->flush();
     }
 }

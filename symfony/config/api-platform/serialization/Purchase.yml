@@ -4,22 +4,19 @@ App\Entity\Purchase:
       groups: ['purchase_read']
 
     reference:
-      groups: ['purchase_read', 'purchase_write']
-
-    purchase:
-      groups: ['purchase_read', 'purchase_write']
+      groups: ['purchase_read', 'purchase_write','purchase-line_read']
 
     provider:
       groups: ['purchase_read', 'purchase_write']
 
     total:
-      groups: ['purchase_read']
+      groups: ['purchase_read','purchase-line_read']
 
     taxes:
-      groups: ['purchase_read']
+      groups: ['purchase_read','purchase-line_read']
 
     status:
-      groups: ['purchase_read', 'purchase_write']
+      groups: ['purchase_read', 'purchase_write','purchase-line_read']
 
     company:
       groups: ['purchase_read', 'purchase_write']

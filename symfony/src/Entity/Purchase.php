@@ -17,6 +17,7 @@ class Purchase
     public const STATUS_PENDING = 'pending';
     public const STATUS_INCOMING = 'incoming';
     public const STATUS_SUCCESS = 'success';
+
     /**
      * @var string
      * @ORM\Id

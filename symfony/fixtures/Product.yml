@@ -4,9 +4,21 @@ App\Entity\Product:
     category: '@the_category'
     company: '@the_company'
     tax: 21
-    price: 21
+    price: 100
     MaxStock: 21
     stockAct: 100
+    MinStock: 0
+    createdAt: '<dateTimeBetween("-200 days", "now")>'
+    updatedAt: '<dateTimeBetween($createdAt, "now")>'
+
+  another_product:
+    name: 'Another Product'
+    category: '@another_category_another_company'
+    company: '@another_company'
+    tax: 21
+    price: 100
+    stockAct: 100
+    MaxStock: 21
     MinStock: 0
     createdAt: '<dateTimeBetween("-200 days", "now")>'
     updatedAt: '<dateTimeBetween($createdAt, "now")>'

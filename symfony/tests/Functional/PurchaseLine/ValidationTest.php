@@ -188,4 +188,31 @@ class ValidationTest extends BaseTest
             $response['hydra:description']
         );
     }
+
+    /**
+     * @throws TransportExceptionInterface
+     */
+    public function testProductShouldNotBeUpdated(): void
+    {
+        $product = $this->getProduct();
+        $purchaseLine = $this->getPurchaseLine($product);
+        $newProduct = $this->getProduct('Product 1');
+
+        $response = static::createClient()->request(
+            'PUT',
+            parent::API . 'purchase_lines/' . $purchaseLine->getId(),
+            [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $this->token['token'],
+                    'Content-Type' => 'application/json'
+                ],
+
+                'body' => json_encode(['product' => parent::API . 'products/' . $newProduct->getId(),])
+            ]);
+
+        $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
+
+        self::assertResponseStatusCodeSame(400, 'The response is not 400');
+        $this->assertEquals('product: This value should not be updated.', $response['hydra:description']);
+    }
 }

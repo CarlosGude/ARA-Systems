@@ -6,3 +6,19 @@ App\Entity\PurchaseLine:
     provider: '@the_provider'
     product: '@the_product'
     quantity: 1
+
+  the_purchase_line_{1..10}:
+    purchase: '@multi_line_purchase'
+    user: '@the_user'
+    company: '@the_company'
+    provider: '@the_provider'
+    product: '@dummy_products_<current()>'
+    quantity: 1
+
+  multi_quantity_line:
+    purchase: '@multi_quantity_purchase'
+    user: '@the_user'
+    company: '@the_company'
+    provider: '@the_provider'
+    product: '@another_product'
+    quantity: 10

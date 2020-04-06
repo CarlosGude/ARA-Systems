@@ -157,14 +157,12 @@ class ManagementTest extends BaseTest
     /**
      * @throws TransportExceptionInterface
      */
-    public function testDeleteARandomProduct(): void
+    public function testDeleteAProduct(): void
     {
-        $products = static::$container->get('doctrine')->getRepository(Product::class)->findAll();
+        /** @var Product $product */
+        $product = $this->getProduct('Product 1', $this->getCompany('Another company'));
 
-        /** @var Product $randomProduct */
-        $randomProduct = $products[array_rand($products)];
-
-        static::createClient()->request('DELETE', parent::API . 'products/' . $randomProduct->getId(), [
+        static::createClient()->request('DELETE', parent::API . 'products/' . $product->getId(), [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->token['token'],
             ]

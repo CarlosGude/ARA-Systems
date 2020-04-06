@@ -44,7 +44,7 @@ class ManagementTest extends BaseTest
         $response = json_decode($response->getContent(), true);
 
         $this->assertResponseIsSuccessfulAndInJson();
-        $this->assertEquals(1, $response['hydra:totalItems']);
+        $this->assertEquals(12, $response['hydra:totalItems']);
     }
 
     /**
@@ -137,10 +137,7 @@ class ManagementTest extends BaseTest
         $this->assertResponseIsSuccessfulAndInJson();
         $response = json_decode($response->getContent(), true);
 
-        $this->assertEquals(
-            2,
-            $response['quantity']
-        );
+        $this->assertEquals(2, $response['quantity']);
     }
 
     /**
