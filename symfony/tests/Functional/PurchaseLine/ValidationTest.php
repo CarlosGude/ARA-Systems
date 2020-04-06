@@ -3,7 +3,6 @@
 
 namespace App\Tests\Functional\PurchaseLine;
 
-
 use App\Tests\Functional\BaseTest;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -208,7 +207,8 @@ class ValidationTest extends BaseTest
                 ],
 
                 'body' => json_encode(['product' => parent::API . 'products/' . $newProduct->getId(),])
-            ]);
+            ]
+        );
 
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
 

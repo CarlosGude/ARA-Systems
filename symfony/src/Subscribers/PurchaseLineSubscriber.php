@@ -3,7 +3,6 @@
 
 namespace App\Subscribers;
 
-
 use App\Entity\Product;
 use App\Entity\Provider;
 use App\Entity\Purchase;
@@ -57,7 +56,8 @@ class PurchaseLineSubscriber implements EventSubscriber
             ->filter(
                 static function (PurchaseLine $purchaseLine) use ($product) {
                     return $product === $purchaseLine->getProduct();
-                });
+                }
+            );
 
         if ($concurrences->count() >= 1) {
             /** @var PurchaseLine $concurrence */
@@ -74,8 +74,6 @@ class PurchaseLineSubscriber implements EventSubscriber
         $purchase
             ->setTotal($purchase->getTotal() + ($line->getPrice() * $line->getQuantity()))
             ->setTaxes($purchase->getTaxes() + ($line->getPrice() * $line->getQuantity()) * ($line->getTax() / 100));
-
-
     }
 
     public function preRemove(LifecycleEventArgs $args): void
@@ -109,7 +107,6 @@ class PurchaseLineSubscriber implements EventSubscriber
         $purchase
             ->setTotal($purchase->getTotal() - ($line->getPrice() * $line->getQuantity()))
             ->setTaxes($purchase->getTaxes() - ($line->getPrice() * $line->getQuantity()) * ($line->getTax() / 100));
-
     }
 
     public function preUpdate(PreUpdateEventArgs $args)
@@ -143,6 +140,4 @@ class PurchaseLineSubscriber implements EventSubscriber
             }
         }
     }
-
-
 }

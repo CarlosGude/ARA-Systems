@@ -3,7 +3,6 @@
 
 namespace App\Tests\Functional\PurchaseLine;
 
-
 use App\Entity\PurchaseLine;
 use App\Tests\Functional\BaseTest;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
@@ -67,7 +66,8 @@ class ManagementTest extends BaseTest
                 'headers' => [
                     'Authorization' => 'Bearer ' . $this->token['token']
                 ]
-            ]);
+            ]
+        );
 
         $response = json_decode($response->getContent(), true);
 
@@ -133,7 +133,8 @@ class ManagementTest extends BaseTest
                     'Content-Type' => 'application/json'
                 ],
                 'body' => json_encode(['quantity' => 2])
-            ]);
+            ]
+        );
         $this->assertResponseIsSuccessfulAndInJson();
         $response = json_decode($response->getContent(), true);
 

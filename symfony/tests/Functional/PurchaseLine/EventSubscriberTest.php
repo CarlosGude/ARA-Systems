@@ -3,7 +3,6 @@
 
 namespace App\Tests\Functional\PurchaseLine;
 
-
 use App\Tests\Functional\BaseTest;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -55,7 +54,6 @@ class EventSubscriberTest extends BaseTest
         $this->assertEquals(21, $response['tax']);
         $this->assertEquals(200, $response['purchase']['total']);
         $this->assertEquals(42, $response['purchase']['taxes']);
-
     }
 
     public function testRemoveLineAndUpdateTotal(): void
@@ -86,7 +84,8 @@ class EventSubscriberTest extends BaseTest
                     'Content-Type' => 'application/json'
                 ],
                 'body' => json_encode(['quantity' => 20])
-            ]);
+            ]
+        );
         $this->assertResponseIsSuccessfulAndInJson();
         $response = json_decode($response->getContent(), true);
 
@@ -95,7 +94,6 @@ class EventSubscriberTest extends BaseTest
         $this->assertEquals(21, $response['tax']);
         $this->assertEquals(2000, $response['purchase']['total']);
         $this->assertEquals(420, $response['purchase']['taxes']);
-
     }
 
     public function testRemoveQuantityToLineAndUpdateTotal(): void
@@ -112,7 +110,8 @@ class EventSubscriberTest extends BaseTest
                     'Content-Type' => 'application/json'
                 ],
                 'body' => json_encode(['quantity' => 5])
-            ]);
+            ]
+        );
         $this->assertResponseIsSuccessfulAndInJson();
         $response = json_decode($response->getContent(), true);
 
@@ -122,5 +121,4 @@ class EventSubscriberTest extends BaseTest
         $this->assertEquals(500, $response['purchase']['total']);
         $this->assertEquals(105, $response['purchase']['taxes']);
     }
-
 }

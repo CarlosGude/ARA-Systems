@@ -268,6 +268,4 @@ class PurchaseLine
 
         return $this;
     }
-
-
 }
