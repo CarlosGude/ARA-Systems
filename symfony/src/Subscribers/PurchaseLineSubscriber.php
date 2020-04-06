@@ -109,7 +109,7 @@ class PurchaseLineSubscriber implements EventSubscriber
             ->setTaxes($purchase->getTaxes() - ($line->getPrice() * $line->getQuantity()) * ($line->getTax() / 100));
     }
 
-    public function preUpdate(PreUpdateEventArgs $args)
+    public function preUpdate(PreUpdateEventArgs $args): void
     {
         $line = $args->getObject();
 

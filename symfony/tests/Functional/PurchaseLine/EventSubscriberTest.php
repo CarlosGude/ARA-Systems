@@ -9,6 +9,10 @@ use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
+/**
+ * Class EventSubscriberTest
+ * @package App\Tests\Functional\PurchaseLine
+ */
 class EventSubscriberTest extends BaseTest
 {
     /**
@@ -28,6 +32,13 @@ class EventSubscriberTest extends BaseTest
         $this->token = $this->getToken();
     }
 
+
+    /**
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
     public function testAddLineAndUpdateTotal(): void
     {
         $purchase = [
@@ -56,6 +67,9 @@ class EventSubscriberTest extends BaseTest
         $this->assertEquals(42, $response['purchase']['taxes']);
     }
 
+    /**
+     *
+     */
     public function testRemoveLineAndUpdateTotal(): void
     {
         $purchase = $this->getPurchase($this->getCompany(), 'm_l_pur');
@@ -70,6 +84,12 @@ class EventSubscriberTest extends BaseTest
         $this->assertEquals(900, $purchase->getTotal());
     }
 
+    /**
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
     public function testAddQuantityToLineAndUpdateTotal(): void
     {
         $product = $this->getProduct('Another Product', $this->getCompany('Another Company'));
@@ -96,6 +116,12 @@ class EventSubscriberTest extends BaseTest
         $this->assertEquals(420, $response['purchase']['taxes']);
     }
 
+    /**
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
     public function testRemoveQuantityToLineAndUpdateTotal(): void
     {
         $product = $this->getProduct('Another Product', $this->getCompany('Another Company'));
