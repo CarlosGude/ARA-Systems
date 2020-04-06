@@ -99,10 +99,9 @@ class ManagementTest extends BaseTest
         ];
 
         $response = static::createClient()->request('POST', parent::API . 'users', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token'],
-                'Content-Type' => 'application/json'
-            ],
+            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+
+
             'body' => json_encode($user)
         ]);
 
@@ -130,10 +129,9 @@ class ManagementTest extends BaseTest
         $randomUser = $users[array_rand($users)];
 
         $response = static::createClient()->request('PUT', parent::API . 'users/' . $randomUser->getId(), [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token'],
-                'Content-Type' => 'application/json'
-            ],
+            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+
+
             'body' => json_encode(['name' => 'Fake User'])
         ]);
 
@@ -157,9 +155,7 @@ class ManagementTest extends BaseTest
         ]);
 
         static::createClient()->request('DELETE', parent::API . 'users/' . $user->getId(), [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token'],
-            ]
+            'headers' => ['Authorization' => 'Bearer ' . $this->token['token']]
         ]);
 
         self::assertResponseStatusCodeSame(204, 'The response is not 204');

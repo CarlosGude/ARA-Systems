@@ -98,10 +98,9 @@ class ManagementTest extends BaseTest
         ];
 
         $response = static::createClient()->request('POST', parent::API . 'providers', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token'],
-                'Content-Type' => 'application/json'
-            ],
+            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+
+
             'body' => json_encode($provider)
         ]);
         $this->assertResponseIsSuccessfulAndInJson();
@@ -128,10 +127,9 @@ class ManagementTest extends BaseTest
         $randomProvider = $providers[array_rand($providers)];
 
         $response = static::createClient()->request('PUT', parent::API . 'providers/' . $randomProvider->getId(), [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token'],
-                'Content-Type' => 'application/json'
-            ],
+            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+
+
             'body' => json_encode(['name' => 'Fake Provider'])
         ]);
 
@@ -154,9 +152,7 @@ class ManagementTest extends BaseTest
         $provider = $this->getProvider('Provider 1');
 
         static::createClient()->request('DELETE', parent::API . 'providers/' . $provider->getId(), [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token'],
-            ]
+            'headers' => ['Authorization' => 'Bearer ' . $this->token['token']]
         ]);
 
         self::assertResponseStatusCodeSame(204, 'The response is not 204');

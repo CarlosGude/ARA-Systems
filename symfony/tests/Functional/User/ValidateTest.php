@@ -25,10 +25,9 @@ class ValidateTest extends ManagementTest
         ];
 
         $response = static::createClient()->request('POST', parent::API . 'users', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token'],
-                'Content-Type' => 'application/json'
-            ],
+            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+
+
             'body' => json_encode($user)
         ]);
 
@@ -53,10 +52,9 @@ class ValidateTest extends ManagementTest
         ];
 
         $response = static::createClient()->request('POST', parent::API . 'users', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token'],
-                'Content-Type' => 'application/json'
-            ],
+            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+
+
             'body' => json_encode($user)
         ]);
 
@@ -81,10 +79,9 @@ class ValidateTest extends ManagementTest
         ];
 
         $response = static::createClient()->request('POST', parent::API . 'users', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token'],
-                'Content-Type' => 'application/json'
-            ],
+            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+
+
             'body' => json_encode($user)
         ]);
 
@@ -109,10 +106,9 @@ class ValidateTest extends ManagementTest
         ];
 
         $response = static::createClient()->request('POST', parent::API . 'users', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token'],
-                'Content-Type' => 'application/json'
-            ],
+            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+
+
             'body' => json_encode($user)
         ]);
 

@@ -98,10 +98,9 @@ class ManagementTest extends BaseTest
         ];
 
         $response = static::createClient()->request('POST', parent::API . 'purchase_lines', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token'],
-                'Content-Type' => 'application/json'
-            ],
+            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+
+
             'body' => json_encode($purchase)
         ]);
         $this->assertResponseIsSuccessfulAndInJson();
@@ -150,10 +149,9 @@ class ManagementTest extends BaseTest
         $purchaseLine = $this->getPurchaseLine($product);
 
         static::createClient()->request('DELETE', parent::API . 'purchase_lines/' . $purchaseLine->getId(), [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token'],
-                'Content-Type' => 'application/json'
-            ],
+            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+
+
         ]);
 
         self::assertResponseStatusCodeSame(204, 'The response is not 204');

@@ -43,9 +43,7 @@ class ManagementTest extends BaseTest
     public function testReadAllCompanies(): void
     {
         $response = static::createClient()->request('GET', parent::API . 'companies', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token']
-            ]
+            'headers' => ['Authorization' => 'Bearer ' . $this->token['token']]
         ]);
 
         $response = json_decode($response->getContent(), true);
@@ -68,9 +66,7 @@ class ManagementTest extends BaseTest
         $randomCompany = $companies[array_rand($companies)];
 
         $response = static::createClient()->request('GET', parent::API . 'companies/' . $randomCompany->getId(), [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token']
-            ]
+            'headers' => ['Authorization' => 'Bearer ' . $this->token['token']]
         ]);
 
         $response = json_decode($response->getContent(), true);
@@ -94,10 +90,7 @@ class ManagementTest extends BaseTest
         $company = ['name' => 'test', 'description' => 'test'];
 
         $response = static::createClient()->request('POST', parent::API . 'companies', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token'],
-                'Content-Type' => 'application/json'
-            ],
+            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
             'body' => json_encode($company)
         ]);
         $this->assertResponseIsSuccessfulAndInJson();
@@ -124,10 +117,7 @@ class ManagementTest extends BaseTest
         $randomCompany = $companies[array_rand($companies)];
 
         $response = static::createClient()->request('PUT', parent::API . 'companies/' . $randomCompany->getId(), [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token'],
-                'Content-Type' => 'application/json'
-            ],
+            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
             'body' => json_encode(['name' => 'Fake Company'])
         ]);
 
@@ -144,16 +134,14 @@ class ManagementTest extends BaseTest
     /**
      * @throws TransportExceptionInterface
      */
-    public function testDeleteARandomCompany(): void
+    public function testDeleteACompany(): void
     {
 
         /** @var Company $company */
         $company = $this->getCompany('The Company 3');
 
         static::createClient()->request('DELETE', parent::API . 'companies/' . $company->getId(), [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token'],
-            ]
+            'headers' => ['Authorization' => 'Bearer ' . $this->token['token']]
         ]);
 
         self::assertResponseStatusCodeSame(204, 'The response is not 204');

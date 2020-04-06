@@ -37,10 +37,9 @@ class ValidationTest extends BaseTest
         unset($purchase['company']);
 
         $response = static::createClient()->request('POST', parent::API . 'purchases', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token'],
-                'Content-Type' => 'application/json'
-            ],
+            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+
+
             'body' => json_encode($purchase)
         ]);
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
@@ -73,10 +72,9 @@ class ValidationTest extends BaseTest
         unset($purchase['provider']);
 
         $response = static::createClient()->request('POST', parent::API . 'purchases', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token'],
-                'Content-Type' => 'application/json'
-            ],
+            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+
+
             'body' => json_encode($purchase)
         ]);
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
@@ -97,10 +95,9 @@ class ValidationTest extends BaseTest
         unset($purchase['reference']);
 
         $response = static::createClient()->request('POST', parent::API . 'purchases', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token'],
-                'Content-Type' => 'application/json'
-            ],
+            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+
+
             'body' => json_encode($purchase)
         ]);
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
@@ -121,10 +118,9 @@ class ValidationTest extends BaseTest
         unset($purchase['reference']);
 
         $response = static::createClient()->request('POST', parent::API . 'purchases', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token'],
-                'Content-Type' => 'application/json'
-            ],
+            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+
+
             'body' => json_encode($purchase)
         ]);
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
@@ -145,10 +141,9 @@ class ValidationTest extends BaseTest
         $purchase['status'] = 'Invalid status';
 
         $response = static::createClient()->request('POST', parent::API . 'purchases', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token'],
-                'Content-Type' => 'application/json'
-            ],
+            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+
+
             'body' => json_encode($purchase)
         ]);
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);

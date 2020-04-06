@@ -24,10 +24,9 @@ class ValidateTest extends ManagementTest
         ];
 
         $response = static::createClient()->request('POST', parent::API . 'categories', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token'],
-                'Content-Type' => 'application/json'
-            ],
+            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+
+
             'body' => json_encode($category)
         ]);
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
@@ -50,10 +49,9 @@ class ValidateTest extends ManagementTest
         ];
 
         $response = static::createClient()->request('POST', parent::API . 'categories', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token'],
-                'Content-Type' => 'application/json'
-            ],
+            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+
+
             'body' => json_encode($category)
         ]);
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);

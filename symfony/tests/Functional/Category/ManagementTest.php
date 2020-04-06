@@ -43,9 +43,7 @@ class ManagementTest extends BaseTest
     public function testReadAllCategories(): void
     {
         $response = static::createClient()->request('GET', parent::API . 'categories', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token']
-            ]
+            'headers' => ['Authorization' => 'Bearer ' . $this->token['token']]
         ]);
 
         $response = json_decode($response->getContent(), true);
@@ -68,9 +66,7 @@ class ManagementTest extends BaseTest
         $randomCategory = $categories[array_rand($categories)];
 
         $response = static::createClient()->request('GET', parent::API . 'categories/' . $randomCategory->getId(), [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token']
-            ]
+            'headers' => ['Authorization' => 'Bearer ' . $this->token['token']]
         ]);
 
         $response = json_decode($response->getContent(), true);
@@ -99,10 +95,7 @@ class ManagementTest extends BaseTest
         ];
 
         $response = static::createClient()->request('POST', parent::API . 'categories', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token'],
-                'Content-Type' => 'application/json'
-            ],
+            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
             'body' => json_encode($category)
         ]);
         $this->assertResponseIsSuccessfulAndInJson();
@@ -129,10 +122,7 @@ class ManagementTest extends BaseTest
         $randomCategory = $categories[array_rand($categories)];
 
         $response = static::createClient()->request('PUT', parent::API . 'categories/' . $randomCategory->getId(), [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token'],
-                'Content-Type' => 'application/json'
-            ],
+            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
             'body' => json_encode(['name' => 'Fake Category'])
         ]);
 
@@ -156,9 +146,7 @@ class ManagementTest extends BaseTest
         $category = $this->getCategory('Another Category');
 
         static::createClient()->request('DELETE', parent::API . 'categories/' . $category->getId(), [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token'],
-            ]
+            'headers' => ['Authorization' => 'Bearer ' . $this->token['token']]
         ]);
 
         self::assertResponseStatusCodeSame(204, 'The response is not 204');
