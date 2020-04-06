@@ -50,10 +50,9 @@ class EventSubscriberTest extends BaseTest
         ];
 
         $response = static::createClient()->request('POST', parent::API . 'purchase_lines', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token'],
-                'Content-Type' => 'application/json'
-            ],
+            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+
+
             'body' => json_encode($purchase)
         ]);
         $this->assertResponseIsSuccessfulAndInJson();
