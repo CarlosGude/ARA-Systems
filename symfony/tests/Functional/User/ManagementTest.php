@@ -60,14 +60,12 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testReadARandomUser(): void
+    public function testReadAUser(): void
     {
-        $users = static::$container->get('doctrine')->getRepository(User::class)->findAll();
+        /** @var User $user */
+        $user = $this->getGodUser();
 
-        /** @var User $randomUser */
-        $randomUser = $users[array_rand($users)];
-
-        $response = static::createClient()->request('GET', parent::API . 'users/' . $randomUser->getId(), [
+        $response = static::createClient()->request('GET', parent::API . 'users/' . $user->getId(), [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->token['token']
             ]
@@ -77,9 +75,9 @@ class ManagementTest extends BaseTest
 
         $this->assertResponseIsSuccessfulAndInJson();
         $this->assertEquals(
-            $randomUser->getEmail(),
+            $user->getEmail(),
             $response['email'],
-            'The expected email was ' . $response['email'] . ' but ' . $randomUser->getEmail() . ' has found'
+            'The expected email was ' . $response['email'] . ' but ' . $user->getEmail() . ' has found'
         );
     }
 
@@ -121,12 +119,10 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testEditARandomUser(): void
+    public function testEditAUser(): void
     {
-        $users = static::$container->get('doctrine')->getRepository(User::class)->findAll();
-
         /** @var User $randomUser */
-        $randomUser = $users[array_rand($users)];
+        $randomUser = $this->getGodUser();
 
         $response = static::createClient()->request('PUT', parent::API . 'users/' . $randomUser->getId(), [
             'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
@@ -148,11 +144,9 @@ class ManagementTest extends BaseTest
     /**
      * @throws TransportExceptionInterface
      */
-    public function testDeleteARandomUser(): void
+    public function testDeleteAUser(): void
     {
-        $user = static::$container->get('doctrine')->getRepository(User::class)->findOneBy([
-            'email' => 'another_user@fakemail.com'
-        ]);
+        $user = $this->getUserByEmail('another_user@fakemail.com');
 
         static::createClient()->request('DELETE', parent::API . 'users/' . $user->getId(), [
             'headers' => ['Authorization' => 'Bearer ' . $this->token['token']]

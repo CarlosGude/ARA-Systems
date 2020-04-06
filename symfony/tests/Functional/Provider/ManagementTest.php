@@ -60,14 +60,12 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testReadARandomProvider(): void
+    public function testReadAProvider(): void
     {
-        $providers = static::$container->get('doctrine')->getRepository(Provider::class)->findAll();
+        /** @var Provider $provider */
+        $provider = $this->getProvider();
 
-        /** @var Provider $randomProvider */
-        $randomProvider = $providers[array_rand($providers)];
-
-        $response = static::createClient()->request('GET', parent::API . 'providers/' . $randomProvider->getId(), [
+        $response = static::createClient()->request('GET', parent::API . 'providers/' . $provider->getId(), [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->token['token']
             ]
@@ -77,9 +75,9 @@ class ManagementTest extends BaseTest
 
         $this->assertResponseIsSuccessfulAndInJson();
         $this->assertEquals(
-            $randomProvider->getName(),
+            $provider->getName(),
             $response['name'],
-            'The expected name was ' . $response['name'] . ' but ' . $randomProvider->getName() . ' has found'
+            'The expected name was ' . $response['name'] . ' but ' . $provider->getName() . ' has found'
         );
     }
 
@@ -119,14 +117,12 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testEditARandomProvider(): void
+    public function testEditAProvider(): void
     {
-        $providers = static::$container->get('doctrine')->getRepository(Provider::class)->findAll();
+        /** @var Provider $provider */
+        $provider = $this->getProvider();
 
-        /** @var Provider $randomProvider */
-        $randomProvider = $providers[array_rand($providers)];
-
-        $response = static::createClient()->request('PUT', parent::API . 'providers/' . $randomProvider->getId(), [
+        $response = static::createClient()->request('PUT', parent::API . 'providers/' . $provider->getId(), [
             'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
 
 
@@ -139,7 +135,7 @@ class ManagementTest extends BaseTest
         $this->assertEquals(
             'Fake Provider',
             $response['name'],
-            'The expected name was ' . $response['name'] . ' but ' . $randomProvider->getName() . ' has found'
+            'The expected name was ' . $response['name'] . ' but ' . $provider->getName() . ' has found'
         );
     }
 

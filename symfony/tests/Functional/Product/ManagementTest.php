@@ -59,14 +59,12 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testReadARandomProduct(): void
+    public function testReadAProduct(): void
     {
-        $products = static::$container->get('doctrine')->getRepository(Product::class)->findAll();
+        /** @var Product $product */
+        $product = $this->getProduct();
 
-        /** @var Product $randomProduct */
-        $randomProduct = $products[array_rand($products)];
-
-        $response = static::createClient()->request('GET', parent::API . 'products/' . $randomProduct->getId(), [
+        $response = static::createClient()->request('GET', parent::API . 'products/' . $product->getId(), [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->token['token']
             ]
@@ -76,9 +74,9 @@ class ManagementTest extends BaseTest
 
         $this->assertResponseIsSuccessfulAndInJson();
         $this->assertEquals(
-            $randomProduct->getName(),
+            $product->getName(),
             $response['name'],
-            'The expected name was ' . $response['name'] . ' but ' . $randomProduct->getName() . ' has found'
+            'The expected name was ' . $response['name'] . ' but ' . $product->getName() . ' has found'
         );
     }
 
@@ -124,21 +122,13 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testEditARandomProduct(): void
+    public function testEditAProduct(): void
     {
-        $products = static::$container->get('doctrine')->getRepository(Product::class)->findAll();
+        /** @var Product $product */
+        $product = $this->getProduct();
 
-        /** @var Product $randomProduct */
-        $randomProduct = $products[array_rand($products)];
-
-        $response = static::createClient()->request(
-            'PUT',
-            parent::API . 'products/' . $randomProduct->getId(),
-            [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $this->token['token'],
-                    'Content-Type' => 'application/json'
-                ],
+        $response = static::createClient()->request('PUT', parent::API . 'products/' . $product->getId(),
+            ['headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
                 'body' => json_encode(['name' => 'Fake Product'])
             ]
         );
@@ -149,7 +139,7 @@ class ManagementTest extends BaseTest
         $this->assertEquals(
             'Fake Product',
             $response['name'],
-            'The expected name was ' . $response['name'] . ' but ' . $randomProduct->getName() . ' has found'
+            'The expected name was ' . $response['name'] . ' but ' . $product->getName() . ' has found'
         );
     }
 

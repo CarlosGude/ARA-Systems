@@ -63,6 +63,16 @@ abstract class BaseTest extends ApiTestCase
         return $user;
     }
 
+    protected function getUserByEmail($email): ?User
+    {
+        /** @var User $user */
+        $user = static::$container->get('doctrine')
+            ->getRepository(User::class)
+            ->findOneBy(['email' => $email]);
+
+        return $user;
+    }
+
     protected function getCompany($name = 'The Company'): ?Company
     {
         /** @var Company $company */

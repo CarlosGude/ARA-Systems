@@ -58,14 +58,11 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testReadARandomCategory(): void
+    public function testReadACategory(): void
     {
-        $categories = static::$container->get('doctrine')->getRepository(Category::class)->findAll();
+        $category = $this->getCategory();
 
-        /** @var Category $randomCategory */
-        $randomCategory = $categories[array_rand($categories)];
-
-        $response = static::createClient()->request('GET', parent::API . 'categories/' . $randomCategory->getId(), [
+        $response = static::createClient()->request('GET', parent::API . 'categories/' . $category->getId(), [
             'headers' => ['Authorization' => 'Bearer ' . $this->token['token']]
         ]);
 
@@ -73,9 +70,9 @@ class ManagementTest extends BaseTest
 
         $this->assertResponseIsSuccessfulAndInJson();
         $this->assertEquals(
-            $randomCategory->getName(),
+            $category->getName(),
             $response['name'],
-            'The expected name was ' . $response['name'] . ' but ' . $randomCategory->getName() . ' has found'
+            'The expected name was ' . $response['name'] . ' but ' . $category->getName() . ' has found'
         );
     }
 
@@ -114,14 +111,12 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testEditARandomCategory(): void
+    public function testEditACategory(): void
     {
-        $categories = static::$container->get('doctrine')->getRepository(Category::class)->findAll();
+        /** @var Category $category */
+        $category = $this->getCategory();
 
-        /** @var Category $randomCategory */
-        $randomCategory = $categories[array_rand($categories)];
-
-        $response = static::createClient()->request('PUT', parent::API . 'categories/' . $randomCategory->getId(), [
+        $response = static::createClient()->request('PUT', parent::API . 'categories/' . $category->getId(), [
             'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
             'body' => json_encode(['name' => 'Fake Category'])
         ]);
@@ -132,16 +127,15 @@ class ManagementTest extends BaseTest
         $this->assertEquals(
             'Fake Category',
             $response['name'],
-            'The expected name was ' . $response['name'] . ' but ' . $randomCategory->getName() . ' has found'
+            'The expected name was ' . $response['name'] . ' but ' . $category->getName() . ' has found'
         );
     }
 
     /**
      * @throws TransportExceptionInterface
      */
-    public function testDeleteARandomCategory(): void
+    public function testDeleteACategory(): void
     {
-
         /** @var Category $category */
         $category = $this->getCategory('Another Category');
 

@@ -58,14 +58,13 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testReadARandomCompany(): void
+    public function testReadACompany(): void
     {
-        $companies = static::$container->get('doctrine')->getRepository(Company::class)->findAll();
 
-        /** @var Company $randomCompany */
-        $randomCompany = $companies[array_rand($companies)];
+        /** @var Company $company */
+        $company = $this->getCompany();
 
-        $response = static::createClient()->request('GET', parent::API . 'companies/' . $randomCompany->getId(), [
+        $response = static::createClient()->request('GET', parent::API . 'companies/' . $company->getId(), [
             'headers' => ['Authorization' => 'Bearer ' . $this->token['token']]
         ]);
 
@@ -73,9 +72,9 @@ class ManagementTest extends BaseTest
 
         $this->assertResponseIsSuccessfulAndInJson();
         $this->assertEquals(
-            $randomCompany->getName(),
+            $company->getName(),
             $response['name'],
-            'The expected name was ' . $response['name'] . ' but ' . $randomCompany->getName() . ' has found'
+            'The expected name was ' . $response['name'] . ' but ' . $company->getName() . ' has found'
         );
     }
 
@@ -109,14 +108,12 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testEditARandomCompany(): void
+    public function testEditACompany(): void
     {
-        $companies = static::$container->get('doctrine')->getRepository(Company::class)->findAll();
+        /** @var Company $company */
+        $company = $this->getCompany();
 
-        /** @var Company $randomCompany */
-        $randomCompany = $companies[array_rand($companies)];
-
-        $response = static::createClient()->request('PUT', parent::API . 'companies/' . $randomCompany->getId(), [
+        $response = static::createClient()->request('PUT', parent::API . 'companies/' . $company->getId(), [
             'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
             'body' => json_encode(['name' => 'Fake Company'])
         ]);
@@ -127,7 +124,7 @@ class ManagementTest extends BaseTest
         $this->assertEquals(
             'Fake Company',
             $response['name'],
-            'The expected name was ' . $response['name'] . ' but ' . $randomCompany->getName() . ' has found'
+            'The expected name was ' . $response['name'] . ' but ' . $company->getName() . ' has found'
         );
     }
 
