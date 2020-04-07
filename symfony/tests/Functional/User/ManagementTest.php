@@ -6,6 +6,7 @@ namespace App\Tests\Functional\User;
 use App\Entity\User;
 use App\Tests\Functional\BaseTest;
 use DateTime;
+use DateTimeZone;
 use Exception;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -142,7 +143,7 @@ class ManagementTest extends BaseTest
             $response['name'],
             'The expected email was ' . $response['email'] . ' but ' . $randomUser->getEmail() . ' has found'
         );
-        $this->assertRecentlyDateTime(new DateTime($response['updatedAt']));
+        $this->assertRecentlyDateTime(new DateTime($response['updatedAt'], new DateTimeZone('UTC')));
     }
 
     /**

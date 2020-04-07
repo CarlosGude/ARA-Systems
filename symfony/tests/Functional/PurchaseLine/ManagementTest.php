@@ -6,6 +6,7 @@ namespace App\Tests\Functional\PurchaseLine;
 use App\Entity\PurchaseLine;
 use App\Tests\Functional\BaseTest;
 use DateTime;
+use DateTimeZone;
 use Exception;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -141,7 +142,7 @@ class ManagementTest extends BaseTest
         $response = json_decode($response->getContent(), true);
 
         $this->assertEquals(2, $response['quantity']);
-        $this->assertRecentlyDateTime(new DateTime($response['updatedAt']));
+        $this->assertRecentlyDateTime(new DateTime($response['updatedAt'], new DateTimeZone('UTC')));
     }
 
     /**
