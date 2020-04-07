@@ -11,6 +11,8 @@ use App\Entity\Purchase;
 use App\Entity\PurchaseLine;
 use App\Entity\User;
 use DateTime;
+use DateTimeZone;
+use Exception;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -24,6 +26,9 @@ abstract class BaseTest extends ApiTestCase
 {
     use RefreshDatabaseTrait;
 
+    /**
+     *
+     */
     protected const API = '/api/v1/';
 
     /**
@@ -42,18 +47,28 @@ abstract class BaseTest extends ApiTestCase
         return json_decode($response->getContent(), true);
     }
 
+    /**
+     * @param DateTime $dateTime
+     * @throws Exception
+     */
     protected function assertRecentlyDateTime(DateTime $dateTime): void
     {
-        $this->assertGreaterThanOrEqual(new DateTime('-1 second'), $dateTime);
-        $this->assertLessThanOrEqual(new DateTime('+1 second'), $dateTime);
+        $this->assertGreaterThanOrEqual(new DateTime('-1 second',new DateTimeZone('UTC')), $dateTime);
+        $this->assertLessThanOrEqual(new DateTime('+1 second',new DateTimeZone('UTC')), $dateTime);
     }
 
+    /**
+     *
+     */
     protected function assertResponseIsSuccessfulAndInJson(): void
     {
         self::assertResponseIsSuccessful();
         self::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
     }
 
+    /**
+     * @return User|null
+     */
     protected function getGodUser(): ?User
     {
         /** @var User $user */
@@ -64,6 +79,10 @@ abstract class BaseTest extends ApiTestCase
         return $user;
     }
 
+    /**
+     * @param $email
+     * @return User|null
+     */
     protected function getUserByEmail($email): ?User
     {
         /** @var User $user */
@@ -74,6 +93,10 @@ abstract class BaseTest extends ApiTestCase
         return $user;
     }
 
+    /**
+     * @param string $name
+     * @return Company|null
+     */
     protected function getCompany($name = 'The Company'): ?Company
     {
         /** @var Company $company */
@@ -84,6 +107,10 @@ abstract class BaseTest extends ApiTestCase
         return $company;
     }
 
+    /**
+     * @param string $name
+     * @return Category|null
+     */
     protected function getCategory($name = 'The Category'): ?Category
     {
         /** @var Category $category */
@@ -94,6 +121,10 @@ abstract class BaseTest extends ApiTestCase
         return $category;
     }
 
+    /**
+     * @param string $name
+     * @return Provider|null
+     */
     protected function getProvider($name = 'The Provider'): ?Provider
     {
         /** @var Provider $provider */
@@ -104,6 +135,11 @@ abstract class BaseTest extends ApiTestCase
         return $provider;
     }
 
+    /**
+     * @param string $name
+     * @param Company|null $company
+     * @return Product|null
+     */
     protected function getProduct($name = 'The Product', Company $company = null): ?Product
     {
         (!$company && $company = $this->getCompany());
@@ -119,6 +155,11 @@ abstract class BaseTest extends ApiTestCase
         return $product;
     }
 
+    /**
+     * @param Company|null $company
+     * @param string $reference
+     * @return Purchase|null
+     */
     protected function getPurchase(Company $company = null, $reference = 'reference'): ?Purchase
     {
         (!$company && $company = $this->getCompany());
@@ -134,6 +175,11 @@ abstract class BaseTest extends ApiTestCase
         return $purchase;
     }
 
+    /**
+     * @param Product $product
+     * @param string $reference
+     * @return PurchaseLine|null
+     */
     protected function getPurchaseLine(Product $product, $reference = 'reference'): ?PurchaseLine
     {
         $purchase = $this->getPurchase($product->getCompany(), $reference);
@@ -149,17 +195,26 @@ abstract class BaseTest extends ApiTestCase
         return $purchaseLine;
     }
 
+    /**
+     * @param $object
+     */
     protected function refresh($object): void
     {
         static::$container->get('doctrine')->getManager()->refresh($object);
     }
 
+    /**
+     * @param $object
+     */
     protected function remove($object): void
     {
         static::$container->get('doctrine')->getManager()->remove($object);
         static::$container->get('doctrine')->getManager()->flush();
     }
 
+    /**
+     * @param $object
+     */
     protected function persist($object): void
     {
         static::$container->get('doctrine')->getManager()->persist($object);
