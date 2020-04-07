@@ -42,15 +42,15 @@ class EventSubscriberTest extends BaseTest
     public function testAddLineAndUpdateTotal(): void
     {
         $purchase = [
-            'purchase' => parent::API . 'purchases/' . $this->getPurchase()->getId(),
-            'product' => parent::API . 'products/' . $this->getProduct()->getId(),
-            'company' => parent::API . 'companies/' . $this->getProduct()->getCompany()->getId(),
-            'provider' => parent::API . 'providers/' . $this->getProvider()->getId(),
+            'purchase' => parent::API.'purchases/'.$this->getPurchase()->getId(),
+            'product' => parent::API.'products/'.$this->getProduct()->getId(),
+            'company' => parent::API.'companies/'.$this->getProduct()->getCompany()->getId(),
+            'provider' => parent::API.'providers/'.$this->getProvider()->getId(),
             'quantity' => 1
         ];
 
-        $response = static::createClient()->request('POST', parent::API . 'purchase_lines', [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        $response = static::createClient()->request('POST', parent::API.'purchase_lines', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
 
             'body' => json_encode($purchase)
@@ -96,10 +96,10 @@ class EventSubscriberTest extends BaseTest
 
         $response = static::createClient()->request(
             'PUT',
-            parent::API . 'purchase_lines/' . $purchaseLine->getId(),
+            parent::API.'purchase_lines/'.$purchaseLine->getId(),
             [
                 'headers' => [
-                    'Authorization' => 'Bearer ' . $this->token['token'],
+                    'Authorization' => 'Bearer '.$this->token['token'],
                     'Content-Type' => 'application/json'
                 ],
                 'body' => json_encode(['quantity' => 20])
@@ -128,10 +128,10 @@ class EventSubscriberTest extends BaseTest
 
         $response = static::createClient()->request(
             'PUT',
-            parent::API . 'purchase_lines/' . $purchaseLine->getId(),
+            parent::API.'purchase_lines/'.$purchaseLine->getId(),
             [
                 'headers' => [
-                    'Authorization' => 'Bearer ' . $this->token['token'],
+                    'Authorization' => 'Bearer '.$this->token['token'],
                     'Content-Type' => 'application/json'
                 ],
                 'body' => json_encode(['quantity' => 5])
