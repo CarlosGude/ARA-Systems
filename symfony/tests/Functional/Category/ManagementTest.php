@@ -6,6 +6,7 @@ namespace App\Tests\Functional\Category;
 use App\Entity\Category;
 use App\Tests\Functional\BaseTest;
 use DateTime;
+use DateTimeZone;
 use Exception;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -132,7 +133,7 @@ class ManagementTest extends BaseTest
             $response['name'],
             'The expected name was ' . $response['name'] . ' but ' . $category->getName() . ' has found'
         );
-        $this->assertRecentlyDateTime(new DateTime($response['updatedAt']));
+        $this->assertRecentlyDateTime(new DateTime($response['updatedAt'], new DateTimeZone('UTC')));
     }
 
     /**

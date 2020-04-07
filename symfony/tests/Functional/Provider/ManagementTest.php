@@ -6,6 +6,7 @@ namespace App\Tests\Functional\Provider;
 use App\Entity\Provider;
 use App\Tests\Functional\BaseTest;
 use DateTime;
+use DateTimeZone;
 use Exception;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -140,7 +141,7 @@ class ManagementTest extends BaseTest
             $response['name'],
             'The expected name was ' . $response['name'] . ' but ' . $provider->getName() . ' has found'
         );
-        $this->assertRecentlyDateTime(new DateTime($response['updatedAt']));
+        $this->assertRecentlyDateTime(new DateTime($response['updatedAt'], new DateTimeZone('UTC')));
     }
 
     /**

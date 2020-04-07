@@ -15,10 +15,13 @@ class ValidateTest extends ManagementTest
     {
         $company = ['user' => parent::API . 'users/' . $this->getGodUser()->getId()];
 
-        $response = static::createClient()->request('POST', parent::API . 'companies',
+        $response = static::createClient()->request(
+            'POST',
+            parent::API . 'companies',
             ['headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
                 'body' => json_encode($company)
-            ]);
+            ]
+        );
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
 
         self::assertResponseStatusCodeSame(400, 'The response is not 204');

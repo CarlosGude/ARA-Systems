@@ -6,6 +6,7 @@ namespace App\Tests\Functional\Product;
 use App\Entity\Product;
 use App\Tests\Functional\BaseTest;
 use DateTime;
+use DateTimeZone;
 use Exception;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -130,7 +131,9 @@ class ManagementTest extends BaseTest
         /** @var Product $product */
         $product = $this->getProduct();
 
-        $response = static::createClient()->request('PUT', parent::API . 'products/' . $product->getId(),
+        $response = static::createClient()->request(
+            'PUT',
+            parent::API . 'products/' . $product->getId(),
             ['headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
                 'body' => json_encode(['name' => 'Fake Product'])
             ]
@@ -144,7 +147,7 @@ class ManagementTest extends BaseTest
             $response['name'],
             'The expected name was ' . $response['name'] . ' but ' . $product->getName() . ' has found'
         );
-        $this->assertRecentlyDateTime(new DateTime($response['updatedAt']));
+        $this->assertRecentlyDateTime(new DateTime($response['updatedAt'], new DateTimeZone('UTC')));
     }
 
     /**

@@ -6,6 +6,7 @@ namespace App\Tests\Functional\Purchase;
 use App\Entity\Purchase;
 use App\Tests\Functional\BaseTest;
 use DateTime;
+use DateTimeZone;
 use Exception;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -139,7 +140,7 @@ class ManagementTest extends BaseTest
             'test',
             $response['reference']
         );
-        $this->assertRecentlyDateTime(new DateTime($response['updatedAt']));
+        $this->assertRecentlyDateTime(new DateTime($response['updatedAt'], new DateTimeZone('UTC')));
     }
 
     /**
