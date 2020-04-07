@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Security;
 
 use App\Entity\User;
@@ -22,7 +21,7 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function upgradePassword(UserInterface $user, string $newEncodedPassword): void
     {
@@ -32,36 +31,36 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function refreshUser(UserInterface $user)
     {
         if (!$user instanceof User) {
-            throw new UnsupportedUserException('Instances of "' . get_class($user) . '" are not supported.');
+            throw new UnsupportedUserException('Instances of "'.get_class($user).'" are not supported.');
         }
 
         return $this->loadUserByUsername($user->getEmail());
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function loadUserByUsername(string $username): User
     {
         $user = $this->em->getRepository(User::class)->findOneBy(['email' => $username]);
 
         if (!$user) {
-            throw new UsernameNotFoundException('The email "' . $username . '" has not found.');
+            throw new UsernameNotFoundException('The email "'.$username.'" has not found.');
         }
 
         return $user;
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function supportsClass(string $class)
     {
-        return $class === User::class;
+        return User::class === $class;
     }
 }

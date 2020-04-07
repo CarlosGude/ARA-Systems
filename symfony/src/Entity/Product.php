@@ -232,7 +232,6 @@ class Product
 
     /**
      * @param mixed $tax
-     * @return Product
      */
     public function setTax($tax): Product
     {
@@ -250,7 +249,6 @@ class Product
 
     /**
      * @param mixed $minStock
-     * @return Product
      */
     public function setMinStock($minStock): Product
     {
@@ -268,7 +266,6 @@ class Product
 
     /**
      * @param mixed $maxStock
-     * @return Product
      */
     public function setMaxStock($maxStock): Product
     {
@@ -276,18 +273,11 @@ class Product
         return $this;
     }
 
-    /**
-     * @return int
-     */
     public function getStockAct(): int
     {
         return $this->stockAct;
     }
 
-    /**
-     * @param int $stockAct
-     * @return Product
-     */
     public function setStockAct(int $stockAct): Product
     {
         $this->stockAct = $stockAct;
@@ -346,18 +336,11 @@ class Product
         return $this;
     }
 
-    /**
-     * @return int
-     */
     public function getPrice(): int
     {
         return $this->price;
     }
 
-    /**
-     * @param int $price
-     * @return Product
-     */
     public function setPrice(int $price): Product
     {
         $this->price = $price;

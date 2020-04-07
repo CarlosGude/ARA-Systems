@@ -1,4 +1,6 @@
-<?php /** @noinspection ALL */
+<?php
+
+/** @noinspection ALL */
 /** @noinspection ALL */
 /** @noinspection ALL */
 
@@ -29,7 +31,6 @@ class UserVoter extends Voter
     /**
      * @param $attribute string
      * @param $subject User
-     * @return bool
      */
     protected function supports($attribute, $subject): bool
     {
@@ -41,10 +42,8 @@ class UserVoter extends Voter
     }
 
     /**
-     * @param string $attribute
+     * @param string    $attribute
      * @param User|null $subject
-     * @param TokenInterface $token
-     * @return bool
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
@@ -55,9 +54,7 @@ class UserVoter extends Voter
         $user = $token->getUser();
 
         if (!$user instanceof User) {
-            throw new UnauthorizedHttpException(
-                'Need to login'
-            );
+            throw new UnauthorizedHttpException('Need to login');
         }
 
         if (in_array(User::ROLE_GOD, $user->getRoles(), true)) {

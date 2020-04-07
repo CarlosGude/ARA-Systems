@@ -106,9 +106,6 @@ class Purchase
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getId(): string
     {
         return $this->id;

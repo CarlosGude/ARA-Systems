@@ -20,7 +20,7 @@ final class Version20200313175601 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE category ADD min_stock INT DEFAULT NULL, ADD max_stock INT DEFAULT NULL, DROP stock_min, DROP stock_max, CHANGE iva iva INT DEFAULT NULL');
     }
@@ -28,7 +28,7 @@ final class Version20200313175601 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE category ADD stock_min INT NOT NULL, ADD stock_max INT NOT NULL, DROP min_stock, DROP max_stock, CHANGE iva iva INT NOT NULL');
     }

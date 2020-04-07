@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Tests\Functional\Company;
 
 use App\Tests\Functional\User\ManagementTest;
@@ -13,13 +12,13 @@ class ValidateTest extends ManagementTest
      */
     public function tesNameRequired(): void
     {
-        $company = ['user' => parent::API . 'users/' . $this->getGodUser()->getId()];
+        $company = ['user' => parent::API.'users/'.$this->getGodUser()->getId()];
 
         $response = static::createClient()->request(
             'POST',
-            parent::API . 'companies',
-            ['headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
-                'body' => json_encode($company)
+            parent::API.'companies',
+            ['headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
+                'body' => json_encode($company),
             ]
         );
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);

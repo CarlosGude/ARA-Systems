@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Tests\Functional\PurchaseLine;
 
 use App\Tests\Functional\BaseTest;
@@ -36,8 +35,7 @@ class ValidationTest extends BaseTest
         $response = static::createClient()->request('POST', parent::API.'purchase_lines', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
-            'body' => json_encode($purchaseLine)
+            'body' => json_encode($purchaseLine),
         ]);
 
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
@@ -58,7 +56,7 @@ class ValidationTest extends BaseTest
             'product' => parent::API.'products/'.$product->getId(),
             'company' => parent::API.'companies/'.$company->getId(),
             'provider' => parent::API.'providers/'.$this->getProvider()->getId(),
-            'quantity' => 1
+            'quantity' => 1,
         ];
     }
 
@@ -73,8 +71,7 @@ class ValidationTest extends BaseTest
         $response = static::createClient()->request('POST', parent::API.'purchase_lines', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
-            'body' => json_encode($purchaseLine)
+            'body' => json_encode($purchaseLine),
         ]);
 
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
@@ -97,8 +94,7 @@ class ValidationTest extends BaseTest
         $response = static::createClient()->request('POST', parent::API.'purchase_lines', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
-            'body' => json_encode($purchaseLine)
+            'body' => json_encode($purchaseLine),
         ]);
 
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
@@ -121,8 +117,7 @@ class ValidationTest extends BaseTest
         $response = static::createClient()->request('POST', parent::API.'purchase_lines', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
-            'body' => json_encode($purchaseLine)
+            'body' => json_encode($purchaseLine),
         ]);
 
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
@@ -145,8 +140,7 @@ class ValidationTest extends BaseTest
         $response = static::createClient()->request('POST', parent::API.'purchase_lines', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
-            'body' => json_encode($purchaseLine)
+            'body' => json_encode($purchaseLine),
         ]);
 
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
@@ -169,8 +163,7 @@ class ValidationTest extends BaseTest
         $response = static::createClient()->request('POST', parent::API.'purchase_lines', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
-            'body' => json_encode($purchaseLine)
+            'body' => json_encode($purchaseLine),
         ]);
 
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
@@ -197,10 +190,10 @@ class ValidationTest extends BaseTest
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.$this->token['token'],
-                    'Content-Type' => 'application/json'
+                    'Content-Type' => 'application/json',
                 ],
 
-                'body' => json_encode(['product' => parent::API.'products/'.$newProduct->getId(),])
+                'body' => json_encode(['product' => parent::API.'products/'.$newProduct->getId()]),
             ]
         );
 

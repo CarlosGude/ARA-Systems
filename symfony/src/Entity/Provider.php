@@ -70,7 +70,6 @@ class Provider
      */
     private $purchaseLines;
 
-
     public function __construct()
     {
         $this->createdAt = new DateTime();
@@ -118,36 +117,22 @@ class Provider
         return $this;
     }
 
-    /**
-     * @return DateTime
-     */
     public function getCreatedAt(): DateTime
     {
         return $this->createdAt;
     }
 
-    /**
-     * @param DateTime $createdAt
-     * @return Provider
-     */
     public function setCreatedAt(DateTime $createdAt): Provider
     {
         $this->createdAt = $createdAt;
         return $this;
     }
 
-    /**
-     * @return DateTime
-     */
     public function getUpdatedAt(): DateTime
     {
         return $this->updatedAt;
     }
 
-    /**
-     * @param DateTime $updatedAt
-     * @return Provider
-     */
     public function setUpdatedAt(DateTime $updatedAt): Provider
     {
         $this->updatedAt = $updatedAt;
@@ -194,18 +179,11 @@ class Provider
         return $this;
     }
 
-    /**
-     * @return MediaObject|null
-     */
     public function getImage(): ?MediaObject
     {
         return $this->image;
     }
 
-    /**
-     * @param MediaObject|null $image
-     * @return Provider
-     */
     public function setImage(?MediaObject $image): Provider
     {
         $this->image = $image;

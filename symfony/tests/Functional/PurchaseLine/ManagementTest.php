@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Tests\Functional\PurchaseLine;
 
 use App\Entity\PurchaseLine;
@@ -39,8 +38,8 @@ class ManagementTest extends BaseTest
     {
         $response = static::createClient()->request('GET', parent::API.'purchase_lines', [
             'headers' => [
-                'Authorization' => 'Bearer '.$this->token['token']
-            ]
+                'Authorization' => 'Bearer '.$this->token['token'],
+            ],
         ]);
 
         $response = json_decode($response->getContent(), true);
@@ -67,8 +66,8 @@ class ManagementTest extends BaseTest
             parent::API.'purchase_lines/'.$purchaseLine->getId(),
             [
                 'headers' => [
-                    'Authorization' => 'Bearer '.$this->token['token']
-                ]
+                    'Authorization' => 'Bearer '.$this->token['token'],
+                ],
             ]
         );
 
@@ -97,14 +96,13 @@ class ManagementTest extends BaseTest
             'product' => parent::API.'products/'.$product->getId(),
             'company' => parent::API.'companies/'.$company->getId(),
             'provider' => parent::API.'providers/'.$this->getProvider()->getId(),
-            'quantity' => 1
+            'quantity' => 1,
         ];
 
         $response = static::createClient()->request('POST', parent::API.'purchase_lines', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
-            'body' => json_encode($purchase)
+            'body' => json_encode($purchase),
         ]);
         $this->assertResponseIsSuccessfulAndInJson();
         $response = json_decode($response->getContent(), true);
@@ -133,9 +131,9 @@ class ManagementTest extends BaseTest
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.$this->token['token'],
-                    'Content-Type' => 'application/json'
+                    'Content-Type' => 'application/json',
                 ],
-                'body' => json_encode(['quantity' => 2])
+                'body' => json_encode(['quantity' => 2]),
             ]
         );
         $this->assertResponseIsSuccessfulAndInJson();
@@ -155,8 +153,6 @@ class ManagementTest extends BaseTest
 
         static::createClient()->request('DELETE', parent::API.'purchase_lines/'.$purchaseLine->getId(), [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
-
-
         ]);
 
         self::assertResponseStatusCodeSame(204, 'The response is not 204');

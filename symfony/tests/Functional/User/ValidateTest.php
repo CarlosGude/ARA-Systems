@@ -1,17 +1,14 @@
 <?php
 
-
 namespace App\Tests\Functional\User;
 
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
- * Class ValidateTest
- * @package App\Tests\Functional\User
+ * Class ValidateTest.
  */
 class ValidateTest extends ManagementTest
 {
-
     /**
      * @throws TransportExceptionInterface
      */
@@ -21,14 +18,13 @@ class ValidateTest extends ManagementTest
             'email' => 'Fake email',
             'name' => 'test',
             'password' => 'test',
-            'company' => parent::API.'companies/'.$this->getCompany()->getId()
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
         ];
 
         $response = static::createClient()->request('POST', parent::API.'users', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
-            'body' => json_encode($user)
+            'body' => json_encode($user),
         ]);
 
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
@@ -48,14 +44,13 @@ class ValidateTest extends ManagementTest
         $user = [
             'name' => 'test',
             'password' => 'test',
-            'company' => parent::API.'companies/'.$this->getCompany()->getId()
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
         ];
 
         $response = static::createClient()->request('POST', parent::API.'users', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
-            'body' => json_encode($user)
+            'body' => json_encode($user),
         ]);
 
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
@@ -75,14 +70,13 @@ class ValidateTest extends ManagementTest
         $user = [
             'email' => 'test@email.com',
             'password' => 'test',
-            'company' => parent::API.'companies/'.$this->getCompany()->getId()
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
         ];
 
         $response = static::createClient()->request('POST', parent::API.'users', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
-            'body' => json_encode($user)
+            'body' => json_encode($user),
         ]);
 
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
@@ -102,14 +96,13 @@ class ValidateTest extends ManagementTest
         $user = [
             'email' => 'test@email.com',
             'name' => 'test',
-            'company' => parent::API.'companies/'.$this->getCompany()->getId()
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
         ];
 
         $response = static::createClient()->request('POST', parent::API.'users', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
-            'body' => json_encode($user)
+            'body' => json_encode($user),
         ]);
 
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);

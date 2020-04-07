@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Subscribers;
 
 use App\Entity\Product;
@@ -16,14 +15,14 @@ use RuntimeException;
 class PurchaseLineSubscriber implements EventSubscriber
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getSubscribedEvents(): array
     {
         return [
             Events::prePersist,
             Events::preRemove,
-            Events::preUpdate
+            Events::preUpdate,
         ];
     }
 
@@ -50,7 +49,6 @@ class PurchaseLineSubscriber implements EventSubscriber
         if (!$provider instanceof Provider) {
             throw new  RuntimeException('provider: This value should not be blank.');
         }
-
 
         $concurrences = $purchase->getPurchaseLines()
             ->filter(

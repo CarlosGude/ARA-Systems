@@ -20,7 +20,7 @@ final class Version20200316020358 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE provider ADD image_id VARCHAR(255) DEFAULT NULL');
         $this->addSql('ALTER TABLE provider ADD CONSTRAINT FK_92C4739C3DA5256D FOREIGN KEY (image_id) REFERENCES media_object (id)');
@@ -30,7 +30,7 @@ final class Version20200316020358 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE provider DROP FOREIGN KEY FK_92C4739C3DA5256D');
         $this->addSql('DROP INDEX IDX_92C4739C3DA5256D ON provider');

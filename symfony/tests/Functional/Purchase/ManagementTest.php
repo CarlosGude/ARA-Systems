@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Tests\Functional\Purchase;
 
 use App\Entity\Purchase;
@@ -14,8 +13,7 @@ use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
- * Class ManagementTest
- * @package App\Tests\Functional\Purchase
+ * Class ManagementTest.
  */
 class ManagementTest extends BaseTest
 {
@@ -36,7 +34,6 @@ class ManagementTest extends BaseTest
         $this->token = $this->getToken();
     }
 
-
     /**
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface
@@ -47,8 +44,8 @@ class ManagementTest extends BaseTest
     {
         $response = static::createClient()->request('GET', parent::API.'purchases', [
             'headers' => [
-                'Authorization' => 'Bearer '.$this->token['token']
-            ]
+                'Authorization' => 'Bearer '.$this->token['token'],
+            ],
         ]);
 
         $response = json_decode($response->getContent(), true);
@@ -70,8 +67,8 @@ class ManagementTest extends BaseTest
 
         $response = static::createClient()->request('GET', parent::API.'purchases/'.$purchase->getId(), [
             'headers' => [
-                'Authorization' => 'Bearer '.$this->token['token']
-            ]
+                'Authorization' => 'Bearer '.$this->token['token'],
+            ],
         ]);
 
         $response = json_decode($response->getContent(), true);
@@ -95,14 +92,13 @@ class ManagementTest extends BaseTest
             'reference' => 'test',
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
             'provider' => parent::API.'providers/'.$this->getProvider()->getId(),
-            'status' => 'pending'
+            'status' => 'pending',
         ];
 
         $response = static::createClient()->request('POST', parent::API.'purchases', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
-            'body' => json_encode($purchase)
+            'body' => json_encode($purchase),
         ]);
         $this->assertResponseIsSuccessfulAndInJson();
         $response = json_decode($response->getContent(), true);
@@ -128,10 +124,9 @@ class ManagementTest extends BaseTest
         $response = static::createClient()->request('PUT', parent::API.'purchases/'.$purchase->getId(), [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
             'body' => json_encode([
                 'reference' => 'test',
-            ])
+            ]),
         ]);
         $this->assertResponseIsSuccessfulAndInJson();
         $response = json_decode($response->getContent(), true);
@@ -153,8 +148,6 @@ class ManagementTest extends BaseTest
 
         static::createClient()->request('DELETE', parent::API.'purchases/'.$purchase->getId(), [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
-
-
         ]);
 
         self::assertResponseStatusCodeSame(204, 'The response is not 204');

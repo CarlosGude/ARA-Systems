@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Tests\Functional\User;
 
 use App\Tests\Functional\BaseTest;

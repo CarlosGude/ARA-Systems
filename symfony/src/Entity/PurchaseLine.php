@@ -172,34 +172,22 @@ class PurchaseLine
         return $this;
     }
 
-    /**
-     * @return float
-     */
     public function getTotalWithoutTaxes(): float
     {
         return $this->totalWithoutTaxes;
     }
 
-    /**
-     * @return PurchaseLine
-     */
     public function setTotalWithoutTaxes(): PurchaseLine
     {
         $this->totalWithoutTaxes = $this->getTotal() + ($this->getTotal() * ($this->getTax() / 100));
         return $this;
     }
 
-    /**
-     * @return float
-     */
     public function getTotal(): float
     {
         return $this->total;
     }
 
-    /**
-     * @return PurchaseLine
-     */
     public function setTotal(): PurchaseLine
     {
         $this->total = $this->getPrice() * $this->getQuantity();

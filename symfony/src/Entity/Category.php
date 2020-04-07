@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Entity;
 
 use DateTime;
@@ -109,36 +108,22 @@ class Category
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @param string $id
-     * @return Category
-     */
     public function setId(string $id): Category
     {
         $this->id = $id;
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     * @return Category
-     */
     public function setName(string $name): Category
     {
         $this->name = $name;
@@ -155,7 +140,6 @@ class Category
 
     /**
      * @param string $description
-     * @return Category
      */
     public function setDescription(?string $description): Category
     {
@@ -163,36 +147,22 @@ class Category
         return $this;
     }
 
-    /**
-     * @return DateTime
-     */
     public function getCreatedAt(): DateTime
     {
         return $this->createdAt;
     }
 
-    /**
-     * @param DateTime $createdAt
-     * @return Category
-     */
     public function setCreatedAt(DateTime $createdAt): Category
     {
         $this->createdAt = $createdAt;
         return $this;
     }
 
-    /**
-     * @return DateTime
-     */
     public function getUpdatedAt(): DateTime
     {
         return $this->updatedAt;
     }
 
-    /**
-     * @param DateTime $updatedAt
-     * @return Category
-     */
     public function setUpdatedAt(DateTime $updatedAt): Category
     {
         $this->updatedAt = $updatedAt;

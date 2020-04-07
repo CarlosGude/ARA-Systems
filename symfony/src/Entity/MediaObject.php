@@ -92,72 +92,44 @@ class MediaObject
         $this->products = new ArrayCollection();
     }
 
-    /**
-     * @return string
-     */
     public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @param string $id
-     * @return MediaObject
-     */
     public function setId(string $id): MediaObject
     {
         $this->id = $id;
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getContentUrl(): ?string
     {
         return $this->contentUrl;
     }
 
-    /**
-     * @param string|null $contentUrl
-     * @return MediaObject
-     */
     public function setContentUrl(?string $contentUrl): MediaObject
     {
         $this->contentUrl = $contentUrl;
         return $this;
     }
 
-    /**
-     * @return File|null
-     */
     public function getFile(): ?File
     {
         return $this->file;
     }
 
-    /**
-     * @param File|null $file
-     * @return MediaObject
-     */
     public function setFile(?File $file): MediaObject
     {
         $this->file = $file;
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getFilePath(): ?string
     {
         return $this->filePath;
     }
 
-    /**
-     * @param string|null $filePath
-     * @return MediaObject
-     */
     public function setFilePath(?string $filePath): MediaObject
     {
         $this->filePath = $filePath;

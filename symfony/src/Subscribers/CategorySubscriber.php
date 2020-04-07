@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Subscribers;
 
 use App\Entity\Category;
@@ -13,17 +12,16 @@ use RuntimeException;
 class CategorySubscriber implements EventSubscriber
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getSubscribedEvents(): array
     {
         return [
-            Events::preRemove
+            Events::preRemove,
         ];
     }
 
     /**
-     * @param LifecycleEventArgs $args
      * @throws Exception
      */
     public function preRemove(LifecycleEventArgs $args): void
@@ -35,10 +33,7 @@ class CategorySubscriber implements EventSubscriber
         }
 
         if ($category->getProducts()->count() > 0) {
-            throw new RuntimeException(
-                'The category ' . $category->getName() . ' can not be deleted because it has products nested.',
-                400
-            );
+            throw new RuntimeException('The category '.$category->getName().' can not be deleted because it has products nested.', 400);
         }
     }
 }

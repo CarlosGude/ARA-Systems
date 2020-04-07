@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Subscribers;
 
 use App\Entity\User;
@@ -21,7 +20,7 @@ class UserSubscriber implements EventSubscriber
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getSubscribedEvents(): array
     {

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Subscribers;
 
 use App\Entity\Product;
@@ -13,13 +12,13 @@ use RuntimeException;
 class ProductSubscriber implements EventSubscriber
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getSubscribedEvents(): array
     {
         return [
             Events::prePersist,
-            Events::preUpdate
+            Events::preUpdate,
         ];
     }
 
@@ -35,7 +34,7 @@ class ProductSubscriber implements EventSubscriber
             throw new RuntimeException('The category of product must be owned by the company');
         }
 
-        /** The products inherit some values from the category */
+        /* The products inherit some values from the category */
         $product
             ->setTax($product->getCategory()->getTax())
             ->setMinStock($product->getCategory()->getMinStock())

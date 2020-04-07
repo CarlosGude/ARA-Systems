@@ -1,14 +1,12 @@
 <?php
 
-
 namespace App\Tests\Functional\Category;
 
 use App\Tests\Functional\User\ManagementTest;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
- * Class ValidateTest
- * @package App\Tests\Functional\Category
+ * Class ValidateTest.
  */
 class ValidateTest extends ManagementTest
 {
@@ -19,14 +17,13 @@ class ValidateTest extends ManagementTest
     {
         $category = [
             'description' => 'test',
-            'company' => parent::API.'companies/'.$this->getCompany()->getId()
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
         ];
 
         $response = static::createClient()->request('POST', parent::API.'categories', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
-            'body' => json_encode($category)
+            'body' => json_encode($category),
         ]);
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
 
@@ -36,7 +33,6 @@ class ValidateTest extends ManagementTest
             $response['hydra:description']
         );
     }
-
 
     /**
      * @throws TransportExceptionInterface
@@ -51,8 +47,7 @@ class ValidateTest extends ManagementTest
         $response = static::createClient()->request('POST', parent::API.'categories', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
-            'body' => json_encode($category)
+            'body' => json_encode($category),
         ]);
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
 
@@ -71,7 +66,7 @@ class ValidateTest extends ManagementTest
         $response = static::createClient()->request(
             'DELETE',
             parent::API.'categories/'.$this->getCategory()->getId(),
-            ['headers' => ['Authorization' => 'Bearer '.$this->token['token']]
+            ['headers' => ['Authorization' => 'Bearer '.$this->token['token']],
             ]
         );
 
@@ -98,14 +93,13 @@ class ValidateTest extends ManagementTest
             'name' => 'test',
             'description' => 'test',
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
-            'tax' => 'IVA not valid'
+            'tax' => 'IVA not valid',
         ];
 
         $response = static::createClient()->request('POST', parent::API.'categories', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
-            'body' => json_encode($category)
+            'body' => json_encode($category),
         ]);
 
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
@@ -125,14 +119,13 @@ class ValidateTest extends ManagementTest
             'name' => 'test',
             'description' => 'test',
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
-            'minStock' => 'Stock not valid'
+            'minStock' => 'Stock not valid',
         ];
 
         $response = static::createClient()->request('POST', parent::API.'categories', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
-            'body' => json_encode($category)
+            'body' => json_encode($category),
         ]);
 
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
@@ -159,8 +152,7 @@ class ValidateTest extends ManagementTest
         $response = static::createClient()->request('POST', parent::API.'categories', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
-            'body' => json_encode($category)
+            'body' => json_encode($category),
         ]);
 
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
@@ -180,14 +172,13 @@ class ValidateTest extends ManagementTest
             'name' => 'test',
             'description' => 'test',
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
-            'tax' => 999999
+            'tax' => 999999,
         ];
 
         $response = static::createClient()->request('POST', parent::API.'categories', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
-            'body' => json_encode($category)
+            'body' => json_encode($category),
         ]);
 
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);

@@ -1,18 +1,15 @@
 <?php
 
-
 namespace App\Tests\Functional\Provider;
 
 use App\Tests\Functional\User\ManagementTest;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
- * Class ValidateTest
- * @package App\Tests\Functional\Provider
+ * Class ValidateTest.
  */
 class ValidateTest extends ManagementTest
 {
-
     /**
      * @throws TransportExceptionInterface
      */
@@ -20,14 +17,13 @@ class ValidateTest extends ManagementTest
     {
         $category = [
             'description' => 'test',
-            'company' => parent::API.'companies/'.$this->getCompany()->getId()
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
         ];
 
         $response = static::createClient()->request('POST', parent::API.'categories', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
-            'body' => json_encode($category)
+            'body' => json_encode($category),
         ]);
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
 
@@ -51,8 +47,7 @@ class ValidateTest extends ManagementTest
         $response = static::createClient()->request('POST', parent::API.'categories', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
-            'body' => json_encode($category)
+            'body' => json_encode($category),
         ]);
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
 

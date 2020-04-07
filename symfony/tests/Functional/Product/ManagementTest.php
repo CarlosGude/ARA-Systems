@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Tests\Functional\Product;
 
 use App\Entity\Product;
@@ -14,8 +13,7 @@ use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
- * Class ManagementTest
- * @package App\Tests\Functional\Product
+ * Class ManagementTest.
  */
 class ManagementTest extends BaseTest
 {
@@ -46,8 +44,8 @@ class ManagementTest extends BaseTest
     {
         $response = static::createClient()->request('GET', parent::API.'products', [
             'headers' => [
-                'Authorization' => 'Bearer '.$this->token['token']
-            ]
+                'Authorization' => 'Bearer '.$this->token['token'],
+            ],
         ]);
 
         $response = json_decode($response->getContent(), true);
@@ -69,8 +67,8 @@ class ManagementTest extends BaseTest
 
         $response = static::createClient()->request('GET', parent::API.'products/'.$product->getId(), [
             'headers' => [
-                'Authorization' => 'Bearer '.$this->token['token']
-            ]
+                'Authorization' => 'Bearer '.$this->token['token'],
+            ],
         ]);
 
         $response = json_decode($response->getContent(), true);
@@ -106,8 +104,7 @@ class ManagementTest extends BaseTest
         $response = static::createClient()->request('POST', parent::API.'products', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
-            'body' => json_encode($product)
+            'body' => json_encode($product),
         ]);
         $this->assertResponseIsSuccessfulAndInJson();
         $response = json_decode($response->getContent(), true);
@@ -135,7 +132,7 @@ class ManagementTest extends BaseTest
             'PUT',
             parent::API.'products/'.$product->getId(),
             ['headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
-                'body' => json_encode(['name' => 'Fake Product'])
+                'body' => json_encode(['name' => 'Fake Product']),
             ]
         );
 
@@ -159,7 +156,7 @@ class ManagementTest extends BaseTest
         $product = $this->getProduct('Product 1', $this->getCompany('Another company'));
 
         static::createClient()->request('DELETE', parent::API.'products/'.$product->getId(), [
-            'headers' => ['Authorization' => 'Bearer '.$this->token['token']]
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token']],
         ]);
 
         self::assertResponseStatusCodeSame(204, 'The response is not 204');
@@ -176,11 +173,10 @@ class ManagementTest extends BaseTest
         $response = static::createClient()->request('PUT', parent::API.'products/'.$this->getProduct()->getId(), [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
             'body' => json_encode([
                 'providers' => [parent::API.'providers/'.$this->getProvider()->getId()],
                 'user' => parent::API.'users/'.$this->getGodUser()->getId(),
-            ])
+            ]),
         ]);
 
         $response = json_decode($response->getContent(), true);

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Tests\Functional\PurchaseLine;
 
 use App\Tests\Functional\BaseTest;
@@ -10,8 +9,7 @@ use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
- * Class EventSubscriberTest
- * @package App\Tests\Functional\PurchaseLine
+ * Class EventSubscriberTest.
  */
 class EventSubscriberTest extends BaseTest
 {
@@ -32,7 +30,6 @@ class EventSubscriberTest extends BaseTest
         $this->token = $this->getToken();
     }
 
-
     /**
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface
@@ -46,14 +43,13 @@ class EventSubscriberTest extends BaseTest
             'product' => parent::API.'products/'.$this->getProduct()->getId(),
             'company' => parent::API.'companies/'.$this->getProduct()->getCompany()->getId(),
             'provider' => parent::API.'providers/'.$this->getProvider()->getId(),
-            'quantity' => 1
+            'quantity' => 1,
         ];
 
         $response = static::createClient()->request('POST', parent::API.'purchase_lines', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
-            'body' => json_encode($purchase)
+            'body' => json_encode($purchase),
         ]);
         $this->assertResponseIsSuccessfulAndInJson();
 
@@ -66,9 +62,6 @@ class EventSubscriberTest extends BaseTest
         $this->assertEquals(42, $response['purchase']['taxes']);
     }
 
-    /**
-     *
-     */
     public function testRemoveLineAndUpdateTotal(): void
     {
         $purchase = $this->getPurchase($this->getCompany(), 'm_l_pur');
@@ -100,9 +93,9 @@ class EventSubscriberTest extends BaseTest
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.$this->token['token'],
-                    'Content-Type' => 'application/json'
+                    'Content-Type' => 'application/json',
                 ],
-                'body' => json_encode(['quantity' => 20])
+                'body' => json_encode(['quantity' => 20]),
             ]
         );
         $this->assertResponseIsSuccessfulAndInJson();
@@ -132,9 +125,9 @@ class EventSubscriberTest extends BaseTest
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.$this->token['token'],
-                    'Content-Type' => 'application/json'
+                    'Content-Type' => 'application/json',
                 ],
-                'body' => json_encode(['quantity' => 5])
+                'body' => json_encode(['quantity' => 5]),
             ]
         );
         $this->assertResponseIsSuccessfulAndInJson();

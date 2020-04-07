@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Tests\Functional\Product;
 
 use App\Tests\Functional\User\ManagementTest;
@@ -10,12 +9,10 @@ use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
- * Class ValidateTest
- * @package App\Tests\Functional\Product
+ * Class ValidateTest.
  */
 class ValidateTest extends ManagementTest
 {
-
     /**
      * @throws TransportExceptionInterface
      */
@@ -25,14 +22,13 @@ class ValidateTest extends ManagementTest
             'user' => parent::API.'users/'.$this->getGodUser()->getId(),
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
             'category' => parent::API.'categories/'.$this->getCategory()->getId(),
-            'price' => 20
+            'price' => 20,
         ];
 
         $response = static::createClient()->request('POST', parent::API.'products', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
-            'body' => json_encode($product)
+            'body' => json_encode($product),
         ]);
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
 
@@ -53,14 +49,13 @@ class ValidateTest extends ManagementTest
             'description' => 'test',
             'user' => parent::API.'users/'.$this->getGodUser()->getId(),
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
-            'price' => 20
+            'price' => 20,
         ];
 
         $response = static::createClient()->request('POST', parent::API.'products', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
-            'body' => json_encode($product)
+            'body' => json_encode($product),
         ]);
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
 
@@ -81,14 +76,13 @@ class ValidateTest extends ManagementTest
             'description' => 'test',
             'user' => parent::API.'users/'.$this->getGodUser()->getId(),
             'category' => parent::API.'categories/'.$this->getCategory()->getId(),
-            'price' => 22
+            'price' => 22,
         ];
 
         $response = static::createClient()->request('POST', parent::API.'products', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
-            'body' => json_encode($product)
+            'body' => json_encode($product),
         ]);
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
 
@@ -117,8 +111,7 @@ class ValidateTest extends ManagementTest
         $response = static::createClient()->request('POST', parent::API.'products', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
-            'body' => json_encode($product)
+            'body' => json_encode($product),
         ]);
 
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
@@ -146,8 +139,7 @@ class ValidateTest extends ManagementTest
         $response = static::createClient()->request('POST', parent::API.'products', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
-            'body' => json_encode($product)
+            'body' => json_encode($product),
         ]);
 
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
@@ -170,14 +162,13 @@ class ValidateTest extends ManagementTest
             'category' => parent::API.'categories/'.$this->getCategory()->getId(),
             'minStock' => 0,
             'maxStock' => 100,
-            'price' => -100
+            'price' => -100,
         ];
 
         $response = static::createClient()->request('POST', parent::API.'products', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
-            'body' => json_encode($product)
+            'body' => json_encode($product),
         ]);
 
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
@@ -210,8 +201,7 @@ class ValidateTest extends ManagementTest
         $response = static::createClient()->request('POST', parent::API.'products', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
-            'body' => json_encode($product)
+            'body' => json_encode($product),
         ]);
 
         $this->assertResponseIsSuccessfulAndInJson();

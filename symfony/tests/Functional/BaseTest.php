@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Tests\Functional;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
@@ -19,20 +18,15 @@ use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
- * Class BaseTest
- * @package App\Tests\Functional
+ * Class BaseTest.
  */
 abstract class BaseTest extends ApiTestCase
 {
     use RefreshDatabaseTrait;
 
-    /**
-     *
-     */
     protected const API = '/api/v1/';
 
     /**
-     * @return array
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
@@ -119,7 +113,7 @@ abstract class BaseTest extends ApiTestCase
             ->getRepository(Product::class)
             ->findOneBy([
                 'name' => $name,
-                'company' => $company
+                'company' => $company,
             ]);
 
         return $product;
@@ -134,7 +128,7 @@ abstract class BaseTest extends ApiTestCase
             ->getRepository(Purchase::class)
             ->findOneBy([
                 'company' => $company,
-                'reference' => $reference
+                'reference' => $reference,
             ]);
 
         return $purchase;
@@ -149,7 +143,7 @@ abstract class BaseTest extends ApiTestCase
             ->getRepository(PurchaseLine::class)
             ->findOneBy([
                 'product' => $product,
-                'purchase' => $purchase
+                'purchase' => $purchase,
             ]);
 
         return $purchaseLine;

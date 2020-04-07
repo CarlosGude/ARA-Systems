@@ -1,4 +1,6 @@
-<?php /** @noinspection ALL */
+<?php
+
+/** @noinspection ALL */
 /** @noinspection ALL */
 /** @noinspection ALL */
 
@@ -30,7 +32,6 @@ class PurchaseVoter extends Voter
     /**
      * @param $attribute string
      * @param $subject User
-     * @return bool
      */
     protected function supports($attribute, $subject): bool
     {
@@ -42,10 +43,8 @@ class PurchaseVoter extends Voter
     }
 
     /**
-     * @param string $attribute
+     * @param string    $attribute
      * @param User|null $subject
-     * @param TokenInterface $token
-     * @return bool
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
@@ -56,9 +55,7 @@ class PurchaseVoter extends Voter
         $user = $token->getUser();
 
         if (!$user instanceof User) {
-            throw new UnauthorizedHttpException(
-                'Need to login'
-            );
+            throw new UnauthorizedHttpException('Need to login');
         }
 
         if (in_array(User::ROLE_GOD, $user->getRoles(), true)) {

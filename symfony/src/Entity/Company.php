@@ -105,90 +105,55 @@ class Company
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @param string $id
-     * @return Company
-     */
     public function setId(string $id): Company
     {
         $this->id = $id;
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     * @return Company
-     */
     public function setName(string $name): Company
     {
         $this->name = $name;
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    /**
-     * @param string|null $description
-     * @return Company
-     */
     public function setDescription(?string $description): Company
     {
         $this->description = $description;
         return $this;
     }
 
-    /**
-     * @return DateTime
-     */
     public function getCreatedAt(): DateTime
     {
         return $this->createdAt;
     }
 
-    /**
-     * @param DateTime $createdAt
-     * @return Company
-     */
     public function setCreatedAt(DateTime $createdAt): Company
     {
         $this->createdAt = $createdAt;
         return $this;
     }
 
-    /**
-     * @return DateTime
-     */
     public function getUpdatedAt(): DateTime
     {
         return $this->updatedAt;
     }
 
-    /**
-     * @param DateTime $updatedAt
-     * @return Company
-     */
     public function setUpdatedAt(DateTime $updatedAt): Company
     {
         $this->updatedAt = $updatedAt;
@@ -319,18 +284,11 @@ class Company
         return $this;
     }
 
-    /**
-     * @return MediaObject|null
-     */
     public function getImage(): ?MediaObject
     {
         return $this->image;
     }
 
-    /**
-     * @param MediaObject|null $image
-     * @return Company
-     */
     public function setImage(?MediaObject $image): Company
     {
         $this->image = $image;

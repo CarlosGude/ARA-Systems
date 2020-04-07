@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Tests\Functional\Provider;
 
 use App\Entity\Provider;
@@ -14,8 +13,7 @@ use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
- * Class ManagementTest
- * @package App\Tests\Functional\Provider
+ * Class ManagementTest.
  */
 class ManagementTest extends BaseTest
 {
@@ -36,7 +34,6 @@ class ManagementTest extends BaseTest
         $this->token = $this->getToken();
     }
 
-
     /**
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface
@@ -45,10 +42,10 @@ class ManagementTest extends BaseTest
      */
     public function testReadAllProviders(): void
     {
-        $response = static::createClient()->request('GET', parent::API . 'providers', [
+        $response = static::createClient()->request('GET', parent::API.'providers', [
             'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token']
-            ]
+                'Authorization' => 'Bearer '.$this->token['token'],
+            ],
         ]);
 
         $response = json_decode($response->getContent(), true);
@@ -68,10 +65,10 @@ class ManagementTest extends BaseTest
         /** @var Provider $provider */
         $provider = $this->getProvider();
 
-        $response = static::createClient()->request('GET', parent::API . 'providers/' . $provider->getId(), [
+        $response = static::createClient()->request('GET', parent::API.'providers/'.$provider->getId(), [
             'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token']
-            ]
+                'Authorization' => 'Bearer '.$this->token['token'],
+            ],
         ]);
 
         $response = json_decode($response->getContent(), true);
@@ -80,7 +77,7 @@ class ManagementTest extends BaseTest
         $this->assertEquals(
             $provider->getName(),
             $response['name'],
-            'The expected name was ' . $response['name'] . ' but ' . $provider->getName() . ' has found'
+            'The expected name was '.$response['name'].' but '.$provider->getName().' has found'
         );
     }
 
@@ -95,14 +92,13 @@ class ManagementTest extends BaseTest
         $provider = [
             'name' => 'test',
             'description' => 'test',
-            'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
         ];
 
-        $response = static::createClient()->request('POST', parent::API . 'providers', [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        $response = static::createClient()->request('POST', parent::API.'providers', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
-            'body' => json_encode($provider)
+            'body' => json_encode($provider),
         ]);
         $this->assertResponseIsSuccessfulAndInJson();
         $response = json_decode($response->getContent(), true);
@@ -110,7 +106,7 @@ class ManagementTest extends BaseTest
         $this->assertEquals(
             $provider['name'],
             $response['name'],
-            'The expected name was ' . $response['name'] . ' but ' . $response['name'] . ' has found'
+            'The expected name was '.$response['name'].' but '.$response['name'].' has found'
         );
     }
 
@@ -126,11 +122,10 @@ class ManagementTest extends BaseTest
         /** @var Provider $provider */
         $provider = $this->getProvider();
 
-        $response = static::createClient()->request('PUT', parent::API . 'providers/' . $provider->getId(), [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        $response = static::createClient()->request('PUT', parent::API.'providers/'.$provider->getId(), [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-
-            'body' => json_encode(['name' => 'Fake Provider'])
+            'body' => json_encode(['name' => 'Fake Provider']),
         ]);
 
         $response = json_decode($response->getContent(), true);
@@ -139,7 +134,7 @@ class ManagementTest extends BaseTest
         $this->assertEquals(
             'Fake Provider',
             $response['name'],
-            'The expected name was ' . $response['name'] . ' but ' . $provider->getName() . ' has found'
+            'The expected name was '.$response['name'].' but '.$provider->getName().' has found'
         );
         $this->assertRecentlyDateTime(new DateTime($response['updatedAt'], new DateTimeZone('UTC')));
     }
@@ -152,8 +147,8 @@ class ManagementTest extends BaseTest
         /** @var Provider $provider */
         $provider = $this->getProvider('Provider 1');
 
-        static::createClient()->request('DELETE', parent::API . 'providers/' . $provider->getId(), [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token']]
+        static::createClient()->request('DELETE', parent::API.'providers/'.$provider->getId(), [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token']],
         ]);
 
         self::assertResponseStatusCodeSame(204, 'The response is not 204');

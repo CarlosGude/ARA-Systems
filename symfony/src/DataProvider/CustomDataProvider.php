@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\DataProvider;
 
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\PaginationExtension;
@@ -38,14 +37,12 @@ class CustomDataProvider implements CollectionDataProviderInterface, RestrictedD
      */
     private $requestStack;
 
-
     public function __construct(
         Security $security,
         ManagerRegistry $managerRegistry,
         PaginationExtension $paginationExtension,
         RequestStack $requestStack
-    )
-    {
+    ) {
         $this->security = $security;
         $this->managerRegistry = $managerRegistry;
         $this->paginationExtension = $paginationExtension;
@@ -53,7 +50,7 @@ class CustomDataProvider implements CollectionDataProviderInterface, RestrictedD
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getCollection(string $resourceClass, string $operationName = null)
     {
@@ -72,7 +69,7 @@ class CustomDataProvider implements CollectionDataProviderInterface, RestrictedD
 
         if (array_key_exists('order', $parameters)) {
             $order = key($parameters['order']);
-            $queryBuilder->orderBy('u.' . $order, $parameters['order'][$order]);
+            $queryBuilder->orderBy('u.'.$order, $parameters['order'][$order]);
         }
 
         $this->paginationExtension->applyToCollection(
@@ -93,11 +90,11 @@ class CustomDataProvider implements CollectionDataProviderInterface, RestrictedD
 
     public function supports(string $resourceClass, string $operationName = null, array $context = []): bool
     {
-        if ($resourceClass === Company::class) {
+        if (Company::class === $resourceClass) {
             return false;
         }
 
-        if ($operationName !== 'get') {
+        if ('get' !== $operationName) {
             return false;
         }
         $this->context = $context;

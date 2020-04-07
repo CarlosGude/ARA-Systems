@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Tests\Functional\Company;
 
 use App\Entity\Company;
@@ -14,8 +13,7 @@ use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
- * Class ManagementTest
- * @package App\Tests\Functional\Company
+ * Class ManagementTest.
  */
 class ManagementTest extends BaseTest
 {
@@ -36,7 +34,6 @@ class ManagementTest extends BaseTest
         $this->token = $this->getToken();
     }
 
-
     /**
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface
@@ -46,7 +43,7 @@ class ManagementTest extends BaseTest
     public function testReadAllCompanies(): void
     {
         $response = static::createClient()->request('GET', parent::API.'companies', [
-            'headers' => ['Authorization' => 'Bearer '.$this->token['token']]
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token']],
         ]);
 
         $response = json_decode($response->getContent(), true);
@@ -63,12 +60,11 @@ class ManagementTest extends BaseTest
      */
     public function testReadACompany(): void
     {
-
         /** @var Company $company */
         $company = $this->getCompany();
 
         $response = static::createClient()->request('GET', parent::API.'companies/'.$company->getId(), [
-            'headers' => ['Authorization' => 'Bearer '.$this->token['token']]
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token']],
         ]);
 
         $response = json_decode($response->getContent(), true);
@@ -93,7 +89,7 @@ class ManagementTest extends BaseTest
 
         $response = static::createClient()->request('POST', parent::API.'companies', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
-            'body' => json_encode($company)
+            'body' => json_encode($company),
         ]);
         $this->assertResponseIsSuccessfulAndInJson();
         $response = json_decode($response->getContent(), true);
@@ -119,7 +115,7 @@ class ManagementTest extends BaseTest
 
         $response = static::createClient()->request('PUT', parent::API.'companies/'.$company->getId(), [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
-            'body' => json_encode(['name' => 'Fake Company'])
+            'body' => json_encode(['name' => 'Fake Company']),
         ]);
 
         $response = json_decode($response->getContent(), true);
@@ -138,12 +134,11 @@ class ManagementTest extends BaseTest
      */
     public function testDeleteACompany(): void
     {
-
         /** @var Company $company */
         $company = $this->getCompany('The Company 3');
 
         static::createClient()->request('DELETE', parent::API.'companies/'.$company->getId(), [
-            'headers' => ['Authorization' => 'Bearer '.$this->token['token']]
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token']],
         ]);
 
         self::assertResponseStatusCodeSame(204, 'The response is not 204');
