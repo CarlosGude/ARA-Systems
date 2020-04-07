@@ -5,6 +5,8 @@ namespace App\Tests\Functional\User;
 
 use App\Entity\User;
 use App\Tests\Functional\BaseTest;
+use DateTime;
+use Exception;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
@@ -118,6 +120,7 @@ class ManagementTest extends BaseTest
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
+     * @throws Exception
      */
     public function testEditAUser(): void
     {
@@ -139,6 +142,7 @@ class ManagementTest extends BaseTest
             $response['name'],
             'The expected email was ' . $response['email'] . ' but ' . $randomUser->getEmail() . ' has found'
         );
+        $this->assertRecentlyDateTime(new DateTime($response['updatedAt']));
     }
 
     /**

@@ -11,6 +11,7 @@ use App\Entity\Provider;
 use App\Entity\Purchase;
 use App\Entity\PurchaseLine;
 use App\Entity\User;
+use DateTime;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -45,6 +46,12 @@ abstract class BaseTest extends ApiTestCase
         ]]);
 
         return json_decode($response->getContent(), true);
+    }
+
+    protected function assertRecentlyDateTime(DateTime $dateTime): void
+    {
+        $this->assertGreaterThanOrEqual(new DateTime('-1 second'), $dateTime);
+        $this->assertLessThanOrEqual(new DateTime('+1 second'), $dateTime);
     }
 
     protected function assertResponseIsSuccessfulAndInJson(): void

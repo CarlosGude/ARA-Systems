@@ -5,6 +5,8 @@ namespace App\Tests\Functional\Category;
 
 use App\Entity\Category;
 use App\Tests\Functional\BaseTest;
+use DateTime;
+use Exception;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
@@ -110,6 +112,7 @@ class ManagementTest extends BaseTest
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
+     * @throws Exception
      */
     public function testEditACategory(): void
     {
@@ -129,6 +132,7 @@ class ManagementTest extends BaseTest
             $response['name'],
             'The expected name was ' . $response['name'] . ' but ' . $category->getName() . ' has found'
         );
+        $this->assertRecentlyDateTime(new DateTime($response['updatedAt']));
     }
 
     /**
