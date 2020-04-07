@@ -20,11 +20,11 @@ class ValidateTest extends ManagementTest
     {
         $category = [
             'description' => 'test',
-            'company' => parent::API . 'companies/' . $this->getCompany()->getId()
+            'company' => parent::API.'companies/'.$this->getCompany()->getId()
         ];
 
-        $response = static::createClient()->request('POST', parent::API . 'categories', [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        $response = static::createClient()->request('POST', parent::API.'categories', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
 
             'body' => json_encode($category)
@@ -48,8 +48,8 @@ class ValidateTest extends ManagementTest
             'description' => 'test',
         ];
 
-        $response = static::createClient()->request('POST', parent::API . 'categories', [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        $response = static::createClient()->request('POST', parent::API.'categories', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
 
             'body' => json_encode($category)

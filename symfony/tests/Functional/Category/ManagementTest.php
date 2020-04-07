@@ -45,8 +45,8 @@ class ManagementTest extends BaseTest
      */
     public function testReadAllCategories(): void
     {
-        $response = static::createClient()->request('GET', parent::API . 'categories', [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token']]
+        $response = static::createClient()->request('GET', parent::API.'categories', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token']]
         ]);
 
         $response = json_decode($response->getContent(), true);
@@ -65,8 +65,8 @@ class ManagementTest extends BaseTest
     {
         $category = $this->getCategory();
 
-        $response = static::createClient()->request('GET', parent::API . 'categories/' . $category->getId(), [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token']]
+        $response = static::createClient()->request('GET', parent::API.'categories/'.$category->getId(), [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token']]
         ]);
 
         $response = json_decode($response->getContent(), true);
@@ -75,7 +75,7 @@ class ManagementTest extends BaseTest
         $this->assertEquals(
             $category->getName(),
             $response['name'],
-            'The expected name was ' . $response['name'] . ' but ' . $category->getName() . ' has found'
+            'The expected name was '.$response['name'].' but '.$category->getName().' has found'
         );
     }
 
@@ -90,12 +90,12 @@ class ManagementTest extends BaseTest
         $category = [
             'name' => 'test',
             'description' => 'test',
-            'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
             'tax' => 21
         ];
 
-        $response = static::createClient()->request('POST', parent::API . 'categories', [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        $response = static::createClient()->request('POST', parent::API.'categories', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
             'body' => json_encode($category)
         ]);
         $this->assertResponseIsSuccessfulAndInJson();
@@ -104,7 +104,7 @@ class ManagementTest extends BaseTest
         $this->assertEquals(
             $category['name'],
             $response['name'],
-            'The expected name was ' . $response['name'] . ' but ' . $response['name'] . ' has found'
+            'The expected name was '.$response['name'].' but '.$response['name'].' has found'
         );
     }
 
@@ -120,8 +120,8 @@ class ManagementTest extends BaseTest
         /** @var Category $category */
         $category = $this->getCategory();
 
-        $response = static::createClient()->request('PUT', parent::API . 'categories/' . $category->getId(), [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        $response = static::createClient()->request('PUT', parent::API.'categories/'.$category->getId(), [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
             'body' => json_encode(['name' => 'Fake Category'])
         ]);
 
@@ -131,7 +131,7 @@ class ManagementTest extends BaseTest
         $this->assertEquals(
             'Fake Category',
             $response['name'],
-            'The expected name was ' . $response['name'] . ' but ' . $category->getName() . ' has found'
+            'The expected name was '.$response['name'].' but '.$category->getName().' has found'
         );
         $this->assertRecentlyDateTime(new DateTime($response['updatedAt'], new DateTimeZone('UTC')));
     }
@@ -144,8 +144,8 @@ class ManagementTest extends BaseTest
         /** @var Category $category */
         $category = $this->getCategory('Another Category');
 
-        static::createClient()->request('DELETE', parent::API . 'categories/' . $category->getId(), [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token']]
+        static::createClient()->request('DELETE', parent::API.'categories/'.$category->getId(), [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token']]
         ]);
 
         self::assertResponseStatusCodeSame(204, 'The response is not 204');

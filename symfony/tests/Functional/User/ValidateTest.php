@@ -21,11 +21,11 @@ class ValidateTest extends ManagementTest
             'email' => 'Fake email',
             'name' => 'test',
             'password' => 'test',
-            'company' => parent::API . 'companies/' . $this->getCompany()->getId()
+            'company' => parent::API.'companies/'.$this->getCompany()->getId()
         ];
 
-        $response = static::createClient()->request('POST', parent::API . 'users', [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        $response = static::createClient()->request('POST', parent::API.'users', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
 
             'body' => json_encode($user)
@@ -48,11 +48,11 @@ class ValidateTest extends ManagementTest
         $user = [
             'name' => 'test',
             'password' => 'test',
-            'company' => parent::API . 'companies/' . $this->getCompany()->getId()
+            'company' => parent::API.'companies/'.$this->getCompany()->getId()
         ];
 
-        $response = static::createClient()->request('POST', parent::API . 'users', [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        $response = static::createClient()->request('POST', parent::API.'users', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
 
             'body' => json_encode($user)
@@ -75,11 +75,11 @@ class ValidateTest extends ManagementTest
         $user = [
             'email' => 'test@email.com',
             'password' => 'test',
-            'company' => parent::API . 'companies/' . $this->getCompany()->getId()
+            'company' => parent::API.'companies/'.$this->getCompany()->getId()
         ];
 
-        $response = static::createClient()->request('POST', parent::API . 'users', [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        $response = static::createClient()->request('POST', parent::API.'users', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
 
             'body' => json_encode($user)
@@ -102,11 +102,11 @@ class ValidateTest extends ManagementTest
         $user = [
             'email' => 'test@email.com',
             'name' => 'test',
-            'company' => parent::API . 'companies/' . $this->getCompany()->getId()
+            'company' => parent::API.'companies/'.$this->getCompany()->getId()
         ];
 
-        $response = static::createClient()->request('POST', parent::API . 'users', [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        $response = static::createClient()->request('POST', parent::API.'users', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
 
             'body' => json_encode($user)

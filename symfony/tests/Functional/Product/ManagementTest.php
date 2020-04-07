@@ -44,9 +44,9 @@ class ManagementTest extends BaseTest
      */
     public function testReadAllProducts(): void
     {
-        $response = static::createClient()->request('GET', parent::API . 'products', [
+        $response = static::createClient()->request('GET', parent::API.'products', [
             'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token']
+                'Authorization' => 'Bearer '.$this->token['token']
             ]
         ]);
 
@@ -67,9 +67,9 @@ class ManagementTest extends BaseTest
         /** @var Product $product */
         $product = $this->getProduct();
 
-        $response = static::createClient()->request('GET', parent::API . 'products/' . $product->getId(), [
+        $response = static::createClient()->request('GET', parent::API.'products/'.$product->getId(), [
             'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token']
+                'Authorization' => 'Bearer '.$this->token['token']
             ]
         ]);
 
@@ -79,7 +79,7 @@ class ManagementTest extends BaseTest
         $this->assertEquals(
             $product->getName(),
             $response['name'],
-            'The expected name was ' . $response['name'] . ' but ' . $product->getName() . ' has found'
+            'The expected name was '.$response['name'].' but '.$product->getName().' has found'
         );
     }
 
@@ -98,13 +98,13 @@ class ManagementTest extends BaseTest
             'price' => 21,
             'minStock' => 0,
             'stockMax' => 999,
-            'user' => parent::API . 'users/' . $this->getGodUser()->getId(),
-            'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
-            'category' => parent::API . 'categories/' . $this->getCategory()->getId(),
+            'user' => parent::API.'users/'.$this->getGodUser()->getId(),
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
+            'category' => parent::API.'categories/'.$this->getCategory()->getId(),
         ];
 
-        $response = static::createClient()->request('POST', parent::API . 'products', [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        $response = static::createClient()->request('POST', parent::API.'products', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
 
             'body' => json_encode($product)
@@ -115,7 +115,7 @@ class ManagementTest extends BaseTest
         $this->assertEquals(
             $product['name'],
             $response['name'],
-            'The expected name was ' . $response['name'] . ' but ' . $response['name'] . ' has found'
+            'The expected name was '.$response['name'].' but '.$response['name'].' has found'
         );
     }
 
@@ -133,8 +133,8 @@ class ManagementTest extends BaseTest
 
         $response = static::createClient()->request(
             'PUT',
-            parent::API . 'products/' . $product->getId(),
-            ['headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+            parent::API.'products/'.$product->getId(),
+            ['headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
                 'body' => json_encode(['name' => 'Fake Product'])
             ]
         );
@@ -145,7 +145,7 @@ class ManagementTest extends BaseTest
         $this->assertEquals(
             'Fake Product',
             $response['name'],
-            'The expected name was ' . $response['name'] . ' but ' . $product->getName() . ' has found'
+            'The expected name was '.$response['name'].' but '.$product->getName().' has found'
         );
         $this->assertRecentlyDateTime(new DateTime($response['updatedAt'], new DateTimeZone('UTC')));
     }
@@ -158,8 +158,8 @@ class ManagementTest extends BaseTest
         /** @var Product $product */
         $product = $this->getProduct('Product 1', $this->getCompany('Another company'));
 
-        static::createClient()->request('DELETE', parent::API . 'products/' . $product->getId(), [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token']]
+        static::createClient()->request('DELETE', parent::API.'products/'.$product->getId(), [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token']]
         ]);
 
         self::assertResponseStatusCodeSame(204, 'The response is not 204');
@@ -173,13 +173,13 @@ class ManagementTest extends BaseTest
      */
     public function testAddProvider(): void
     {
-        $response = static::createClient()->request('PUT', parent::API . 'products/' . $this->getProduct()->getId(), [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        $response = static::createClient()->request('PUT', parent::API.'products/'.$this->getProduct()->getId(), [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
 
             'body' => json_encode([
-                'providers' => [parent::API . 'providers/' . $this->getProvider()->getId()],
-                'user' => parent::API . 'users/' . $this->getGodUser()->getId(),
+                'providers' => [parent::API.'providers/'.$this->getProvider()->getId()],
+                'user' => parent::API.'users/'.$this->getGodUser()->getId(),
             ])
         ]);
 
@@ -189,7 +189,7 @@ class ManagementTest extends BaseTest
         $this->assertEquals(
             $this->getProvider()->getName(),
             $response['providers'][0]['name'],
-            'The expected name was ' . $response['providers'][0]['name'] . ' but ' . $this->getProvider()->getName() . ' has found'
+            'The expected name was '.$response['providers'][0]['name'].' but '.$this->getProvider()->getName().' has found'
         );
     }
 }

@@ -19,11 +19,11 @@ class ValidateTest extends ManagementTest
     {
         $category = [
             'description' => 'test',
-            'company' => parent::API . 'companies/' . $this->getCompany()->getId()
+            'company' => parent::API.'companies/'.$this->getCompany()->getId()
         ];
 
-        $response = static::createClient()->request('POST', parent::API . 'categories', [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        $response = static::createClient()->request('POST', parent::API.'categories', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
 
             'body' => json_encode($category)
@@ -48,8 +48,8 @@ class ValidateTest extends ManagementTest
             'description' => 'test',
         ];
 
-        $response = static::createClient()->request('POST', parent::API . 'categories', [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        $response = static::createClient()->request('POST', parent::API.'categories', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
 
             'body' => json_encode($category)
@@ -70,8 +70,8 @@ class ValidateTest extends ManagementTest
     {
         $response = static::createClient()->request(
             'DELETE',
-            parent::API . 'categories/' . $this->getCategory()->getId(),
-            ['headers' => ['Authorization' => 'Bearer ' . $this->token['token']]
+            parent::API.'categories/'.$this->getCategory()->getId(),
+            ['headers' => ['Authorization' => 'Bearer '.$this->token['token']]
             ]
         );
 
@@ -80,7 +80,7 @@ class ValidateTest extends ManagementTest
 
         self::assertResponseStatusCodeSame(
             400,
-            'The response is ' . $code . ' but 400 is expected.'
+            'The response is '.$code.' but 400 is expected.'
         );
 
         $this->assertEquals(
@@ -97,12 +97,12 @@ class ValidateTest extends ManagementTest
         $category = [
             'name' => 'test',
             'description' => 'test',
-            'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
             'tax' => 'IVA not valid'
         ];
 
-        $response = static::createClient()->request('POST', parent::API . 'categories', [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        $response = static::createClient()->request('POST', parent::API.'categories', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
 
             'body' => json_encode($category)
@@ -124,12 +124,12 @@ class ValidateTest extends ManagementTest
         $category = [
             'name' => 'test',
             'description' => 'test',
-            'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
             'minStock' => 'Stock not valid'
         ];
 
-        $response = static::createClient()->request('POST', parent::API . 'categories', [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        $response = static::createClient()->request('POST', parent::API.'categories', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
 
             'body' => json_encode($category)
@@ -151,13 +151,13 @@ class ValidateTest extends ManagementTest
         $category = [
             'name' => 'test',
             'description' => 'test',
-            'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
             'stockMax' => 0,
             'minStock' => 100,
         ];
 
-        $response = static::createClient()->request('POST', parent::API . 'categories', [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        $response = static::createClient()->request('POST', parent::API.'categories', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
 
             'body' => json_encode($category)
@@ -179,12 +179,12 @@ class ValidateTest extends ManagementTest
         $category = [
             'name' => 'test',
             'description' => 'test',
-            'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
             'tax' => 999999
         ];
 
-        $response = static::createClient()->request('POST', parent::API . 'categories', [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        $response = static::createClient()->request('POST', parent::API.'categories', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
 
             'body' => json_encode($category)

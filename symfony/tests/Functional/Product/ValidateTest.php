@@ -22,14 +22,14 @@ class ValidateTest extends ManagementTest
     public function testNameRequired(): void
     {
         $product = [
-            'user' => parent::API . 'users/' . $this->getGodUser()->getId(),
-            'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
-            'category' => parent::API . 'categories/' . $this->getCategory()->getId(),
+            'user' => parent::API.'users/'.$this->getGodUser()->getId(),
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
+            'category' => parent::API.'categories/'.$this->getCategory()->getId(),
             'price' => 20
         ];
 
-        $response = static::createClient()->request('POST', parent::API . 'products', [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        $response = static::createClient()->request('POST', parent::API.'products', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
 
             'body' => json_encode($product)
@@ -51,13 +51,13 @@ class ValidateTest extends ManagementTest
         $product = [
             'name' => 'test',
             'description' => 'test',
-            'user' => parent::API . 'users/' . $this->getGodUser()->getId(),
-            'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
+            'user' => parent::API.'users/'.$this->getGodUser()->getId(),
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
             'price' => 20
         ];
 
-        $response = static::createClient()->request('POST', parent::API . 'products', [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        $response = static::createClient()->request('POST', parent::API.'products', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
 
             'body' => json_encode($product)
@@ -79,13 +79,13 @@ class ValidateTest extends ManagementTest
         $product = [
             'name' => 'test',
             'description' => 'test',
-            'user' => parent::API . 'users/' . $this->getGodUser()->getId(),
-            'category' => parent::API . 'categories/' . $this->getCategory()->getId(),
+            'user' => parent::API.'users/'.$this->getGodUser()->getId(),
+            'category' => parent::API.'categories/'.$this->getCategory()->getId(),
             'price' => 22
         ];
 
-        $response = static::createClient()->request('POST', parent::API . 'products', [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        $response = static::createClient()->request('POST', parent::API.'products', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
 
             'body' => json_encode($product)
@@ -107,15 +107,15 @@ class ValidateTest extends ManagementTest
         $product = [
             'name' => 'test',
             'description' => 'test',
-            'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
-            'category' => parent::API . 'categories/' . $this->getCategory()->getId(),
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
+            'category' => parent::API.'categories/'.$this->getCategory()->getId(),
             'maxStock' => 0,
             'minStock' => 100,
             'price' => 100,
         ];
 
-        $response = static::createClient()->request('POST', parent::API . 'products', [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        $response = static::createClient()->request('POST', parent::API.'products', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
 
             'body' => json_encode($product)
@@ -137,14 +137,14 @@ class ValidateTest extends ManagementTest
         $product = [
             'name' => 'test',
             'description' => 'test',
-            'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
-            'category' => parent::API . 'categories/' . $this->getCategory()->getId(),
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
+            'category' => parent::API.'categories/'.$this->getCategory()->getId(),
             'minStock' => 0,
             'maxStock' => 100,
         ];
 
-        $response = static::createClient()->request('POST', parent::API . 'products', [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        $response = static::createClient()->request('POST', parent::API.'products', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
 
             'body' => json_encode($product)
@@ -166,15 +166,15 @@ class ValidateTest extends ManagementTest
         $product = [
             'name' => 'test',
             'description' => 'test',
-            'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
-            'category' => parent::API . 'categories/' . $this->getCategory()->getId(),
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
+            'category' => parent::API.'categories/'.$this->getCategory()->getId(),
             'minStock' => 0,
             'maxStock' => 100,
             'price' => -100
         ];
 
-        $response = static::createClient()->request('POST', parent::API . 'products', [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        $response = static::createClient()->request('POST', parent::API.'products', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
 
             'body' => json_encode($product)
@@ -202,13 +202,13 @@ class ValidateTest extends ManagementTest
             'name' => 'test',
             'description' => 'test',
             'price' => 20,
-            'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
-            'category' => parent::API . 'categories/' . $category->getId(),
-            'user' => parent::API . 'users/' . $this->getGodUser()->getId(),
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
+            'category' => parent::API.'categories/'.$category->getId(),
+            'user' => parent::API.'users/'.$this->getGodUser()->getId(),
         ];
 
-        $response = static::createClient()->request('POST', parent::API . 'products', [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        $response = static::createClient()->request('POST', parent::API.'products', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
 
             'body' => json_encode($product)
@@ -220,19 +220,19 @@ class ValidateTest extends ManagementTest
         $this->assertEquals(
             $category->getMinStock(),
             $response['minStock'],
-            'The expected name was ' . $category->getMinStock() . ' but ' . $response['minStock'] . ' has found'
+            'The expected name was '.$category->getMinStock().' but '.$response['minStock'].' has found'
         );
 
         $this->assertEquals(
             $category->getMaxStock(),
             $response['maxStock'],
-            'The expected name was ' . $category->getMaxStock() . ' but ' . $response['maxStock'] . ' has found'
+            'The expected name was '.$category->getMaxStock().' but '.$response['maxStock'].' has found'
         );
 
         $this->assertEquals(
             $category->getTax(),
             $response['tax'],
-            'The expected name was ' . $category->getTax() . ' but ' . $response['tax'] . ' has found'
+            'The expected name was '.$category->getTax().' but '.$response['tax'].' has found'
         );
     }
 }

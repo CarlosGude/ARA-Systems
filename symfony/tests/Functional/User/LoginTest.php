@@ -59,7 +59,7 @@ class LoginTest extends BaseTest
         $this->assertEquals(
             $response['message'],
             'Invalid credentials.',
-            'The response is ' . $response['message'] . ' "Invalid credentials." was expected.'
+            'The response is '.$response['message'].' "Invalid credentials." was expected.'
         );
     }
 }

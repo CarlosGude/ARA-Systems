@@ -37,9 +37,9 @@ class ManagementTest extends BaseTest
      */
     public function testReadAllPurchaseLines(): void
     {
-        $response = static::createClient()->request('GET', parent::API . 'purchase_lines', [
+        $response = static::createClient()->request('GET', parent::API.'purchase_lines', [
             'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token']
+                'Authorization' => 'Bearer '.$this->token['token']
             ]
         ]);
 
@@ -64,10 +64,10 @@ class ManagementTest extends BaseTest
 
         $response = static::createClient()->request(
             'GET',
-            parent::API . 'purchase_lines/' . $purchaseLine->getId(),
+            parent::API.'purchase_lines/'.$purchaseLine->getId(),
             [
                 'headers' => [
-                    'Authorization' => 'Bearer ' . $this->token['token']
+                    'Authorization' => 'Bearer '.$this->token['token']
                 ]
             ]
         );
@@ -93,15 +93,15 @@ class ManagementTest extends BaseTest
         $product = $this->getProduct();
 
         $purchase = [
-            'purchase' => parent::API . 'purchases/' . $this->getPurchase($company)->getId(),
-            'product' => parent::API . 'products/' . $product->getId(),
-            'company' => parent::API . 'companies/' . $company->getId(),
-            'provider' => parent::API . 'providers/' . $this->getProvider()->getId(),
+            'purchase' => parent::API.'purchases/'.$this->getPurchase($company)->getId(),
+            'product' => parent::API.'products/'.$product->getId(),
+            'company' => parent::API.'companies/'.$company->getId(),
+            'provider' => parent::API.'providers/'.$this->getProvider()->getId(),
             'quantity' => 1
         ];
 
-        $response = static::createClient()->request('POST', parent::API . 'purchase_lines', [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        $response = static::createClient()->request('POST', parent::API.'purchase_lines', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
 
             'body' => json_encode($purchase)
@@ -129,10 +129,10 @@ class ManagementTest extends BaseTest
 
         $response = static::createClient()->request(
             'PUT',
-            parent::API . 'purchase_lines/' . $purchaseLine->getId(),
+            parent::API.'purchase_lines/'.$purchaseLine->getId(),
             [
                 'headers' => [
-                    'Authorization' => 'Bearer ' . $this->token['token'],
+                    'Authorization' => 'Bearer '.$this->token['token'],
                     'Content-Type' => 'application/json'
                 ],
                 'body' => json_encode(['quantity' => 2])
@@ -153,8 +153,8 @@ class ManagementTest extends BaseTest
         $product = $this->getProduct();
         $purchaseLine = $this->getPurchaseLine($product);
 
-        static::createClient()->request('DELETE', parent::API . 'purchase_lines/' . $purchaseLine->getId(), [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        static::createClient()->request('DELETE', parent::API.'purchase_lines/'.$purchaseLine->getId(), [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
 
         ]);

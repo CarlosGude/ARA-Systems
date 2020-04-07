@@ -45,9 +45,9 @@ class ManagementTest extends BaseTest
      */
     public function testReadAllPurchases(): void
     {
-        $response = static::createClient()->request('GET', parent::API . 'purchases', [
+        $response = static::createClient()->request('GET', parent::API.'purchases', [
             'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token']
+                'Authorization' => 'Bearer '.$this->token['token']
             ]
         ]);
 
@@ -68,9 +68,9 @@ class ManagementTest extends BaseTest
         /** @var Purchase $purchase */
         $purchase = $this->getPurchase($this->getCompany());
 
-        $response = static::createClient()->request('GET', parent::API . 'purchases/' . $purchase->getId(), [
+        $response = static::createClient()->request('GET', parent::API.'purchases/'.$purchase->getId(), [
             'headers' => [
-                'Authorization' => 'Bearer ' . $this->token['token']
+                'Authorization' => 'Bearer '.$this->token['token']
             ]
         ]);
 
@@ -93,13 +93,13 @@ class ManagementTest extends BaseTest
     {
         $purchase = [
             'reference' => 'test',
-            'company' => parent::API . 'companies/' . $this->getCompany()->getId(),
-            'provider' => parent::API . 'providers/' . $this->getProvider()->getId(),
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
+            'provider' => parent::API.'providers/'.$this->getProvider()->getId(),
             'status' => 'pending'
         ];
 
-        $response = static::createClient()->request('POST', parent::API . 'purchases', [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        $response = static::createClient()->request('POST', parent::API.'purchases', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
 
             'body' => json_encode($purchase)
@@ -125,8 +125,8 @@ class ManagementTest extends BaseTest
         /** @var Purchase $purchase */
         $purchase = $this->getPurchase($this->getCompany());
 
-        $response = static::createClient()->request('PUT', parent::API . 'purchases/' . $purchase->getId(), [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        $response = static::createClient()->request('PUT', parent::API.'purchases/'.$purchase->getId(), [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
 
             'body' => json_encode([
@@ -151,8 +151,8 @@ class ManagementTest extends BaseTest
         /** @var Purchase $purchase */
         $purchase = $this->getPurchase($this->getCompany());
 
-        static::createClient()->request('DELETE', parent::API . 'purchases/' . $purchase->getId(), [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        static::createClient()->request('DELETE', parent::API.'purchases/'.$purchase->getId(), [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
 
         ]);

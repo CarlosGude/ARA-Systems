@@ -45,8 +45,8 @@ class ManagementTest extends BaseTest
      */
     public function testReadAllCompanies(): void
     {
-        $response = static::createClient()->request('GET', parent::API . 'companies', [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token']]
+        $response = static::createClient()->request('GET', parent::API.'companies', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token']]
         ]);
 
         $response = json_decode($response->getContent(), true);
@@ -67,8 +67,8 @@ class ManagementTest extends BaseTest
         /** @var Company $company */
         $company = $this->getCompany();
 
-        $response = static::createClient()->request('GET', parent::API . 'companies/' . $company->getId(), [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token']]
+        $response = static::createClient()->request('GET', parent::API.'companies/'.$company->getId(), [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token']]
         ]);
 
         $response = json_decode($response->getContent(), true);
@@ -77,7 +77,7 @@ class ManagementTest extends BaseTest
         $this->assertEquals(
             $company->getName(),
             $response['name'],
-            'The expected name was ' . $response['name'] . ' but ' . $company->getName() . ' has found'
+            'The expected name was '.$response['name'].' but '.$company->getName().' has found'
         );
     }
 
@@ -91,8 +91,8 @@ class ManagementTest extends BaseTest
     {
         $company = ['name' => 'test', 'description' => 'test'];
 
-        $response = static::createClient()->request('POST', parent::API . 'companies', [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        $response = static::createClient()->request('POST', parent::API.'companies', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
             'body' => json_encode($company)
         ]);
         $this->assertResponseIsSuccessfulAndInJson();
@@ -101,7 +101,7 @@ class ManagementTest extends BaseTest
         $this->assertEquals(
             $company['name'],
             $response['name'],
-            'The expected name was ' . $response['name'] . ' but ' . $response['name'] . ' has found'
+            'The expected name was '.$response['name'].' but '.$response['name'].' has found'
         );
     }
 
@@ -117,8 +117,8 @@ class ManagementTest extends BaseTest
         /** @var Company $company */
         $company = $this->getCompany();
 
-        $response = static::createClient()->request('PUT', parent::API . 'companies/' . $company->getId(), [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token'], 'Content-Type' => 'application/json'],
+        $response = static::createClient()->request('PUT', parent::API.'companies/'.$company->getId(), [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
             'body' => json_encode(['name' => 'Fake Company'])
         ]);
 
@@ -128,7 +128,7 @@ class ManagementTest extends BaseTest
         $this->assertEquals(
             'Fake Company',
             $response['name'],
-            'The expected name was ' . $response['name'] . ' but ' . $company->getName() . ' has found'
+            'The expected name was '.$response['name'].' but '.$company->getName().' has found'
         );
         $this->assertRecentlyDateTime(new DateTime($response['updatedAt'], new DateTimeZone('UTC')));
     }
@@ -142,8 +142,8 @@ class ManagementTest extends BaseTest
         /** @var Company $company */
         $company = $this->getCompany('The Company 3');
 
-        static::createClient()->request('DELETE', parent::API . 'companies/' . $company->getId(), [
-            'headers' => ['Authorization' => 'Bearer ' . $this->token['token']]
+        static::createClient()->request('DELETE', parent::API.'companies/'.$company->getId(), [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token']]
         ]);
 
         self::assertResponseStatusCodeSame(204, 'The response is not 204');
