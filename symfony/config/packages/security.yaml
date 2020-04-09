@@ -35,6 +35,9 @@ security:
         password_path: password
         success_handler: lexik_jwt_authentication.handler.authentication_success
         failure_handler: lexik_jwt_authentication.handler.authentication_failure
+      guard:
+          authenticators:
+              - App\Security\AppCustomAuthenticator
 
   access_control:
     - { path: ^/api/v1/docs, roles: IS_AUTHENTICATED_ANONYMOUSLY } # Allows accessing the Swagger UI
