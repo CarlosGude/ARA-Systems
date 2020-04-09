@@ -16,19 +16,19 @@ App\Entity\PurchaseLine:
       groups: ['purchase-line_read', 'purchase-line_write']
 
     quantity:
-      groups: ['purchase-line_read', 'purchase-line_write']
+      groups: ['purchase-line_read', 'purchase-line_write','purchase_read']
 
     price:
-      groups: ['purchase-line_read']
+      groups: ['purchase-line_read','purchase_read']
 
     tax:
-      groups: ['purchase-line_read']
+      groups: ['purchase-line_read','purchase_read']
 
     total:
-      groups: ['purchase-line_read']
+      groups: ['purchase-line_read','purchase_read']
 
     totalWithoutTaxes:
-      groups: ['purchase-line_read']
+      groups: ['purchase-line_read','purchase_read']
 
     stockAvailability:
       groups: ['purchase-line_read']

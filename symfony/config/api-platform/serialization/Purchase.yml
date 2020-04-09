@@ -15,6 +15,12 @@ App\Entity\Purchase:
     taxes:
       groups: ['purchase_read','purchase-line_read']
 
+    final:
+      groups: ['purchase_read','purchase-line_read']
+
+    purchaseLines:
+      groups: ['purchase_read','purchase-line_read']
+
     status:
       groups: ['purchase_read', 'purchase_write','purchase-line_read']
 
