@@ -26,9 +26,6 @@ abstract class BaseTest extends ApiTestCase
 {
     use RefreshDatabaseTrait;
 
-    /**
-     *
-     */
     protected const API = '/api/v1/';
 
     /**
@@ -48,18 +45,14 @@ abstract class BaseTest extends ApiTestCase
     }
 
     /**
-     * @param DateTime $dateTime
      * @throws Exception
      */
     protected function assertRecentlyDateTime(DateTime $dateTime): void
     {
-        $this->assertGreaterThanOrEqual(new DateTime('-2 second',new DateTimeZone('UTC')), $dateTime);
-        $this->assertLessThanOrEqual(new DateTime('+2 second',new DateTimeZone('UTC')), $dateTime);
+        $this->assertGreaterThanOrEqual(new DateTime('-2 second', new DateTimeZone('UTC')), $dateTime);
+        $this->assertLessThanOrEqual(new DateTime('+2 second', new DateTimeZone('UTC')), $dateTime);
     }
 
-    /**
-     *
-     */
     protected function assertResponseIsSuccessfulAndInJson(): void
     {
         self::assertResponseIsSuccessful();
@@ -81,6 +74,7 @@ abstract class BaseTest extends ApiTestCase
 
     /**
      * @param $email
+     *
      * @return User|null
      */
     protected function getUserByEmail(string $email): ?User
@@ -94,7 +88,6 @@ abstract class BaseTest extends ApiTestCase
     }
 
     /**
-     * @param string $name
      * @return Company|null
      */
     protected function getCompany(string $name = 'The Company'): ?Company
@@ -108,7 +101,6 @@ abstract class BaseTest extends ApiTestCase
     }
 
     /**
-     * @param string $name
      * @return Category|null
      */
     protected function getCategory(string $name = 'The Category'): ?Category
@@ -122,7 +114,6 @@ abstract class BaseTest extends ApiTestCase
     }
 
     /**
-     * @param string $name
      * @return Provider|null
      */
     protected function getProvider(string $name = 'The Provider'): ?Provider
@@ -136,8 +127,6 @@ abstract class BaseTest extends ApiTestCase
     }
 
     /**
-     * @param string $name
-     * @param Company|null $company
      * @return Product|null
      */
     protected function getProduct(string $name = 'The Product', Company $company = null): ?Product
@@ -156,8 +145,8 @@ abstract class BaseTest extends ApiTestCase
     }
 
     /**
-     * @param Company|null $company
      * @param string $reference
+     *
      * @return Purchase|null
      */
     protected function getPurchase(Company $company = null, $reference = 'reference'): ?Purchase
@@ -176,8 +165,8 @@ abstract class BaseTest extends ApiTestCase
     }
 
     /**
-     * @param Product $product
      * @param string $reference
+     *
      * @return PurchaseLine|null
      */
     protected function getPurchaseLine(Product $product, $reference = 'reference'): ?PurchaseLine

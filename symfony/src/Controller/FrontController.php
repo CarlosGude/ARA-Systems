@@ -13,8 +13,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class FrontController
- * @package App\Controller
+ * Class FrontController.
+ *
  * @Route(name="front_")
  */
 class FrontController extends AbstractController
@@ -23,11 +23,6 @@ class FrontController extends AbstractController
 
     /**
      * @Route("/list/{entity}", name="list")
-     * @param string $entity
-     * @param EntityManagerInterface $em
-     * @param PaginatorInterface $paginator
-     * @param Request $request
-     * @return Response
      */
     public function list(
         string $entity,
@@ -35,7 +30,6 @@ class FrontController extends AbstractController
         PaginatorInterface $paginator,
         Request $request
     ): Response {
-
         $class = self::ENTITY_NAMESPACE.ucfirst($entity);
 
         if (!class_exists($class)) {
@@ -55,10 +49,6 @@ class FrontController extends AbstractController
     }
 
     /**
-     * @param string $entity
-     * @param Request $request
-     * @param EntityManagerInterface $em
-     * @return Response
      * @Route("/create/{entity}", name="create")
      */
     public function create(string $entity, Request $request, EntityManagerInterface $em): Response
@@ -78,25 +68,20 @@ class FrontController extends AbstractController
 
         $element->setUser($user)->setCompany($user->getCompany());
 
-        $form = $this->createForm(CategoryType::class,$element);
+        $form = $this->createForm(CategoryType::class, $element);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($element);
             $em->flush();
 
-            return $this->redirectToRoute('front_edit',['entity' => $entity,'id' => $element->getId()]);
+            return $this->redirectToRoute('front_edit', ['entity' => $entity, 'id' => $element->getId()]);
         }
 
-        return $this->render('front/form.html.twig', ['entity' => $entity,'form' => $form->createView()]);
+        return $this->render('front/form.html.twig', ['entity' => $entity, 'form' => $form->createView()]);
     }
 
     /**
-     * @param string $entity
-     * @param Request $request
-     * @param EntityManagerInterface $em
-     * @param string $id
-     * @return Response
      * @Route("/edit/{entity}/{id}", name="edit")
      */
     public function edit(string $entity, Request $request, EntityManagerInterface $em, string $id): Response
@@ -115,24 +100,19 @@ class FrontController extends AbstractController
 
         $this->denyAccessUnlessGranted('UPDATE', $element);
 
-        $form = $this->createForm(CategoryType::class,$element);
+        $form = $this->createForm(CategoryType::class, $element);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
 
-            return $this->redirectToRoute('front_list',['entity' => $entity]);
+            return $this->redirectToRoute('front_list', ['entity' => $entity]);
         }
 
-        return $this->render('front/form.html.twig', ['entity' => $entity,'form' => $form->createView()]);
+        return $this->render('front/form.html.twig', ['entity' => $entity, 'form' => $form->createView()]);
     }
 
     /**
-     * @param string $entity
-     * @param Request $request
-     * @param EntityManagerInterface $em
-     * @param string $id
-     * @return Response
      * @Route("/remove/{entity}/{id}", name="remove")
      */
     public function remove(string $entity, Request $request, EntityManagerInterface $em, string $id): Response
