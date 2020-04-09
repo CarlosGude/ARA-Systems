@@ -19,7 +19,7 @@ App\Entity\Purchase:
       groups: ['purchase_read','purchase-line_read']
 
     purchaseLines:
-      groups: ['purchase_read','purchase-line_read']
+      groups: ['purchase_read']
 
     status:
       groups: ['purchase_read', 'purchase_write','purchase-line_read']
