@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+    <a href="{{ path('front_create',{'entity':entity}) }}">Create</a>
+<table>
+    <thead>
+        <th>#</th>
+        <th>Name</th>
+        <th></th>
+    </thead>
+    <tbody>
+    {% for element in pagination %}
+    <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ element.name }}</td>
+        <td><a href="{{ path('front_edit',{'id': element.id,'entity':entity}) }}">Edit</a></td>
+        <td><a href="{{ path('front_remove',{'id': element.id,'entity':entity}) }}">Remove</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
