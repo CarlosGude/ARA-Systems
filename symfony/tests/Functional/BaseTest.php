@@ -53,8 +53,8 @@ abstract class BaseTest extends ApiTestCase
      */
     protected function assertRecentlyDateTime(DateTime $dateTime): void
     {
-        $this->assertGreaterThanOrEqual(new DateTime('-1 second',new DateTimeZone('UTC')), $dateTime);
-        $this->assertLessThanOrEqual(new DateTime('+1 second',new DateTimeZone('UTC')), $dateTime);
+        $this->assertGreaterThanOrEqual(new DateTime('-2 second',new DateTimeZone('UTC')), $dateTime);
+        $this->assertLessThanOrEqual(new DateTime('+2 second',new DateTimeZone('UTC')), $dateTime);
     }
 
     /**
