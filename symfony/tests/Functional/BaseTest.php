@@ -83,7 +83,7 @@ abstract class BaseTest extends ApiTestCase
      * @param $email
      * @return User|null
      */
-    protected function getUserByEmail($email): ?User
+    protected function getUserByEmail(string $email): ?User
     {
         /** @var User $user */
         $user = static::$container->get('doctrine')
@@ -97,7 +97,7 @@ abstract class BaseTest extends ApiTestCase
      * @param string $name
      * @return Company|null
      */
-    protected function getCompany($name = 'The Company'): ?Company
+    protected function getCompany(string $name = 'The Company'): ?Company
     {
         /** @var Company $company */
         $company = static::$container->get('doctrine')
@@ -111,7 +111,7 @@ abstract class BaseTest extends ApiTestCase
      * @param string $name
      * @return Category|null
      */
-    protected function getCategory($name = 'The Category'): ?Category
+    protected function getCategory(string $name = 'The Category'): ?Category
     {
         /** @var Category $category */
         $category = static::$container->get('doctrine')
@@ -125,7 +125,7 @@ abstract class BaseTest extends ApiTestCase
      * @param string $name
      * @return Provider|null
      */
-    protected function getProvider($name = 'The Provider'): ?Provider
+    protected function getProvider(string $name = 'The Provider'): ?Provider
     {
         /** @var Provider $provider */
         $provider = static::$container->get('doctrine')
@@ -140,7 +140,7 @@ abstract class BaseTest extends ApiTestCase
      * @param Company|null $company
      * @return Product|null
      */
-    protected function getProduct($name = 'The Product', Company $company = null): ?Product
+    protected function getProduct(string $name = 'The Product', Company $company = null): ?Product
     {
         (!$company && $company = $this->getCompany());
 
