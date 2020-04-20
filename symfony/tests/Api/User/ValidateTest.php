@@ -12,6 +12,33 @@ class ValidateTest extends ManagementTest
     /**
      * @throws TransportExceptionInterface
      */
+    public function testRepeatedEmail(): void
+    {
+        $user = [
+            'email' => 'carlos.sgude@gmail.com',
+            'name' => 'test',
+            'password' => 'test',
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
+        ];
+
+        $response = static::createClient()->request('POST', parent::API.'users', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
+
+            'body' => json_encode($user),
+        ]);
+
+        $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
+
+        self::assertResponseStatusCodeSame(400, 'The response is not 204');
+        $this->assertEquals(
+            'email: Este valor ya se ha utilizado.',
+            $response['hydra:description']
+        );
+    }
+
+    /**
+     * @throws TransportExceptionInterface
+     */
     public function testValidEmail(): void
     {
         $user = [
