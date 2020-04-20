@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Tests\Functional\Category;
+namespace App\Tests\Api\Provider;
 
-use App\Entity\Category;
-use App\Tests\Functional\BaseTest;
+use App\Entity\Provider;
+use App\Tests\Api\BaseTest;
 use DateTime;
 use DateTimeZone;
 use Exception;
@@ -40,10 +40,12 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testReadAllCategories(): void
+    public function testReadAllProviders(): void
     {
-        $response = static::createClient()->request('GET', parent::API.'categories', [
-            'headers' => ['Authorization' => 'Bearer '.$this->token['token']],
+        $response = static::createClient()->request('GET', parent::API.'providers', [
+            'headers' => [
+                'Authorization' => 'Bearer '.$this->token['token'],
+            ],
         ]);
 
         $response = json_decode($response->getContent(), true);
@@ -58,21 +60,24 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testReadACategory(): void
+    public function testReadAProvider(): void
     {
-        $category = $this->getCategory();
+        /** @var Provider $provider */
+        $provider = $this->getProvider();
 
-        $response = static::createClient()->request('GET', parent::API.'categories/'.$category->getId(), [
-            'headers' => ['Authorization' => 'Bearer '.$this->token['token']],
+        $response = static::createClient()->request('GET', parent::API.'providers/'.$provider->getId(), [
+            'headers' => [
+                'Authorization' => 'Bearer '.$this->token['token'],
+            ],
         ]);
 
         $response = json_decode($response->getContent(), true);
 
         $this->assertResponseIsSuccessfulAndInJson();
         $this->assertEquals(
-            $category->getName(),
+            $provider->getName(),
             $response['name'],
-            'The expected name was '.$response['name'].' but '.$category->getName().' has found'
+            'The expected name was '.$response['name'].' but '.$provider->getName().' has found'
         );
     }
 
@@ -82,24 +87,24 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testAddAnCategory(): void
+    public function testAddAnProvider(): void
     {
-        $category = [
+        $provider = [
             'name' => 'test',
             'description' => 'test',
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
-            'tax' => 21,
         ];
 
-        $response = static::createClient()->request('POST', parent::API.'categories', [
+        $response = static::createClient()->request('POST', parent::API.'providers', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
-            'body' => json_encode($category),
+
+            'body' => json_encode($provider),
         ]);
         $this->assertResponseIsSuccessfulAndInJson();
         $response = json_decode($response->getContent(), true);
 
         $this->assertEquals(
-            $category['name'],
+            $provider['name'],
             $response['name'],
             'The expected name was '.$response['name'].' but '.$response['name'].' has found'
         );
@@ -112,23 +117,24 @@ class ManagementTest extends BaseTest
      * @throws TransportExceptionInterface
      * @throws Exception
      */
-    public function testEditACategory(): void
+    public function testEditAProvider(): void
     {
-        /** @var Category $category */
-        $category = $this->getCategory();
+        /** @var Provider $provider */
+        $provider = $this->getProvider();
 
-        $response = static::createClient()->request('PUT', parent::API.'categories/'.$category->getId(), [
+        $response = static::createClient()->request('PUT', parent::API.'providers/'.$provider->getId(), [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
-            'body' => json_encode(['name' => 'Fake Category']),
+
+            'body' => json_encode(['name' => 'Fake Provider']),
         ]);
 
         $response = json_decode($response->getContent(), true);
 
         $this->assertResponseIsSuccessfulAndInJson();
         $this->assertEquals(
-            'Fake Category',
+            'Fake Provider',
             $response['name'],
-            'The expected name was '.$response['name'].' but '.$category->getName().' has found'
+            'The expected name was '.$response['name'].' but '.$provider->getName().' has found'
         );
         $this->assertRecentlyDateTime(new DateTime($response['updatedAt'], new DateTimeZone('UTC')));
     }
@@ -136,12 +142,12 @@ class ManagementTest extends BaseTest
     /**
      * @throws TransportExceptionInterface
      */
-    public function testDeleteACategory(): void
+    public function testDeleteProvider(): void
     {
-        /** @var Category $category */
-        $category = $this->getCategory('Another Category');
+        /** @var Provider $provider */
+        $provider = $this->getProvider('Provider 1');
 
-        static::createClient()->request('DELETE', parent::API.'categories/'.$category->getId(), [
+        static::createClient()->request('DELETE', parent::API.'providers/'.$provider->getId(), [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token']],
         ]);
 

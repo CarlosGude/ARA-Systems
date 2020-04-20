@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Tests\Functional\Provider;
+namespace App\Tests\Api\Provider;
 
-use App\Tests\Functional\User\ManagementTest;
+use App\Tests\Api\User\ManagementTest;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
@@ -29,7 +29,7 @@ class ValidateTest extends ManagementTest
 
         self::assertResponseStatusCodeSame(400, 'The response is not 204');
         $this->assertEquals(
-            'name: This value should not be blank.',
+            'name: Este valor no debería estar vacío.',
             $response['hydra:description']
         );
     }
@@ -53,7 +53,7 @@ class ValidateTest extends ManagementTest
 
         self::assertResponseStatusCodeSame(400, 'The response is not 204');
         $this->assertEquals(
-            'company: This value should not be blank.',
+            'company: Este valor no debería estar vacío.',
             $response['hydra:description']
         );
     }

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Tests\Functional\Product;
+namespace App\Tests\Api\Product;
 
 use App\Entity\Product;
-use App\Tests\Functional\BaseTest;
+use App\Tests\Api\BaseTest;
 use DateTime;
 use DateTimeZone;
 use Exception;

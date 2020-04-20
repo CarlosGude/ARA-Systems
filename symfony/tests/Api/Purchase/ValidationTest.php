@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Tests\Functional\Purchase;
+namespace App\Tests\Api\Purchase;
 
-use App\Tests\Functional\BaseTest;
+use App\Tests\Api\BaseTest;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
@@ -44,7 +44,7 @@ class ValidationTest extends BaseTest
 
         self::assertResponseStatusCodeSame(400, 'The response is not 400');
         $this->assertEquals(
-            'company: This value should not be blank.',
+            'company: Este valor no debería estar vacío.',
             $response['hydra:description']
         );
     }
@@ -78,7 +78,7 @@ class ValidationTest extends BaseTest
 
         self::assertResponseStatusCodeSame(400, 'The response is not 400');
         $this->assertEquals(
-            'provider: This value should not be blank.',
+            'provider: Este valor no debería estar vacío.',
             $response['hydra:description']
         );
     }
@@ -100,7 +100,7 @@ class ValidationTest extends BaseTest
 
         self::assertResponseStatusCodeSame(400, 'The response is not 400');
         $this->assertEquals(
-            'reference: This value should not be blank.',
+            'reference: Este valor no debería estar vacío.',
             $response['hydra:description']
         );
     }
@@ -122,7 +122,7 @@ class ValidationTest extends BaseTest
 
         self::assertResponseStatusCodeSame(400, 'The response is not 400');
         $this->assertEquals(
-            'reference: This value should not be blank.',
+            'reference: Este valor no debería estar vacío.',
             $response['hydra:description']
         );
     }
@@ -144,7 +144,7 @@ class ValidationTest extends BaseTest
 
         self::assertResponseStatusCodeSame(400, 'The response is not 400');
         $this->assertEquals(
-            'status: The value you selected is not a valid choice.',
+            'status: El valor seleccionado no es una opción válida.',
             $response['hydra:description']
         );
     }

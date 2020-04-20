@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Tests\Functional\PurchaseLine;
+namespace App\Tests\Api\PurchaseLine;
 
-use App\Tests\Functional\BaseTest;
+use App\Tests\Api\BaseTest;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
@@ -42,7 +42,7 @@ class ValidationTest extends BaseTest
 
         self::assertResponseStatusCodeSame(400, 'The response is not 400');
         $this->assertEquals(
-            'provider: This value should not be blank.',
+            'provider: Este valor no debería estar vacío.',
             $response['hydra:description']
         );
     }
@@ -78,7 +78,7 @@ class ValidationTest extends BaseTest
 
         self::assertResponseStatusCodeSame(400, 'The response is not 400');
         $this->assertEquals(
-            'purchase: This value should not be blank.',
+            'purchase: Este valor no debería estar vacío.',
             $response['hydra:description']
         );
     }
@@ -101,7 +101,7 @@ class ValidationTest extends BaseTest
 
         self::assertResponseStatusCodeSame(400, 'The response is not 400');
         $this->assertEquals(
-            'product: This value should not be blank.',
+            'product: Este valor no debería estar vacío.',
             $response['hydra:description']
         );
     }
@@ -124,7 +124,7 @@ class ValidationTest extends BaseTest
 
         self::assertResponseStatusCodeSame(400, 'The response is not 400');
         $this->assertEquals(
-            'quantity: This value should not be blank.',
+            'quantity: Este valor no debería estar vacío.',
             $response['hydra:description']
         );
     }
@@ -147,7 +147,7 @@ class ValidationTest extends BaseTest
 
         self::assertResponseStatusCodeSame(400, 'The response is not 400');
         $this->assertEquals(
-            'quantity: This value should be greater than or equal to 1.',
+            'quantity: Este valor debería ser mayor o igual que 1.',
             $response['hydra:description']
         );
     }
@@ -170,7 +170,7 @@ class ValidationTest extends BaseTest
 
         self::assertResponseStatusCodeSame(400, 'The response is not 400');
         $this->assertEquals(
-            'quantity: This value should be less than or equal to 100.',
+            'quantity: Este valor debería ser menor o igual que 100.',
             $response['hydra:description']
         );
     }

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Tests\Functional\PurchaseLine;
+namespace App\Tests\Api\PurchaseLine;
 
-use App\Tests\Functional\BaseTest;
+use App\Tests\Api\BaseTest;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;

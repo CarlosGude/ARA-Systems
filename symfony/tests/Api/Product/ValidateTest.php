@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Tests\Functional\Product;
+namespace App\Tests\Api\Product;
 
-use App\Tests\Functional\User\ManagementTest;
+use App\Tests\Api\User\ManagementTest;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
@@ -34,7 +34,7 @@ class ValidateTest extends ManagementTest
 
         self::assertResponseStatusCodeSame(400, 'The response is not 204');
         $this->assertEquals(
-            'name: This value should not be blank.',
+            'name: Este valor no debería estar vacío.',
             $response['hydra:description']
         );
     }
@@ -61,7 +61,7 @@ class ValidateTest extends ManagementTest
 
         self::assertResponseStatusCodeSame(400, 'The response is not 204');
         $this->assertEquals(
-            'category: This value should not be blank.',
+            'category: Este valor no debería estar vacío.',
             $response['hydra:description']
         );
     }
@@ -88,7 +88,7 @@ class ValidateTest extends ManagementTest
 
         self::assertResponseStatusCodeSame(400, 'The response is not 204');
         $this->assertEquals(
-            'company: This value should not be blank.',
+            'company: Este valor no debería estar vacío.',
             $response['hydra:description']
         );
     }
@@ -117,7 +117,7 @@ class ValidateTest extends ManagementTest
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
 
         $this->assertEquals(
-            'maxStock: This value should be greater than or equal to 100.',
+            'maxStock: Este valor debería ser mayor o igual que 100.',
             $response['hydra:description']
         );
     }
@@ -145,7 +145,7 @@ class ValidateTest extends ManagementTest
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
 
         $this->assertEquals(
-            'price: This value should be greater than 0.',
+            'price: Este valor debería ser mayor que 0.',
             $response['hydra:description']
         );
     }
@@ -174,7 +174,7 @@ class ValidateTest extends ManagementTest
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
 
         $this->assertEquals(
-            'price: This value should be greater than 0.',
+            'price: Este valor debería ser mayor que 0.',
             $response['hydra:description']
         );
     }

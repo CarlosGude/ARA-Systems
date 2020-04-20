@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Tests\Functional\PurchaseLine;
+namespace App\Tests\Api\PurchaseLine;
 
 use App\Entity\PurchaseLine;
-use App\Tests\Functional\BaseTest;
+use App\Tests\Api\BaseTest;
 use DateTime;
 use DateTimeZone;
 use Exception;

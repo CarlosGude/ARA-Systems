@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Functional\User;
+namespace App\Tests\Api\User;
 
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
@@ -31,7 +31,7 @@ class ValidateTest extends ManagementTest
 
         self::assertResponseStatusCodeSame(400, 'The response is not 204');
         $this->assertEquals(
-            'email: This value is not a valid email address.',
+            'email: Este valor no es una dirección de email válida.',
             $response['hydra:description']
         );
     }
@@ -57,7 +57,7 @@ class ValidateTest extends ManagementTest
 
         self::assertResponseStatusCodeSame(400, 'The response is not 400');
         $this->assertEquals(
-            'email: This value should not be blank.',
+            'email: Este valor no debería estar vacío.',
             $response['hydra:description']
         );
     }
@@ -83,7 +83,7 @@ class ValidateTest extends ManagementTest
 
         self::assertResponseStatusCodeSame(400, 'The response is not 400');
         $this->assertEquals(
-            'name: This value should not be blank.',
+            'name: Este valor no debería estar vacío.',
             $response['hydra:description']
         );
     }
@@ -109,7 +109,7 @@ class ValidateTest extends ManagementTest
 
         self::assertResponseStatusCodeSame(400, 'The response is not 400');
         $this->assertEquals(
-            'password: This value should not be blank.',
+            'password: Este valor no debería estar vacío.',
             $response['hydra:description']
         );
     }

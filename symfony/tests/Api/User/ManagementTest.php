@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Tests\Functional\Purchase;
+namespace App\Tests\Api\User;
 
-use App\Entity\Purchase;
-use App\Tests\Functional\BaseTest;
+use App\Entity\User;
+use App\Tests\Api\BaseTest;
 use DateTime;
 use DateTimeZone;
 use Exception;
@@ -40,9 +40,9 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testReadAllPurchases(): void
+    public function testReadAllUsers(): void
     {
-        $response = static::createClient()->request('GET', parent::API.'purchases', [
+        $response = static::createClient()->request('GET', parent::API.'users', [
             'headers' => [
                 'Authorization' => 'Bearer '.$this->token['token'],
             ],
@@ -51,7 +51,7 @@ class ManagementTest extends BaseTest
         $response = json_decode($response->getContent(), true);
 
         $this->assertResponseIsSuccessfulAndInJson();
-        $this->assertEquals(2, $response['hydra:totalItems']);
+        $this->assertEquals(11, $response['hydra:totalItems']);
     }
 
     /**
@@ -60,12 +60,12 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testReadPurchase(): void
+    public function testReadAUser(): void
     {
-        /** @var Purchase $purchase */
-        $purchase = $this->getPurchase($this->getCompany());
+        /** @var User $user */
+        $user = $this->getGodUser();
 
-        $response = static::createClient()->request('GET', parent::API.'purchases/'.$purchase->getId(), [
+        $response = static::createClient()->request('GET', parent::API.'users/'.$user->getId(), [
             'headers' => [
                 'Authorization' => 'Bearer '.$this->token['token'],
             ],
@@ -75,8 +75,9 @@ class ManagementTest extends BaseTest
 
         $this->assertResponseIsSuccessfulAndInJson();
         $this->assertEquals(
-            $purchase->getReference(),
-            $response['reference']
+            $user->getEmail(),
+            $response['email'],
+            'The expected email was '.$response['email'].' but '.$user->getEmail().' has found'
         );
     }
 
@@ -86,26 +87,28 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testAddAPurchase(): void
+    public function testAddAnUser(): void
     {
-        $purchase = [
-            'reference' => 'test',
+        $user = [
+            'email' => 'test@email.com',
+            'name' => 'test',
+            'password' => 'test',
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
-            'provider' => parent::API.'providers/'.$this->getProvider()->getId(),
-            'status' => 'pending',
         ];
 
-        $response = static::createClient()->request('POST', parent::API.'purchases', [
+        $response = static::createClient()->request('POST', parent::API.'users', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-            'body' => json_encode($purchase),
+            'body' => json_encode($user),
         ]);
-        $this->assertResponseIsSuccessfulAndInJson();
+
         $response = json_decode($response->getContent(), true);
 
+        $this->assertResponseIsSuccessfulAndInJson();
         $this->assertEquals(
-            $purchase['reference'],
-            $response['reference']
+            $user['email'],
+            $response['email'],
+            'The expected email was '.$response['email'].' but '.$user['email'].' has found'
         );
     }
 
@@ -116,24 +119,24 @@ class ManagementTest extends BaseTest
      * @throws TransportExceptionInterface
      * @throws Exception
      */
-    public function testEditAPurchase(): void
+    public function testEditAUser(): void
     {
-        /** @var Purchase $purchase */
-        $purchase = $this->getPurchase($this->getCompany());
+        /** @var User $randomUser */
+        $randomUser = $this->getGodUser();
 
-        $response = static::createClient()->request('PUT', parent::API.'purchases/'.$purchase->getId(), [
+        $response = static::createClient()->request('PUT', parent::API.'users/'.$randomUser->getId(), [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-            'body' => json_encode([
-                'reference' => 'test',
-            ]),
+            'body' => json_encode(['name' => 'Fake User']),
         ]);
-        $this->assertResponseIsSuccessfulAndInJson();
+
         $response = json_decode($response->getContent(), true);
 
+        $this->assertResponseIsSuccessfulAndInJson();
         $this->assertEquals(
-            'test',
-            $response['reference']
+            'Fake User',
+            $response['name'],
+            'The expected email was '.$response['email'].' but '.$randomUser->getEmail().' has found'
         );
         $this->assertRecentlyDateTime(new DateTime($response['updatedAt'], new DateTimeZone('UTC')));
     }
@@ -141,13 +144,12 @@ class ManagementTest extends BaseTest
     /**
      * @throws TransportExceptionInterface
      */
-    public function testDeleteAPurchase(): void
+    public function testDeleteAUser(): void
     {
-        /** @var Purchase $purchase */
-        $purchase = $this->getPurchase($this->getCompany());
+        $user = $this->getUserByEmail('another_user@fakemail.com');
 
-        static::createClient()->request('DELETE', parent::API.'purchases/'.$purchase->getId(), [
-            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
+        static::createClient()->request('DELETE', parent::API.'users/'.$user->getId(), [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token']],
         ]);
 
         self::assertResponseStatusCodeSame(204, 'The response is not 204');

@@ -1,0 +1,11 @@
+login:
+  welcome: ¡Bienvenido a ARA-System!
+  access: Acceder
+  emailFail: Email no reconocido.
+
+dashboard:
+  welcome: Hola,
+
+user:
+  email: Email
+  password: Password
