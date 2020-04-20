@@ -23,6 +23,8 @@ class ValidateTest extends ManagementTest
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
             'category' => parent::API.'categories/'.$this->getCategory()->getId(),
             'price' => 20,
+            'minStock'=>0,
+            'maxStock'=>100,
         ];
 
         $response = static::createClient()->request('POST', parent::API.'products', [
@@ -50,6 +52,8 @@ class ValidateTest extends ManagementTest
             'user' => parent::API.'users/'.$this->getGodUser()->getId(),
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
             'price' => 20,
+            'minStock'=>0,
+            'maxStock'=>100,
         ];
 
         $response = static::createClient()->request('POST', parent::API.'products', [
@@ -77,6 +81,8 @@ class ValidateTest extends ManagementTest
             'user' => parent::API.'users/'.$this->getGodUser()->getId(),
             'category' => parent::API.'categories/'.$this->getCategory()->getId(),
             'price' => 22,
+            'minStock'=>0,
+            'maxStock'=>100,
         ];
 
         $response = static::createClient()->request('POST', parent::API.'products', [
@@ -196,6 +202,8 @@ class ValidateTest extends ManagementTest
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
             'category' => parent::API.'categories/'.$category->getId(),
             'user' => parent::API.'users/'.$this->getGodUser()->getId(),
+            'minStock'=>0,
+            'maxStock'=>100,
         ];
 
         $response = static::createClient()->request('POST', parent::API.'products', [

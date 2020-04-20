@@ -1,12 +1,12 @@
 {% extends 'front/base.html.twig' %}
 
-{% block title %}{{ 'project' | trans }}: {{ 'user.create' | trans }}{% endblock %}
+{% block title %}{{ 'project' | trans }}: {{ 'category.create' | trans }}{% endblock %}
 {% block content %}
     <h1>
         <a title="{{ 'back' | trans }}" href="{{ path('front_list',{'entity':entity}) }}" class="btn btn-info">
             <i class="fas fa-backward"></i>
         </a>
-        {{ 'user.create' | trans }}
+        {{ 'category.create' | trans }}
     </h1>
 
     {{ form(form) }}

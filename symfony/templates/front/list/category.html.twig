@@ -1,21 +1,27 @@
 {% extends 'front/base.html.twig' %}
 
-{% block title %}{{ 'project' | trans }}: {{ 'user.list' | trans }}{% endblock %}
+{% block title %}{{ 'project' | trans }}: {{ 'category.list' | trans }}{% endblock %}
 {% block content %}
     <h1>
-        <a title="{{ 'user.create' | trans }}" href="{{ path('front_create',{'entity':entity}) }}" class="btn btn-info">
+        <a title="{{ 'category.create' | trans }}" href="{{ path('front_create',{'entity':entity}) }}" class="btn btn-info">
             <i class="far fa-plus-square"></i>
         </a>
-        {{ 'user.list' | trans }}
+        {{ 'category.list' | trans }}
     </h1>
     <table class="table" data-total="{{ pagination.getTotalItemCount }}">
         <thead>
         <tr>
             <th{% if pagination.isSorted('a.name') %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(pagination, 'user.name' | trans, 'name') }}
+                {{ knp_pagination_sortable(pagination, 'category.name' | trans, 'name') }}
             </th>
-            <th{% if pagination.isSorted('a.email') %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(pagination, 'user.email' | trans, 'email') }}
+            <th{% if pagination.isSorted('a.tax') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'category.tax' | trans, 'email') }}
+            </th>
+            <th{% if pagination.isSorted('a.minStock') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'category.minStock' | trans, 'email') }}
+            </th>
+            <th{% if pagination.isSorted('a.maxStock') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'category.maxStock' | trans, 'email') }}
             </th>
             <th scope="col" colspan="2"></th>
         </tr>
@@ -25,7 +31,9 @@
         <tr class="{{ entity }}-tr">
             {% set delete =  path('front_delete',{'entity': entity, 'id': element.id}) %}
             <td>{{ element.name }}</td>
-            <td>{{ element.email }}</td>
+            <td>{{ element.tax }}</td>
+            <td>{{ element.minStock }}</td>
+            <td>{{ element.maxStock }}</td>
             <td>
                 <a
                     title="{{ 'edit' | trans }} {{ element.name }}"

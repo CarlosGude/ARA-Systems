@@ -95,7 +95,7 @@ class ManagementTest extends BaseTest
             'tax' => 21,
             'price' => 21,
             'minStock' => 0,
-            'stockMax' => 999,
+            'maxStock' => 999,
             'user' => parent::API.'users/'.$this->getGodUser()->getId(),
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
             'category' => parent::API.'categories/'.$this->getCategory()->getId(),

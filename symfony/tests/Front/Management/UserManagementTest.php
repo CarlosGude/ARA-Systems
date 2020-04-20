@@ -10,6 +10,17 @@ use Symfony\Component\DomCrawler\Form;
 
 class UserManagementTest extends BaseTest
 {
+    public function testRemoveUsers(): void
+    {
+        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+
+        $crawler = $client->request('GET', '/list/user');
+
+        $client->request('POST', $crawler->filter('.delete')->first()->attr('data-href'));
+
+        self::assertEquals(10, $client->getCrawler()->filter('.table')->first()->attr('data-total'));
+    }
+
     public function testListUsers(): void
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
@@ -84,16 +95,4 @@ class UserManagementTest extends BaseTest
         );
     }
 
-    public function testRemoveUsers(): void
-    {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
-
-        $crawler = $client->request('GET', '/list/user');
-
-        $crawler->filter('.delete')->each(static function ($delete) use ($client) {
-            $client->request('POST', $delete->attr('data-url'));
-        });
-
-        self::assertEquals(0, $client->getCrawler()->filter('.invitation-tr')->count());
-    }
 }

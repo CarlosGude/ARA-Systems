@@ -25,3 +25,16 @@ user:
   create: Crear usario
   created: Se ha creado el usuario {{element}} correctamente.
   edited: Se ha editado el usuario {{element}} correctamente.
+
+category:
+  name: Nombre
+  minStock: Stock (min)
+  maxStock: Stock (max)
+  tax: IVA(%)
+  list: Listado de categorías
+  menu: Categorías
+  create: Crear categoría
+  description: Descripción
+  created: Se ha creado la categoría {{element}} correctamente.
+  edited: Se ha editado la categoría {{element}} correctamente.
+  taxes: Elija el IVA

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Interfaces\EntityInterface;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -11,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
  */
-class Category
+class Category implements EntityInterface
 {
     public const IVA_8 = 8;
     public const IVA_10 = 10;
@@ -75,18 +76,23 @@ class Category
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $minStock = 0;
+    private $minStock;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $maxStock = 0;
+    private $maxStock;
 
     public function __construct()
     {
         $this->createdAt = new DateTime();
         $this->updatedAt = new DateTime();
         $this->products = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
     }
 
     public function getIvas(): array
@@ -119,7 +125,7 @@ class Category
         return $this;
     }
 
-    public function getName(): string
+    public function getName():? string
     {
         return $this->name;
     }
@@ -174,7 +180,7 @@ class Category
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUser(?User $user): EntityInterface
     {
         $this->user = $user;
 

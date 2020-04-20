@@ -172,7 +172,7 @@ class FrontController extends AbstractController
             throw new NotFoundHttpException('Page not found.');
         }
 
-        if (new $class() instanceof EntityInterface || $class instanceof User) {
+        if (!new $class() instanceof EntityInterface && !new $class() instanceof UserInterface) {
             throw new RuntimeException('The class is not valid.');
         }
 

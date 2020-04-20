@@ -145,8 +145,8 @@ class ValidateTest extends ManagementTest
             'name' => 'test',
             'description' => 'test',
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
-            'stockMax' => 0,
             'minStock' => 100,
+            'maxStock' => 1,
         ];
 
         $response = static::createClient()->request('POST', parent::API.'categories', [
