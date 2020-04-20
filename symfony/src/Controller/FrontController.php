@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Purchase;
 use App\Entity\User;
 use App\Form\CategoryType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,6 +22,17 @@ class FrontController extends AbstractController
 {
     public const ENTITY_NAMESPACE = 'App\Entity\\';
 
+    /**
+     * @param EntityManagerInterface $em
+     * @return Response
+     * @Route("dashboard",name="dashboard")
+     */
+    public function dashboard(EntityManagerInterface $em): Response
+    {
+        return $this->render('front/dashboard.html.twig', [
+            'purchases' => $em->getRepository(Purchase::class)->findAll()
+        ]);
+    }
     /**
      * @Route("/list/{entity}", name="list")
      */

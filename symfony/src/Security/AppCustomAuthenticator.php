@@ -4,7 +4,6 @@ namespace App\Security;
 
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
-use Exception;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -20,6 +19,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AppCustomAuthenticator extends AbstractFormLoginAuthenticator implements PasswordAuthenticatedInterface
 {
@@ -29,13 +29,24 @@ class AppCustomAuthenticator extends AbstractFormLoginAuthenticator implements P
     private $urlGenerator;
     private $csrfTokenManager;
     private $passwordEncoder;
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
 
-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        UrlGeneratorInterface $urlGenerator,
+        CsrfTokenManagerInterface $csrfTokenManager,
+        UserPasswordEncoderInterface $passwordEncoder,
+        TranslatorInterface $translator
+    ){
+
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
+        $this->translator = $translator;
     }
 
     public function supports(Request $request)
@@ -70,7 +81,7 @@ class AppCustomAuthenticator extends AbstractFormLoginAuthenticator implements P
 
         if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('Email could not be found.');
+            throw new CustomUserMessageAuthenticationException($this->translator->trans('login.emailFail'));
         }
 
         return $user;
@@ -96,7 +107,7 @@ class AppCustomAuthenticator extends AbstractFormLoginAuthenticator implements P
         }
 
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        throw new Exception('TODO: provide a valid redirect inside '.__FILE__);
+        return new RedirectResponse($this->urlGenerator->generate('front_dashboard'));
     }
 
     protected function getLoginUrl()
