@@ -18,15 +18,14 @@ class UserType extends AbstractType
         /** @var User $user */
         $user = $options['data'];
 
-        if($user->getId()){
+        $builder
+            ->add('name',TextType::class,['label' => 'user.name'])
+            ->add('email',EmailType::class,['label' => 'user.email'])
+        ;
+
+        if(!$user->getId()){
+
             $builder
-                ->add('name',TextType::class,['label' => 'user.name'])
-                ->add('email',EmailType::class,['label' => 'user.email'])
-            ;
-        }else{
-            $builder
-                ->add('name',TextType::class,['label' => 'user.name'])
-                ->add('email',EmailType::class,['label' => 'user.email'])
                 ->add('password',PasswordType::class,['label'=>'user.password'])
             ;
         }

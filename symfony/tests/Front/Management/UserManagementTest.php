@@ -44,10 +44,10 @@ class UserManagementTest extends BaseTest
 
         $client->submit($form);
 
-        $errorSpan = $client->getCrawler()->filter('.alert-success')->first();
+        $successLabel = $client->getCrawler()->filter('.alert-success')->first();
 
         self::assertEquals(
-            trim($errorSpan->html()),
+            trim($successLabel->html()),
             'Se ha creado el usuario Test User correctamente.'
         );
 
@@ -76,10 +76,10 @@ class UserManagementTest extends BaseTest
 
         $client->submit($form);
 
-        $errorSpan = $client->getCrawler()->filter('.alert-success')->first();
+        $successLabel = $client->getCrawler()->filter('.alert-success')->first();
 
         self::assertEquals(
-            trim($errorSpan->html()),
+            trim($successLabel->html()),
             'Se ha editado el usuario Test User Edited correctamente.'
         );
     }
