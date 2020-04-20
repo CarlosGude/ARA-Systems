@@ -2,134 +2,204 @@
 
 namespace App\Controller;
 
-use App\Entity\Purchase;
 use App\Entity\User;
-use App\Form\CategoryType;
+use App\Interfaces\EntityInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * Class FrontController.
- *
+ * Class ManagementController
+ * @package App\Controller
  * @Route(name="front_")
  */
 class FrontController extends AbstractController
 {
     public const ENTITY_NAMESPACE = 'App\Entity\\';
+    public const FORM_NAMESPACE = 'App\Form\\';
 
     /**
-     * @param EntityManagerInterface $em
-     * @return Response
-     * @Route("dashboard",name="dashboard")
+     * @Route("/dashboard", name="dashboard")
      */
-    public function dashboard(EntityManagerInterface $em): Response
+    public function index(): Response
     {
-        return $this->render('front/dashboard.html.twig', [
-            'purchases' => $em->getRepository(Purchase::class)->findAll()
-        ]);
-    }
-    /**
-     * @Route("/list/{entity}", name="list")
-     */
-    public function list(
-        string $entity,
-        EntityManagerInterface $em,
-        PaginatorInterface $paginator,
-        Request $request
-    ): Response {
-        $class = self::ENTITY_NAMESPACE.ucfirst($entity);
 
-        if (!class_exists($class)) {
-            throw new NotFoundHttpException('Page not found.');
-        }
-
-        /** @var User $user */
-        $user = $this->getUser();
-
-        $pagination = $paginator->paginate(
-            $em->getRepository($class)->findBy(['company' => $user->getCompany()]), /* query NOT result */
-            $request->query->getInt('page', 1), /*page number*/
-            10 /*limit per page*/
-        );
-
-        return $this->render('front/list.html.twig', ['entity' => $entity, 'pagination' => $pagination]);
+        return $this->render('front/dashboard.html.twig', []);
     }
 
     /**
      * @Route("/create/{entity}", name="create")
+     * @param string $entity
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @return Response
+     * @throws RuntimeException
      */
-    public function create(string $entity, Request $request, EntityManagerInterface $em): Response
-    {
-        $class = self::ENTITY_NAMESPACE.ucfirst($entity);
+    public function create(
+        string $entity,
+        Request $request,
+        EntityManagerInterface $em,
+        TranslatorInterface $translator
+    ): Response {
+        /** @var User $user */
+        $user = $this->getUser();
+        $class = self::ENTITY_NAMESPACE . ucfirst($entity);
+        $formClass = self::FORM_NAMESPACE . ucfirst($entity) . 'Type';
 
         if (!class_exists($class)) {
             throw new NotFoundHttpException('Page not found.');
         }
 
+        if (!class_exists($formClass)) {
+            throw new NotFoundHttpException('The form not exists.');
+        }
+
         $element = new $class();
 
-        $this->denyAccessUnlessGranted('CREATED', $element);
+        if (!$element instanceof EntityInterface && !$element instanceof UserInterface) {
+            throw new RuntimeException('The class is not valid.');
+        }
 
-        /** @var User $user */
-        $user = $this->getUser();
+        $this->denyAccessUnlessGranted('CREATE', $element);
 
-        $element->setUser($user)->setCompany($user->getCompany());
+        $element->setCompany($user->getCompany());
 
-        $form = $this->createForm(CategoryType::class, $element);
+        if(property_exists($element,'user')) {
+            $element->setUser($user);
+        }
+
+        $form = $this->createForm($formClass, $element);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($element);
             $em->flush();
 
+            $this->addFlash('success',$translator->trans($entity.'.created',['{{element}}' =>$element]));
             return $this->redirectToRoute('front_edit', ['entity' => $entity, 'id' => $element->getId()]);
         }
 
-        return $this->render('front/form.html.twig', ['entity' => $entity, 'form' => $form->createView()]);
+        return $this->render('front/create/' . $entity . '.html.twig', [
+            'action' => 'create',
+            'entity' => $entity,
+            'form' => $form->createView()
+        ]);
     }
 
     /**
      * @Route("/edit/{entity}/{id}", name="edit")
+     * @param string $entity
+     * @param string $id
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @return Response
      */
-    public function edit(string $entity, Request $request, EntityManagerInterface $em, string $id): Response
-    {
-        $class = self::ENTITY_NAMESPACE.ucfirst($entity);
+    public function edit(
+        string $entity,
+        string $id,
+        Request $request,
+        EntityManagerInterface $em,
+        TranslatorInterface $translator
+    ): Response {
+        $class = self::ENTITY_NAMESPACE . ucfirst($entity);
+        $formClass = self::FORM_NAMESPACE . ucfirst($entity) . 'Type';
 
         if (!class_exists($class)) {
             throw new NotFoundHttpException('Page not found.');
         }
 
+        if (!class_exists($formClass)) {
+            throw new NotFoundHttpException('The form not exists.');
+        }
+
         $element = $em->getRepository($class)->find($id);
 
         if (!$element) {
-            throw new NotFoundHttpException('Page not found.');
+            throw new RuntimeException('Page not found.');
         }
 
-        $this->denyAccessUnlessGranted('UPDATE', $element);
+        if (!$element instanceof EntityInterface && !$element instanceof UserInterface) {
+            throw new RuntimeException('The class is not valid.');
+        }
 
-        $form = $this->createForm(CategoryType::class, $element);
+        $this->denyAccessUnlessGranted('EDIT', $element);
+
+        $form = $this->createForm($formClass, $element);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->flush();
 
-            return $this->redirectToRoute('front_list', ['entity' => $entity]);
+            $em->flush();
+            $this->addFlash('success',$translator->trans($entity.'.edited',['{{element}}' =>$element]));
+            return $this->redirectToRoute('front_edit', ['entity' => $entity, 'id' => $element->getId()]);
         }
 
-        return $this->render('front/form.html.twig', ['entity' => $entity, 'form' => $form->createView()]);
+        return $this->render('front/edit/' . $entity . '.html.twig', [
+            'action' => 'edit',
+            'element' => $element,
+            'entity' => $entity,
+            'form' => $form->createView()
+        ]);
     }
 
     /**
-     * @Route("/remove/{entity}/{id}", name="remove")
+     * @Route("/list/{entity}/{sort}/{direction}/{page}", name="list")
+     * @param string $entity
+     * @param EntityManagerInterface $em
+     * @return Response
      */
-    public function remove(string $entity, Request $request, EntityManagerInterface $em, string $id): Response
+    public function list(
+        string $entity,
+        EntityManagerInterface $em,
+        PaginatorInterface $paginator,
+        string $sort = 'name',
+        string $direction = 'asc',
+        int $page = 1
+    ): Response
     {
-        $class = self::ENTITY_NAMESPACE.ucfirst($entity);
+        $class = self::ENTITY_NAMESPACE . ucfirst($entity);
+        /** @var User $user */
+        $user = $this->getUser();
+
+        if (!class_exists($class)) {
+            throw new NotFoundHttpException('Page not found.');
+        }
+
+        if (new $class() instanceof EntityInterface || $class instanceof User) {
+            throw new RuntimeException('The class is not valid.');
+        }
+
+        $pagination = $paginator->paginate(
+            $em->getRepository($class)->findBy(['company' => $user->getCompany()],[$sort=>$direction]), /* query NOT result */
+            $page, /*page number*/
+            10 /*limit per page*/
+        );
+
+        return $this->render('front/list/' . $entity . '.html.twig', [
+            'action' => 'list',
+            'pagination' => $pagination,
+            'entity' => $entity,
+        ]);
+    }
+
+    /**
+     * @Route("/delete/{entity}/{id}", name="delete")
+     * @param string $entity
+     * @param string $id
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @return Response
+     */
+    public function delete(string $entity, string $id, Request $request, EntityManagerInterface $em): Response
+    {
+        $class = self::ENTITY_NAMESPACE . ucfirst($entity);
 
         if (!class_exists($class)) {
             throw new NotFoundHttpException('Page not found.');
@@ -138,10 +208,8 @@ class FrontController extends AbstractController
         $element = $em->getRepository($class)->find($id);
 
         if (!$element) {
-            throw new NotFoundHttpException('Page not found.');
+            throw new RuntimeException('Page not found.');
         }
-
-        $this->denyAccessUnlessGranted('DELETE', $element);
 
         $em->remove($element);
         $em->flush();

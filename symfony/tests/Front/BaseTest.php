@@ -43,4 +43,12 @@ abstract class BaseTest extends WebTestCase
 
         return $client;
     }
+
+    /**
+     * @param $object
+     */
+    protected function refresh($object): void
+    {
+        static::$container->get('doctrine')->getManager()->refresh($object);
+    }
 }

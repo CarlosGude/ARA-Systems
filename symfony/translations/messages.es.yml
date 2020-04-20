@@ -1,11 +1,27 @@
+project: ARA-System
+edit: Editar
+delete: Borrar
+back: Volver
+save: Guardar
 login:
   welcome: ¡Bienvenido a ARA-System!
   access: Acceder
   emailFail: Email no reconocido.
+  logout: Salir
 
 dashboard:
   welcome: Hola,
+  nemu: Inicio
+  purchases: Últimas compras
+  solds: Últimas ventas
+  stock: Productos sin stock
 
 user:
+  name: Nombre
   email: Email
   password: Password
+  list: Listado de usuarios
+  menu: Usuarios
+  create: Crear usario
+  created: Se ha creado el usuario {{element}} correctamente.
+  edited: Se ha editado el usuario {{element}} correctamente.
