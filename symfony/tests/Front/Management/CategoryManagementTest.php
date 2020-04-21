@@ -10,7 +10,7 @@ use Symfony\Component\DomCrawler\Form;
 
 class CategoryManagementTest extends BaseTest
 {
-    public function testListUsers(): void
+    public function testListCategories(): void
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
