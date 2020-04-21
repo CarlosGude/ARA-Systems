@@ -41,11 +41,14 @@ class ProductType extends AbstractType
             ])
             ->add('stockAct',IntegerType::class,[
                 'label' => 'product.stockAct',
-                'required' => true,
                 'attr' => ['min' => 1]
             ])
             ->add('price',MoneyType::class,['label' => 'product.price'])
-            ->add('category',EntityType::class,['class' => Category::class,'label'=>'product.category'])
+            ->add('category',EntityType::class,[
+                'class' => Category::class,
+                'label'=>'product.category',
+                'required' => true
+            ])
             ->add('providers',EntityType::class,[
                 'class' => Provider::class,
                 'label'=>'product.providers',
