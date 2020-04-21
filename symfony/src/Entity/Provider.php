@@ -79,6 +79,11 @@ class Provider
         $this->purchaseLines = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
     /**
      * @ORM\PreUpdate
      */

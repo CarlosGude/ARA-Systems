@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Interfaces\EntityInterface;
 use DateTime;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -12,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class Product
+class Product implements EntityInterface
 {
     public const IVA_8 = 8;
     public const IVA_10 = 10;
@@ -124,6 +125,11 @@ class Product
         ];
     }
 
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
     /**
      * @ORM\PreUpdate
      */
@@ -167,7 +173,7 @@ class Product
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUser(User $user): EntityInterface
     {
         $this->user = $user;
 
@@ -198,7 +204,7 @@ class Product
         return $this;
     }
 
-    public function getCategory(): Category
+    public function getCategory():? Category
     {
         return $this->category;
     }

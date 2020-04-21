@@ -86,16 +86,14 @@ class CategoryManagementTest extends BaseTest
         );
     }
 
-    public function testRemoveCategories(): void
+    public function testRemoveCategory(): void
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
         $crawler = $client->request('GET', '/list/category');
 
-        $crawler->filter('.delete')->each(static function ($delete) use ($client) {
-            $client->request('POST', $delete->attr('data-href'));
-        });
+        $client->request('POST', $crawler->filter('.delete')->first()->attr('data-href'));
 
-        self::assertEquals(2, $client->getCrawler()->filter('.category-tr')->count());
+        self::assertEquals(10, $client->getCrawler()->filter('.category-tr')->count());
     }
 }

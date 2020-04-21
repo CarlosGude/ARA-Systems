@@ -1,0 +1,72 @@
+{% extends 'front/base.html.twig' %}
+
+{% block title %}{{ 'project' | trans }}: {{ 'product.list' | trans }}{% endblock %}
+{% block content %}
+    <h1>
+        <a title="{{ 'product.create' | trans }}" href="{{ path('front_create',{'entity':entity}) }}" class="btn btn-info">
+            <i class="far fa-plus-square"></i>
+        </a>
+        {{ 'product.list' | trans }}
+    </h1>
+    <table class="table" data-total="{{ pagination.getTotalItemCount }}">
+        <thead>
+        <tr>
+            <th{% if pagination.isSorted('a.name') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'product.name' | trans, 'name') }}
+            </th>
+            <th{% if pagination.isSorted('a.category') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'product.category' | trans, 'name') }}
+            </th>
+            <th{% if pagination.isSorted('a.price') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'product.price' | trans, 'name') }}
+            </th>
+            <th{% if pagination.isSorted('a.tax') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'product.tax' | trans, 'email') }}
+            </th>
+            <th{% if pagination.isSorted('a.minStock') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'product.minStock' | trans, 'email') }}
+            </th>
+            <th{% if pagination.isSorted('a.maxStock') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'product.maxStock' | trans, 'email') }}
+            </th>
+            <th scope="col" colspan="2"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for element in pagination %}
+        <tr class="{{ entity }}-tr">
+            {% set delete =  path('front_delete',{'entity': entity, 'id': element.id}) %}
+            <td>{{ element.name }}</td>
+            <td>{{ element.category }}</td>
+            <td>{{ element.price }}</td>
+            <td>{{ element.tax }}</td>
+            <td>{{ element.minStock }}</td>
+            <td>{{ element.maxStock }}</td>
+            <td>
+                <a
+                    title="{{ 'edit' | trans }} {{ element.name }}"
+                    href="{{ path('front_edit',{'entity': entity, 'id': element.id}) }}"
+                    class="btn btn-primary edit">
+                    <i class="fas fa-edit edit"></i>
+                </a>
+            </td>
+            <td>
+                <a
+                href="#"
+                title="{{ 'delete' | trans }} {{ element.name }}"
+                data-href="{{ delete }}"
+                onclick="myFunction('{{ delete }}')"
+                class="btn btn-danger delete">
+                    <i class="fas fa-trash edit"></i>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="5">
+                {{ knp_pagination_render(pagination) }}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}

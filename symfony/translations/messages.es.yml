@@ -38,3 +38,20 @@ category:
   created: Se ha creado la categoría {{element}} correctamente.
   edited: Se ha editado la categoría {{element}} correctamente.
   taxes: Elija el IVA
+
+product:
+  name: Nombre
+  minStock: Stock (min)
+  maxStock: Stock (max)
+  stockAct: Stock (act)
+  price: Precio
+  category: Categoria
+  providers: Proveedores
+  tax: IVA(%)
+  list: Listado de productos
+  menu: Productos
+  create: Crear producto
+  description: Descripción
+  created: Se ha creado el producto {{element}} correctamente.
+  edited: Se ha editado el producto {{element}} correctamente.
+  taxes: Elija el IVA
