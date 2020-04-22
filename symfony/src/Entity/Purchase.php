@@ -101,7 +101,7 @@ class Purchase implements EntityInterface
             self::STATUS_SUCCESS,
             self::STATUS_INCOMING,
             self::STATUS_PENDING,
-            self::STATUS_CANCELLED
+            self::STATUS_CANCELLED,
         ];
     }
 
@@ -109,7 +109,7 @@ class Purchase implements EntityInterface
     {
         $total = 0;
         $taxes = 0;
-        foreach ($this->getPurchaseLines() as $purchaseLine){
+        foreach ($this->getPurchaseLines() as $purchaseLine) {
             $total += $purchaseLine->getPrice() * $purchaseLine->getQuantity();
             $taxes += ($purchaseLine->getPrice() * $purchaseLine->getQuantity()) * ($purchaseLine->getTax() / 100);
         }

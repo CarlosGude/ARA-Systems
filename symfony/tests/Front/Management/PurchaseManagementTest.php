@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Tests\Front\Management;
-
 
 use App\Entity\Provider;
 use App\Entity\Purchase;
@@ -64,7 +62,7 @@ class PurchaseManagementTest extends BaseTest
     public function testRemovePurchase(): void
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
-        $this->createPurchase('carlos.sgude@gmail.com','The Provider','test');
+        $this->createPurchase('carlos.sgude@gmail.com', 'The Provider', 'test');
         $crawler = $client->request('GET', '/list/purchase/reference');
 
         $count = $crawler->filter('.purchase-tr')->count();

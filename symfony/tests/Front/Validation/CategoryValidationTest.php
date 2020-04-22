@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Tests\Front\Validation;
-
 
 use App\Entity\Category;
 use App\Tests\Front\BaseTest;
@@ -18,8 +16,8 @@ class CategoryValidationTest extends BaseTest
 
         $category = [
             'tax' => Category::IVA_8,
-            'minStock'=> 1,
-            'maxStock'=> 100
+            'minStock' => 1,
+            'maxStock' => 100,
         ];
 
         /** @var Form $form */
@@ -35,6 +33,7 @@ class CategoryValidationTest extends BaseTest
 
         self::assertEquals($errorSpan->html(), 'Este valor no debería estar vacío.');
     }
+
     public function testMinStockGreaterThanOne(): void
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
@@ -42,10 +41,10 @@ class CategoryValidationTest extends BaseTest
         $crawler = $client->request('GET', '/create/category');
 
         $category = [
-            'name' =>'The Name',
+            'name' => 'The Name',
             'tax' => Category::IVA_8,
-            'maxStock'=> 1,
-            'minStock'=> '-1',
+            'maxStock' => 1,
+            'minStock' => '-1',
         ];
 
         /** @var Form $form */
@@ -57,7 +56,6 @@ class CategoryValidationTest extends BaseTest
         $form['category[minStock]']->setValue($category['minStock']);
 
         $client->submit($form);
-
 
         $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
 
@@ -71,10 +69,10 @@ class CategoryValidationTest extends BaseTest
         $crawler = $client->request('GET', '/create/category');
 
         $category = [
-            'name' =>'The Name',
+            'name' => 'The Name',
             'tax' => Category::IVA_8,
-            'maxStock'=> '-1',
-            'minStock'=> 1,
+            'maxStock' => '-1',
+            'minStock' => 1,
         ];
 
         /** @var Form $form */
@@ -86,7 +84,6 @@ class CategoryValidationTest extends BaseTest
         $form['category[minStock]']->setValue($category['minStock']);
 
         $client->submit($form);
-
 
         $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
 
@@ -100,10 +97,10 @@ class CategoryValidationTest extends BaseTest
         $crawler = $client->request('GET', '/create/category');
 
         $category = [
-            'name' =>'The Name',
+            'name' => 'The Name',
             'tax' => Category::IVA_8,
-            'maxStock'=> 1,
-            'minStock'=> 100,
+            'maxStock' => 1,
+            'minStock' => 100,
         ];
 
         /** @var Form $form */

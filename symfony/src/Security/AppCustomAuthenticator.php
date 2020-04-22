@@ -40,8 +40,7 @@ class AppCustomAuthenticator extends AbstractFormLoginAuthenticator implements P
         CsrfTokenManagerInterface $csrfTokenManager,
         UserPasswordEncoderInterface $passwordEncoder,
         TranslatorInterface $translator
-    ){
-
+    ) {
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;

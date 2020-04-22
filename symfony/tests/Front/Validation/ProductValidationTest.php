@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Tests\Front\Validation;
-
 
 use App\Entity\Category;
 use App\Tests\Front\BaseTest;
@@ -26,8 +24,8 @@ class ProductValidationTest extends BaseTest
             'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
             'price' => 100,
             'tax' => Category::IVA_8,
-            'minStock'=> 1,
-            'maxStock'=> 100
+            'minStock' => 1,
+            'maxStock' => 100,
         ];
 
         /** @var Form $form */
@@ -53,11 +51,11 @@ class ProductValidationTest extends BaseTest
         $crawler = $client->request('GET', '/create/product');
 
         $product = [
-            'name'=> 'Product Name',
+            'name' => 'Product Name',
             'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
             'tax' => Category::IVA_8,
-            'minStock'=> 1,
-            'maxStock'=> 100
+            'minStock' => 1,
+            'maxStock' => 100,
         ];
 
         /** @var Form $form */
@@ -83,12 +81,12 @@ class ProductValidationTest extends BaseTest
         $crawler = $client->request('GET', '/create/product');
 
         $product = [
-            'name' =>'The Name',
+            'name' => 'The Name',
             'tax' => Category::IVA_8,
             'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
-            'maxStock'=> 1,
-            'minStock'=> '-1',
-            'price'=> 20
+            'maxStock' => 1,
+            'minStock' => '-1',
+            'price' => 20,
         ];
 
         /** @var Form $form */
@@ -115,12 +113,12 @@ class ProductValidationTest extends BaseTest
         $crawler = $client->request('GET', '/create/product');
 
         $product = [
-            'name' =>'The Name',
+            'name' => 'The Name',
             'tax' => Category::IVA_8,
             'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
-            'maxStock'=> '-1',
-            'minStock'=> 1,
-            'price' => 20
+            'maxStock' => '-1',
+            'minStock' => 1,
+            'price' => 20,
         ];
 
         /** @var Form $form */
@@ -147,12 +145,12 @@ class ProductValidationTest extends BaseTest
         $crawler = $client->request('GET', '/create/product');
 
         $product = [
-            'name' =>'The Name',
+            'name' => 'The Name',
             'tax' => Category::IVA_8,
             'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
-            'maxStock'=> 1,
-            'minStock'=> 100,
-            'price'=> 20,
+            'maxStock' => 1,
+            'minStock' => 100,
+            'price' => 20,
         ];
 
         /** @var Form $form */

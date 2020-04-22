@@ -19,18 +19,17 @@ class UserType extends AbstractType
         $user = $options['data'];
 
         $builder
-            ->add('name',TextType::class,['label' => 'user.name'])
-            ->add('email',EmailType::class,['label' => 'user.email'])
+            ->add('name', TextType::class, ['label' => 'user.name'])
+            ->add('email', EmailType::class, ['label' => 'user.email'])
         ;
 
-        if(!$user->getId()){
-
+        if (!$user->getId()) {
             $builder
-                ->add('password',PasswordType::class,['label'=>'user.password'])
+                ->add('password', PasswordType::class, ['label' => 'user.password'])
             ;
         }
 
-        $builder->add('submit',SubmitType::class,['label' => 'save']);
+        $builder->add('submit', SubmitType::class, ['label' => 'save']);
     }
 
     public function configureOptions(OptionsResolver $resolver)

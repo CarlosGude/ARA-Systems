@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Tests\Front\Validation;
-
 
 use App\Tests\Front\BaseTest;
 use Symfony\Component\DomCrawler\Form;
@@ -18,7 +16,7 @@ class UserValidationTest extends BaseTest
         $user = [
             'name' => 'Test User',
             'email' => 'carlos.sgude@gmail.com',
-            'password' => 'password'
+            'password' => 'password',
         ];
 
         /** @var Form $form */
@@ -44,7 +42,7 @@ class UserValidationTest extends BaseTest
         $user = [
             'name' => 'Test User',
             'email' => 'fake',
-            'password' => 'password'
+            'password' => 'password',
         ];
 
         /** @var Form $form */
@@ -69,7 +67,7 @@ class UserValidationTest extends BaseTest
 
         $user = [
             'name' => 'Test User',
-            'password' => 'password'
+            'password' => 'password',
         ];
 
         /** @var Form $form */
@@ -93,7 +91,7 @@ class UserValidationTest extends BaseTest
 
         $user = [
             'name' => 'Test User',
-            'email' => 'fakeemail@email.com'
+            'email' => 'fakeemail@email.com',
         ];
 
         /** @var Form $form */

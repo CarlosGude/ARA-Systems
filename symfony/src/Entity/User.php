@@ -133,12 +133,12 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getId():? string
+    public function getId(): ? string
     {
         return $this->id;
     }
 
-    public function getName():? string
+    public function getName(): ? string
     {
         return $this->name;
     }
@@ -149,7 +149,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPassword():? string
+    public function getPassword(): ? string
     {
         return $this->password;
     }
@@ -212,7 +212,7 @@ class User implements UserInterface
         return $this->getEmail();
     }
 
-    public function getEmail():? string
+    public function getEmail(): ? string
     {
         return $this->email;
     }

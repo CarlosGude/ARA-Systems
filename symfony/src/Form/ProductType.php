@@ -21,41 +21,41 @@ class ProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name',TextType::class,['label' => 'product.name'])
-            ->add('description',TextareaType::class,['label' => 'product.description'])
-            ->add('tax',ChoiceType::class,[
-                'label'=>'category.tax',
-                'choices'=> $this->getTaxes(),
+            ->add('name', TextType::class, ['label' => 'product.name'])
+            ->add('description', TextareaType::class, ['label' => 'product.description'])
+            ->add('tax', ChoiceType::class, [
+                'label' => 'category.tax',
+                'choices' => $this->getTaxes(),
                 'placeholder' => 'product.taxes',
-                'required' => true
+                'required' => true,
             ])
-            ->add('minStock',IntegerType::class,[
+            ->add('minStock', IntegerType::class, [
                 'label' => 'product.minStock',
                 'required' => true,
-                'attr' => ['min' => 1]
+                'attr' => ['min' => 1],
             ])
-            ->add('maxStock',IntegerType::class,[
+            ->add('maxStock', IntegerType::class, [
                 'label' => 'product.maxStock',
                 'required' => true,
-                'attr' => ['min' => 1]
+                'attr' => ['min' => 1],
             ])
-            ->add('stockAct',IntegerType::class,[
+            ->add('stockAct', IntegerType::class, [
                 'label' => 'product.stockAct',
-                'attr' => ['min' => 1]
+                'attr' => ['min' => 1],
             ])
-            ->add('price',MoneyType::class,['label' => 'product.price'])
-            ->add('category',EntityType::class,[
+            ->add('price', MoneyType::class, ['label' => 'product.price'])
+            ->add('category', EntityType::class, [
                 'class' => Category::class,
-                'label'=>'product.category',
-                'required' => true
+                'label' => 'product.category',
+                'required' => true,
             ])
-            ->add('providers',EntityType::class,[
+            ->add('providers', EntityType::class, [
                 'class' => Provider::class,
-                'label'=>'product.providers',
-                'multiple'=> true,
-                'expanded' => true
+                'label' => 'product.providers',
+                'multiple' => true,
+                'expanded' => true,
             ])
-            ->add('submit',SubmitType::class,['label' => 'save'])
+            ->add('submit', SubmitType::class, ['label' => 'save'])
         ;
     }
 
@@ -64,7 +64,7 @@ class ProductType extends AbstractType
         return [
             Product::IVA_8.'%' => Product::IVA_8,
             Product::IVA_10.'%' => Product::IVA_10,
-            Product::IVA_21.'%' => Product::IVA_21
+            Product::IVA_21.'%' => Product::IVA_21,
         ];
     }
 

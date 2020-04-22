@@ -19,15 +19,15 @@ class PurchaseLineType extends AbstractType
         $line = $options['data'];
 
         $builder
-            ->add('product',EntityType::class,[
+            ->add('product', EntityType::class, [
                 'label' => 'purchase.product',
                 'class' => Product::class,
                 'attr' => ['class' => 'select'],
                 'query_builder' => static function (ProductRepository $repository) use ($line) {
-                        return $repository->findByCompany($line->getCompany());
-                }
+                    return $repository->findByCompany($line->getCompany());
+                },
             ])
-            ->add('submit',SubmitType::class,['label'=>'save'])
+            ->add('submit', SubmitType::class, ['label' => 'save'])
         ;
     }
 

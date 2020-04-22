@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Tests\Front\Purchase;
-
 
 use App\Entity\Product;
 use App\Tests\Front\BaseTest;
@@ -10,11 +8,10 @@ use Symfony\Component\Form\Form;
 
 class ManipulateQuantityTest extends BaseTest
 {
-
     public function testAddProductToPurchase(): void
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
-        $purchase = $this->createPurchase('carlos.sgude@gmail.com','The Provider','test');
+        $purchase = $this->createPurchase('carlos.sgude@gmail.com', 'The Provider', 'test');
 
         $crawler = $client->request('GET', '/edit/purchase/'.$purchase->getId());
 
@@ -29,7 +26,7 @@ class ManipulateQuantityTest extends BaseTest
 
         $client->submit($form);
 
-        $purchaseLine =  $client->getCrawler()->filter('.purchase-line-tr');
+        $purchaseLine = $client->getCrawler()->filter('.purchase-line-tr');
 
         self::assertEquals(1, $purchaseLine->count());
         $line = $client->getCrawler()->filter('.purchase-line-tr');
@@ -42,17 +39,17 @@ class ManipulateQuantityTest extends BaseTest
         $productPrice = $line->attr('data-price');
         $productTax = $line->attr('data-tax');
 
-        self::assertEquals($total,$totalProduct = $productPrice *$productQuantity);
-        self::assertEquals($taxes,$totalProduct*($productTax/100));
-        self::assertEquals($final,$totalProduct*($productTax/100) + $totalProduct);
-        self::assertEquals(1,$line->count());
-        self::assertEquals(1,$productQuantity);
+        self::assertEquals($total, $totalProduct = $productPrice * $productQuantity);
+        self::assertEquals($taxes, $totalProduct * ($productTax / 100));
+        self::assertEquals($final, $totalProduct * ($productTax / 100) + $totalProduct);
+        self::assertEquals(1, $line->count());
+        self::assertEquals(1, $productQuantity);
     }
 
     public function testAddQuantityToLine(): void
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
-        $purchase = $this->createPurchase('carlos.sgude@gmail.com','The Provider','test');
+        $purchase = $this->createPurchase('carlos.sgude@gmail.com', 'The Provider', 'test');
 
         $crawler = $client->request('GET', '/edit/purchase/'.$purchase->getId());
 
@@ -70,7 +67,7 @@ class ManipulateQuantityTest extends BaseTest
         self::assertEquals(1, $client->getCrawler()->filter('.purchase-line-tr')->count());
 
         $url = $client->getCrawler()->filter('.change-quantity')->first()->attr('data-href');
-        $url = str_replace('quantity',10,$url);
+        $url = str_replace('quantity', 10, $url);
 
         $client->request('GET', $url);
 
@@ -84,17 +81,17 @@ class ManipulateQuantityTest extends BaseTest
         $productPrice = $line->attr('data-price');
         $productTax = $line->attr('data-tax');
 
-        self::assertEquals($total,$totalProduct = $productPrice *$productQuantity);
-        self::assertEquals($taxes,$totalProduct*($productTax/100));
-        self::assertEquals($final,$totalProduct*($productTax/100) + $totalProduct);
-        self::assertEquals(1,$line->count());
-        self::assertEquals(10,$productQuantity);
+        self::assertEquals($total, $totalProduct = $productPrice * $productQuantity);
+        self::assertEquals($taxes, $totalProduct * ($productTax / 100));
+        self::assertEquals($final, $totalProduct * ($productTax / 100) + $totalProduct);
+        self::assertEquals(1, $line->count());
+        self::assertEquals(10, $productQuantity);
     }
 
     public function testRemoveLinePuttingZeroQuantity(): void
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
-        $purchase = $this->createPurchase('carlos.sgude@gmail.com','The Provider','test');
+        $purchase = $this->createPurchase('carlos.sgude@gmail.com', 'The Provider', 'test');
 
         $crawler = $client->request('GET', '/edit/purchase/'.$purchase->getId());
 
@@ -112,7 +109,7 @@ class ManipulateQuantityTest extends BaseTest
         self::assertEquals(1, $client->getCrawler()->filter('.purchase-line-tr')->count());
 
         $url = $client->getCrawler()->filter('.change-quantity')->first()->attr('data-href');
-        $url = str_replace('quantity',0,$url);
+        $url = str_replace('quantity', 0, $url);
 
         $client->request('GET', $url);
 
@@ -125,6 +122,6 @@ class ManipulateQuantityTest extends BaseTest
         self::assertEquals(0, $total);
         self::assertEquals(0, $taxes);
         self::assertEquals(0, $final);
-        self::assertEquals(0,$line->count());
+        self::assertEquals(0, $line->count());
     }
 }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Tests\Front\Management;
-
 
 use App\Entity\Category;
 use App\Tests\Front\BaseTest;
@@ -32,8 +30,8 @@ class CategoryManagementTest extends BaseTest
         $category = [
             'name' => 'Test Category',
             'tax' => Category::IVA_8,
-            'minStock'=> 1,
-            'maxStock'=> 100
+            'minStock' => 1,
+            'maxStock' => 100,
         ];
 
         /** @var Form $form */

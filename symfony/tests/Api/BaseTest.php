@@ -59,9 +59,6 @@ abstract class BaseTest extends ApiTestCase
         self::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
     }
 
-    /**
-     * @return User|null
-     */
     protected function getGodUser(): ?User
     {
         /** @var User $user */
@@ -74,8 +71,6 @@ abstract class BaseTest extends ApiTestCase
 
     /**
      * @param $email
-     *
-     * @return User|null
      */
     protected function getUserByEmail(string $email): ?User
     {
@@ -87,9 +82,6 @@ abstract class BaseTest extends ApiTestCase
         return $user;
     }
 
-    /**
-     * @return Company|null
-     */
     protected function getCompany(string $name = 'The Company'): ?Company
     {
         /** @var Company $company */
@@ -100,9 +92,6 @@ abstract class BaseTest extends ApiTestCase
         return $company;
     }
 
-    /**
-     * @return Category|null
-     */
     protected function getCategory(string $name = 'The Category'): ?Category
     {
         /** @var Category $category */
@@ -113,9 +102,6 @@ abstract class BaseTest extends ApiTestCase
         return $category;
     }
 
-    /**
-     * @return Provider|null
-     */
     protected function getProvider(string $name = 'The Provider'): ?Provider
     {
         /** @var Provider $provider */
@@ -126,9 +112,6 @@ abstract class BaseTest extends ApiTestCase
         return $provider;
     }
 
-    /**
-     * @return Product|null
-     */
     protected function getProduct(string $name = 'The Product', Company $company = null): ?Product
     {
         (!$company && $company = $this->getCompany());
@@ -146,8 +129,6 @@ abstract class BaseTest extends ApiTestCase
 
     /**
      * @param string $reference
-     *
-     * @return Purchase|null
      */
     protected function getPurchase(Company $company = null, $reference = 'reference'): ?Purchase
     {
@@ -166,8 +147,6 @@ abstract class BaseTest extends ApiTestCase
 
     /**
      * @param string $reference
-     *
-     * @return PurchaseLine|null
      */
     protected function getPurchaseLine(Product $product, $reference = 'reference'): ?PurchaseLine
     {

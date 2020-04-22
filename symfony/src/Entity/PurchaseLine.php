@@ -139,7 +139,7 @@ class PurchaseLine implements EntityInterface
     {
         $this->purchase = $purchase;
 
-        if($purchase) {
+        if ($purchase) {
             $this->setProvider($purchase->getProvider());
         }
 

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Tests\Front\Purchase;
-
 
 use App\Entity\Purchase;
 use App\Tests\Front\BaseTest;
@@ -21,7 +19,7 @@ class ChangeStatusTest extends BaseTest
 
         $crawler = $client->request('GET', '/list/purchase/reference');
 
-        $incomingButton =  $crawler->filter('.incoming');
+        $incomingButton = $crawler->filter('.incoming');
 
         $url = $incomingButton->first()->attr('data-href');
         $client->request('POST', $url);
@@ -30,7 +28,7 @@ class ChangeStatusTest extends BaseTest
 
         self::assertEquals(1, $count);
 
-        $id = explode('/',$url)[3];
+        $id = explode('/', $url)[3];
         /** @var Purchase $purchase */
         $purchase = $this->getRepository(Purchase::class)->find($id);
 
@@ -43,7 +41,7 @@ class ChangeStatusTest extends BaseTest
 
         $crawler = $client->request('GET', '/list/purchase/reference');
 
-        $incomingButton =  $crawler->filter('.cancelled');
+        $incomingButton = $crawler->filter('.cancelled');
 
         self::assertEquals(2, $incomingButton->count());
 
@@ -54,7 +52,7 @@ class ChangeStatusTest extends BaseTest
 
         self::assertEquals(1, $count);
 
-        $id = explode('/',$url)[3];
+        $id = explode('/', $url)[3];
         /** @var Purchase $purchase */
         $purchase = $this->getRepository(Purchase::class)->find($id);
 
@@ -67,23 +65,22 @@ class ChangeStatusTest extends BaseTest
 
         $crawler = $client->request('GET', '/list/purchase/reference');
 
-        $incomingButton =  $crawler->filter('.success');
+        $incomingButton = $crawler->filter('.success');
 
         self::assertEquals(2, $incomingButton->count());
 
         $url = $incomingButton->first()->attr('data-href');
 
-        $id = explode('/',$url)[3];
+        $id = explode('/', $url)[3];
 
         /** @var Purchase $purchase */
         $purchase = $this->getRepository(Purchase::class)->find($id);
 
-        $stockBefore = array();
-        foreach ($purchase->getPurchaseLines() as $line)
-        {
+        $stockBefore = [];
+        foreach ($purchase->getPurchaseLines() as $line) {
             $stockBefore[$line->getProduct()->getId()] = [
-                'stockAct'=> $line->getProduct()->getStockAct(),
-                'quantity'=> $line->getQuantity(),
+                'stockAct' => $line->getProduct()->getStockAct(),
+                'quantity' => $line->getQuantity(),
             ];
         }
 
@@ -92,16 +89,15 @@ class ChangeStatusTest extends BaseTest
         /** @var Purchase $purchase */
         $purchase = $this->getRepository(Purchase::class)->find($id);
 
-        $stockAfter = array();
-        foreach ($purchase->getPurchaseLines() as $afterLine)
-        {
+        $stockAfter = [];
+        foreach ($purchase->getPurchaseLines() as $afterLine) {
             $stockAfter[$afterLine->getProduct()->getId()] = [
-                'stockAct'=> $afterLine->getProduct()->getStockAct()
+                'stockAct' => $afterLine->getProduct()->getStockAct(),
             ];
         }
 
-        foreach ($stockAfter as $id => $stock){
-            self::assertEquals($stock['stockAct'],$stockBefore[$id]['stockAct'] + $stockBefore[$id]['quantity']);
+        foreach ($stockAfter as $id => $stock) {
+            self::assertEquals($stock['stockAct'], $stockBefore[$id]['stockAct'] + $stockBefore[$id]['quantity']);
         }
     }
 }

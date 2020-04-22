@@ -112,7 +112,6 @@ class PurchaseLineSubscriber implements EventSubscriber
     }
 
     /**
-     * @param PreUpdateEventArgs $args
      * @throws ORMException
      */
     public function preUpdate(PreUpdateEventArgs $args): void
@@ -129,7 +128,6 @@ class PurchaseLineSubscriber implements EventSubscriber
     }
 
     /**
-     * @param OnFlushEventArgs $eventArgs
      * @throws ORMException
      */
     public function onFlush(OnFlushEventArgs $eventArgs): void
@@ -144,8 +142,8 @@ class PurchaseLineSubscriber implements EventSubscriber
 
             $purchase = $entity->getPurchase();
 
-            foreach ($purchase->getPurchaseLines() as $line){
-                if($line->getQuantity() === 0) {
+            foreach ($purchase->getPurchaseLines() as $line) {
+                if (0 === $line->getQuantity()) {
                     $em->remove($line);
                 }
             }
@@ -153,6 +151,5 @@ class PurchaseLineSubscriber implements EventSubscriber
             $purchase->updatePrice();
             $uow->recomputeSingleEntityChangeSet($em->getClassMetadata(Purchase::class), $purchase);
         }
-
     }
 }

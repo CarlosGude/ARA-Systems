@@ -24,7 +24,6 @@ class ValidationTest extends BaseTest
         $this->token = $this->getToken();
     }
 
-
     protected function getPurchaseData(): array
     {
         $company = $this->getCompany();
@@ -82,7 +81,6 @@ class ValidationTest extends BaseTest
             $response['hydra:description']
         );
     }
-
 
     /**
      * @throws TransportExceptionInterface

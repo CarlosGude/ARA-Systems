@@ -16,9 +16,9 @@ class PurchaseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('reference',TextType::class,['label' => 'purchase.reference'])
-            ->add('provider',EntityType::class,['label' => 'purchase.provider','class'=>Provider::class])
-            ->add('submit',SubmitType::class,['label'=>'save'])
+            ->add('reference', TextType::class, ['label' => 'purchase.reference'])
+            ->add('provider', EntityType::class, ['label' => 'purchase.provider', 'class' => Provider::class])
+            ->add('submit', SubmitType::class, ['label' => 'save'])
         ;
     }
 

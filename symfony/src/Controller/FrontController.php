@@ -18,8 +18,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * Class ManagementController
- * @package App\Controller
+ * Class ManagementController.
+ *
  * @Route(name="front_")
  */
 class FrontController extends AbstractController
@@ -32,18 +32,11 @@ class FrontController extends AbstractController
      */
     public function index(): Response
     {
-
         return $this->render('front/dashboard.html.twig', []);
     }
 
     /**
      * @Route("/create/{entity}/{purchase}", name="create")
-     * @param string $entity
-     * @param Request $request
-     * @param EntityManagerInterface $em
-     * @param TranslatorInterface $translator
-     * @param string|null $purchase
-     * @return Response
      */
     public function create(
         string $entity,
@@ -54,8 +47,8 @@ class FrontController extends AbstractController
     ): Response {
         /** @var User $user */
         $user = $this->getUser();
-        $class = self::ENTITY_NAMESPACE . ucfirst($entity);
-        $formClass = self::FORM_NAMESPACE . ucfirst($entity) . 'Type';
+        $class = self::ENTITY_NAMESPACE.ucfirst($entity);
+        $formClass = self::FORM_NAMESPACE.ucfirst($entity).'Type';
 
         if (!class_exists($class)) {
             throw new NotFoundHttpException('Page not found.');
@@ -75,11 +68,11 @@ class FrontController extends AbstractController
 
         $element->setCompany($user->getCompany());
 
-        if(property_exists($element,'user')) {
+        if (property_exists($element, 'user')) {
             $element->setUser($user);
         }
 
-        if ($purchase && $element instanceof PurchaseLine){
+        if ($purchase && $element instanceof PurchaseLine) {
             $purchase = $em->getRepository(Purchase::class)->find($purchase);
             $element->setPurchase($purchase);
         }
@@ -91,28 +84,23 @@ class FrontController extends AbstractController
             $em->persist($element);
             $em->flush();
 
-            $this->addFlash('success',$translator->trans($entity.'.created',['{{element}}' =>$element]));
+            $this->addFlash('success', $translator->trans($entity.'.created', ['{{element}}' => $element]));
 
             return ($purchase)
                 ? $this->redirect($request->headers->get('referer'))
                 : $this->redirectToRoute('front_edit', ['entity' => $entity, 'id' => $element->getId()]);
         }
 
-        return $this->render('front/create/' . $entity . '.html.twig', [
+        return $this->render('front/create/'.$entity.'.html.twig', [
             'action' => 'create',
-            'purchase'=> $purchase,
+            'purchase' => $purchase,
             'entity' => $entity,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
     /**
      * @Route("/edit/{entity}/{id}", name="edit")
-     * @param string $entity
-     * @param string $id
-     * @param Request $request
-     * @param EntityManagerInterface $em
-     * @return Response
      */
     public function edit(
         string $entity,
@@ -121,8 +109,8 @@ class FrontController extends AbstractController
         EntityManagerInterface $em,
         TranslatorInterface $translator
     ): Response {
-        $class = self::ENTITY_NAMESPACE . ucfirst($entity);
-        $formClass = self::FORM_NAMESPACE . ucfirst($entity) . 'Type';
+        $class = self::ENTITY_NAMESPACE.ucfirst($entity);
+        $formClass = self::FORM_NAMESPACE.ucfirst($entity).'Type';
 
         if (!class_exists($class)) {
             throw new NotFoundHttpException('Page not found.');
@@ -148,29 +136,21 @@ class FrontController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em->flush();
-            $this->addFlash('success',$translator->trans($entity.'.edited',['{{element}}' =>$element]));
+            $this->addFlash('success', $translator->trans($entity.'.edited', ['{{element}}' => $element]));
             return $this->redirectToRoute('front_edit', ['entity' => $entity, 'id' => $element->getId()]);
         }
 
-        return $this->render('front/edit/' . $entity . '.html.twig', [
+        return $this->render('front/edit/'.$entity.'.html.twig', [
             'action' => 'edit',
             'element' => $element,
             'entity' => $entity,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
     /**
      * @Route("/list/{entity}/{sort}/{direction}/{page}", name="list")
-     * @param string $entity
-     * @param EntityManagerInterface $em
-     * @param PaginatorInterface $paginator
-     * @param string $sort
-     * @param string $direction
-     * @param int $page
-     * @return Response
      */
     public function list(
         string $entity,
@@ -179,9 +159,8 @@ class FrontController extends AbstractController
         string $sort = 'name',
         string $direction = 'asc',
         int $page = 1
-    ): Response
-    {
-        $class = self::ENTITY_NAMESPACE . ucfirst($entity);
+    ): Response {
+        $class = self::ENTITY_NAMESPACE.ucfirst($entity);
         /** @var User $user */
         $user = $this->getUser();
 
@@ -194,12 +173,12 @@ class FrontController extends AbstractController
         }
 
         $pagination = $paginator->paginate(
-            $em->getRepository($class)->findBy(['company' => $user->getCompany()],[$sort=>$direction]), /* query NOT result */
+            $em->getRepository($class)->findBy(['company' => $user->getCompany()], [$sort => $direction]), /* query NOT result */
             $page, /*page number*/
             10 /*limit per page*/
         );
 
-        return $this->render('front/list/' . $entity . '.html.twig', [
+        return $this->render('front/list/'.$entity.'.html.twig', [
             'action' => 'list',
             'pagination' => $pagination,
             'entity' => $entity,
@@ -208,15 +187,10 @@ class FrontController extends AbstractController
 
     /**
      * @Route("/delete/{entity}/{id}", name="delete")
-     * @param string $entity
-     * @param string $id
-     * @param Request $request
-     * @param EntityManagerInterface $em
-     * @return Response
      */
     public function delete(string $entity, string $id, Request $request, EntityManagerInterface $em): Response
     {
-        $class = self::ENTITY_NAMESPACE . ucfirst($entity);
+        $class = self::ENTITY_NAMESPACE.ucfirst($entity);
 
         if (!class_exists($class)) {
             throw new NotFoundHttpException('Page not found.');

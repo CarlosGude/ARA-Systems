@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Tests\Front\Management;
-
 
 use App\Entity\Category;
 use App\Entity\Product;
@@ -41,8 +39,8 @@ class ProductManagementTest extends BaseTest
             'tax' => Product::IVA_8,
             'price' => '20.00',
             'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
-            'minStock'=> 1,
-            'maxStock'=> 100
+            'minStock' => 1,
+            'maxStock' => 100,
         ];
 
         /** @var Form $form */

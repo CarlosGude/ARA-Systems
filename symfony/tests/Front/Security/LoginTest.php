@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Tests\Front\Security;
-
 
 use App\Tests\Front\BaseTest;
 

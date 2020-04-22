@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Tests\Front\Management;
-
 
 use App\Entity\User;
 use App\Tests\Front\BaseTest;
@@ -43,7 +41,7 @@ class UserManagementTest extends BaseTest
         $user = [
             'name' => 'Test User',
             'email' => 'fake@email.com',
-            'password' => 'password'
+            'password' => 'password',
         ];
 
         /** @var Form $form */
@@ -94,5 +92,4 @@ class UserManagementTest extends BaseTest
             'Se ha editado el usuario Test User Edited correctamente.'
         );
     }
-
 }

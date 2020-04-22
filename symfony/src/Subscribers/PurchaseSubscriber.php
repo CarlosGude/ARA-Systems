@@ -21,9 +21,6 @@ class PurchaseSubscriber implements EventSubscriber
         ];
     }
 
-    /**
-     * @param OnFlushEventArgs $eventArgs
-     */
     public function onFlush(OnFlushEventArgs $eventArgs): void
     {
         $em = $eventArgs->getEntityManager();
@@ -34,10 +31,10 @@ class PurchaseSubscriber implements EventSubscriber
                 return;
             }
 
-            if($entity->getStatus() === Purchase::STATUS_SUCCESS){
-                foreach ($entity->getPurchaseLines() as $line){
+            if (Purchase::STATUS_SUCCESS === $entity->getStatus()) {
+                foreach ($entity->getPurchaseLines() as $line) {
                     $product = $line->getProduct();
-                    if(!$product){
+                    if (!$product) {
                         throw new  RuntimeException('product: This value should not be blank.');
                     }
 

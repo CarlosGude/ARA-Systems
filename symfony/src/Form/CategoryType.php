@@ -17,25 +17,25 @@ class CategoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name',TextType::class,['label' => 'category.name'])
-            ->add('description',TextareaType::class,['label' => 'category.description'])
-            ->add('tax',ChoiceType::class,[
-                'label'=>'category.tax',
-                'choices'=> $this->getTaxes(),
+            ->add('name', TextType::class, ['label' => 'category.name'])
+            ->add('description', TextareaType::class, ['label' => 'category.description'])
+            ->add('tax', ChoiceType::class, [
+                'label' => 'category.tax',
+                'choices' => $this->getTaxes(),
                 'placeholder' => 'category.taxes',
-                'required' => true
+                'required' => true,
             ])
-            ->add('minStock',IntegerType::class,[
+            ->add('minStock', IntegerType::class, [
                 'label' => 'category.minStock',
                 'required' => true,
-                'attr' => ['min' => 1]
+                'attr' => ['min' => 1],
             ])
-            ->add('maxStock',IntegerType::class,[
+            ->add('maxStock', IntegerType::class, [
                 'label' => 'category.maxStock',
                 'required' => true,
-                'attr' => ['min' => 1]
+                'attr' => ['min' => 1],
             ])
-            ->add('submit',SubmitType::class,['label' => 'save'])
+            ->add('submit', SubmitType::class, ['label' => 'save'])
 
         ;
     }
@@ -45,7 +45,7 @@ class CategoryType extends AbstractType
         return [
           Category::IVA_8.'%' => Category::IVA_8,
           Category::IVA_10.'%' => Category::IVA_10,
-          Category::IVA_21.'%' => Category::IVA_21
+          Category::IVA_21.'%' => Category::IVA_21,
         ];
     }
 

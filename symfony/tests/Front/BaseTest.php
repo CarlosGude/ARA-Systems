@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Tests\Front;
 
 use App\Entity\Provider;
@@ -55,12 +54,12 @@ abstract class BaseTest extends WebTestCase
         static::$container->get('doctrine')->getManager()->refresh($object);
     }
 
-    protected function createPurchase(string $email,string $provider,string $reference): Purchase
+    protected function createPurchase(string $email, string $provider, string $reference): Purchase
     {
         $manager = static::$container->get('doctrine')->getManager();
         /** @var User $user */
         $user = $this->getRepository(User::class)->findOneBy(['email' => $email]);
-        $provider = $this->getRepository(Provider::class)->findOneBy(['name'=> $provider]);
+        $provider = $this->getRepository(Provider::class)->findOneBy(['name' => $provider]);
 
         $purchase = new Purchase();
 
