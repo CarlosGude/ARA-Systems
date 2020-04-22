@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Interfaces\EntityInterface;
 use DateTime;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="App\Repository\PurchaseLineRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class PurchaseLine
+class PurchaseLine implements EntityInterface
 {
     /**
      * @var string
@@ -58,7 +59,7 @@ class PurchaseLine
     /**
      * @ORM\Column(type="integer")
      */
-    private $quantity;
+    private $quantity = 1;
 
     /**
      * @ORM\Column(type="float")
@@ -84,6 +85,11 @@ class PurchaseLine
     {
         $this->createdAt = new DateTime();
         $this->updatedAt = new DateTime();
+    }
+
+    public function __toString(): string
+    {
+        return $this->getProduct();
     }
 
     /**
@@ -133,6 +139,10 @@ class PurchaseLine
     {
         $this->purchase = $purchase;
 
+        if($purchase) {
+            $this->setProvider($purchase->getProvider());
+        }
+
         return $this;
     }
 
@@ -153,7 +163,7 @@ class PurchaseLine
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUser(?User $user): EntityInterface
     {
         $this->user = $user;
 
@@ -174,24 +184,12 @@ class PurchaseLine
 
     public function getTotalWithoutTaxes(): float
     {
-        return $this->totalWithoutTaxes;
-    }
-
-    public function setTotalWithoutTaxes(): PurchaseLine
-    {
-        $this->totalWithoutTaxes = $this->getTotal() + ($this->getTotal() * ($this->getTax() / 100));
-        return $this;
+        return $this->getTotal() + ($this->getTotal() * ($this->getTax() / 100));
     }
 
     public function getTotal(): float
     {
-        return $this->total;
-    }
-
-    public function setTotal(): PurchaseLine
-    {
-        $this->total = $this->getPrice() * $this->getQuantity();
-        return $this;
+        return $this->getPrice() * $this->getQuantity();
     }
 
     public function getTax(): int

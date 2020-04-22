@@ -1,0 +1,147 @@
+{% extends 'front/base.html.twig' %}
+
+{% block title %}{{ 'project' | trans }}: {{ element.reference }}{% endblock %}
+{% block content %}
+    <h1>
+        <a title="{{ 'back' | trans }}" href="{{ path('front_list',{'entity':entity,'sort':'reference'}) }}" class="btn btn-info">
+            <i class="fas fa-backward"></i>
+        </a>
+        {{ element.reference }}
+    </h1>
+        <div class="row">
+            <div class="col-4 h4">
+                <strong>{{ 'purchase.provider' | trans }}:</strong>
+                <span id="provider">{{ element.provider}}</span>
+            </div>
+            <div class="col-2 h4">
+                <strong>{{ 'purchase.status' | trans }}:</strong>
+                <span id="status">{{ ('purchase.table.' ~ element.status) | trans }}</span>
+            </div>
+        </div>
+    <div class="row">
+            <div class="col-md-4 h4">
+                <strong>{{ 'purchase.total' | trans }}:</strong>
+                <span id="total" data-total="{{ element.total }}">{{ element.total |number_format(2, ',', ' ') }}€</span>
+            </div>
+        <div class="col-md-4 h4">
+                <strong>{{ 'purchase.taxes' | trans }}:</strong>
+                <span id="taxes" data-taxes="{{ element.taxes }}">{{ element.taxes |number_format(2, ',', ' ') }}€</span>
+            </div>
+        <div class="col-md-4 h4">
+                <strong>{{ 'purchase.final' | trans }}:</strong>
+                <span id="final" data-final="{{(element.total + element.taxes) }}">{{ (element.total + element.taxes) |number_format(2, ',', ' ') }}€</span>
+            </div>
+
+        </div>
+        <div class="row">
+    {% if  element.purchaseLines.count > 0 and element.status == 'pending' %}
+        <div class="col-4 h4">
+            <a
+                    title="{{ 'purchase.cancelled' | trans }} {{ element.reference }}"
+                    data-href="{{ path('purchase_change_status',{'purchase': element.id, 'status': 'cancelled'}) }}"
+                    href="#"
+                    onclick="myFunction('{{ path('purchase_change_status',{'purchase': element.id, 'status': 'cancelled'}) }}')"
+                    class="btn btn-danger delete">
+                <i class="fas fa-trash"></i>
+            </a>
+            <a
+                    title="{{ 'purchase.success' | trans }} {{ element.reference }}"
+                    data-href="{{ path('purchase_change_status',{'purchase': element.id, 'status': 'success'}) }}"
+                    href="#"
+                    onclick="myFunction('{{ path('purchase_change_status',{'purchase': element.id, 'status': 'success'}) }}')"
+                    class="btn btn-success success">
+                <i class="fas fa-thumbs-up"></i>
+            </a>
+            <a
+                    title="{{ 'purchase.incoming' | trans }} {{ element.reference }}"
+                    data-href="{{ path('purchase_change_status',{'purchase': element.id, 'status': 'incoming'}) }}"
+                    href="#"
+                    onclick="myFunction('{{ path('purchase_change_status',{'purchase': element.id, 'status': 'incoming'}) }}')"
+                    class="btn btn-warning incoming">
+                <i class="fas fa-shipping-fast"></i>
+            </a>
+        </div>
+    {% endif %}
+    </div>
+    <table class="table" data-total="{{ element.purchaseLines.count }}">
+        <thead>
+        <tr>
+            <th>{{ 'purchase.product' | trans }}</th>
+            <th>{{ 'purchase.price' | trans }}</th>
+            <th>{{ 'purchase.quantity' | trans }}</th>
+            <th>{{ 'purchase.tax' | trans }}</th>
+            <th>{{ 'purchase.total' | trans }}</th>
+            <th>{{ 'purchase.totalWithoutTaxes' | trans }}</th>
+            <th>
+                {% if element.status == 'pending' %}
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createLine"  title="{{ 'line.create' | trans }}">
+                    <i class="fas fa-plus create"></i>
+                </button>
+                {% endif %}
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for line in element.purchaseLines %}
+            <tr class="purchase-line-tr"
+                data-product="{{ line.product.id }}"
+                data-quantity="{{ line.quantity }}"
+                data-price="{{ line.price }}"
+                data-tax="{{ line.tax }}"
+            >
+                {% set delete =  path('front_delete',{'entity': 'purchaseLine', 'id': line.id}) %}
+                <td>{{ line.product }}</td>
+                <td>{{ line.price |number_format(2, ',', ' ') }}€</td>
+                <td>
+                    {% if element.status == 'pending' %}
+                    <input
+                            class="change-quantity form-control"
+                            value="{{line.quantity }}"
+                            type="number"
+                            min="1"
+                            data-href="{{ path('purchase_update_quantity',{'line':line.id,'quantity':'quantity'}) }}"
+                    >
+                    {% else %}
+                        {{ line.quantity |number_format(0, ',', ' ')  }}
+                    {% endif %}
+                </td>
+                <td>{{ line.tax }}%</td>
+                <td>{{ line.total |number_format(2, ',', ' ') }}€</td>
+                <td>{{ line.totalWithoutTaxes |number_format(2, ',', ' ') }}€</td>
+                <td>
+                    {% if element.status == 'pending' %}
+                    <a
+                            href="#"
+                            title="{{ 'delete' | trans }} {{ line.product }}"
+                            data-href="{{ delete }}"
+                            onclick="myFunction('{{ delete }}')"
+                            class="btn btn-danger delete">
+                        <i class="fas fa-trash edit"></i>
+                    </a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="createLine" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{ 'purchaseLine.create' | trans }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ render(controller(
+                        'App\\Controller\\FrontController::create',
+                        { 'entity': 'purchaseLine','purchase': element.id }
+                    )) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

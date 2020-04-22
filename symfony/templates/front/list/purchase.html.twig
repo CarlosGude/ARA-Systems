@@ -1,0 +1,103 @@
+{% extends 'front/base.html.twig' %}
+
+{% block title %}{{ 'project' | trans }}: {{ 'purchase.list' | trans }}{% endblock %}
+{% block content %}
+    <h1>
+        <a title="{{ 'purchase.create' | trans }}" href="{{ path('front_create',{'entity':entity}) }}" class="btn btn-info">
+            <i class="far fa-plus-square"></i>
+        </a>
+        {{ 'purchase.list' | trans }}
+    </h1>
+    <table class="table" data-total="{{ pagination.getTotalItemCount }}">
+        <thead>
+        <tr>
+            <th{% if pagination.isSorted('a.reference') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'purchase.reference' | trans, 'name') }}
+            </th>
+            <th{% if pagination.isSorted('a.provider') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'purchase.provider' | trans, 'name') }}
+            </th>
+            <th{% if pagination.isSorted('a.total') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'purchase.total' | trans, 'name') }}
+            </th>
+            <th{% if pagination.isSorted('a.taxes') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'purchase.taxes' | trans, 'email') }}
+            </th>
+            <th{% if pagination.isSorted('a.status') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'purchase.status' | trans, 'email') }}
+            </th>
+            <th scope="col" colspan="2"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for element in pagination %}
+            <tr class="{{ entity }}-tr" id="{{ element.id }}">
+                {% set delete =  path('front_delete',{'entity': entity, 'id': element.id}) %}
+                <td>{{ element.reference }}</td>
+                <td>{{ element.provider }}</td>
+                <td>{{ element.total }}</td>
+                <td>{{ element.taxes }}</td>
+                <td class="status-{{ element.status }}">{{ ('purchase.table.' ~ element.status) | trans }}</td>
+                <td>
+                    {% if element.status == 'pending' and element.purchaseLines.count > 0 %}
+                        <a
+                                title="{{ 'edit' | trans }} {{ element.reference }}"
+                                href="{{ path('front_edit',{'entity': entity, 'id': element.id}) }}"
+                                class="btn btn-primary edit">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a
+                                title="{{ 'purchase.cancelled' | trans }} {{ element.reference }}"
+                                data-href="{{ path('purchase_change_status',{'purchase': element.id, 'status': 'cancelled'}) }}"
+                                href="#"
+                                onclick="myFunction('{{ path('purchase_change_status',{'purchase': element.id, 'status': 'cancelled'}) }}')"
+                                class="btn btn-danger cancelled">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                        <a
+                                title="{{ 'purchase.incoming' | trans }} {{ element.reference }}"
+                                data-href="{{ path('purchase_change_status',{'purchase': element.id, 'status': 'incoming'}) }}"
+                                href="#"
+                                onclick="myFunction('{{ path('purchase_change_status',{'purchase': element.id, 'status': 'incoming'}) }}')"
+                                class="btn btn-warning incoming">
+                            <i class="fas fa-shipping-fast"></i>
+                        </a>
+                        <a
+                                title="{{ 'purchase.success' | trans }} {{ element.reference }}"
+                                data-href="{{ path('purchase_change_status',{'purchase': element.id, 'status': 'success'}) }}"
+                                href="#"
+                                onclick="myFunction('{{ path('purchase_change_status',{'purchase': element.id, 'status': 'success'}) }}')"
+                                class="btn btn-success success">
+                            <i class="fas fa-thumbs-up"></i>
+                        </a>
+
+                    {% endif %}
+                    {% if  element.status == 'pending' and element.purchaseLines.count == 0 %}
+                        <a
+                                title="{{ 'purchase.delete' | trans }} {{ element.reference }}"
+                                data-href="{{ delete }}"
+                                href="#"
+                                onclick="myFunction('{{delete }}')"
+                                class="btn btn-danger delete">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    {% endif %}
+                    {% if element.status != 'pending' %}
+                    <a
+                            title="{{ 'edit' | trans }} {{ element.reference }}"
+                            href="{{ path('front_edit',{'entity': entity, 'id': element.id}) }}"
+                            class="btn btn-primary edit">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="7">
+                {{ knp_pagination_render(pagination) }}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}

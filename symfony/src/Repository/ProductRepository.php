@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Company;
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -47,4 +48,11 @@ class ProductRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findByCompany(Company $company)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.company = :company')
+            ->setParameter('company', $company)
+            ;
+    }
 }

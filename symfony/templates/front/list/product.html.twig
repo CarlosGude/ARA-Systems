@@ -15,19 +15,22 @@
                 {{ knp_pagination_sortable(pagination, 'product.name' | trans, 'name') }}
             </th>
             <th{% if pagination.isSorted('a.category') %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(pagination, 'product.category' | trans, 'name') }}
+                {{ knp_pagination_sortable(pagination, 'product.category' | trans, 'category') }}
             </th>
             <th{% if pagination.isSorted('a.price') %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(pagination, 'product.price' | trans, 'name') }}
+                {{ knp_pagination_sortable(pagination, 'product.price' | trans, 'price') }}
             </th>
             <th{% if pagination.isSorted('a.tax') %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(pagination, 'product.tax' | trans, 'email') }}
+                {{ knp_pagination_sortable(pagination, 'product.tax' | trans, 'tax') }}
             </th>
             <th{% if pagination.isSorted('a.minStock') %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(pagination, 'product.minStock' | trans, 'email') }}
+                {{ knp_pagination_sortable(pagination, 'product.minStock' | trans, 'minStock') }}
             </th>
             <th{% if pagination.isSorted('a.maxStock') %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(pagination, 'product.maxStock' | trans, 'email') }}
+                {{ knp_pagination_sortable(pagination, 'product.maxStock' | trans, 'maxStock') }}
+            </th>
+            <th{% if pagination.isSorted('a.stockAct') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'product.stockAct' | trans, 'stockAct') }}
             </th>
             <th scope="col" colspan="2"></th>
         </tr>
@@ -42,6 +45,7 @@
             <td>{{ element.tax }}</td>
             <td>{{ element.minStock }}</td>
             <td>{{ element.maxStock }}</td>
+            <td>{{ element.stockAct }}</td>
             <td>
                 <a
                     title="{{ 'edit' | trans }} {{ element.name }}"

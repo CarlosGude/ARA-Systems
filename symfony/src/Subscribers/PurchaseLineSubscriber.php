@@ -8,8 +8,10 @@ use App\Entity\Purchase;
 use App\Entity\PurchaseLine;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
+use Doctrine\ORM\ORMException;
 use RuntimeException;
 
 class PurchaseLineSubscriber implements EventSubscriber
@@ -23,6 +25,7 @@ class PurchaseLineSubscriber implements EventSubscriber
             Events::prePersist,
             Events::preRemove,
             Events::preUpdate,
+            Events::onFlush,
         ];
     }
 
@@ -66,6 +69,7 @@ class PurchaseLineSubscriber implements EventSubscriber
         }
 
         $line
+            ->setProvider($purchase->getProvider())
             ->setPrice($product->getPrice())
             ->setTax($product->getTax());
 
@@ -107,6 +111,10 @@ class PurchaseLineSubscriber implements EventSubscriber
             ->setTaxes($purchase->getTaxes() - ($line->getPrice() * $line->getQuantity()) * ($line->getTax() / 100));
     }
 
+    /**
+     * @param PreUpdateEventArgs $args
+     * @throws ORMException
+     */
     public function preUpdate(PreUpdateEventArgs $args): void
     {
         $line = $args->getObject();
@@ -115,27 +123,36 @@ class PurchaseLineSubscriber implements EventSubscriber
             return;
         }
 
-        $purchase = $line->getPurchase();
-
         if ($args->hasChangedField('product')) {
             throw new  RuntimeException('product: This value should not be updated.');
         }
+    }
 
-        if ($args->hasChangedField('quantity')) {
-            $oldQuantity = $args->getOldValue('quantity');
-            $newQuantity = $args->getNewValue('quantity');
+    /**
+     * @param OnFlushEventArgs $eventArgs
+     * @throws ORMException
+     */
+    public function onFlush(OnFlushEventArgs $eventArgs): void
+    {
+        $em = $eventArgs->getEntityManager();
+        $uow = $em->getUnitOfWork();
 
-            if ($newQuantity > $oldQuantity) {
-                $diff = $newQuantity - $oldQuantity;
-                $purchase
-                    ->setTotal($purchase->getTotal() + ($line->getPrice() * $diff))
-                    ->setTaxes($purchase->getTaxes() + ($line->getPrice() * $diff) * ($line->getTax() / 100));
-            } else {
-                $diff = $oldQuantity - $newQuantity;
-                $purchase
-                    ->setTotal($purchase->getTotal() - ($line->getPrice() * $diff))
-                    ->setTaxes($purchase->getTaxes() - ($line->getPrice() * $diff) * ($line->getTax() / 100));
+        foreach ($uow->getScheduledEntityUpdates() as $entity) {
+            if (!$entity instanceof PurchaseLine) {
+                return;
             }
+
+            $purchase = $entity->getPurchase();
+
+            foreach ($purchase->getPurchaseLines() as $line){
+                if($line->getQuantity() === 0) {
+                    $em->remove($line);
+                }
+            }
+
+            $purchase->updatePrice();
+            $uow->recomputeSingleEntityChangeSet($em->getClassMetadata(Purchase::class), $purchase);
         }
+
     }
 }

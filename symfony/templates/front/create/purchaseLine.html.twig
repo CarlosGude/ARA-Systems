@@ -1,0 +1,12 @@
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{{ form_start(form, {'action': path('front_create',{'entity':'purchaseLine','purchase':purchase.id}) }) }}
+{{ form_label(form.product) }}
+<div class="row">
+    <div class="col-12" style="margin-bottom: 20px">
+        {{ form_widget(form.product) }}
+    </div>
+    <div class="col-12">
+        {{ form_row(form.submit) }}
+    </div>
+</div>
+{{ form_end(form) }}

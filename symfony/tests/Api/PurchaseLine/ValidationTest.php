@@ -24,28 +24,6 @@ class ValidationTest extends BaseTest
         $this->token = $this->getToken();
     }
 
-    /**
-     * @throws TransportExceptionInterface
-     */
-    public function testProviderIsRequired(): void
-    {
-        $purchaseLine = $this->getPurchaseData();
-        unset($purchaseLine['provider']);
-
-        $response = static::createClient()->request('POST', parent::API.'purchase_lines', [
-            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
-
-            'body' => json_encode($purchaseLine),
-        ]);
-
-        $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
-
-        self::assertResponseStatusCodeSame(400, 'The response is not 400');
-        $this->assertEquals(
-            'provider: Este valor no debería estar vacío.',
-            $response['hydra:description']
-        );
-    }
 
     protected function getPurchaseData(): array
     {
@@ -70,7 +48,6 @@ class ValidationTest extends BaseTest
 
         $response = static::createClient()->request('POST', parent::API.'purchase_lines', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
-
             'body' => json_encode($purchaseLine),
         ]);
 
@@ -106,28 +83,6 @@ class ValidationTest extends BaseTest
         );
     }
 
-    /**
-     * @throws TransportExceptionInterface
-     */
-    public function testQuantityIsRequired(): void
-    {
-        $purchaseLine = $this->getPurchaseData();
-        unset($purchaseLine['quantity']);
-
-        $response = static::createClient()->request('POST', parent::API.'purchase_lines', [
-            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
-
-            'body' => json_encode($purchaseLine),
-        ]);
-
-        $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
-
-        self::assertResponseStatusCodeSame(400, 'The response is not 400');
-        $this->assertEquals(
-            'quantity: Este valor no debería estar vacío.',
-            $response['hydra:description']
-        );
-    }
 
     /**
      * @throws TransportExceptionInterface

@@ -3,6 +3,9 @@
 
 namespace App\Tests\Front;
 
+use App\Entity\Provider;
+use App\Entity\Purchase;
+use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectRepository;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -50,5 +53,27 @@ abstract class BaseTest extends WebTestCase
     protected function refresh($object): void
     {
         static::$container->get('doctrine')->getManager()->refresh($object);
+    }
+
+    protected function createPurchase(string $email,string $provider,string $reference): Purchase
+    {
+        $manager = static::$container->get('doctrine')->getManager();
+        /** @var User $user */
+        $user = $this->getRepository(User::class)->findOneBy(['email' => $email]);
+        $provider = $this->getRepository(Provider::class)->findOneBy(['name'=> $provider]);
+
+        $purchase = new Purchase();
+
+        $purchase
+            ->setUser($user)
+            ->setCompany($user->getCompany())
+            ->setProvider($provider)
+            ->setReference($reference)
+            ;
+
+        $manager->persist($purchase);
+        $manager->flush();
+
+        return $purchase;
     }
 }

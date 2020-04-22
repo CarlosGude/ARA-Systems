@@ -64,7 +64,10 @@ App\Entity\Purchase:
       - Choice: { callback: getStatuses }
     reference:
       - NotBlank: ~
-
+      - Length:
+          min: 1
+          max: 10
+          allowEmptyString: false
 App\Entity\PurchaseLine:
   properties:
     purchase:

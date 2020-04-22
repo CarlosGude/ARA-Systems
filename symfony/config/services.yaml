@@ -44,6 +44,10 @@ services:
     tags:
       - { name: 'doctrine.event_subscriber' }
 
+  App\Subscribers\PurchaseSubscriber:
+    tags:
+      - { name: 'doctrine.event_subscriber' }
+
   App\Subscribers\PurchaseLineSubscriber:
     tags:
       - { name: 'doctrine.event_subscriber' }

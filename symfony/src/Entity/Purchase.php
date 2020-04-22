@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Interfaces\EntityInterface;
 use DateTime;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -12,10 +13,11 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="App\Repository\PurchaseRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class Purchase
+class Purchase implements EntityInterface
 {
     public const STATUS_PENDING = 'pending';
     public const STATUS_INCOMING = 'incoming';
+    public const STATUS_CANCELLED = 'cancelled';
     public const STATUS_SUCCESS = 'success';
 
     /**
@@ -57,7 +59,7 @@ class Purchase
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $status;
+    private $status = self::STATUS_PENDING;
 
     /**
      * @var string
@@ -81,6 +83,11 @@ class Purchase
      */
     private $purchaseLines;
 
+    public function __toString()
+    {
+        return $this->getReference();
+    }
+
     public function __construct()
     {
         $this->createdAt = new DateTime();
@@ -94,7 +101,22 @@ class Purchase
             self::STATUS_SUCCESS,
             self::STATUS_INCOMING,
             self::STATUS_PENDING,
+            self::STATUS_CANCELLED
         ];
+    }
+
+    public function updatePrice(): Purchase
+    {
+        $total = 0;
+        $taxes = 0;
+        foreach ($this->getPurchaseLines() as $purchaseLine){
+            $total += $purchaseLine->getPrice() * $purchaseLine->getQuantity();
+            $taxes += ($purchaseLine->getPrice() * $purchaseLine->getQuantity()) * ($purchaseLine->getTax() / 100);
+        }
+
+        $this->setTotal($total)->setTaxes($taxes);
+
+        return $this;
     }
 
     /**
@@ -188,7 +210,7 @@ class Purchase
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUser(?User $user): EntityInterface
     {
         $this->user = $user;
 

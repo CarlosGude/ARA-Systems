@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Purchase;
+use App\Entity\PurchaseLine;
 use App\Entity\User;
 use App\Interfaces\EntityInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -35,18 +37,20 @@ class FrontController extends AbstractController
     }
 
     /**
-     * @Route("/create/{entity}", name="create")
+     * @Route("/create/{entity}/{purchase}", name="create")
      * @param string $entity
      * @param Request $request
      * @param EntityManagerInterface $em
+     * @param TranslatorInterface $translator
+     * @param string|null $purchase
      * @return Response
-     * @throws RuntimeException
      */
     public function create(
         string $entity,
         Request $request,
         EntityManagerInterface $em,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        string $purchase = null
     ): Response {
         /** @var User $user */
         $user = $this->getUser();
@@ -75,6 +79,11 @@ class FrontController extends AbstractController
             $element->setUser($user);
         }
 
+        if ($purchase && $element instanceof PurchaseLine){
+            $purchase = $em->getRepository(Purchase::class)->find($purchase);
+            $element->setPurchase($purchase);
+        }
+
         $form = $this->createForm($formClass, $element);
         $form->handleRequest($request);
 
@@ -83,11 +92,15 @@ class FrontController extends AbstractController
             $em->flush();
 
             $this->addFlash('success',$translator->trans($entity.'.created',['{{element}}' =>$element]));
-            return $this->redirectToRoute('front_edit', ['entity' => $entity, 'id' => $element->getId()]);
+
+            return ($purchase)
+                ? $this->redirect($request->headers->get('referer'))
+                : $this->redirectToRoute('front_edit', ['entity' => $entity, 'id' => $element->getId()]);
         }
 
         return $this->render('front/create/' . $entity . '.html.twig', [
             'action' => 'create',
+            'purchase'=> $purchase,
             'entity' => $entity,
             'form' => $form->createView()
         ]);
@@ -153,6 +166,10 @@ class FrontController extends AbstractController
      * @Route("/list/{entity}/{sort}/{direction}/{page}", name="list")
      * @param string $entity
      * @param EntityManagerInterface $em
+     * @param PaginatorInterface $paginator
+     * @param string $sort
+     * @param string $direction
+     * @param int $page
      * @return Response
      */
     public function list(

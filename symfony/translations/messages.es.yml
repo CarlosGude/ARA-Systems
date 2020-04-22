@@ -55,3 +55,35 @@ product:
   created: Se ha creado el producto {{element}} correctamente.
   edited: Se ha editado el producto {{element}} correctamente.
   taxes: Elija el IVA
+
+purchase:
+  product: Producto
+  price: Precio (unidad)
+  quantity: Cantidad
+  tax: IVA
+  totalWithoutTaxes: Total final
+  reference: Referencia
+  provider: Proveedor
+  total: Total (sin IVA)
+  taxes: IVA
+  final: Total Final
+  status: Estado
+  menu: Compras
+  list: Listado de compras
+  create: Crear una nueva venta
+  delete: Borrar compar con la referencia
+  created: Se ha creado una nueva compra con la referencia {{element}}.
+  cancelled: Cancelar compra con la referencia
+  success: Recibir la compra con la referencia
+  incoming: Confirmar la compra con la referencia
+  table:
+    pending: Pendiente
+    success: Recibido
+    cancelled: Cancelado
+    incoming: De camino
+
+purchaseLine:
+  added: Se ha actualizado la cantidad del procudto {{product}}.
+  created: Se ha añadido el producto {{element}} correctamente.
+  removed: Se ha elimiando el producto {{element}} correctamente.
+  create: Añadir linea al pedido
