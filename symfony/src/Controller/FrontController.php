@@ -142,7 +142,7 @@ class FrontController extends AbstractController
             throw new RuntimeException('The class is not valid.');
         }
 
-        $this->denyAccessUnlessGranted('EDIT', $element);
+        $this->denyAccessUnlessGranted('UPDATE', $element);
 
         $form = $this->createForm($formClass, $element);
         $form->handleRequest($request);
@@ -225,6 +225,8 @@ class FrontController extends AbstractController
         if (!$element) {
             throw new RuntimeException('Page not found.');
         }
+
+        $this->denyAccessUnlessGranted('DELETE', $element);
 
         $em->remove($element);
         $em->flush();

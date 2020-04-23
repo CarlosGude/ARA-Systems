@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\Security;
 
 class UserVoter extends Voter
 {
-    protected const CREATE = 'CREATED';
+    protected const CREATE = 'CREATE';
     protected const UPDATE = 'UPDATE';
     protected const DELETE = 'DELETE';
     protected const READ = 'READ';
@@ -59,6 +59,16 @@ class UserVoter extends Voter
             return true;
         }
 
+        if($attribute === self::UPDATE || $attribute===self::DELETE){
+            if ($subject->getCompany() === $user->getCompany()) {
+                return true;
+            }
+            return false;
+        }
+
+        if($attribute===self::CREATE){
+            return true;
+        }
         return false;
     }
 }

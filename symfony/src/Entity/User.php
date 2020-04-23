@@ -92,7 +92,7 @@ class User implements UserInterface
     private $products;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="users", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      */
     private $company;

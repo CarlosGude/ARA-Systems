@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\Security;
 
 class CompanyVoter extends Voter
 {
-    protected const CREATE = 'CREATED';
+    protected const CREATE = 'CREATE';
     protected const UPDATE = 'UPDATE';
     protected const DELETE = 'DELETE';
     protected const READ = 'READ';
@@ -59,6 +59,7 @@ class CompanyVoter extends Voter
         if (in_array(User::ROLE_GOD, $user->getRoles(), true)) {
             return true;
         }
+
 
         return false;
     }
