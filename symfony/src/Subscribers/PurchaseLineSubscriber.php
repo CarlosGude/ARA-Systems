@@ -37,6 +37,18 @@ class PurchaseLineSubscriber implements EventSubscriber
             return;
         }
 
+        if ($line->getPurchase()->getStatus() === Purchase::STATUS_INCOMING){
+            throw new  RuntimeException(
+                'purchase: A line can not be added to purchase to a purchase with status incoming.'
+            );
+        }
+
+        if ($line->getPurchase()->getStatus() === Purchase::STATUS_CANCELLED){
+            throw new  RuntimeException(
+                'purchase: A line can not be added to purchase to a purchase with status cancelled.'
+            );
+        }
+
         $product = $line->getProduct();
         $purchase = $line->getPurchase();
         $provider = $line->getProvider();

@@ -5,7 +5,7 @@ App\Entity\PurchaseLine:
     company: '@the_company'
     provider: '@the_provider'
     product: '@the_product'
-    quantity: 1
+    quantity: 100
 
   the_purchase_line_{1..10}:
     purchase: '@multi_line_purchase'

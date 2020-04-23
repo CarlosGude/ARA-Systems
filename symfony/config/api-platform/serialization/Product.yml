@@ -3,7 +3,7 @@ App\Entity\Product:
     id:
       groups: ['product_read','purchase-line_read']
     name:
-      groups: ['product_read', 'product_write','purchase-line_read']
+      groups: ['product_read', 'product_write','purchase-line_read','purchase_read']
 
     description:
       groups: ['product_read', 'product_write']

@@ -56,10 +56,10 @@ class EventSubscriberTest extends BaseTest
         $response = json_decode($response->getContent(), true);
 
         $this->assertEquals(100, $response['price']);
-        $this->assertEquals(2, $response['quantity']);
+        $this->assertEquals(101, $response['quantity']);
         $this->assertEquals(21, $response['tax']);
-        $this->assertEquals(200, $response['purchase']['total']);
-        $this->assertEquals(42, $response['purchase']['taxes']);
+        $this->assertEquals(10100, $response['purchase']['total']);
+        $this->assertEquals(2121, $response['purchase']['taxes']);
     }
 
     public function testRemoveLineAndUpdateTotal(): void

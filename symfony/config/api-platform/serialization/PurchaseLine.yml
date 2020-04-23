@@ -1,7 +1,7 @@
 App\Entity\PurchaseLine:
   attributes:
     id:
-      groups: ['purchase-line_read']
+      groups: ['purchase-line_read','purchase_read']
 
     company:
       groups: ['purchase-line_read', 'purchase-line_write']
@@ -10,7 +10,7 @@ App\Entity\PurchaseLine:
       groups: ['purchase-line_read', 'purchase-line_write']
 
     product:
-      groups: ['purchase-line_read', 'purchase-line_write']
+      groups: ['purchase-line_read', 'purchase-line_write','purchase_read']
 
     provider:
       groups: ['purchase-line_read', 'purchase-line_write']

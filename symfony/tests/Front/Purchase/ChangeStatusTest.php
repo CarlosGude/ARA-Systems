@@ -26,7 +26,7 @@ class ChangeStatusTest extends BaseTest
 
         $count = $client->getCrawler()->filter('.status-incoming')->count();
 
-        self::assertEquals(1, $count);
+        self::assertEquals(2, $count);
 
         $id = explode('/', $url)[3];
         /** @var Purchase $purchase */
@@ -50,7 +50,7 @@ class ChangeStatusTest extends BaseTest
 
         $count = $client->getCrawler()->filter('.status-cancelled')->count();
 
-        self::assertEquals(1, $count);
+        self::assertEquals(2, $count);
 
         $id = explode('/', $url)[3];
         /** @var Purchase $purchase */
