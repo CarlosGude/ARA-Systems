@@ -56,8 +56,8 @@ class UserManagementTest extends BaseTest
         $successLabel = $client->getCrawler()->filter('.alert-success')->first();
 
         self::assertEquals(
-            trim($successLabel->html()),
-            'Se ha creado el usuario Test User correctamente.'
+            'Se ha creado el usuario Test User correctamente.',
+            trim($successLabel->html())
         );
 
         $user = $this->getRepository(User::class)->findOneBy(['email' => 'fake@email.com']);
@@ -88,8 +88,8 @@ class UserManagementTest extends BaseTest
         $successLabel = $client->getCrawler()->filter('.alert-success')->first();
 
         self::assertEquals(
-            trim($successLabel->html()),
-            'Se ha editado el usuario Test User Edited correctamente.'
+            'Se ha editado el usuario Test User Edited correctamente.',
+            trim($successLabel->html())
         );
     }
 }

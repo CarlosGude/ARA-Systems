@@ -22,6 +22,6 @@ class PurchaseValidationTest extends BaseTest
 
         $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
 
-        self::assertEquals($errorSpan->html(), 'Este valor no debería estar vacío.');
+        self::assertEquals('Este valor no debería estar vacío.', $errorSpan->html());
     }
 }

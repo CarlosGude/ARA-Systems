@@ -20,7 +20,7 @@ class LoginTest extends BaseTest
 
         $errorSpan = $client->getCrawler()->filter('.alert-danger')->first();
 
-        self::assertEquals($errorSpan->html(), 'Email no reconocido.');
+        self::assertEquals('Email no reconocido.', $errorSpan->html());
     }
 
     public function testFailPasswordLogin(): void
@@ -29,6 +29,6 @@ class LoginTest extends BaseTest
 
         $errorSpan = $client->getCrawler()->filter('.alert-danger')->first();
 
-        self::assertEquals($errorSpan->html(), 'Credenciales no válidas.');
+        self::assertEquals('Credenciales no válidas.', $errorSpan->html());
     }
 }

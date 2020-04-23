@@ -58,8 +58,8 @@ class ProductManagementTest extends BaseTest
         $successLabel = $client->getCrawler()->filter('.alert-success')->first();
 
         self::assertEquals(
-            trim($successLabel->html()),
-            'Se ha creado el producto Test Product correctamente.'
+            'Se ha creado el producto Test Product correctamente.',
+            trim($successLabel->html())
         );
 
         $product = $this->getRepository(Product::class)->findOneBy(['name' => 'Test Product']);
@@ -90,8 +90,8 @@ class ProductManagementTest extends BaseTest
         $successLabel = $client->getCrawler()->filter('.alert-success')->first();
 
         self::assertEquals(
-            trim($successLabel->html()),
-            'Se ha editado el producto Test Product correctamente.'
+            'Se ha editado el producto Test Product correctamente.',
+            trim($successLabel->html())
         );
     }
 }

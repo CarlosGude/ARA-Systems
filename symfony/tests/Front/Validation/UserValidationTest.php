@@ -30,7 +30,7 @@ class UserValidationTest extends BaseTest
 
         $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
 
-        self::assertEquals($errorSpan->html(), 'Este valor ya se ha utilizado.');
+        self::assertEquals('Este valor ya se ha utilizado.', $errorSpan->html());
     }
 
     public function testNoValidEmail(): void
@@ -56,7 +56,7 @@ class UserValidationTest extends BaseTest
 
         $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
 
-        self::assertEquals($errorSpan->html(), 'Este valor no es una dirección de email válida.');
+        self::assertEquals('Este valor no es una dirección de email válida.', $errorSpan->html());
     }
 
     public function testNoEmptyEmail(): void
@@ -80,7 +80,7 @@ class UserValidationTest extends BaseTest
 
         $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
 
-        self::assertEquals($errorSpan->html(), 'Este valor no debería estar vacío.');
+        self::assertEquals('Este valor no debería estar vacío.', $errorSpan->html());
     }
 
     public function testNoEmptyPassword(): void
@@ -104,6 +104,6 @@ class UserValidationTest extends BaseTest
 
         $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
 
-        self::assertEquals($errorSpan->html(), 'Este valor no debería estar vacío.');
+        self::assertEquals('Este valor no debería estar vacío.', $errorSpan->html());
     }
 }

@@ -47,8 +47,8 @@ class CategoryManagementTest extends BaseTest
         $successLabel = $client->getCrawler()->filter('.alert-success')->first();
 
         self::assertEquals(
-            trim($successLabel->html()),
-            'Se ha creado la categoría Test Category correctamente.'
+            'Se ha creado la categoría Test Category correctamente.',
+            trim($successLabel->html())
         );
 
         $category = $this->getRepository(Category::class)->findOneBy(['name' => 'Test Category']);
@@ -79,8 +79,8 @@ class CategoryManagementTest extends BaseTest
         $successLabel = $client->getCrawler()->filter('.alert-success')->first();
 
         self::assertEquals(
-            trim($successLabel->html()),
-            'Se ha editado la categoría Test category updated correctamente.'
+            'Se ha editado la categoría Test category updated correctamente.',
+            trim($successLabel->html())
         );
     }
 

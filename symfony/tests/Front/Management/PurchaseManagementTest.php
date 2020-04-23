@@ -50,8 +50,8 @@ class PurchaseManagementTest extends BaseTest
         $successLabel = $client->getCrawler()->filter('.alert-success')->first();
 
         self::assertEquals(
-            trim($successLabel->html()),
-            'Se ha creado una nueva compra con la referencia Test.'
+            'Se ha creado una nueva compra con la referencia Test.',
+            trim($successLabel->html())
         );
 
         $provider = $this->getRepository(Purchase::class)->findOneBy(['reference' => 'Test']);

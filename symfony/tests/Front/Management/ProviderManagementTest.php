@@ -40,8 +40,8 @@ class ProviderManagementTest extends BaseTest
         $successLabel = $client->getCrawler()->filter('.alert-success')->first();
 
         self::assertEquals(
-            trim($successLabel->html()),
-            'Se ha creado el proveedor Test Provider correctamente.'
+            'Se ha creado el proveedor Test Provider correctamente.',
+            trim($successLabel->html())
         );
 
         $provider = $this->getRepository(Provider::class)->findOneBy(['name' => 'Test Provider']);
@@ -72,8 +72,8 @@ class ProviderManagementTest extends BaseTest
         $successLabel = $client->getCrawler()->filter('.alert-success')->first();
 
         self::assertEquals(
-            trim($successLabel->html()),
-            'Se ha editado el proveedor Test provider updated correctamente.'
+            'Se ha editado el proveedor Test provider updated correctamente.',
+            trim($successLabel->html())
         );
     }
 

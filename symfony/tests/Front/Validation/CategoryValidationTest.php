@@ -31,7 +31,7 @@ class CategoryValidationTest extends BaseTest
 
         $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
 
-        self::assertEquals($errorSpan->html(), 'Este valor no debería estar vacío.');
+        self::assertEquals('Este valor no debería estar vacío.', $errorSpan->html());
     }
 
     public function testMinStockGreaterThanOne(): void
@@ -59,7 +59,7 @@ class CategoryValidationTest extends BaseTest
 
         $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
 
-        self::assertEquals($errorSpan->html(), 'Este valor debería ser mayor o igual que 0.');
+        self::assertEquals('Este valor debería ser mayor o igual que 0.', $errorSpan->html());
     }
 
     public function testMaxStockGreaterThanOne(): void
@@ -87,7 +87,7 @@ class CategoryValidationTest extends BaseTest
 
         $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
 
-        self::assertEquals($errorSpan->html(), 'Este valor debería ser mayor o igual que 1.');
+        self::assertEquals('Este valor debería ser mayor o igual que 1.', $errorSpan->html());
     }
 
     public function testMaxStockLowerThanMinStockRequired(): void
@@ -115,6 +115,6 @@ class CategoryValidationTest extends BaseTest
 
         $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
 
-        self::assertEquals($errorSpan->html(), 'Este valor debería ser mayor o igual que 100.');
+        self::assertEquals('Este valor debería ser mayor o igual que 100.', $errorSpan->html());
     }
 }
