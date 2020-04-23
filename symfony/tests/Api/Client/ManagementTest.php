@@ -85,7 +85,12 @@ class ManagementTest extends BaseTest
      */
     public function testAddAnClient(): void
     {
-        $client = ['name' => 'test', 'email' => 'fake@email.com','identification'=>'3616884'];
+        $client = [
+            'name' => 'test',
+            'email' => 'fake@email.com',
+            'identification'=>'3616884',
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
+        ];
 
         $response = static::createClient()->request('POST', parent::API.'clients', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],

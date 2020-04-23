@@ -73,6 +73,7 @@ class ProviderValidationTest extends BaseTest
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['provider[name]']->setValue($provider['name']);
+        $form['provider[email]']->setValue($provider['email']);
 
         $client->submit($form);
 

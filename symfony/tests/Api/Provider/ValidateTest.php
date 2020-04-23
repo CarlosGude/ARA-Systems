@@ -15,15 +15,15 @@ class ValidateTest extends ManagementTest
      */
     public function testNameRequired(): void
     {
-        $category = [
+        $provider = [
             'description' => 'test',
+            'email' => 'fake@email.com',
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
         ];
 
-        $response = static::createClient()->request('POST', parent::API.'categories', [
+        $response = static::createClient()->request('POST', parent::API.'providers', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
-
-            'body' => json_encode($category),
+            'body' => json_encode($provider),
         ]);
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
 
@@ -37,17 +37,67 @@ class ValidateTest extends ManagementTest
     /**
      * @throws TransportExceptionInterface
      */
-    public function testCompanyRequired(): void
+    public function testEmailRequired(): void
     {
-        $category = [
+        $provider = [
             'name' => 'test',
-            'description' => 'test',
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
         ];
 
-        $response = static::createClient()->request('POST', parent::API.'categories', [
+        $response = static::createClient()->request('POST', parent::API.'providers', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-            'body' => json_encode($category),
+            'body' => json_encode($provider),
+        ]);
+        $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
+
+        self::assertResponseStatusCodeSame(400, 'The response is not 204');
+        $this->assertEquals(
+            'email: Este valor no debería estar vacío.',
+            $response['hydra:description']
+        );
+    }
+
+    /**
+     * @throws TransportExceptionInterface
+     */
+    public function testEmailValid(): void
+    {
+        $provider = [
+            'name' => 'test',
+            'email' => 'test',
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
+        ];
+
+        $response = static::createClient()->request('POST', parent::API.'providers', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
+
+            'body' => json_encode($provider),
+        ]);
+        $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
+
+        self::assertResponseStatusCodeSame(400, 'The response is not 204');
+        $this->assertEquals(
+            'email: Este valor no es una dirección de email válida.',
+            $response['hydra:description']
+        );
+    }
+
+    /**
+     * @throws TransportExceptionInterface
+     */
+    public function testCompanyRequired(): void
+    {
+        $provider = [
+            'name' => 'test',
+            'description' => 'test',
+            'email' => 'fake@gmail.com'
+        ];
+
+        $response = static::createClient()->request('POST', parent::API.'providers', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
+
+            'body' => json_encode($provider),
         ]);
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
 

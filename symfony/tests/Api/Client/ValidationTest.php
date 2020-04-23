@@ -34,7 +34,11 @@ class ValidationTest extends BaseTest
      */
     public function testNameRequired(): void
     {
-        $client = ['email' => 'fake@email.com','identification'=>'3616884'];
+        $client = [
+            'email' => 'fake@email.com',
+            'identification'=>'3616884',
+            'company' => parent::API.'companies/'.$this->getCompany()->getId()
+            ];
 
         $response = static::createClient()->request(
             'POST',
@@ -57,7 +61,11 @@ class ValidationTest extends BaseTest
      */
     public function testIdentificationRequired(): void
     {
-        $client = ['email' => 'fake@email.com','name'=>'Test'];
+        $client = [
+            'email' => 'fake@email.com',
+            'name'=>'Test',
+            'company' => parent::API.'companies/'.$this->getCompany()->getId()
+        ];
 
         $response = static::createClient()->request(
             'POST',
@@ -80,7 +88,11 @@ class ValidationTest extends BaseTest
      */
     public function testEmailRequired(): void
     {
-        $client = ['name' => 'test','identification'=>'3616884'];
+        $client = [
+            'name' => 'test',
+            'identification'=>'3616884',
+            'company' => parent::API.'companies/'.$this->getCompany()->getId()
+        ];
 
         $response = static::createClient()->request(
             'POST',
@@ -103,7 +115,12 @@ class ValidationTest extends BaseTest
      */
     public function testEmailUnique(): void
     {
-        $client = ['name' => 'test', 'email' => 'client@email.com','identification'=>'3616884'];
+        $client = [
+            'name' => 'test',
+            'email' => 'client@email.com',
+            'identification'=>'3616884',
+            'company' => parent::API.'companies/'.$this->getCompany()->getId()
+        ];
 
         $response = static::createClient()->request(
             'POST',
@@ -126,7 +143,12 @@ class ValidationTest extends BaseTest
      */
     public function testIdentificationUnique(): void
     {
-        $client = ['name' => 'test', 'email' => 'fake@email.com','identification'=>'666'];
+        $client = [
+            'name' => 'test',
+            'email' => 'fake@email.com',
+            'identification'=>'666',
+            'company' => parent::API.'companies/'.$this->getCompany()->getId()
+        ];
 
         $response = static::createClient()->request(
             'POST',
@@ -140,6 +162,33 @@ class ValidationTest extends BaseTest
         self::assertResponseStatusCodeSame(400, 'The response is not 204');
         $this->assertEquals(
             'identification: Este valor ya se ha utilizado.',
+            $response['hydra:description']
+        );
+    }
+
+    /**
+     * @throws TransportExceptionInterface
+     */
+    public function testCompanyRequired(): void
+    {
+        $client = [
+            'name' => 'test',
+            'email' => 'fake@email.com',
+            'identification'=>'886756135151',
+        ];
+
+        $response = static::createClient()->request(
+            'POST',
+            parent::API.'clients',
+            ['headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
+                'body' => json_encode($client),
+            ]
+        );
+        $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
+
+        self::assertResponseStatusCodeSame(400, 'The response is not 204');
+        $this->assertEquals(
+            'company: Este valor no debería estar vacío.',
             $response['hydra:description']
         );
     }
