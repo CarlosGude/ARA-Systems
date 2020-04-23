@@ -1,0 +1,27 @@
+App\Entity\Client:
+  attributes:
+    id:
+      groups: ['client_read']
+    name:
+      groups: ['client_read', 'client_write','product_read']
+
+    identification:
+      groups: ['client_read', 'client_write']
+
+    email:
+      groups: ['client_read', 'client_write']
+
+    address:
+      groups: ['client_read', 'client_write']
+
+    user:
+      groups: ['client_read', 'client_write']
+
+    company:
+      groups: ['client_read', 'client_write']
+
+    createdAt:
+      groups: ['client_read']
+
+    updatedAt:
+      groups: ['client_read']

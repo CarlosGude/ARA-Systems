@@ -84,6 +84,11 @@ class Company
      */
     private $purchaseLines;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Client", mappedBy="company")
+     */
+    private $clients;
+
     public function __construct()
     {
         $this->createdAt = new DateTime();
@@ -94,6 +99,7 @@ class Company
         $this->providers = new ArrayCollection();
         $this->purchases = new ArrayCollection();
         $this->purchaseLines = new ArrayCollection();
+        $this->clients = new ArrayCollection();
     }
 
     /**
@@ -351,6 +357,37 @@ class Company
             // set the owning side to null (unless already changed)
             if ($purchaseLine->getCompany() === $this) {
                 $purchaseLine->setCompany(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Client[]
+     */
+    public function getClients(): Collection
+    {
+        return $this->clients;
+    }
+
+    public function addClient(Client $client): self
+    {
+        if (!$this->clients->contains($client)) {
+            $this->clients[] = $client;
+            $client->setCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClient(Client $client): self
+    {
+        if ($this->clients->contains($client)) {
+            $this->clients->removeElement($client);
+            // set the owning side to null (unless already changed)
+            if ($client->getCompany() === $this) {
+                $client->setCompany(null);
             }
         }
 

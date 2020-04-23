@@ -4,6 +4,7 @@ namespace App\Tests\Api;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
 use App\Entity\Category;
+use App\Entity\Client;
 use App\Entity\Company;
 use App\Entity\Product;
 use App\Entity\Provider;
@@ -45,6 +46,7 @@ abstract class BaseTest extends ApiTestCase
     }
 
     /**
+     * @param DateTime $dateTime
      * @throws Exception
      */
     protected function assertRecentlyDateTime(DateTime $dateTime): void
@@ -128,7 +130,9 @@ abstract class BaseTest extends ApiTestCase
     }
 
     /**
+     * @param Company|null $company
      * @param string $reference
+     * @return Purchase|null
      */
     protected function getPurchase(Company $company = null, $reference = 'reference'): ?Purchase
     {
@@ -146,7 +150,9 @@ abstract class BaseTest extends ApiTestCase
     }
 
     /**
+     * @param Product $product
      * @param string $reference
+     * @return PurchaseLine|null
      */
     protected function getPurchaseLine(Product $product, $reference = 'reference'): ?PurchaseLine
     {
@@ -161,6 +167,26 @@ abstract class BaseTest extends ApiTestCase
             ]);
 
         return $purchaseLine;
+    }
+
+    /**
+     * @param Company|null $company
+     * @param string $name
+     * @return PurchaseLine|null
+     */
+    protected function getPurchaseClient($name = 'The Client',Company $company=null): ?Client
+    {
+        (!$company && $company = $this->getCompany());
+
+        /** @var Client $client */
+        $client = static::$container->get('doctrine')
+            ->getRepository(Client::class)
+            ->findOneBy([
+                'company' => $company,
+                'name' => $name,
+            ]);
+
+        return $client;
     }
 
     /**

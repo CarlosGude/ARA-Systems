@@ -1,0 +1,26 @@
+App\Entity\Client:
+  the_client:
+    name: 'The Client'
+    email: 'client@email.com'
+    identification: '666'
+    company: '@the_company'
+
+  the_delete_client:
+    name: 'The Client To Delete'
+    email: 'clienttodelete@email.com'
+    identification: '<numberBetween(1, 9999999999999999)>'
+    company: '@the_company'
+
+  dummy_clients_{1..8}:
+    name: '<firstName()> <lastName()>'
+    email: '<email()>'
+    identification: '<numberBetween(1, 9999999999999999)>'
+    company: '@the_company'
+
+  dummy_clients_another_company{1..10}:
+    name: '<firstName()> <lastName()>'
+    email: '<email()>'
+    identification: '<numberBetween(1, 9999999999999999)>'
+    company: '@another_company'
+
+

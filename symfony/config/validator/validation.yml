@@ -73,6 +73,20 @@ App\Entity\Purchase:
           min: 1
           max: 10
           allowEmptyString: false
+
+App\Entity\Client:
+  constraints:
+    - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
+    - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: identification
+  properties:
+    name:
+      - NotBlank: ~
+    identification:
+      - NotBlank: ~
+    email:
+      - Email: ~
+      - NotBlank: ~
+
 App\Entity\PurchaseLine:
   properties:
     purchase:

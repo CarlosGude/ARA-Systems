@@ -112,6 +112,11 @@ class User implements UserInterface
      */
     private $providers;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Client", mappedBy="user")
+     */
+    private $clients;
+
     public function __construct()
     {
         $this->roles = [self::ROLE_USER];
@@ -123,6 +128,7 @@ class User implements UserInterface
         $this->purchases = new ArrayCollection();
         $this->purchaseLines = new ArrayCollection();
         $this->providers = new ArrayCollection();
+        $this->clients = new ArrayCollection();
     }
 
     public function __toString()
@@ -409,6 +415,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($provider->getUser() === $this) {
                 $provider->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Client[]
+     */
+    public function getClients(): Collection
+    {
+        return $this->clients;
+    }
+
+    public function addClient(Client $client): self
+    {
+        if (!$this->clients->contains($client)) {
+            $this->clients[] = $client;
+            $client->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClient(Client $client): self
+    {
+        if ($this->clients->contains($client)) {
+            $this->clients->removeElement($client);
+            // set the owning side to null (unless already changed)
+            if ($client->getUser() === $this) {
+                $client->setUser(null);
             }
         }
 
