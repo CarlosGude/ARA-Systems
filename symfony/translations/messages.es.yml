@@ -87,3 +87,12 @@ purchaseLine:
   created: Se ha añadido el producto {{element}} correctamente.
   removed: Se ha elimiando el producto {{element}} correctamente.
   create: Añadir linea al pedido
+
+provider:
+  name: Nombre
+  description: Descripción
+  list: Listado de proveedores
+  menu: Proveedores
+  create: Crear proveedor
+  created: Se ha creado el proveedor {{element}} correctamente.
+  edited: Se ha editado el proveedor {{element}} correctamente.

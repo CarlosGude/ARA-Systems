@@ -1,0 +1,90 @@
+<?php
+
+namespace App\Tests\Front\Management;
+
+use App\Entity\Provider;
+use App\Tests\Front\BaseTest;
+use Symfony\Component\DomCrawler\Form;
+
+class ProviderManagementTest extends BaseTest
+{
+    public function testListProviders(): void
+    {
+        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+
+        $crawler = $client->request('GET', '/list/provider');
+
+        $count = $crawler->filter('.provider-tr')->count();
+        $total = $crawler->filter('.table')->first()->attr('data-total');
+
+        self::assertEquals(10, $count);
+        self::assertEquals(11, $total);
+    }
+
+    public function testCreateProvider(): void
+    {
+        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+
+        $crawler = $client->request('GET', '/create/provider');
+
+        $provider = [
+            'name' => 'Test Provider',
+        ];
+
+        $form = $crawler->selectButton('Guardar')->form();
+
+        $form['provider[name]']->setValue($provider['name']);
+
+        $client->submit($form);
+
+        $successLabel = $client->getCrawler()->filter('.alert-success')->first();
+
+        self::assertEquals(
+            trim($successLabel->html()),
+            'Se ha creado el proveedor Test Provider correctamente.'
+        );
+
+        $provider = $this->getRepository(Provider::class)->findOneBy(['name' => 'Test Provider']);
+
+        self::assertNotNull($provider);
+    }
+
+    public function testProviderEdited(): void
+    {
+        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+
+        /** @var Provider $providerToEdit */
+        $providerToEdit = $this->getRepository(Provider::class)->findOneBy(['name' => 'The Provider']);
+
+        $crawler = $client->request('GET', '/edit/provider/'.$providerToEdit->getId());
+
+        $provider = [
+            'name' => 'Test provider updated',
+        ];
+
+        /** @var Form $form */
+        $form = $crawler->selectButton('Guardar')->form();
+
+        $form['provider[name]']->setValue($provider['name']);
+
+        $client->submit($form);
+
+        $successLabel = $client->getCrawler()->filter('.alert-success')->first();
+
+        self::assertEquals(
+            trim($successLabel->html()),
+            'Se ha editado el proveedor Test provider updated correctamente.'
+        );
+    }
+
+    public function testRemoveProvider(): void
+    {
+        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+
+        $crawler = $client->request('GET', '/list/provider');
+
+        $client->request('POST', $crawler->filter('.delete')->first()->attr('data-href'));
+
+        self::assertEquals(10, $client->getCrawler()->filter('.provider-tr')->count());
+    }
+}

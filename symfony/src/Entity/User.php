@@ -107,6 +107,11 @@ class User implements UserInterface
      */
     private $purchaseLines;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Provider", mappedBy="user")
+     */
+    private $providers;
+
     public function __construct()
     {
         $this->roles = [self::ROLE_USER];
@@ -117,6 +122,7 @@ class User implements UserInterface
         $this->products = new ArrayCollection();
         $this->purchases = new ArrayCollection();
         $this->purchaseLines = new ArrayCollection();
+        $this->providers = new ArrayCollection();
     }
 
     public function __toString()
@@ -372,6 +378,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($purchaseLine->getUser() === $this) {
                 $purchaseLine->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Provider[]
+     */
+    public function getProviders(): Collection
+    {
+        return $this->providers;
+    }
+
+    public function addProvider(Provider $provider): self
+    {
+        if (!$this->providers->contains($provider)) {
+            $this->providers[] = $provider;
+            $provider->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProvider(Provider $provider): self
+    {
+        if ($this->providers->contains($provider)) {
+            $this->providers->removeElement($provider);
+            // set the owning side to null (unless already changed)
+            if ($provider->getUser() === $this) {
+                $provider->setUser(null);
             }
         }
 

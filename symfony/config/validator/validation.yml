@@ -29,6 +29,11 @@ App\Entity\Company:
     name:
       - NotBlank: ~
 
+App\Entity\Provider:
+  properties:
+    name:
+      - NotBlank: ~
+
 App\Entity\Product:
   properties:
     name:

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Interfaces\EntityInterface;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -11,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="App\Repository\ProviderRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class Provider
+class Provider implements EntityInterface
 {
     /**
      * @var string
@@ -69,6 +70,11 @@ class Provider
      * @ORM\OneToMany(targetEntity="App\Entity\PurchaseLine", mappedBy="provider")
      */
     private $purchaseLines;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="providers")
+     */
+    private $user;
 
     public function __construct()
     {
@@ -253,6 +259,18 @@ class Provider
                 $purchaseLine->setProvider(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): EntityInterface
+    {
+        $this->user = $user;
 
         return $this;
     }
