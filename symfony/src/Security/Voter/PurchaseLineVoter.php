@@ -1,11 +1,5 @@
 <?php
 
-/** @noinspection ALL */
-/** @noinspection ALL */
-/** @noinspection ALL */
-
-/** @noinspection ALL */
-
 namespace App\Security\Voter;
 
 use App\Entity\PurchaseLine;
