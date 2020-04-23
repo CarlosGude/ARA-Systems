@@ -18,10 +18,13 @@
                 {{ knp_pagination_sortable(pagination, 'purchase.provider' | trans, 'name') }}
             </th>
             <th{% if pagination.isSorted('a.total') %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(pagination, 'purchase.total' | trans, 'name') }}
+                {{ knp_pagination_sortable(pagination, 'purchase.totalWithoutTaxes' | trans, 'name') }}
             </th>
             <th{% if pagination.isSorted('a.taxes') %} class="sorted"{% endif %}>
                 {{ knp_pagination_sortable(pagination, 'purchase.taxes' | trans, 'email') }}
+            </th>
+            <th>
+                {{ 'purchase.total' | trans}}
             </th>
             <th{% if pagination.isSorted('a.status') %} class="sorted"{% endif %}>
                 {{ knp_pagination_sortable(pagination, 'purchase.status' | trans, 'email') }}
@@ -35,8 +38,9 @@
                 {% set delete =  path('front_delete',{'entity': entity, 'id': element.id}) %}
                 <td>{{ element.reference }}</td>
                 <td>{{ element.provider }}</td>
-                <td>{{ element.total }}</td>
-                <td>{{ element.taxes }}</td>
+                <td>{{ element.total | number_format(2,',',' ')}}€</td>
+                <td>{{ element.taxes | number_format(2,',',' ') }}€</td>
+                <td>{{ (element.taxes + element.total) | number_format(2,',',' ') }}€</td>
                 <td class="status-{{ element.status }}">{{ ('purchase.table.' ~ element.status) | trans }}</td>
                 <td>
                     {% if element.status == 'pending' and element.purchaseLines.count > 0 %}
