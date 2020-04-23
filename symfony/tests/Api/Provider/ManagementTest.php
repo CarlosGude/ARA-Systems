@@ -92,6 +92,7 @@ class ManagementTest extends BaseTest
         $provider = [
             'name' => 'test',
             'description' => 'test',
+            'email' => 'fake@gmail.com',
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
         ];
 

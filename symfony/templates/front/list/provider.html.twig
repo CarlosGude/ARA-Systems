@@ -14,6 +14,9 @@
             <th{% if pagination.isSorted('a.name') %} class="sorted"{% endif %}>
                 {{ knp_pagination_sortable(pagination, 'provider.name' | trans, 'name') }}
             </th>
+            <th{% if pagination.isSorted('a.email') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'provider.email' | trans, 'email') }}
+            </th>
             <th scope="col" colspan="2"></th>
         </tr>
         </thead>

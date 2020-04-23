@@ -43,7 +43,7 @@ class ChangeStatusTest extends BaseTest
 
         $incomingButton = $crawler->filter('.cancelled');
 
-        self::assertEquals(2, $incomingButton->count());
+        self::assertEquals(3, $incomingButton->count());
 
         $url = $incomingButton->first()->attr('data-href');
         $client->request('POST', $url);
@@ -67,7 +67,7 @@ class ChangeStatusTest extends BaseTest
 
         $incomingButton = $crawler->filter('.success');
 
-        self::assertEquals(2, $incomingButton->count());
+        self::assertEquals(3, $incomingButton->count());
 
         $url = $incomingButton->first()->attr('data-href');
 

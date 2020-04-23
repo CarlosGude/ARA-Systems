@@ -5,6 +5,9 @@ App\Entity\Provider:
     name:
       groups: ['provider_read', 'provider_write', 'product_read' ]
 
+    email:
+      groups: ['provider_read', 'provider_write' ]
+
     description:
       groups: ['provider_read', 'provider_write']
 

@@ -28,11 +28,13 @@ class ProviderManagementTest extends BaseTest
 
         $provider = [
             'name' => 'Test Provider',
+            'email' => 'fake@gmail.com'
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['provider[name]']->setValue($provider['name']);
+        $form['provider[email]']->setValue($provider['email']);
 
         $client->submit($form);
 

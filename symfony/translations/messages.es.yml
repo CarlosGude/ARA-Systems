@@ -91,6 +91,7 @@ purchaseLine:
 
 provider:
   name: Nombre
+  email: Email
   description: Descripción
   list: Listado de proveedores
   menu: Proveedores

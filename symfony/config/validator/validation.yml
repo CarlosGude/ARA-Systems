@@ -33,6 +33,9 @@ App\Entity\Provider:
   properties:
     name:
       - NotBlank: ~
+    email:
+      - NotBlank: ~
+      - Email: ~
 
 App\Entity\Product:
   properties:
