@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Interfaces\EntityInterface;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -9,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
  */
-class Client
+class Client implements EntityInterface
 {
     /**
      * @var string
@@ -66,6 +67,11 @@ class Client
     {
         $this->createdAt = new DateTime();
         $this->updatedAt = new DateTime();
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
     }
 
     /**
@@ -136,7 +142,7 @@ class Client
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUser(?User $user): EntityInterface
     {
         $this->user = $user;
 

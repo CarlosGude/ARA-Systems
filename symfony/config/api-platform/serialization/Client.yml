@@ -2,6 +2,7 @@ App\Entity\Client:
   attributes:
     id:
       groups: ['client_read']
+
     name:
       groups: ['client_read', 'client_write','product_read']
 

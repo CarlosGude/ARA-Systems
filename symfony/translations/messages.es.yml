@@ -96,3 +96,14 @@ provider:
   create: Crear proveedor
   created: Se ha creado el proveedor {{element}} correctamente.
   edited: Se ha editado el proveedor {{element}} correctamente.
+
+client:
+  name: Nombre
+  identification: DNI
+  email: Email
+  address: Dirección
+  list: Listado de clientes
+  menu: Clientes
+  create: Crear cliente
+  created: Se ha creado el cliente {{element}} correctamente.
+  edited: Se ha editado el cliente {{element}} correctamente.
