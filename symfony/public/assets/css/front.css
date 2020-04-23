@@ -8,6 +8,10 @@ body {
     vertical-align: text-bottom;
 }
 
+.btn-primary{
+    background: #2f5596 !important;
+}
+
 /*
  * Sidebar
  */

@@ -9,10 +9,12 @@
 {% endif %}
 {% block body %}
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">{{ 'project'| trans}}</a>
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{{ path('front_dashboard') }}" title="{{ 'project'| trans}}">
+            <img width="30%" src="{{ asset('assets/img/logo-alt.jpg') }}">
+        </a>
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
-                <a class="nav-link" href="#">{{ 'login.logout' | trans }}</a>
+                <a class="nav-link" href="{{ path('logout') }}">{{ 'login.logout' | trans }}</a>
             </li>
         </ul>
     </nav>
