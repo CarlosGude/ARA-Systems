@@ -14,7 +14,7 @@ final class Version20200423104801 extends AbstractMigration
 {
     public function getDescription() : string
     {
-        return '';
+        return 'Add user to provider';
     }
 
     public function up(Schema $schema) : void
