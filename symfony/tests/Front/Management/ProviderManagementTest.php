@@ -4,7 +4,6 @@ namespace App\Tests\Front\Management;
 
 use App\Entity\Provider;
 use App\Tests\Front\BaseTest;
-use Symfony\Component\DomCrawler\Form;
 
 class ProviderManagementTest extends BaseTest
 {
@@ -62,7 +61,6 @@ class ProviderManagementTest extends BaseTest
             'name' => 'Test provider updated',
         ];
 
-        /** @var Form $form */
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['provider[name]']->setValue($provider['name']);

@@ -47,6 +47,7 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
      */
     public function loadUserByUsername(string $username): User
     {
+        /** @var User $user */
         $user = $this->em->getRepository(User::class)->findOneBy(['email' => $username]);
 
         if (!$user) {
@@ -59,7 +60,7 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
     /**
      * {@inheritdoc}
      */
-    public function supportsClass(string $class)
+    public function supportsClass(string $class): bool
     {
         return User::class === $class;
     }

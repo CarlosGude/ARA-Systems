@@ -73,6 +73,7 @@ purchase:
   create: Crear una nueva venta
   delete: Borrar compar con la referencia
   created: Se ha creado una nueva compra con la referencia {{element}}.
+  update: Se ha actualizado el estado de la compra con la referencia {{reference}} a {{status}}
   cancelled: Cancelar compra con la referencia
   success: Recibir la compra con la referencia
   incoming: Confirmar la compra con la referencia

@@ -5,7 +5,6 @@ namespace App\Tests\Front\Management;
 use App\Entity\Provider;
 use App\Entity\Purchase;
 use App\Tests\Front\BaseTest;
-use Symfony\Component\Form\Form;
 
 class PurchaseManagementTest extends BaseTest
 {
@@ -39,7 +38,6 @@ class PurchaseManagementTest extends BaseTest
             'provider' => $this->getRepository(Provider::class)->findOneBy(['name' => 'The Provider']),
         ];
 
-        /** @var Form $form */
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['purchase[reference]']->setValue($purchase['reference']);

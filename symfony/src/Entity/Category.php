@@ -92,7 +92,7 @@ class Category implements EntityInterface
 
     public function __toString()
     {
-        return $this->getName();
+        return $this->getName() ?? '';
     }
 
     public function getIvas(): array
@@ -146,6 +146,8 @@ class Category implements EntityInterface
 
     /**
      * @param string $description
+     * @return Category
+     * @return Category
      */
     public function setDescription(?string $description): Category
     {

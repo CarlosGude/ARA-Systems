@@ -85,7 +85,7 @@ class Purchase implements EntityInterface
 
     public function __toString()
     {
-        return $this->getReference();
+        return $this->getReference() ?? '';
     }
 
     public function __construct()

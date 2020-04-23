@@ -27,9 +27,6 @@ App\Entity\PurchaseLine:
     total:
       groups: ['purchase-line_read','purchase_read']
 
-    totalWithoutTaxes:
-      groups: ['purchase-line_read','purchase_read']
-
     stockAvailability:
       groups: ['purchase-line_read']
 

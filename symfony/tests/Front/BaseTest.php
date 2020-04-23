@@ -9,7 +9,6 @@ use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectRepository;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\DomCrawler\Form;
 
 abstract class BaseTest extends WebTestCase
 {
@@ -33,7 +32,6 @@ abstract class BaseTest extends WebTestCase
 
         $crawler = $client->request('GET', '/');
 
-        /** @var Form $form */
         $form = $crawler->selectButton('Acceder')->form();
 
         $form['email']->setValue($user['email']);
@@ -59,6 +57,8 @@ abstract class BaseTest extends WebTestCase
         $manager = static::$container->get('doctrine')->getManager();
         /** @var User $user */
         $user = $this->getRepository(User::class)->findOneBy(['email' => $email]);
+
+        /** @var Provider $provider */
         $provider = $this->getRepository(Provider::class)->findOneBy(['name' => $provider]);
 
         $purchase = new Purchase();

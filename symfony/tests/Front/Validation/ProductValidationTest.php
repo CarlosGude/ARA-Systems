@@ -4,7 +4,6 @@ namespace App\Tests\Front\Validation;
 
 use App\Entity\Category;
 use App\Tests\Front\BaseTest;
-use Symfony\Component\DomCrawler\Form;
 
 class ProductValidationTest extends BaseTest
 {
@@ -28,7 +27,6 @@ class ProductValidationTest extends BaseTest
             'maxStock' => 100,
         ];
 
-        /** @var Form $form */
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['product[price]']->setValue($product['price']);
@@ -58,7 +56,6 @@ class ProductValidationTest extends BaseTest
             'maxStock' => 100,
         ];
 
-        /** @var Form $form */
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['product[name]']->setValue($product['name']);
@@ -89,7 +86,6 @@ class ProductValidationTest extends BaseTest
             'price' => 20,
         ];
 
-        /** @var Form $form */
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['product[price]']->setValue($product['price']);
@@ -121,7 +117,6 @@ class ProductValidationTest extends BaseTest
             'price' => 20,
         ];
 
-        /** @var Form $form */
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['product[name]']->setValue($product['name']);
@@ -153,7 +148,6 @@ class ProductValidationTest extends BaseTest
             'price' => 20,
         ];
 
-        /** @var Form $form */
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['product[name]']->setValue($product['name']);

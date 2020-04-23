@@ -85,26 +85,7 @@ class PurchaseLineSubscriber implements EventSubscriber
         if (!$line instanceof PurchaseLine) {
             return;
         }
-
-        $product = $line->getProduct();
         $purchase = $line->getPurchase();
-        $provider = $line->getProvider();
-
-        if (!$product instanceof Product) {
-            throw new  RuntimeException('product: This value should not be blank.');
-        }
-
-        if (!$purchase instanceof Purchase) {
-            throw new  RuntimeException('purchase: This value should not be blank.');
-        }
-
-        if (!$provider instanceof Provider) {
-            throw new  RuntimeException('provider: This value should not be blank.');
-        }
-
-        $line
-            ->setPrice($product->getPrice())
-            ->setTax($product->getTax());
 
         $purchase
             ->setTotal($purchase->getTotal() - ($line->getPrice() * $line->getQuantity()))
@@ -112,7 +93,7 @@ class PurchaseLineSubscriber implements EventSubscriber
     }
 
     /**
-     * @throws ORMException
+     * @param PreUpdateEventArgs $args
      */
     public function preUpdate(PreUpdateEventArgs $args): void
     {
@@ -128,6 +109,7 @@ class PurchaseLineSubscriber implements EventSubscriber
     }
 
     /**
+     * @param OnFlushEventArgs $eventArgs
      * @throws ORMException
      */
     public function onFlush(OnFlushEventArgs $eventArgs): void

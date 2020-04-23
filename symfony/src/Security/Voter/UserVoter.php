@@ -25,6 +25,8 @@ class UserVoter extends Voter
     /**
      * @param $attribute string
      * @param $subject User
+     * @return bool
+     * @return bool
      */
     protected function supports($attribute, $subject): bool
     {
@@ -36,8 +38,10 @@ class UserVoter extends Voter
     }
 
     /**
-     * @param string    $attribute
+     * @param string $attribute
      * @param User|null $subject
+     * @param TokenInterface $token
+     * @return bool
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {

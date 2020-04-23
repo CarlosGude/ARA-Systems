@@ -5,7 +5,6 @@ namespace App\Tests\Front\Management;
 use App\Entity\Category;
 use App\Entity\Product;
 use App\Tests\Front\BaseTest;
-use Symfony\Component\DomCrawler\Form;
 
 class ProductManagementTest extends BaseTest
 {
@@ -43,7 +42,6 @@ class ProductManagementTest extends BaseTest
             'maxStock' => 100,
         ];
 
-        /** @var Form $form */
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['product[name]']->setValue($product['name']);
@@ -80,7 +78,6 @@ class ProductManagementTest extends BaseTest
             'name' => 'Test Product',
         ];
 
-        /** @var Form $form */
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['product[name]']->setValue($product['name']);

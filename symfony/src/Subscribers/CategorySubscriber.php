@@ -6,7 +6,6 @@ use App\Entity\Category;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
-use Exception;
 use RuntimeException;
 
 class CategorySubscriber implements EventSubscriber
@@ -22,7 +21,7 @@ class CategorySubscriber implements EventSubscriber
     }
 
     /**
-     * @throws Exception
+     * @param LifecycleEventArgs $args
      */
     public function preRemove(LifecycleEventArgs $args): void
     {

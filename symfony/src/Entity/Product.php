@@ -127,7 +127,7 @@ class Product implements EntityInterface
 
     public function __toString()
     {
-        return $this->getName();
+        return $this->getName() ?? '';
     }
 
     /**
@@ -238,6 +238,8 @@ class Product implements EntityInterface
 
     /**
      * @param mixed $tax
+     * @return Product
+     * @return Product
      */
     public function setTax($tax): Product
     {
@@ -255,6 +257,8 @@ class Product implements EntityInterface
 
     /**
      * @param mixed $minStock
+     * @return Product
+     * @return Product
      */
     public function setMinStock($minStock): Product
     {
@@ -272,6 +276,8 @@ class Product implements EntityInterface
 
     /**
      * @param mixed $maxStock
+     * @return Product
+     * @return Product
      */
     public function setMaxStock($maxStock): Product
     {

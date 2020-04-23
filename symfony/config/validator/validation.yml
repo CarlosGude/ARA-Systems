@@ -99,8 +99,6 @@ App\Entity\PurchaseLine:
       - NotBlank: ~
     tax:
       - GreaterThanOrEqual: 0
-    totalWithoutTaxes:
-      - GreaterThanOrEqual: 0
     quantity:
       - NotBlank: ~
       - GreaterThanOrEqual: 1

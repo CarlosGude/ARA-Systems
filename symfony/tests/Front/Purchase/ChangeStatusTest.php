@@ -78,8 +78,9 @@ class ChangeStatusTest extends BaseTest
 
         $stockBefore = [];
         foreach ($purchase->getPurchaseLines() as $line) {
-            $stockBefore[$line->getProduct()->getId()] = [
-                'stockAct' => $line->getProduct()->getStockAct(),
+            $product = $line->getProduct();
+            $stockBefore[$product->getId()] = [
+                'stockAct' => $product->getStockAct(),
                 'quantity' => $line->getQuantity(),
             ];
         }
@@ -91,8 +92,9 @@ class ChangeStatusTest extends BaseTest
 
         $stockAfter = [];
         foreach ($purchase->getPurchaseLines() as $afterLine) {
-            $stockAfter[$afterLine->getProduct()->getId()] = [
-                'stockAct' => $afterLine->getProduct()->getStockAct(),
+            $product = $afterLine->getProduct();
+            $stockAfter[$product->getId()] = [
+                'stockAct' => $product->getStockAct(),
             ];
         }
 

@@ -4,7 +4,6 @@ namespace App\Tests\Front\Purchase;
 
 use App\Entity\Product;
 use App\Tests\Front\BaseTest;
-use Symfony\Component\Form\Form;
 
 class ManipulateQuantityTest extends BaseTest
 {
@@ -19,7 +18,6 @@ class ManipulateQuantityTest extends BaseTest
             'product' => $this->getRepository(Product::class)->findOneBy(['name' => 'The Product']),
         ];
 
-        /** @var Form $form */
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['purchase_line[product]']->setValue($line['product']->getId());
@@ -57,7 +55,6 @@ class ManipulateQuantityTest extends BaseTest
             'product' => $this->getRepository(Product::class)->findOneBy(['name' => 'The Product']),
         ];
 
-        /** @var Form $form */
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['purchase_line[product]']->setValue($line['product']->getId());
@@ -99,7 +96,6 @@ class ManipulateQuantityTest extends BaseTest
             'product' => $this->getRepository(Product::class)->findOneBy(['name' => 'The Product']),
         ];
 
-        /** @var Form $form */
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['purchase_line[product]']->setValue($line['product']->getId());

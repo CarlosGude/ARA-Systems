@@ -6,6 +6,7 @@ use App\Entity\Company;
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * @method Product|null find($id, $lockMode = null, $lockVersion = null)
@@ -48,7 +49,7 @@ class ProductRepository extends ServiceEntityRepository
         ;
     }
     */
-    public function findByCompany(Company $company)
+    public function findByCompany(Company $company): QueryBuilder
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.company = :company')

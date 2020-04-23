@@ -76,11 +76,6 @@ class PurchaseLine implements EntityInterface
      */
     private $updatedAt;
 
-    /** @var float */
-    private $total = 0;
-    /** @var float */
-    private $totalWithoutTaxes = 0;
-
     public function __construct()
     {
         $this->createdAt = new DateTime();
@@ -89,7 +84,12 @@ class PurchaseLine implements EntityInterface
 
     public function __toString(): string
     {
-        return $this->getProduct();
+        $product = $this->getProduct();
+        if ($product) {
+            return $product->getName() ?? '';
+        }
+
+        return '';
     }
 
     /**

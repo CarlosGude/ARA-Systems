@@ -56,8 +56,8 @@ class LoginTest extends BaseTest
         $this->assertIsArray($response, 'The response is not an array.');
         $this->assertArrayHasKey('message', $response, 'The response has not have a message.');
         $this->assertEquals(
-            $response['message'],
             'Invalid credentials.',
+            $response['message'],
             'The response is '.$response['message'].' "Invalid credentials." was expected.'
         );
     }

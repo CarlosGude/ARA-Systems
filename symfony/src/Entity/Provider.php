@@ -87,7 +87,7 @@ class Provider implements EntityInterface
 
     public function __toString()
     {
-        return $this->getName();
+        return $this->getName() ?? '';
     }
 
     /**

@@ -4,7 +4,6 @@ namespace App\Tests\Front\Management;
 
 use App\Entity\User;
 use App\Tests\Front\BaseTest;
-use Symfony\Component\DomCrawler\Form;
 
 class UserManagementTest extends BaseTest
 {
@@ -44,7 +43,6 @@ class UserManagementTest extends BaseTest
             'password' => 'password',
         ];
 
-        /** @var Form $form */
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['user[name]']->setValue($user['name']);
@@ -78,7 +76,6 @@ class UserManagementTest extends BaseTest
             'name' => 'Test User Edited',
         ];
 
-        /** @var Form $form */
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['user[name]']->setValue($user['name']);

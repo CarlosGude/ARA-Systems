@@ -73,6 +73,8 @@ abstract class BaseTest extends ApiTestCase
 
     /**
      * @param $email
+     * @return User|null
+     * @return User|null
      */
     protected function getUserByEmail(string $email): ?User
     {

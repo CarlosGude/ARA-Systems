@@ -18,6 +18,12 @@ class PurchaseController extends AbstractController
 {
     /**
      * @Route("/purchase-line/{line}/{quantity}", name="update_quantity")
+     * @param PurchaseLine $line
+     * @param int $quantity
+     * @param EntityManagerInterface $em
+     * @param Request $request
+     * @param TranslatorInterface $translator
+     * @return RedirectResponse
      */
     public function index(
         PurchaseLine $line,
@@ -37,6 +43,12 @@ class PurchaseController extends AbstractController
 
     /**
      * @Route("purchase/change-status/{purchase}/{status}", name="change_status")
+     * @param Purchase $purchase
+     * @param string $status
+     * @param EntityManagerInterface $em
+     * @param TranslatorInterface $translator
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function changeStatus(
         Purchase $purchase,

@@ -14,7 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CategoryType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('name', TextType::class, ['label' => 'category.name'])
@@ -40,7 +40,7 @@ class CategoryType extends AbstractType
         ;
     }
 
-    private function getTaxes()
+    private function getTaxes(): array
     {
         return [
           Category::IVA_8.'%' => Category::IVA_8,
@@ -49,7 +49,7 @@ class CategoryType extends AbstractType
         ];
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Category::class,
