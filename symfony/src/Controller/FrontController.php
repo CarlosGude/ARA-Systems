@@ -37,6 +37,12 @@ class FrontController extends AbstractController
 
     /**
      * @Route("/create/{entity}/{purchase}", name="create")
+     * @param string $entity
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @param TranslatorInterface $translator
+     * @param string|null $purchase
+     * @return Response
      */
     public function create(
         string $entity,
@@ -101,6 +107,12 @@ class FrontController extends AbstractController
 
     /**
      * @Route("/edit/{entity}/{id}", name="edit")
+     * @param string $entity
+     * @param string $id
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @param TranslatorInterface $translator
+     * @return Response
      */
     public function edit(
         string $entity,
@@ -151,6 +163,13 @@ class FrontController extends AbstractController
 
     /**
      * @Route("/list/{entity}/{sort}/{direction}/{page}", name="list")
+     * @param string $entity
+     * @param EntityManagerInterface $em
+     * @param PaginatorInterface $paginator
+     * @param string $sort
+     * @param string $direction
+     * @param int $page
+     * @return Response
      */
     public function list(
         string $entity,
@@ -187,6 +206,11 @@ class FrontController extends AbstractController
 
     /**
      * @Route("/delete/{entity}/{id}", name="delete")
+     * @param string $entity
+     * @param string $id
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @return Response
      */
     public function delete(string $entity, string $id, Request $request, EntityManagerInterface $em): Response
     {
