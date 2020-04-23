@@ -36,6 +36,8 @@ App\Entity\Provider:
     email:
       - NotBlank: ~
       - Email: ~
+    company:
+      - NotBlank: ~
 
 App\Entity\Product:
   properties:
@@ -88,6 +90,8 @@ App\Entity\Client:
       - NotBlank: ~
     email:
       - Email: ~
+      - NotBlank: ~
+    company:
       - NotBlank: ~
 
 App\Entity\PurchaseLine:
