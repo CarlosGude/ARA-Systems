@@ -20,7 +20,7 @@ class PurchaseManagementTest extends BaseTest
 
         $crawler = $client->request(
             'GET',
-            $this->generatePath('front_list',['entity'=>'purchase','sort'=>'reference'])
+            $this->generatePath('front_list', ['entity'=>'purchase','sort'=>'reference'])
         );
 
         $count = $crawler->filter('.purchase-tr')->count();
@@ -34,7 +34,7 @@ class PurchaseManagementTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', $this->generatePath('front_create',['entity'=>'purchase']));
+        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'purchase']));
 
         $purchase = [
             'reference' => 'Test',
@@ -66,7 +66,7 @@ class PurchaseManagementTest extends BaseTest
         $this->createPurchase('carlos.sgude@gmail.com', 'The Provider', 'test');
         $crawler = $client->request(
             'GET',
-            $this->generatePath('front_list',['entity'=>'purchase','sort'=>'reference'])
+            $this->generatePath('front_list', ['entity'=>'purchase','sort'=>'reference'])
         );
 
         $count = $crawler->filter('.purchase-tr')->count();
@@ -79,7 +79,7 @@ class PurchaseManagementTest extends BaseTest
         $client->request('POST', $delete->first()->attr('data-href'));
         $crawler = $client->request(
             'GET',
-            $this->generatePath('front_list',['entity'=>'purchase','sort'=>'reference'])
+            $this->generatePath('front_list', ['entity'=>'purchase','sort'=>'reference'])
         );
 
         $count = $crawler->filter('.purchase-tr')->count();

@@ -196,5 +196,4 @@ class Client implements EntityInterface
         $this->updatedAt = $updatedAt;
         return $this;
     }
-
 }

@@ -3,7 +3,6 @@
 
 namespace App\Tests\Api\Purchase;
 
-
 use App\Entity\Purchase;
 use App\Tests\Api\BaseTest;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
@@ -39,7 +38,7 @@ class EventSubscriberTest extends BaseTest
         $product = $this->getProduct();
 
         $purchase = [
-            'purchase' => parent::API.'purchases/'.$this->getPurchase($company,'incoming')->getId(),
+            'purchase' => parent::API.'purchases/'.$this->getPurchase($company, 'incoming')->getId(),
             'product' => parent::API.'products/'.$product->getId(),
             'company' => parent::API.'companies/'.$company->getId(),
             'provider' => parent::API.'providers/'.$this->getProvider()->getId(),
@@ -69,7 +68,7 @@ class EventSubscriberTest extends BaseTest
         $product = $this->getProduct();
 
         $purchase = [
-            'purchase' => parent::API.'purchases/'.$this->getPurchase($company,'cancelled')->getId(),
+            'purchase' => parent::API.'purchases/'.$this->getPurchase($company, 'cancelled')->getId(),
             'product' => parent::API.'products/'.$product->getId(),
             'company' => parent::API.'companies/'.$company->getId(),
             'provider' => parent::API.'providers/'.$this->getProvider()->getId(),
@@ -101,15 +100,18 @@ class EventSubscriberTest extends BaseTest
         $product = $this->getProduct();
         $beforeStock = $product->getStockAct();
 
-        self::assertEquals(100,$beforeStock);
+        self::assertEquals(100, $beforeStock);
 
         $purchase = $this->getPurchase();
 
-        $response = static::createClient()->request('PUT', parent::API.'purchases/'.$purchase->getId(),
+        $response = static::createClient()->request(
+            'PUT',
+            parent::API.'purchases/'.$purchase->getId(),
             [
                 'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
                 'body' => json_encode(['status' => Purchase::STATUS_SUCCESS]),
-        ]);
+        ]
+        );
 
         $response = json_decode($response->getContent(), true);
 
@@ -119,13 +121,13 @@ class EventSubscriberTest extends BaseTest
         $afterStock = $product->getStockAct();
 
         $quantity = 0;
-        foreach ($response['purchaseLines'] as $line){
-            if($line['product']['@id'] === self::API.'products/'.$product->getId()) {
+        foreach ($response['purchaseLines'] as $line) {
+            if ($line['product']['@id'] === self::API.'products/'.$product->getId()) {
                 $quantity = $line['quantity'];
                 break;
             }
         }
 
-        self::assertEquals($afterStock,$quantity + $beforeStock);
+        self::assertEquals($afterStock, $quantity + $beforeStock);
     }
 }

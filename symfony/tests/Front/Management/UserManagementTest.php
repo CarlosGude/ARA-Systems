@@ -11,7 +11,7 @@ class UserManagementTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', $this->generatePath('front_list',['entity'=>'user']));
+        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity'=>'user']));
 
         $client->request('POST', $crawler->filter('.delete')->first()->attr('data-href'));
 
@@ -22,7 +22,7 @@ class UserManagementTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', $this->generatePath('front_list',['entity'=>'user']));
+        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity'=>'user']));
 
         $count = $crawler->filter('.user-tr')->count();
         $total = $crawler->filter('.table')->first()->attr('data-total');
@@ -35,7 +35,7 @@ class UserManagementTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', $this->generatePath('front_create',['entity'=>'user']));
+        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'user']));
 
         $user = [
             'name' => 'Test User',
@@ -70,7 +70,7 @@ class UserManagementTest extends BaseTest
         /** @var User $userToEdit */
         $userToEdit = $this->getRepository(User::class)->findOneBy(['email' => 'fake@email.com']);
 
-        $crawler = $client->request('GET', $this->generatePath('front_edit',['entity'=>'user','id'=>$userToEdit->getId()]));
+        $crawler = $client->request('GET', $this->generatePath('front_edit', ['entity'=>'user','id'=>$userToEdit->getId()]));
 
         $user = [
             'name' => 'Test User Edited',

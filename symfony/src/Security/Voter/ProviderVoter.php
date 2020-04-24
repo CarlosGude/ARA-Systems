@@ -61,14 +61,14 @@ class ProviderVoter extends Voter
             return true;
         }
 
-        if($attribute === self::UPDATE || $attribute===self::DELETE){
+        if ($attribute === self::UPDATE || $attribute===self::DELETE) {
             if ($subject->getCompany() === $user->getCompany()) {
                 return true;
             }
             return false;
         }
 
-        if($attribute===self::CREATE){
+        if ($attribute===self::CREATE) {
             return true;
         }
 
