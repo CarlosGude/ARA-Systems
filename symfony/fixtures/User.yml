@@ -3,7 +3,7 @@ App\Entity\User:
     name: Carlos Gude
     email: carlos.sgude@gmail.com
     password: pasalacabra
-    roles: ['ROLE_GOD']
+    profile: 'PROFILE_GOD'
     company: '@the_company'
     createdAt: '<dateTimeBetween("-200 days", "now")>'
     updatedAt: '<dateTimeBetween($createdAt, "now")>'
@@ -12,6 +12,7 @@ App\Entity\User:
     name: The User
     email: user@fakemail.com
     password: thepass
+    profile: 'PROFILE_ADMIN'
     company: '@another_company'
     createdAt: '<dateTimeBetween("-200 days", "now")>'
     updatedAt: '<dateTimeBetween($createdAt, "now")>'
@@ -20,6 +21,7 @@ App\Entity\User:
     name: Another User
     email: another_user@fakemail.com
     password: thepass
+    profile: 'PROFILE_ADMIN'
     company: '@the_company'
     createdAt: '<dateTimeBetween("-200 days", "now")>'
     updatedAt: '<dateTimeBetween($createdAt, "now")>'
@@ -28,6 +30,7 @@ App\Entity\User:
     name: '<firstName()> <lastName()>'
     email: '<email()>'
     password: '<password()>'
+    profile: 'PROFILE_ADMIN'
     company: '@the_company'
     createdAt: '<dateTimeBetween("-200 days", "now")>'
     updatedAt: '<dateTimeBetween($createdAt, "now")>'
@@ -36,6 +39,7 @@ App\Entity\User:
     name: '<firstName()> <lastName()>'
     email: '<email()>'
     password: '<password()>'
+    profile: 'PROFILE_ADMIN'
     company: '@another_company'
     createdAt: '<dateTimeBetween("-200 days", "now")>'
     updatedAt: '<dateTimeBetween($createdAt, "now")>'

@@ -2,6 +2,7 @@
 
 namespace App\Tests\Api\User;
 
+use App\Entity\User;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
@@ -18,6 +19,7 @@ class ValidateTest extends ManagementTest
             'email' => 'carlos.sgude@gmail.com',
             'name' => 'test',
             'password' => 'test',
+            'profile' => User::PROFILE_ADMIN,
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
         ];
 
@@ -45,6 +47,7 @@ class ValidateTest extends ManagementTest
             'email' => 'Fake email',
             'name' => 'test',
             'password' => 'test',
+            'profile' => User::PROFILE_ADMIN,
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
         ];
 
@@ -71,6 +74,7 @@ class ValidateTest extends ManagementTest
         $user = [
             'name' => 'test',
             'password' => 'test',
+            'profile' => User::PROFILE_ADMIN,
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
         ];
 
@@ -97,6 +101,7 @@ class ValidateTest extends ManagementTest
         $user = [
             'email' => 'test@email.com',
             'password' => 'test',
+            'profile' => User::PROFILE_ADMIN,
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
         ];
 
@@ -123,6 +128,7 @@ class ValidateTest extends ManagementTest
         $user = [
             'email' => 'test@email.com',
             'name' => 'test',
+            'profile' => User::PROFILE_ADMIN,
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
         ];
 
@@ -137,6 +143,61 @@ class ValidateTest extends ManagementTest
         self::assertResponseStatusCodeSame(400, 'The response is not 400');
         $this->assertEquals(
             'password: Este valor no debería estar vacío.',
+            $response['hydra:description']
+        );
+    }
+
+    /**
+     * @throws TransportExceptionInterface
+     */
+    public function testProfileIsRequired(): void
+    {
+        $user = [
+            'email' => 'test@email.com',
+            'name' => 'test',
+            'password' => 'pass',
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
+        ];
+
+        $response = static::createClient()->request('POST', parent::API.'users', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
+
+            'body' => json_encode($user),
+        ]);
+
+        $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
+
+        self::assertResponseStatusCodeSame(400, 'The response is not 400');
+        $this->assertEquals(
+            'profile: Este valor no debería estar vacío.',
+            $response['hydra:description']
+        );
+    }
+
+    /**
+     * @throws TransportExceptionInterface
+     */
+    public function testProfileIsValid(): void
+    {
+        $user = [
+            'email' => 'test@email.com',
+            'name' => 'test',
+            'password' => 'pass',
+            'profile' => 'Invalid',
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
+        ];
+
+        $response = static::createClient()->request('POST', parent::API.'users', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
+
+            'body' => json_encode($user),
+        ]);
+
+        $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
+
+        self::assertResponseStatusCodeSame(400, 'The response is not 400');
+        $this->assertEquals(
+            'profile: El valor seleccionado no es una opción válida.',
             $response['hydra:description']
         );
     }

@@ -8,6 +8,9 @@ App\Entity\User:
     email:
       groups: ['user_read', 'user_write']
 
+    profile:
+      groups: ['user_read', 'user_write']
+
     password:
       groups: ['user_write']
 

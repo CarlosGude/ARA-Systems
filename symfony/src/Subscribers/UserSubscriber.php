@@ -40,7 +40,7 @@ class UserSubscriber implements EventSubscriber
 
         $encoded = $this->encoder->encodePassword($user, $user->getPassword());
 
-        $user->setPassword($encoded);
+        $user->setPassword($encoded)->setRoles($this->getRoles($user->getProfile()));
     }
 
     public function preUpdate(PreUpdateEventArgs $args): void
@@ -55,6 +55,16 @@ class UserSubscriber implements EventSubscriber
             $encoded = $this->encoder->encodePassword($user, $user->getPassword());
 
             $user->setPassword($encoded);
+        }
+    }
+
+    public function getRoles($profile): array
+    {
+        switch ($profile){
+            case User::PROFILE_GOD:
+                return [User::ROLE_GOD];
+            case User::PROFILE_ADMIN;
+                return [User::ROLE_ADMIN];
         }
     }
 }

@@ -9,7 +9,9 @@ App\Entity\User:
       - Email: ~
     company:
       - NotBlank: ~
-
+    profile:
+      - NotBlank: ~
+      - Choice: { callback: getProfiles }
 App\Entity\Category:
   properties:
     name:

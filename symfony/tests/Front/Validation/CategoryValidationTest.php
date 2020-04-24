@@ -32,7 +32,7 @@ class CategoryValidationTest extends BaseTest
         self::assertEquals('Este valor no debería estar vacío.', $errorSpan->html());
     }
 
-    public function testMinStockGreaterThanOne(): void
+    public function testMinStockLowerThanOne(): void
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 

@@ -3,6 +3,11 @@ edit: Editar
 delete: Borrar
 back: Volver
 save: Guardar
+PROFILE_GOD: Super administrador
+PROFILE_SELLER: Responsable de ventas
+PROFILE_PURCHASER: Responsable de compras
+PROFILE_ADMIN: Administrador
+
 login:
   welcome: ¡Bienvenido a ARA-System!
   access: Acceder
@@ -25,6 +30,8 @@ user:
   create: Crear usario
   created: Se ha creado el usuario {{element}} correctamente.
   edited: Se ha editado el usuario {{element}} correctamente.
+  profile: Permisos
+  profileChoose: Elija un perfil
 
 category:
   name: Nombre

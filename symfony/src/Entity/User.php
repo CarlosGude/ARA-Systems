@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Security\AbstractUserRoles;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -14,13 +15,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity("email")
  */
-class User implements UserInterface
+class User extends AbstractUserRoles implements UserInterface
 {
-    /** @var string */
-    public const ROLE_GOD = 'ROLE_GOD';
-
-    /** @var string */
-    public const ROLE_USER = 'ROLE_USER';
+    public const PROFILE_GOD = 'PROFILE_GOD';
+    public const PROFILE_ADMIN = 'PROFILE_ADMIN';
+    public const PROFILE_SELLER = 'PROFILE_SELLER';
+    public const PROFILE_PURCHASER = 'PROFILE_PURCHASER';
 
     /**
      * @var string
@@ -117,9 +117,13 @@ class User implements UserInterface
      */
     private $clients;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $profile;
+
     public function __construct()
     {
-        $this->roles = [self::ROLE_USER];
         $this->createdAt = new DateTime();
         $this->updatedAt = new DateTime();
         $this->salt = uniqid(mt_rand(), true);
@@ -134,6 +138,16 @@ class User implements UserInterface
     public function __toString()
     {
         return $this->getName() ?? '';
+    }
+
+    public static function getProfiles(): array
+    {
+        return [
+            self::PROFILE_GOD => self::PROFILE_GOD,
+            self::PROFILE_SELLER => self::PROFILE_SELLER,
+            self::PROFILE_PURCHASER => self::PROFILE_PURCHASER,
+            self::PROFILE_ADMIN => self::PROFILE_ADMIN,
+        ];
     }
 
     /**
@@ -448,6 +462,18 @@ class User implements UserInterface
                 $client->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getProfile(): ?string
+    {
+        return $this->profile;
+    }
+
+    public function setProfile(string $profile): self
+    {
+        $this->profile = $profile;
 
         return $this;
     }

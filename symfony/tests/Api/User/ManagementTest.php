@@ -92,6 +92,7 @@ class ManagementTest extends BaseTest
         $user = [
             'email' => 'test@email.com',
             'name' => 'test',
+            'profile' => User::PROFILE_ADMIN,
             'password' => 'test',
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
         ];

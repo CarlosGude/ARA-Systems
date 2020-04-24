@@ -40,6 +40,7 @@ class UserManagementTest extends BaseTest
         $user = [
             'name' => 'Test User',
             'email' => 'fake@email.com',
+            'profile'=> User::PROFILE_ADMIN,
             'password' => 'password',
         ];
 
@@ -47,6 +48,7 @@ class UserManagementTest extends BaseTest
 
         $form['user[name]']->setValue($user['name']);
         $form['user[email]']->setValue($user['email']);
+        $form['user[profile]']->setValue($user['profile']);
         $form['user[password]']->setValue($user['password']);
 
         $client->submit($form);
