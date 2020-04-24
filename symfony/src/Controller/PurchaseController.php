@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * @Route( name="purchase_")
+ * @Route("management/purchase", name="purchase_")
  */
 class PurchaseController extends AbstractController
 {

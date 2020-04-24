@@ -17,8 +17,7 @@ class ProductValidationTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', '/create/product');
-
+        $crawler = $client->request('GET', $this->generatePath('front_create',['entity'=>'product']));
         $product = [
             'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
             'price' => 100,
@@ -46,7 +45,7 @@ class ProductValidationTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', '/create/product');
+        $crawler = $client->request('GET', $this->generatePath('front_create',['entity'=>'product']));
 
         $product = [
             'name' => 'Product Name',
@@ -75,7 +74,7 @@ class ProductValidationTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', '/create/product');
+        $crawler = $client->request('GET', $this->generatePath('front_create',['entity'=>'product']));
 
         $product = [
             'name' => 'The Name',
@@ -106,7 +105,7 @@ class ProductValidationTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', '/create/product');
+        $crawler = $client->request('GET', $this->generatePath('front_create',['entity'=>'product']));
 
         $product = [
             'name' => 'The Name',
@@ -137,7 +136,7 @@ class ProductValidationTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', '/create/product');
+        $crawler = $client->request('GET', $this->generatePath('front_create',['entity'=>'product']));
 
         $product = [
             'name' => 'The Name',

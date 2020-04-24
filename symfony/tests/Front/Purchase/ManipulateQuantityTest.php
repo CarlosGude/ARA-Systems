@@ -12,7 +12,10 @@ class ManipulateQuantityTest extends BaseTest
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
         $purchase = $this->createPurchase('carlos.sgude@gmail.com', 'The Provider', 'test');
 
-        $crawler = $client->request('GET', '/edit/purchase/'.$purchase->getId());
+        $crawler = $client->request(
+            'GET',
+            $this->generatePath('front_edit',['entity'=>'purchase','id'=>$purchase->getId()])
+        );
 
         $line = [
             'product' => $this->getRepository(Product::class)->findOneBy(['name' => 'The Product']),
@@ -49,7 +52,10 @@ class ManipulateQuantityTest extends BaseTest
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
         $purchase = $this->createPurchase('carlos.sgude@gmail.com', 'The Provider', 'test');
 
-        $crawler = $client->request('GET', '/edit/purchase/'.$purchase->getId());
+        $crawler = $client->request(
+            'GET',
+            $this->generatePath('front_edit',['entity'=>'purchase','id'=>$purchase->getId()])
+        );
 
         $line = [
             'product' => $this->getRepository(Product::class)->findOneBy(['name' => 'The Product']),
@@ -90,7 +96,10 @@ class ManipulateQuantityTest extends BaseTest
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
         $purchase = $this->createPurchase('carlos.sgude@gmail.com', 'The Provider', 'test');
 
-        $crawler = $client->request('GET', '/edit/purchase/'.$purchase->getId());
+        $crawler = $client->request(
+            'GET',
+            $this->generatePath('front_edit',['entity'=>'purchase','id'=>$purchase->getId()])
+        );
 
         $line = [
             'product' => $this->getRepository(Product::class)->findOneBy(['name' => 'The Product']),

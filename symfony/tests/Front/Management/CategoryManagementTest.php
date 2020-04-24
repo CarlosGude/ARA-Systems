@@ -11,8 +11,7 @@ class CategoryManagementTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', '/list/category');
-
+        $crawler = $client->request('GET', $this->generatePath('front_list',['entity'=>'category']));
         $count = $crawler->filter('.category-tr')->count();
         $total = $crawler->filter('.table')->first()->attr('data-total');
 
@@ -24,8 +23,7 @@ class CategoryManagementTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', '/create/category');
-
+        $crawler = $client->request('GET', $this->generatePath('front_create',['entity'=>'category']));
         $category = [
             'name' => 'Test Category',
             'tax' => Category::IVA_8,
@@ -61,7 +59,10 @@ class CategoryManagementTest extends BaseTest
         /** @var Category $categoryToEdit */
         $categoryToEdit = $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']);
 
-        $crawler = $client->request('GET', '/edit/category/'.$categoryToEdit->getId());
+        $crawler = $client->request(
+            'GET',
+            $this->generatePath('front_edit',['entity'=>'category','id' => $categoryToEdit->getId()])
+        );
 
         $category = [
             'name' => 'Test category updated',
@@ -85,7 +86,7 @@ class CategoryManagementTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', '/list/category');
+        $crawler = $client->request('GET', $this->generatePath('front_list',['entity'=> 'category']));
 
         $client->request('POST', $crawler->filter('.delete')->first()->attr('data-href'));
 

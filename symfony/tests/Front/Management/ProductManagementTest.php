@@ -18,7 +18,7 @@ class ProductManagementTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', '/list/product');
+        $crawler = $client->request('GET', $this->generatePath('front_list',['entity'=> 'product']));
 
         $count = $crawler->filter('.product-tr')->count();
         $total = $crawler->filter('.table')->first()->attr('data-total');
@@ -31,7 +31,7 @@ class ProductManagementTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', '/create/product');
+        $crawler = $client->request('GET', $this->generatePath('front_create',['entity'=> 'product']));
 
         $product = [
             'name' => 'Test Product',
@@ -72,7 +72,10 @@ class ProductManagementTest extends BaseTest
         /** @var Category $categoryToEdit */
         $productToEdit = $this->getRepository(Product::class)->findOneBy(['name' => 'The Product']);
 
-        $crawler = $client->request('GET', '/edit/product/'.$productToEdit->getId());
+        $crawler = $client->request(
+            'GET',
+            $this->generatePath('front_edit',['entity'=>'product','id'=>$productToEdit->getId()])
+        );
 
         $product = [
             'name' => 'Test Product',

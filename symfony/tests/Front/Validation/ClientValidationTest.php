@@ -10,7 +10,7 @@ class ClientValidationTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', '/create/client');
+        $crawler = $client->request('GET', $this->generatePath('front_create',['entity'=>'client']));
 
         $clientData = [
             'email' => 'fake@email.com',
@@ -35,7 +35,7 @@ class ClientValidationTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', '/create/client');
+        $crawler = $client->request('GET', $this->generatePath('front_create',['entity'=>'client']));
 
         $clientData = [
             'name' => 'Test Client',
@@ -60,7 +60,7 @@ class ClientValidationTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', '/create/client');
+        $crawler = $client->request('GET', $this->generatePath('front_create',['entity'=>'client']));
 
         $clientData = [
             'name' => 'Test Client',
@@ -85,7 +85,7 @@ class ClientValidationTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', '/create/client');
+        $crawler = $client->request('GET', $this->generatePath('front_create',['entity'=>'client']));
 
         $clientData = [
             'name' => 'Test Client',
@@ -112,7 +112,7 @@ class ClientValidationTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', '/create/client');
+        $crawler = $client->request('GET', $this->generatePath('front_create',['entity'=>'client']));
 
         $clientData = [
             'name' => 'Test Client',
@@ -139,7 +139,7 @@ class ClientValidationTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', '/create/client');
+        $crawler = $client->request('GET', $this->generatePath('front_create',['entity'=>'client']));
 
         $clientData = [
             'name' => 'Test Client',

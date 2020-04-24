@@ -18,7 +18,10 @@ class PurchaseManagementTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', '/list/purchase/reference');
+        $crawler = $client->request(
+            'GET',
+            $this->generatePath('front_list',['entity'=>'purchase','sort'=>'reference'])
+        );
 
         $count = $crawler->filter('.purchase-tr')->count();
         $total = $crawler->filter('.table')->first()->attr('data-total');
@@ -31,7 +34,7 @@ class PurchaseManagementTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', '/create/purchase');
+        $crawler = $client->request('GET', $this->generatePath('front_create',['entity'=>'purchase']));
 
         $purchase = [
             'reference' => 'Test',
@@ -61,7 +64,10 @@ class PurchaseManagementTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
         $this->createPurchase('carlos.sgude@gmail.com', 'The Provider', 'test');
-        $crawler = $client->request('GET', '/list/purchase/reference');
+        $crawler = $client->request(
+            'GET',
+            $this->generatePath('front_list',['entity'=>'purchase','sort'=>'reference'])
+        );
 
         $count = $crawler->filter('.purchase-tr')->count();
         $total = $crawler->filter('.table')->first()->attr('data-total');
@@ -71,7 +77,10 @@ class PurchaseManagementTest extends BaseTest
 
         $delete = $crawler->filter('.delete');
         $client->request('POST', $delete->first()->attr('data-href'));
-        $crawler = $client->request('GET', '/list/purchase/reference');
+        $crawler = $client->request(
+            'GET',
+            $this->generatePath('front_list',['entity'=>'purchase','sort'=>'reference'])
+        );
 
         $count = $crawler->filter('.purchase-tr')->count();
         $total = $crawler->filter('.table')->first()->attr('data-total');

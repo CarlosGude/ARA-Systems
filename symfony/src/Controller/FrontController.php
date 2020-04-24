@@ -20,7 +20,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * Class ManagementController.
  *
- * @Route(name="front_")
+ * @Route("management",name="front_")
  */
 class FrontController extends AbstractController
 {

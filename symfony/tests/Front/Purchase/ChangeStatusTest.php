@@ -17,7 +17,10 @@ class ChangeStatusTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', '/list/purchase/reference');
+        $crawler = $client->request(
+            'GET',
+            $this->generatePath('front_list',['entity'=>'purchase','sort'=>'reference'])
+        );
 
         $incomingButton = $crawler->filter('.incoming');
 
@@ -28,7 +31,7 @@ class ChangeStatusTest extends BaseTest
 
         self::assertEquals(2, $count);
 
-        $id = explode('/', $url)[3];
+        $id = explode('/', $url)[4];
         /** @var Purchase $purchase */
         $purchase = $this->getRepository(Purchase::class)->find($id);
 
@@ -39,7 +42,10 @@ class ChangeStatusTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', '/list/purchase/reference');
+        $crawler = $client->request(
+            'GET',
+            $this->generatePath('front_list',['entity'=>'purchase','sort'=>'reference'])
+        );
 
         $incomingButton = $crawler->filter('.cancelled');
 
@@ -52,7 +58,7 @@ class ChangeStatusTest extends BaseTest
 
         self::assertEquals(2, $count);
 
-        $id = explode('/', $url)[3];
+        $id = explode('/', $url)[4];
         /** @var Purchase $purchase */
         $purchase = $this->getRepository(Purchase::class)->find($id);
 
@@ -63,7 +69,10 @@ class ChangeStatusTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', '/list/purchase/reference');
+        $crawler = $client->request(
+            'GET',
+            $this->generatePath('front_list',['entity'=>'purchase','sort'=>'reference'])
+        );
 
         $incomingButton = $crawler->filter('.success');
 
@@ -71,7 +80,7 @@ class ChangeStatusTest extends BaseTest
 
         $url = $incomingButton->first()->attr('data-href');
 
-        $id = explode('/', $url)[3];
+        $id = explode('/', $url)[4];
 
         /** @var Purchase $purchase */
         $purchase = $this->getRepository(Purchase::class)->find($id);

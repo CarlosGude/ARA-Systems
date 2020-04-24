@@ -10,7 +10,7 @@ class UserValidationTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', '/create/user');
+        $crawler = $client->request('GET', $this->generatePath('front_create',['entity'=>'user']));
 
         $user = [
             'name' => 'Test User',
@@ -35,7 +35,7 @@ class UserValidationTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', '/create/user');
+        $crawler = $client->request('GET', $this->generatePath('front_create',['entity'=>'user']));
 
         $user = [
             'name' => 'Test User',
@@ -60,7 +60,7 @@ class UserValidationTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', '/create/user');
+        $crawler = $client->request('GET', $this->generatePath('front_create',['entity'=>'user']));
 
         $user = [
             'name' => 'Test User',
@@ -83,7 +83,7 @@ class UserValidationTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', '/create/user');
+        $crawler = $client->request('GET', $this->generatePath('front_create',['entity'=>'user']));
 
         $user = [
             'name' => 'Test User',

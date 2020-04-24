@@ -12,9 +12,16 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 abstract class BaseTest extends WebTestCase
 {
+    protected const BASE_URL = 'management';
+
     public function setUp(): void
     {
         parent::setUp();
+    }
+
+    protected function generatePath(string $name,array $parameters)
+    {
+        return static::$container->get('router')->generate($name,$parameters);
     }
 
     protected function getRepository(string $class): ObjectRepository
@@ -30,7 +37,7 @@ abstract class BaseTest extends WebTestCase
         $client = static::createClient();
         $client->followRedirects();
 
-        $crawler = $client->request('GET', '/');
+        $crawler = $client->request('GET', $this->generatePath('app_login',[]));
 
         $form = $crawler->selectButton('Acceder')->form();
 
