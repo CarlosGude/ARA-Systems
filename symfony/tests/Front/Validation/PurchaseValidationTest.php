@@ -10,7 +10,7 @@ class PurchaseValidationTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=> 'purchase']));
+        $crawler = $client->request('GET', $this->generatePath('front_create',['entity'=> 'purchase']));
 
         $provider = ['description' => 'Test description',];
 

@@ -14,7 +14,7 @@ class ManipulateQuantityTest extends BaseTest
 
         $crawler = $client->request(
             'GET',
-            $this->generatePath('front_edit', ['entity'=>'purchase','id'=>$purchase->getId()])
+            $this->generatePath('front_edit',['entity'=>'purchase','id'=>$purchase->getId()])
         );
 
         $line = [
@@ -54,7 +54,7 @@ class ManipulateQuantityTest extends BaseTest
 
         $crawler = $client->request(
             'GET',
-            $this->generatePath('front_edit', ['entity'=>'purchase','id'=>$purchase->getId()])
+            $this->generatePath('front_edit',['entity'=>'purchase','id'=>$purchase->getId()])
         );
 
         $line = [
@@ -98,7 +98,7 @@ class ManipulateQuantityTest extends BaseTest
 
         $crawler = $client->request(
             'GET',
-            $this->generatePath('front_edit', ['entity'=>'purchase','id'=>$purchase->getId()])
+            $this->generatePath('front_edit',['entity'=>'purchase','id'=>$purchase->getId()])
         );
 
         $line = [
