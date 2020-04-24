@@ -3,7 +3,6 @@
 
 namespace App\Tests\Api\Client;
 
-
 use App\Tests\Api\BaseTest;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;

@@ -3,7 +3,6 @@
 
 namespace App\Tests\Front\Validation;
 
-
 use App\Entity\Provider;
 use App\Tests\Front\BaseTest;
 
@@ -13,7 +12,7 @@ class ProviderValidationTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', $this->generatePath('front_create',['entity'=>'provider']));
+        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'provider']));
 
         $provider = [
             'email' => 'fake@gmail.com'
@@ -38,7 +37,7 @@ class ProviderValidationTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', $this->generatePath('front_create',['entity'=>'provider']));
+        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'provider']));
 
         $provider = [
             'name' => 'Test Provider',
@@ -63,7 +62,7 @@ class ProviderValidationTest extends BaseTest
     {
         $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
 
-        $crawler = $client->request('GET', $this->generatePath('front_create',['entity'=>'provider']));
+        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'provider']));
 
         $provider = [
             'name' => 'Test Provider',

@@ -19,7 +19,7 @@ class ChangeStatusTest extends BaseTest
 
         $crawler = $client->request(
             'GET',
-            $this->generatePath('front_list',['entity'=>'purchase','sort'=>'reference'])
+            $this->generatePath('front_list', ['entity'=>'purchase','sort'=>'reference'])
         );
 
         $incomingButton = $crawler->filter('.incoming');
@@ -44,7 +44,7 @@ class ChangeStatusTest extends BaseTest
 
         $crawler = $client->request(
             'GET',
-            $this->generatePath('front_list',['entity'=>'purchase','sort'=>'reference'])
+            $this->generatePath('front_list', ['entity'=>'purchase','sort'=>'reference'])
         );
 
         $incomingButton = $crawler->filter('.cancelled');
@@ -71,7 +71,7 @@ class ChangeStatusTest extends BaseTest
 
         $crawler = $client->request(
             'GET',
-            $this->generatePath('front_list',['entity'=>'purchase','sort'=>'reference'])
+            $this->generatePath('front_list', ['entity'=>'purchase','sort'=>'reference'])
         );
 
         $incomingButton = $crawler->filter('.success');

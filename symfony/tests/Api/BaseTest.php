@@ -176,7 +176,7 @@ abstract class BaseTest extends ApiTestCase
      * @param string $name
      * @return PurchaseLine|null
      */
-    protected function getPurchaseClient($name = 'The Client',Company $company=null): ?Client
+    protected function getPurchaseClient($name = 'The Client', Company $company=null): ?Client
     {
         (!$company && $company = $this->getCompany());
 
