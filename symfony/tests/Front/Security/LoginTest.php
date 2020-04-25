@@ -8,7 +8,7 @@ class LoginTest extends BaseTest
 {
     public function testSuccessLogin(): void
     {
-        $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $this->login(parent::LOGIN_GOD);
 
         self::assertResponseIsSuccessful();
         self::assertSelectorTextContains('h1', 'Hola, carlos.sgude@gmail.com.');

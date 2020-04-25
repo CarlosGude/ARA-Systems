@@ -9,12 +9,8 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
 
-class ProductVoter extends Voter
+class ProductVoter extends AbstractVoter
 {
-    protected const CREATE = 'CREATE';
-    protected const UPDATE = 'UPDATE';
-    protected const DELETE = 'DELETE';
-    protected const READ = 'READ';
     /** @var Security */
     protected $security;
 
@@ -56,18 +52,27 @@ class ProductVoter extends Voter
             throw new UnauthorizedHttpException('Need to login');
         }
 
-        if (in_array(User::ROLE_GOD, $user->getRoles(), true)) {
+        if ($this->isRoleGod($user->getRoles())){
             return true;
         }
 
-        if ($attribute === self::UPDATE || $attribute===self::DELETE) {
-            if ($subject->getCompany() === $user->getCompany()) {
-                return true;
-            }
-            return false;
+        if ($this->isRoleAdmin($user->getRoles(),$user,$subject,$attribute)){
+            return true;
         }
 
-        if ($attribute===self::CREATE) {
+        if ($attribute === parent::DELETE && in_array(User::ROLE_DELETE_CATEGORY,$user->getRoles(),true)){
+            return true;
+        }
+
+        if ($attribute === parent::READ && in_array(User::ROLE_READ_CATEGORY,$user->getRoles(),true)){
+            return true;
+        }
+
+        if ($attribute === parent::CREATE && in_array(User::ROLE_CREATE_CATEGORY,$user->getRoles(),true)){
+            return true;
+        }
+
+        if ($attribute === parent::UPDATE && in_array(User::ROLE_UPDATE_CATEGORY,$user->getRoles(),true)){
             return true;
         }
 

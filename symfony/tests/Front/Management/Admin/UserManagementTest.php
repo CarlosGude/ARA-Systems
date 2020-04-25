@@ -1,26 +1,15 @@
 <?php
 
-namespace App\Tests\Front\Management;
+namespace App\Tests\Front\Roles\Admin;
 
 use App\Entity\User;
 use App\Tests\Front\BaseTest;
 
 class UserManagementTest extends BaseTest
 {
-    public function testRemoveUsers(): void
-    {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
-
-        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity'=>'user']));
-
-        $client->request('POST', $crawler->filter('.delete')->first()->attr('data-href'));
-
-        self::assertEquals(10, $client->getCrawler()->filter('.table')->first()->attr('data-total'));
-    }
-
     public function testListUsers(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_GOD);
 
         $crawler = $client->request('GET', $this->generatePath('front_list', ['entity'=>'user']));
 
@@ -28,18 +17,29 @@ class UserManagementTest extends BaseTest
         $total = $crawler->filter('.table')->first()->attr('data-total');
 
         self::assertEquals(10, $count);
-        self::assertEquals(10, $total);
+        self::assertEquals(12 , $total);
+    }
+
+    public function testRemoveUsers(): void
+    {
+        $client = $this->login(parent::LOGIN_ADMIN);
+
+        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity'=>'user']));
+
+        $client->request('POST', $crawler->filter('.delete')->first()->attr('data-href'));
+
+        self::assertEquals(8, $client->getCrawler()->filter('.table')->first()->attr('data-total'));
     }
 
     public function testCreateUser(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_GOD);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'user']));
 
         $user = [
-            'name' => 'Test User',
-            'email' => 'fake@email.com',
+            'name' => 'Another Test User',
+            'email' => 'fake2@email.com',
             'profile'=> User::PROFILE_ADMIN,
             'password' => 'password',
         ];
@@ -56,21 +56,21 @@ class UserManagementTest extends BaseTest
         $successLabel = $client->getCrawler()->filter('.alert-success')->first();
 
         self::assertEquals(
-            'Se ha creado el usuario Test User correctamente.',
+            'Se ha creado el usuario Another Test User correctamente.',
             trim($successLabel->html())
         );
 
-        $user = $this->getRepository(User::class)->findOneBy(['email' => 'fake@email.com']);
+        $user = $this->getRepository(User::class)->findOneBy(['email' => 'fake2@email.com']);
 
         self::assertNotNull($user);
     }
 
     public function testUserEdited(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_GOD);
 
         /** @var User $userToEdit */
-        $userToEdit = $this->getRepository(User::class)->findOneBy(['email' => 'fake@email.com']);
+        $userToEdit = $this->getRepository(User::class)->findOneBy(['email' => 'fake2@email.com']);
 
         $crawler = $client->request('GET', $this->generatePath('front_edit', ['entity'=>'user','id'=>$userToEdit->getId()]));
 

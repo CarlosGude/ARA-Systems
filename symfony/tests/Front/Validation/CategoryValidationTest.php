@@ -9,7 +9,7 @@ class CategoryValidationTest extends BaseTest
 {
     public function testNameRequired(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_GOD);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'category']));
 
@@ -34,7 +34,7 @@ class CategoryValidationTest extends BaseTest
 
     public function testMinStockLowerThanOne(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_GOD);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'category']));
 
@@ -61,7 +61,7 @@ class CategoryValidationTest extends BaseTest
 
     public function testMaxStockGreaterThanOne(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_GOD);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'category']));
 
@@ -88,7 +88,7 @@ class CategoryValidationTest extends BaseTest
 
     public function testMaxStockLowerThanMinStockRequired(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_GOD);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'category']));
 

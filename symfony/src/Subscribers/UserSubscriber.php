@@ -56,6 +56,10 @@ class UserSubscriber implements EventSubscriber
 
             $user->setPassword($encoded);
         }
+
+        if ($args->hasChangedField('profile')) {
+            $user->setRoles($this->getRoles($user->getProfile()));
+        }
     }
 
     public function getRoles($profile): array
@@ -65,6 +69,44 @@ class UserSubscriber implements EventSubscriber
                 return [User::ROLE_GOD];
             case User::PROFILE_ADMIN;
                 return [User::ROLE_ADMIN];
+            case User::PROFILE_PURCHASER:
+                return [
+                    User::ROLE_CREATE_CATEGORY,
+                    User::ROLE_READ_CATEGORY,
+                    User::ROLE_UPDATE_CATEGORY,
+
+                    User::ROLE_READ_PRODUCT,
+                    User::ROLE_CREATE_PRODUCT,
+                    User::ROLE_UPDATE_PRODUCT,
+
+                    User::ROLE_UPDATE_PROVIDER,
+                    User::ROLE_CREATE_PROVIDER,
+                    User::ROLE_READ_PROVIDER,
+
+                    User::ROLE_READ_PURCHASE,
+                    User::ROLE_CREATE_PURCHASE,
+                    User::ROLE_UPDATE_PURCHASE,
+
+                    User::ROLE_DELETE_PURCHASE_LINE,
+                    User::ROLE_READ_PURCHASE_LINE,
+                    User::ROLE_CREATE_PURCHASE_LINE,
+                    User::ROLE_UPDATE_PURCHASE_LINE,
+                ];
+            case User::PROFILE_SELLER:
+                return [
+                    User::ROLE_CREATE_CATEGORY,
+                    User::ROLE_READ_CATEGORY,
+                    User::ROLE_UPDATE_CATEGORY,
+
+                    User::ROLE_READ_PRODUCT,
+                    User::ROLE_CREATE_PRODUCT,
+                    User::ROLE_UPDATE_PRODUCT,
+
+                    User::ROLE_CREATE_CLIENT,
+                    User::ROLE_READ_CLIENT,
+                    User::ROLE_UPDATE_CLIENT,
+
+                ];
         }
     }
 }

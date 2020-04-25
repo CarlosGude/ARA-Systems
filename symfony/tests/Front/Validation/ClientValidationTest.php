@@ -8,7 +8,7 @@ class ClientValidationTest extends BaseTest
 {
     public function testNameRequired(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_GOD);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'client']));
 
@@ -33,7 +33,7 @@ class ClientValidationTest extends BaseTest
 
     public function testEmailRequired(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_GOD);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'client']));
 
@@ -58,7 +58,7 @@ class ClientValidationTest extends BaseTest
 
     public function testIdentificationRequired(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_GOD);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'client']));
 
@@ -83,7 +83,7 @@ class ClientValidationTest extends BaseTest
 
     public function testIdentificationUnique(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_GOD);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'client']));
 
@@ -110,7 +110,7 @@ class ClientValidationTest extends BaseTest
 
     public function testEmailValid(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_GOD);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'client']));
 
@@ -137,7 +137,7 @@ class ClientValidationTest extends BaseTest
 
     public function testEmailUnique(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_GOD);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'client']));
 

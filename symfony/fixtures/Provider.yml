@@ -12,3 +12,17 @@ App\Entity\Provider:
     email: '<email()>'
     createdAt: '<dateTimeBetween("-200 days", "now")>'
     updatedAt: '<dateTimeBetween($createdAt, "now")>'
+
+  another_dummy_provider_{1..10}:
+    name: 'Provider <current()>'
+    company: '@another_company'
+    email: '<email()>'
+    createdAt: '<dateTimeBetween("-200 days", "now")>'
+    updatedAt: '<dateTimeBetween($createdAt, "now")>'
+
+  another_provider:
+    name: 'Another Provider'
+    company: '@another_company'
+    email: '<email()>'
+    createdAt: '<dateTimeBetween("-200 days", "now")>'
+    updatedAt: '<dateTimeBetween($createdAt, "now")>'

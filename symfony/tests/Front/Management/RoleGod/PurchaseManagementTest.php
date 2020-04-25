@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Front\Management;
+namespace App\Tests\Front\Roles\RoleGod;
 
 use App\Entity\Provider;
 use App\Entity\Purchase;
@@ -16,7 +16,7 @@ class PurchaseManagementTest extends BaseTest
 
     public function testListPurchases(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_GOD);
 
         $crawler = $client->request(
             'GET',
@@ -32,7 +32,7 @@ class PurchaseManagementTest extends BaseTest
 
     public function testCreatePurchase(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_GOD);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'purchase']));
 
@@ -62,7 +62,7 @@ class PurchaseManagementTest extends BaseTest
 
     public function testRemovePurchase(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_GOD);
         $this->createPurchase('carlos.sgude@gmail.com', 'The Provider', 'test');
         $crawler = $client->request(
             'GET',

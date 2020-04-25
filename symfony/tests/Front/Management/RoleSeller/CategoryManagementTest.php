@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Tests\Front\Management;
+namespace App\Tests\Front\Roles\RoleSeller;
 
 use App\Entity\Category;
 use App\Tests\Front\BaseTest;
+use Symfony\Component\HttpFoundation\Response;
 
 class CategoryManagementTest extends BaseTest
 {
     public function testListCategories(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_PURCHASER);
 
         $crawler = $client->request('GET', $this->generatePath('front_list', ['entity'=>'category']));
         $count = $crawler->filter('.category-tr')->count();
@@ -19,9 +20,26 @@ class CategoryManagementTest extends BaseTest
         self::assertEquals(11, $total);
     }
 
+    public function testRemoveCategory(): void
+    {
+        $client = $this->login(parent::LOGIN_PURCHASER);
+
+        /** @var Category $category */
+        $category = $this->getRepository(Category::class)->findOneBy([
+            'name' => 'Another Category',
+            'company'=>$this->getCompany('The Company')
+        ]);
+        $url = $this->generatePath('front_delete',['entity'=>'category','id'=> $category->getId()]);
+        $client->request('GET',$url);
+
+        $response= $client->getResponse();
+
+        self::assertEquals(Response::HTTP_FORBIDDEN,$response->getStatusCode());
+    }
+
     public function testCreateCategory(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_PURCHASER);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'category']));
         $category = [
@@ -54,7 +72,7 @@ class CategoryManagementTest extends BaseTest
 
     public function testCategoryEdited(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_PURCHASER);
 
         /** @var Category $categoryToEdit */
         $categoryToEdit = $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']);
@@ -80,16 +98,5 @@ class CategoryManagementTest extends BaseTest
             'Se ha editado la categoría Test category updated correctamente.',
             trim($successLabel->html())
         );
-    }
-
-    public function testRemoveCategory(): void
-    {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
-
-        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity'=> 'category']));
-
-        $client->request('POST', $crawler->filter('.delete')->first()->attr('data-href'));
-
-        self::assertEquals(10, $client->getCrawler()->filter('.category-tr')->count());
     }
 }

@@ -15,13 +15,13 @@
                 {{ knp_pagination_sortable(pagination, 'category.name' | trans, 'name') }}
             </th>
             <th{% if pagination.isSorted('a.tax') %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(pagination, 'category.tax' | trans, 'email') }}
+                {{ knp_pagination_sortable(pagination, 'category.tax' | trans, 'tax') }}
             </th>
             <th{% if pagination.isSorted('a.minStock') %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(pagination, 'category.minStock' | trans, 'email') }}
+                {{ knp_pagination_sortable(pagination, 'category.minStock' | trans, 'minStock') }}
             </th>
             <th{% if pagination.isSorted('a.maxStock') %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(pagination, 'category.maxStock' | trans, 'email') }}
+                {{ knp_pagination_sortable(pagination, 'category.maxStock' | trans, 'maxStock') }}
             </th>
             <th scope="col" colspan="2"></th>
         </tr>
@@ -43,14 +43,16 @@
                 </a>
             </td>
             <td>
-                <a
-                href="#"
-                title="{{ 'delete' | trans }} {{ element.name }}"
-                data-href="{{ delete }}"
-                onclick="myFunction('{{ delete }}')"
-                class="btn btn-danger delete">
-                    <i class="fas fa-trash edit"></i>
-                </a>
+                {% if element.products.count == 0 %}
+                    <a
+                    href="#"
+                    title="{{ 'delete' | trans }} {{ element.name }}"
+                    data-href="{{ delete }}"
+                    onclick="myFunction('{{ delete }}')"
+                    class="btn btn-danger delete">
+                        <i class="fas fa-trash edit"></i>
+                    </a>
+                {% endif %}
             </td>
         </tr>
         {% endfor %}

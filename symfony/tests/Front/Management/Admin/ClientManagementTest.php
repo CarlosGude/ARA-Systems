@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Tests\Front\Management;
+namespace App\Tests\Front\Roles\Admin;
 
 use App\Entity\Client;
 use App\Tests\Front\BaseTest;
 
 class ClientManagementTest extends BaseTest
 {
-    public function testListCategories(): void
+    public function testListClients(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_ADMIN);
 
         $crawler = $client->request('GET', $this->generatePath('front_list', ['entity'=> 'client']));
 
@@ -22,7 +22,7 @@ class ClientManagementTest extends BaseTest
 
     public function testCreateClient(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_GOD);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'client']));
 
@@ -56,7 +56,7 @@ class ClientManagementTest extends BaseTest
 
     public function testClientEdited(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_GOD);
 
         /** @var Client $clientToEdit */
         $clientToEdit = $this->getRepository(Client::class)->findOneBy(['name' => 'The Client']);
@@ -89,7 +89,7 @@ class ClientManagementTest extends BaseTest
 
     public function testRemoveClient(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_GOD);
 
         $crawler = $client->request('GET', $this->generatePath('front_list', ['entity'=> 'client']));
 

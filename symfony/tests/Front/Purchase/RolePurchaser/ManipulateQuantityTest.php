@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Front\Purchase;
+namespace App\Tests\Front\Purchase\RolePurchaser;
 
 use App\Entity\Product;
 use App\Tests\Front\BaseTest;
@@ -9,7 +9,7 @@ class ManipulateQuantityTest extends BaseTest
 {
     public function testAddProductToPurchase(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_PURCHASER);
         $purchase = $this->createPurchase('carlos.sgude@gmail.com', 'The Provider', 'test');
 
         $crawler = $client->request(
@@ -17,8 +17,13 @@ class ManipulateQuantityTest extends BaseTest
             $this->generatePath('front_edit', ['entity'=>'purchase','id'=>$purchase->getId()])
         );
 
+        $product = $this->getRepository(Product::class)->findOneBy([
+            'name' => 'Product 1',
+            'company'=> $this->getCompany('The Company')
+        ]);
+
         $line = [
-            'product' => $this->getRepository(Product::class)->findOneBy(['name' => 'The Product']),
+            'product' => $product,
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
@@ -49,7 +54,7 @@ class ManipulateQuantityTest extends BaseTest
 
     public function testAddQuantityToLine(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_PURCHASER);
         $purchase = $this->createPurchase('carlos.sgude@gmail.com', 'The Provider', 'test');
 
         $crawler = $client->request(
@@ -57,8 +62,13 @@ class ManipulateQuantityTest extends BaseTest
             $this->generatePath('front_edit', ['entity'=>'purchase','id'=>$purchase->getId()])
         );
 
+        $product = $this->getRepository(Product::class)->findOneBy([
+            'name' => 'Product 1',
+            'company'=> $this->getCompany('The Company')
+        ]);
+
         $line = [
-            'product' => $this->getRepository(Product::class)->findOneBy(['name' => 'The Product']),
+            'product' => $product,
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
@@ -93,7 +103,7 @@ class ManipulateQuantityTest extends BaseTest
 
     public function testRemoveLinePuttingZeroQuantity(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_PURCHASER);
         $purchase = $this->createPurchase('carlos.sgude@gmail.com', 'The Provider', 'test');
 
         $crawler = $client->request(
@@ -101,10 +111,14 @@ class ManipulateQuantityTest extends BaseTest
             $this->generatePath('front_edit', ['entity'=>'purchase','id'=>$purchase->getId()])
         );
 
-        $line = [
-            'product' => $this->getRepository(Product::class)->findOneBy(['name' => 'The Product']),
-        ];
+        $product = $this->getRepository(Product::class)->findOneBy([
+            'name' => 'Product 1',
+            'company'=> $this->getCompany('The Company')
+        ]);
 
+        $line = [
+            'product' => $product,
+        ];
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['purchase_line[product]']->setValue($line['product']->getId());

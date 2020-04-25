@@ -17,6 +17,24 @@ App\Entity\User:
     createdAt: '<dateTimeBetween("-200 days", "now")>'
     updatedAt: '<dateTimeBetween($createdAt, "now")>'
 
+  the_purchaser:
+    name: The Purchaser
+    email: purchaser@fakemail.com
+    password: thepass
+    profile: 'PROFILE_PURCHASER'
+    company: '@the_company'
+    createdAt: '<dateTimeBetween("-200 days", "now")>'
+    updatedAt: '<dateTimeBetween($createdAt, "now")>'
+
+  the_seller:
+    name: The Seller
+    email: seller@fakemail.com
+    password: thepass
+    profile: 'PROFILE_SELLER'
+    company: '@the_company'
+    createdAt: '<dateTimeBetween("-200 days", "now")>'
+    updatedAt: '<dateTimeBetween($createdAt, "now")>'
+
   another_user:
     name: Another User
     email: another_user@fakemail.com
@@ -26,7 +44,7 @@ App\Entity\User:
     createdAt: '<dateTimeBetween("-200 days", "now")>'
     updatedAt: '<dateTimeBetween($createdAt, "now")>'
 
-  dummy_users_{1..9}:
+  dummy_users_{1..8}:
     name: '<firstName()> <lastName()>'
     email: '<email()>'
     password: '<password()>'

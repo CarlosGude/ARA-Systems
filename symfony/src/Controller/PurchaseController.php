@@ -32,7 +32,10 @@ class PurchaseController extends AbstractController
         Request $request,
         TranslatorInterface $translator
     ): RedirectResponse {
+        $this->denyAccessUnlessGranted('UPDATE', $line);
+
         $line->setQuantity($quantity);
+
 
         $this->addFlash('success', $translator->trans('purchaseLine.added', ['{{product}}' => $line->getProduct()]));
 
@@ -57,6 +60,7 @@ class PurchaseController extends AbstractController
         TranslatorInterface $translator,
         Request $request
     ): RedirectResponse {
+        $this->denyAccessUnlessGranted('UPDATE', $purchase);
         $purchase->setStatus($status);
 
         $this->addFlash('success', $translator->trans('purchase.update', [

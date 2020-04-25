@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Front\Purchase;
+namespace App\Tests\Front\RolePurchaser;
 
 use App\Entity\Purchase;
 use App\Tests\Front\BaseTest;
@@ -15,7 +15,7 @@ class ChangeStatusTest extends BaseTest
 
     public function testChangeStatusToIncoming(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_PURCHASER);
 
         $crawler = $client->request(
             'GET',
@@ -40,7 +40,7 @@ class ChangeStatusTest extends BaseTest
 
     public function testChangeStatusToCancelled(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_PURCHASER);
 
         $crawler = $client->request(
             'GET',
@@ -67,7 +67,7 @@ class ChangeStatusTest extends BaseTest
 
     public function testChangeStatusToSuccessAndVerifiedUpdateStock(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_PURCHASER);
 
         $crawler = $client->request(
             'GET',

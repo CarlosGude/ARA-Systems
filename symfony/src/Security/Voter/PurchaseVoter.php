@@ -9,12 +9,9 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
 
-class PurchaseVoter extends Voter
+class PurchaseVoter extends AbstractVoter
 {
-    protected const CREATE = 'CREATE';
-    protected const UPDATE = 'UPDATE';
-    protected const DELETE = 'DELETE';
-    protected const READ = 'READ';
+
     /** @var Security */
     protected $security;
 
@@ -55,19 +52,27 @@ class PurchaseVoter extends Voter
         if (!$user instanceof User) {
             throw new UnauthorizedHttpException('Need to login');
         }
-
-        if (in_array(User::ROLE_GOD, $user->getRoles(), true)) {
+        if ($this->isRoleGod($user->getRoles())) {
             return true;
         }
 
-        if ($attribute === self::UPDATE || $attribute===self::DELETE) {
-            if ($subject->getCompany() === $user->getCompany()) {
-                return true;
-            }
-            return false;
+        if($this->isRoleAdmin($user->getRoles(),$user,$subject,$attribute)){
+            return true;
         }
 
-        if ($attribute===self::CREATE) {
+        if ($attribute === parent::DELETE && in_array(User::ROLE_DELETE_PURCHASE,$user->getRoles(),true)){
+            return true;
+        }
+
+        if ($attribute === parent::READ && in_array(User::ROLE_READ_PURCHASE,$user->getRoles(),true)){
+            return true;
+        }
+
+        if ($attribute === parent::CREATE && in_array(User::ROLE_CREATE_PURCHASE,$user->getRoles(),true)){
+            return true;
+        }
+
+        if ($attribute === parent::UPDATE && in_array(User::ROLE_UPDATE_PURCHASE,$user->getRoles(),true)){
             return true;
         }
 

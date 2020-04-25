@@ -9,7 +9,7 @@ class UserValidationTest extends BaseTest
 {
     public function testNoRepeatedEmail(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_GOD);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'user']));
 
@@ -37,7 +37,7 @@ class UserValidationTest extends BaseTest
 
     public function testNoValidEmail(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_GOD);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'user']));
 
@@ -65,7 +65,7 @@ class UserValidationTest extends BaseTest
 
     public function testNoEmptyEmail(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_GOD);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'user']));
 
@@ -91,7 +91,7 @@ class UserValidationTest extends BaseTest
 
     public function testNoEmptyPassword(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_GOD);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'user']));
 
@@ -117,7 +117,7 @@ class UserValidationTest extends BaseTest
 
     public function testNoEmptyProfile(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_GOD);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'user']));
 

@@ -8,12 +8,9 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
 
-class UserVoter extends Voter
+class UserVoter extends AbstractVoter
 {
-    protected const CREATE = 'CREATE';
-    protected const UPDATE = 'UPDATE';
-    protected const DELETE = 'DELETE';
-    protected const READ = 'READ';
+
     /** @var Security */
     protected $security;
 
@@ -48,27 +45,9 @@ class UserVoter extends Voter
         if (!$subject instanceof User) {
             return false;
         }
-
+        /** @var User $user */
         $user = $token->getUser();
 
-        if (!$user instanceof User) {
-            throw new UnauthorizedHttpException('Need to login');
-        }
-
-        if (in_array(User::ROLE_GOD, $user->getRoles(), true)) {
-            return true;
-        }
-
-        if ($attribute === self::UPDATE || $attribute===self::DELETE) {
-            if ($subject->getCompany() === $user->getCompany()) {
-                return true;
-            }
-            return false;
-        }
-
-        if ($attribute===self::CREATE) {
-            return true;
-        }
-        return false;
+        return ($this->isRoleGod($user->getRoles())) || $this->isRoleAdmin($user->getRoles(),$user,$subject,$attribute);
     }
 }

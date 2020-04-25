@@ -190,6 +190,7 @@ class FrontController extends AbstractController
         if (!new $class() instanceof EntityInterface && !new $class() instanceof UserInterface) {
             throw new RuntimeException('The class is not valid.');
         }
+        $this->denyAccessUnlessGranted('READ', new $class());
 
         $pagination = $paginator->paginate(
             $em->getRepository($class)->findBy(['company' => $user->getCompany()], [$sort => $direction]), /* query NOT result */

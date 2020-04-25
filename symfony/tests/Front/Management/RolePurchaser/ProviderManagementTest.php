@@ -1,15 +1,17 @@
 <?php
 
-namespace App\Tests\Front\Management;
+namespace App\Tests\Front\Management\RolePurchaser;
 
+use App\Entity\Client;
 use App\Entity\Provider;
 use App\Tests\Front\BaseTest;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProviderManagementTest extends BaseTest
 {
     public function testListProviders(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_PURCHASER);
 
         $crawler = $client->request('GET', $this->generatePath('front_list', ['entity'=>'provider']));
 
@@ -22,13 +24,13 @@ class ProviderManagementTest extends BaseTest
 
     public function testCreateProvider(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_PURCHASER);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'provider']));
 
         $provider = [
             'name' => 'Test Provider',
-            'email' => 'fake@gmail.com'
+            'email' => 'fake2@gmail.com'
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
@@ -52,10 +54,10 @@ class ProviderManagementTest extends BaseTest
 
     public function testProviderEdited(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_PURCHASER);
 
         /** @var Provider $providerToEdit */
-        $providerToEdit = $this->getRepository(Provider::class)->findOneBy(['name' => 'The Provider']);
+        $providerToEdit = $this->getRepository(Provider::class)->findOneBy(['name' => 'Another Provider']);
 
         $crawler = $client->request(
             'GET',
@@ -82,12 +84,13 @@ class ProviderManagementTest extends BaseTest
 
     public function testRemoveProvider(): void
     {
-        $client = $this->login(['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra']);
+        $client = $this->login(parent::LOGIN_PURCHASER);
 
-        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity'=>'provider']));
+        /** @var Client $product */
+        $product = $this->getRepository(Provider::class)->findOneBy(['name' => 'Test Provider']);
+        $url = $this->generatePath('front_delete', ['entity'=>'provider','id'=>$product->getId()]);
+        $client->request('GET',$url);
 
-        $client->request('POST', $crawler->filter('.delete')->first()->attr('data-href'));
-
-        self::assertEquals(10, $client->getCrawler()->filter('.provider-tr')->count());
+        self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 }

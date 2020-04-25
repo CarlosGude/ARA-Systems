@@ -2,6 +2,7 @@
 
 namespace App\Tests\Front;
 
+use App\Entity\Company;
 use App\Entity\Provider;
 use App\Entity\Purchase;
 use App\Entity\User;
@@ -12,11 +13,15 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 abstract class BaseTest extends WebTestCase
 {
-    protected const BASE_URL = 'management';
+    protected const LOGIN_ADMIN = ['email' => 'user@fakemail.com', 'password' => 'thepass'];
+    protected const LOGIN_GOD = ['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra'];
+    protected const LOGIN_PURCHASER = ['email' => 'purchaser@fakemail.com', 'password' => 'thepass'];
+    protected const LOGIN_SELLER = ['email' => 'seller@fakemail.com', 'password' => 'thepass'];
 
     public function setUp(): void
     {
         parent::setUp();
+        ini_set('memory_limit','10G');
     }
 
     protected function generatePath(string $name, array $parameters)
@@ -82,4 +87,13 @@ abstract class BaseTest extends WebTestCase
 
         return $purchase;
     }
+
+    protected function getCompany(string $name): Company
+    {
+        /** @var Company $company */
+        $company = $this->getRepository(Company::class)->findOneBy(['name' => $name]);
+
+        return $company;
+    }
+
 }
