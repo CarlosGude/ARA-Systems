@@ -11,12 +11,12 @@ class UserValidationTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_GOD);
 
-        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'user']));
+        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'user']));
 
         $user = [
             'name' => 'Test User',
             'email' => 'carlos.sgude@gmail.com',
-            'profile'=> User::PROFILE_ADMIN,
+            'profile' => User::PROFILE_ADMIN,
             'password' => 'password',
         ];
 
@@ -39,13 +39,13 @@ class UserValidationTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_GOD);
 
-        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'user']));
+        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'user']));
 
         $user = [
             'name' => 'Test User',
             'email' => 'fake',
             'password' => 'password',
-            'profile'=> User::PROFILE_ADMIN,
+            'profile' => User::PROFILE_ADMIN,
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
@@ -67,12 +67,12 @@ class UserValidationTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_GOD);
 
-        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'user']));
+        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'user']));
 
         $user = [
             'name' => 'Test User',
             'password' => 'password',
-            'profile'=> User::PROFILE_ADMIN,
+            'profile' => User::PROFILE_ADMIN,
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
@@ -93,12 +93,12 @@ class UserValidationTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_GOD);
 
-        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'user']));
+        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'user']));
 
         $user = [
             'name' => 'Test User',
             'email' => 'fakeemail@email.com',
-            'profile'=> User::PROFILE_ADMIN,
+            'profile' => User::PROFILE_ADMIN,
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
@@ -119,12 +119,12 @@ class UserValidationTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_GOD);
 
-        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'user']));
+        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'user']));
 
         $user = [
             'name' => 'Test User',
             'email' => 'fakeemail@email.com',
-            'password' => 'password'
+            'password' => 'password',
         ];
 
         $form = $crawler->selectButton('Guardar')->form();

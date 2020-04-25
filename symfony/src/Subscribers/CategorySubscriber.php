@@ -20,9 +20,6 @@ class CategorySubscriber implements EventSubscriber
         ];
     }
 
-    /**
-     * @param LifecycleEventArgs $args
-     */
     public function preRemove(LifecycleEventArgs $args): void
     {
         $category = $args->getObject();

@@ -14,8 +14,8 @@ class UserManagementTest extends BaseTest
 
         /** @var User $user */
         $user = $this->getRepository(User::class)->findOneBy(['name' => 'Carlos Gude']);
-        $url = $this->generatePath('front_delete', ['entity'=>'user','id'=>$user->getId()]);
-        $client->request('GET',$url);
+        $url = $this->generatePath('front_delete', ['entity' => 'user', 'id' => $user->getId()]);
+        $client->request('GET', $url);
 
         self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
@@ -24,8 +24,8 @@ class UserManagementTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_PURCHASER);
 
-        $url = $this->generatePath('front_list', ['entity'=>'user']);
-        $client->request('GET',$url);
+        $url = $this->generatePath('front_list', ['entity' => 'user']);
+        $client->request('GET', $url);
 
         self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
@@ -34,7 +34,7 @@ class UserManagementTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_PURCHASER);
 
-        $client->request('GET', $this->generatePath('front_create', ['entity'=>'user']));
+        $client->request('GET', $this->generatePath('front_create', ['entity' => 'user']));
 
         self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
@@ -46,7 +46,7 @@ class UserManagementTest extends BaseTest
         /** @var User $user */
         $user = $this->getRepository(User::class)->findOneBy(['email' => 'carlos.sgude@gmail.com']);
 
-        $client->request('GET', $this->generatePath('front_edit', ['entity'=>'user','id'=>$user->getId()]));
+        $client->request('GET', $this->generatePath('front_edit', ['entity' => 'user', 'id' => $user->getId()]));
         self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 }

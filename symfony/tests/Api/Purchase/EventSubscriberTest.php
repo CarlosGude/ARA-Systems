@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Tests\Api\Purchase;
 
 use App\Entity\Purchase;

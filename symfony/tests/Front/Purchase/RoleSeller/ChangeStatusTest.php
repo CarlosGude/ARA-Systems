@@ -21,14 +21,14 @@ class ChangeStatusTest extends BaseTest
         /** @var Purchase $purchase */
         $purchase = $this->getRepository(Purchase::class)->findOneBy([
             'reference' => 'reference',
-            'company'=> $this->getCompany('The Company')
+            'company' => $this->getCompany('The Company'),
         ]);
 
         $url = $this->generatePath(
             'purchase_change_status',
-            ['purchase'=>$purchase->getId(),'status'=>Purchase::STATUS_INCOMING]
+            ['purchase' => $purchase->getId(), 'status' => Purchase::STATUS_INCOMING]
         );
-        $client->request('GET',$url);
+        $client->request('GET', $url);
 
         self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
@@ -40,14 +40,14 @@ class ChangeStatusTest extends BaseTest
         /** @var Purchase $purchase */
         $purchase = $this->getRepository(Purchase::class)->findOneBy([
             'reference' => 'reference',
-            'company'=> $this->getCompany('The Company')
+            'company' => $this->getCompany('The Company'),
         ]);
 
         $url = $this->generatePath(
             'purchase_change_status',
-            ['purchase'=>$purchase->getId(),'status'=>Purchase::STATUS_CANCELLED]
+            ['purchase' => $purchase->getId(), 'status' => Purchase::STATUS_CANCELLED]
         );
-        $client->request('GET',$url);
+        $client->request('GET', $url);
 
         self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
@@ -59,14 +59,14 @@ class ChangeStatusTest extends BaseTest
         /** @var Purchase $purchase */
         $purchase = $this->getRepository(Purchase::class)->findOneBy([
             'reference' => 'm_l_pur',
-            'company'=> $this->getCompany('The Company')
+            'company' => $this->getCompany('The Company'),
         ]);
 
         $url = $this->generatePath(
             'purchase_change_status',
-            ['purchase'=>$purchase->getId(),'status'=>Purchase::STATUS_SUCCESS]
+            ['purchase' => $purchase->getId(), 'status' => Purchase::STATUS_SUCCESS]
         );
-        $client->request('GET',$url);
+        $client->request('GET', $url);
 
         self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }

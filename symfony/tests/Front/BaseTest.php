@@ -21,7 +21,7 @@ abstract class BaseTest extends WebTestCase
     public function setUp(): void
     {
         parent::setUp();
-        ini_set('memory_limit','10G');
+        ini_set('memory_limit', '10G');
     }
 
     protected function generatePath(string $name, array $parameters)
@@ -95,5 +95,4 @@ abstract class BaseTest extends WebTestCase
 
         return $company;
     }
-
 }

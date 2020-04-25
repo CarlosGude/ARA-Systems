@@ -3,14 +3,11 @@
 namespace App\Security\Voter;
 
 use App\Entity\User;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
 
 class UserVoter extends AbstractVoter
 {
-
     /** @var Security */
     protected $security;
 
@@ -22,8 +19,6 @@ class UserVoter extends AbstractVoter
     /**
      * @param $attribute string
      * @param $subject User
-     * @return bool
-     * @return bool
      */
     protected function supports($attribute, $subject): bool
     {
@@ -35,10 +30,8 @@ class UserVoter extends AbstractVoter
     }
 
     /**
-     * @param string $attribute
+     * @param string    $attribute
      * @param User|null $subject
-     * @param TokenInterface $token
-     * @return bool
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
@@ -48,6 +41,6 @@ class UserVoter extends AbstractVoter
         /** @var User $user */
         $user = $token->getUser();
 
-        return ($this->isRoleGod($user->getRoles())) || $this->isRoleAdmin($user->getRoles(),$user,$subject,$attribute);
+        return ($this->isRoleGod($user->getRoles())) || $this->isRoleAdmin($user->getRoles(), $user, $subject, $attribute);
     }
 }

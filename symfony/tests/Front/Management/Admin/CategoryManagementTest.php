@@ -3,17 +3,15 @@
 namespace App\Tests\Front\Roles\Admin;
 
 use App\Entity\Category;
-use App\Entity\Company;
 use App\Tests\Front\BaseTest;
 
 class CategoryManagementTest extends BaseTest
 {
-
     public function testListCategories(): void
     {
         $client = $this->login(parent::LOGIN_ADMIN);
 
-        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity'=>'category']));
+        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity' => 'category']));
         $count = $crawler->filter('.category-tr')->count();
         $total = $crawler->filter('.table')->first()->attr('data-total');
 
@@ -25,7 +23,7 @@ class CategoryManagementTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_ADMIN);
 
-        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'category']));
+        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'category']));
         $category = [
             'name' => 'Test Category',
             'tax' => Category::IVA_8,
@@ -61,12 +59,12 @@ class CategoryManagementTest extends BaseTest
         /** @var Category $categoryToEdit */
         $categoryToEdit = $this->getRepository(Category::class)->findOneBy([
             'name' => 'Category 1',
-            'company'=> $this->getCompany('Another company')
+            'company' => $this->getCompany('Another company'),
             ]);
 
         $crawler = $client->request(
             'GET',
-            $this->generatePath('front_edit', ['entity'=>'category','id' => $categoryToEdit->getId()])
+            $this->generatePath('front_edit', ['entity' => 'category', 'id' => $categoryToEdit->getId()])
         );
 
         $category = [
@@ -91,7 +89,7 @@ class CategoryManagementTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_ADMIN);
 
-        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity'=> 'category']));
+        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity' => 'category']));
 
         $client->request('POST', $crawler->filter('.delete')->first()->attr('data-href'));
 

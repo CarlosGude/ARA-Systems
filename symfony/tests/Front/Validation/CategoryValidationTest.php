@@ -11,7 +11,7 @@ class CategoryValidationTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_GOD);
 
-        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'category']));
+        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'category']));
 
         $category = [
             'tax' => Category::IVA_8,
@@ -36,7 +36,7 @@ class CategoryValidationTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_GOD);
 
-        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'category']));
+        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'category']));
 
         $category = [
             'name' => 'The Name',
@@ -63,7 +63,7 @@ class CategoryValidationTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_GOD);
 
-        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'category']));
+        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'category']));
 
         $category = [
             'name' => 'The Name',
@@ -90,7 +90,7 @@ class CategoryValidationTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_GOD);
 
-        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'category']));
+        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'category']));
 
         $category = [
             'name' => 'The Name',

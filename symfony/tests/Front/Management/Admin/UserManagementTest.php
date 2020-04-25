@@ -11,20 +11,20 @@ class UserManagementTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_GOD);
 
-        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity'=>'user']));
+        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity' => 'user']));
 
         $count = $crawler->filter('.user-tr')->count();
         $total = $crawler->filter('.table')->first()->attr('data-total');
 
         self::assertEquals(10, $count);
-        self::assertEquals(12 , $total);
+        self::assertEquals(12, $total);
     }
 
     public function testRemoveUsers(): void
     {
         $client = $this->login(parent::LOGIN_ADMIN);
 
-        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity'=>'user']));
+        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity' => 'user']));
 
         $client->request('POST', $crawler->filter('.delete')->first()->attr('data-href'));
 
@@ -35,12 +35,12 @@ class UserManagementTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_GOD);
 
-        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'user']));
+        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'user']));
 
         $user = [
             'name' => 'Another Test User',
             'email' => 'fake2@email.com',
-            'profile'=> User::PROFILE_ADMIN,
+            'profile' => User::PROFILE_ADMIN,
             'password' => 'password',
         ];
 
@@ -72,7 +72,7 @@ class UserManagementTest extends BaseTest
         /** @var User $userToEdit */
         $userToEdit = $this->getRepository(User::class)->findOneBy(['email' => 'fake2@email.com']);
 
-        $crawler = $client->request('GET', $this->generatePath('front_edit', ['entity'=>'user','id'=>$userToEdit->getId()]));
+        $crawler = $client->request('GET', $this->generatePath('front_edit', ['entity' => 'user', 'id' => $userToEdit->getId()]));
 
         $user = [
             'name' => 'Test User Edited',

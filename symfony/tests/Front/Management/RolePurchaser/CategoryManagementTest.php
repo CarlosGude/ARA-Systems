@@ -12,7 +12,7 @@ class CategoryManagementTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_PURCHASER);
 
-        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity'=>'category']));
+        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity' => 'category']));
         $count = $crawler->filter('.category-tr')->count();
         $total = $crawler->filter('.table')->first()->attr('data-total');
 
@@ -27,21 +27,21 @@ class CategoryManagementTest extends BaseTest
         /** @var Category $category */
         $category = $this->getRepository(Category::class)->findOneBy([
             'name' => 'Another Category',
-            'company'=>$this->getCompany('The Company')
+            'company' => $this->getCompany('The Company'),
         ]);
-        $url = $this->generatePath('front_delete',['entity'=>'category','id'=> $category->getId()]);
-        $client->request('GET',$url);
+        $url = $this->generatePath('front_delete', ['entity' => 'category', 'id' => $category->getId()]);
+        $client->request('GET', $url);
 
-        $response= $client->getResponse();
+        $response = $client->getResponse();
 
-        self::assertEquals(Response::HTTP_FORBIDDEN,$response->getStatusCode());
+        self::assertEquals(Response::HTTP_FORBIDDEN, $response->getStatusCode());
     }
 
     public function testCreateCategory(): void
     {
         $client = $this->login(parent::LOGIN_PURCHASER);
 
-        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'category']));
+        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'category']));
         $category = [
             'name' => 'Test Category',
             'tax' => Category::IVA_8,
@@ -79,7 +79,7 @@ class CategoryManagementTest extends BaseTest
 
         $crawler = $client->request(
             'GET',
-            $this->generatePath('front_edit', ['entity'=>'category','id' => $categoryToEdit->getId()])
+            $this->generatePath('front_edit', ['entity' => 'category', 'id' => $categoryToEdit->getId()])
         );
 
         $category = [

@@ -64,10 +64,10 @@ class UserSubscriber implements EventSubscriber
 
     public function getRoles($profile): array
     {
-        switch ($profile){
+        switch ($profile) {
             case User::PROFILE_GOD:
                 return [User::ROLE_GOD];
-            case User::PROFILE_ADMIN;
+            case User::PROFILE_ADMIN:
                 return [User::ROLE_ADMIN];
             case User::PROFILE_PURCHASER:
                 return [
@@ -105,7 +105,6 @@ class UserSubscriber implements EventSubscriber
                     User::ROLE_CREATE_CLIENT,
                     User::ROLE_READ_CLIENT,
                     User::ROLE_UPDATE_CLIENT,
-
                 ];
         }
     }

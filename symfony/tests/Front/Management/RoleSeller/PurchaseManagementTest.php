@@ -2,7 +2,6 @@
 
 namespace App\Tests\Front\Roles\RoleSeller;
 
-use App\Entity\Provider;
 use App\Entity\Purchase;
 use App\Tests\Front\BaseTest;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,24 +20,23 @@ class PurchaseManagementTest extends BaseTest
 
         $client->request(
             'GET',
-            $this->generatePath('front_list', ['entity'=>'purchase','sort'=>'reference'])
+            $this->generatePath('front_list', ['entity' => 'purchase', 'sort' => 'reference'])
         );
 
+        $response = $client->getResponse();
 
-        $response= $client->getResponse();
-
-        self::assertEquals(Response::HTTP_FORBIDDEN,$response->getStatusCode());
+        self::assertEquals(Response::HTTP_FORBIDDEN, $response->getStatusCode());
     }
 
     public function testCreatePurchase(): void
     {
         $client = $this->login(parent::LOGIN_SELLER);
 
-        $client->request('GET', $this->generatePath('front_create', ['entity'=>'purchase']));
+        $client->request('GET', $this->generatePath('front_create', ['entity' => 'purchase']));
 
-        $response= $client->getResponse();
+        $response = $client->getResponse();
 
-        self::assertEquals(Response::HTTP_FORBIDDEN,$response->getStatusCode());
+        self::assertEquals(Response::HTTP_FORBIDDEN, $response->getStatusCode());
     }
 
     public function testRemovePurchase(): void
@@ -48,10 +46,10 @@ class PurchaseManagementTest extends BaseTest
         /** @var Purchase $purchase */
         $purchase = $this->getRepository(Purchase::class)->findOneBy([
             'reference' => 'Test',
-            'company'=> $this->getCompany('The Company')
+            'company' => $this->getCompany('The Company'),
         ]);
 
-        $url =  $this->generatePath('front_delete', ['entity'=>'purchase','id'=>$purchase->getId()]);
+        $url = $this->generatePath('front_delete', ['entity' => 'purchase', 'id' => $purchase->getId()]);
         $client->request('POST', $url);
 
         self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);

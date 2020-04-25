@@ -11,7 +11,7 @@ class ProviderManagementTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_GOD);
 
-        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity'=>'provider']));
+        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity' => 'provider']));
 
         $count = $crawler->filter('.provider-tr')->count();
         $total = $crawler->filter('.table')->first()->attr('data-total');
@@ -24,11 +24,11 @@ class ProviderManagementTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_GOD);
 
-        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'provider']));
+        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'provider']));
 
         $provider = [
             'name' => 'Test Provider',
-            'email' => 'fake@gmail.com'
+            'email' => 'fake@gmail.com',
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
@@ -59,7 +59,7 @@ class ProviderManagementTest extends BaseTest
 
         $crawler = $client->request(
             'GET',
-            $this->generatePath('front_edit', ['entity'=>'provider','id'=> $providerToEdit->getId()])
+            $this->generatePath('front_edit', ['entity' => 'provider', 'id' => $providerToEdit->getId()])
         );
 
         $provider = [
@@ -84,7 +84,7 @@ class ProviderManagementTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_GOD);
 
-        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity'=>'provider']));
+        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity' => 'provider']));
 
         $client->request('POST', $crawler->filter('.delete')->first()->attr('data-href'));
 

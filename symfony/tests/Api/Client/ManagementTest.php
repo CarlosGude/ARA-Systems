@@ -88,7 +88,7 @@ class ManagementTest extends BaseTest
         $client = [
             'name' => 'test',
             'email' => 'fake@email.com',
-            'identification'=>'3616884',
+            'identification' => '3616884',
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
         ];
 

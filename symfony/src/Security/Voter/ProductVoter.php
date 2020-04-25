@@ -6,7 +6,6 @@ use App\Entity\Product;
 use App\Entity\User;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
 
 class ProductVoter extends AbstractVoter
@@ -22,8 +21,6 @@ class ProductVoter extends AbstractVoter
     /**
      * @param $attribute string
      * @param $subject User
-     * @return bool
-     * @return bool
      */
     protected function supports($attribute, $subject): bool
     {
@@ -35,10 +32,8 @@ class ProductVoter extends AbstractVoter
     }
 
     /**
-     * @param string $attribute
+     * @param string    $attribute
      * @param User|null $subject
-     * @param TokenInterface $token
-     * @return bool
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
@@ -52,27 +47,27 @@ class ProductVoter extends AbstractVoter
             throw new UnauthorizedHttpException('Need to login');
         }
 
-        if ($this->isRoleGod($user->getRoles())){
+        if ($this->isRoleGod($user->getRoles())) {
             return true;
         }
 
-        if ($this->isRoleAdmin($user->getRoles(),$user,$subject,$attribute)){
+        if ($this->isRoleAdmin($user->getRoles(), $user, $subject, $attribute)) {
             return true;
         }
 
-        if ($attribute === parent::DELETE && in_array(User::ROLE_DELETE_CATEGORY,$user->getRoles(),true)){
+        if (parent::DELETE === $attribute && in_array(User::ROLE_DELETE_CATEGORY, $user->getRoles(), true)) {
             return true;
         }
 
-        if ($attribute === parent::READ && in_array(User::ROLE_READ_CATEGORY,$user->getRoles(),true)){
+        if (parent::READ === $attribute && in_array(User::ROLE_READ_CATEGORY, $user->getRoles(), true)) {
             return true;
         }
 
-        if ($attribute === parent::CREATE && in_array(User::ROLE_CREATE_CATEGORY,$user->getRoles(),true)){
+        if (parent::CREATE === $attribute && in_array(User::ROLE_CREATE_CATEGORY, $user->getRoles(), true)) {
             return true;
         }
 
-        if ($attribute === parent::UPDATE && in_array(User::ROLE_UPDATE_CATEGORY,$user->getRoles(),true)){
+        if (parent::UPDATE === $attribute && in_array(User::ROLE_UPDATE_CATEGORY, $user->getRoles(), true)) {
             return true;
         }
 

@@ -146,8 +146,6 @@ class Category implements EntityInterface
 
     /**
      * @param string $description
-     * @return Category
-     * @return Category
      */
     public function setDescription(?string $description): Category
     {

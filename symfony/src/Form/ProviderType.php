@@ -16,9 +16,9 @@ class ProviderType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class, ['label'=> 'provider.name'])
-            ->add('email', EmailType::class, ['label'=> 'provider.email'])
-            ->add('description', TextareaType::class, ['label' => 'provider.description','required' => false])
+            ->add('name', TextType::class, ['label' => 'provider.name'])
+            ->add('email', EmailType::class, ['label' => 'provider.email'])
+            ->add('description', TextareaType::class, ['label' => 'provider.description', 'required' => false])
             ->add('submit', SubmitType::class, ['label' => 'save'])
         ;
     }

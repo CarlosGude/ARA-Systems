@@ -2,7 +2,6 @@
 
 namespace App\Tests\Front\Purchase\RoleSeller;
 
-use App\Entity\Product;
 use App\Tests\Front\BaseTest;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -15,7 +14,7 @@ class ManipulateQuantityTest extends BaseTest
 
         $client->request(
             'GET',
-            $this->generatePath('front_edit', ['entity'=>'purchase','id'=>$purchase->getId()])
+            $this->generatePath('front_edit', ['entity' => 'purchase', 'id' => $purchase->getId()])
         );
 
         self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
@@ -28,7 +27,7 @@ class ManipulateQuantityTest extends BaseTest
 
         $client->request(
             'GET',
-            $this->generatePath('front_edit', ['entity'=>'purchase','id'=>$purchase->getId()])
+            $this->generatePath('front_edit', ['entity' => 'purchase', 'id' => $purchase->getId()])
         );
 
         self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
@@ -41,7 +40,7 @@ class ManipulateQuantityTest extends BaseTest
 
         $client->request(
             'GET',
-            $this->generatePath('front_edit', ['entity'=>'purchase','id'=>$purchase->getId()])
+            $this->generatePath('front_edit', ['entity' => 'purchase', 'id' => $purchase->getId()])
         );
 
         self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);

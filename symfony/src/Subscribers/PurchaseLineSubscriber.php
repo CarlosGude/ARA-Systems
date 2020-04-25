@@ -37,16 +37,12 @@ class PurchaseLineSubscriber implements EventSubscriber
             return;
         }
 
-        if ($line->getPurchase()->getStatus() === Purchase::STATUS_INCOMING) {
-            throw new  RuntimeException(
-                'purchase: A line can not be added to purchase to a purchase with status incoming.'
-            );
+        if (Purchase::STATUS_INCOMING === $line->getPurchase()->getStatus()) {
+            throw new  RuntimeException('purchase: A line can not be added to purchase to a purchase with status incoming.');
         }
 
-        if ($line->getPurchase()->getStatus() === Purchase::STATUS_CANCELLED) {
-            throw new  RuntimeException(
-                'purchase: A line can not be added to purchase to a purchase with status cancelled.'
-            );
+        if (Purchase::STATUS_CANCELLED === $line->getPurchase()->getStatus()) {
+            throw new  RuntimeException('purchase: A line can not be added to purchase to a purchase with status cancelled.');
         }
 
         $product = $line->getProduct();
@@ -104,9 +100,6 @@ class PurchaseLineSubscriber implements EventSubscriber
             ->setTaxes($purchase->getTaxes() - ($line->getPrice() * $line->getQuantity()) * ($line->getTax() / 100));
     }
 
-    /**
-     * @param PreUpdateEventArgs $args
-     */
     public function preUpdate(PreUpdateEventArgs $args): void
     {
         $line = $args->getObject();
@@ -121,7 +114,6 @@ class PurchaseLineSubscriber implements EventSubscriber
     }
 
     /**
-     * @param OnFlushEventArgs $eventArgs
      * @throws ORMException
      */
     public function onFlush(OnFlushEventArgs $eventArgs): void

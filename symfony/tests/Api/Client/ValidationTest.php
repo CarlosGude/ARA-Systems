@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Tests\Api\Client;
 
 use App\Tests\Api\BaseTest;
@@ -35,8 +34,8 @@ class ValidationTest extends BaseTest
     {
         $client = [
             'email' => 'fake@email.com',
-            'identification'=>'3616884',
-            'company' => parent::API.'companies/'.$this->getCompany()->getId()
+            'identification' => '3616884',
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
             ];
 
         $response = static::createClient()->request(
@@ -62,8 +61,8 @@ class ValidationTest extends BaseTest
     {
         $client = [
             'email' => 'fake@email.com',
-            'name'=>'Test',
-            'company' => parent::API.'companies/'.$this->getCompany()->getId()
+            'name' => 'Test',
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
         ];
 
         $response = static::createClient()->request(
@@ -89,8 +88,8 @@ class ValidationTest extends BaseTest
     {
         $client = [
             'name' => 'test',
-            'identification'=>'3616884',
-            'company' => parent::API.'companies/'.$this->getCompany()->getId()
+            'identification' => '3616884',
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
         ];
 
         $response = static::createClient()->request(
@@ -117,8 +116,8 @@ class ValidationTest extends BaseTest
         $client = [
             'name' => 'test',
             'email' => 'client@email.com',
-            'identification'=>'3616884',
-            'company' => parent::API.'companies/'.$this->getCompany()->getId()
+            'identification' => '3616884',
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
         ];
 
         $response = static::createClient()->request(
@@ -145,8 +144,8 @@ class ValidationTest extends BaseTest
         $client = [
             'name' => 'test',
             'email' => 'fake@email.com',
-            'identification'=>'666',
-            'company' => parent::API.'companies/'.$this->getCompany()->getId()
+            'identification' => '666',
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
         ];
 
         $response = static::createClient()->request(
@@ -173,7 +172,7 @@ class ValidationTest extends BaseTest
         $client = [
             'name' => 'test',
             'email' => 'fake@email.com',
-            'identification'=>'886756135151',
+            'identification' => '886756135151',
         ];
 
         $response = static::createClient()->request(

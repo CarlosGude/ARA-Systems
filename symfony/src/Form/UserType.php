@@ -25,10 +25,10 @@ class UserType extends AbstractType
 
         $builder
             ->add('name', TextType::class, ['label' => 'user.name'])
-            ->add('profile',ChoiceType::class,[
-                'label'=>'user.profile',
-                'choices'=> $profiles,
-                'placeholder'=> 'user.profileChoose'
+            ->add('profile', ChoiceType::class, [
+                'label' => 'user.profile',
+                'choices' => $profiles,
+                'placeholder' => 'user.profileChoose',
             ])
             ->add('email', EmailType::class, ['label' => 'user.email'])
         ;

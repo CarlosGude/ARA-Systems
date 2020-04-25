@@ -8,22 +8,21 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ClientManagementTest extends BaseTest
 {
-
     public function testListClients(): void
     {
         $client = $this->login(parent::LOGIN_PURCHASER);
 
-        $client->request('GET', $this->generatePath('front_list', ['entity'=> 'client']));
+        $client->request('GET', $this->generatePath('front_list', ['entity' => 'client']));
 
         $response = $client->getResponse();
 
-        self::assertEquals(Response::HTTP_FORBIDDEN,$response->getStatusCode());
+        self::assertEquals(Response::HTTP_FORBIDDEN, $response->getStatusCode());
     }
 
     public function testCreateClient(): void
     {
         $client = $this->login(parent::LOGIN_PURCHASER);
-        $client->request('GET', $this->generatePath('front_create', ['entity'=>'client']));
+        $client->request('GET', $this->generatePath('front_create', ['entity' => 'client']));
 
         self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
@@ -34,8 +33,8 @@ class ClientManagementTest extends BaseTest
 
         /** @var Client $clientToRemove */
         $clientToRemove = $this->getRepository(Client::class)->findOneBy(['name' => 'Another Client']);
-        $url = $this->generatePath('front_delete', ['entity'=>'client','id'=>$clientToRemove->getId()]);
-        $client->request('GET',$url);
+        $url = $this->generatePath('front_delete', ['entity' => 'client', 'id' => $clientToRemove->getId()]);
+        $client->request('GET', $url);
 
         self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
@@ -46,8 +45,8 @@ class ClientManagementTest extends BaseTest
 
         /** @var Client $clientToEdit */
         $clientToEdit = $this->getRepository(Client::class)->findOneBy(['name' => 'Another Client']);
-        $url = $this->generatePath('front_edit', ['entity'=>'client','id'=>$clientToEdit->getId()]);
-        $client->request('GET',$url);
+        $url = $this->generatePath('front_edit', ['entity' => 'client', 'id' => $clientToEdit->getId()]);
+        $client->request('GET', $url);
 
         self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }

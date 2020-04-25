@@ -13,7 +13,7 @@ class ProviderManagementTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_PURCHASER);
 
-        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity'=>'provider']));
+        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity' => 'provider']));
 
         $count = $crawler->filter('.provider-tr')->count();
         $total = $crawler->filter('.table')->first()->attr('data-total');
@@ -26,11 +26,11 @@ class ProviderManagementTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_PURCHASER);
 
-        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'provider']));
+        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'provider']));
 
         $provider = [
             'name' => 'Test Provider',
-            'email' => 'fake2@gmail.com'
+            'email' => 'fake2@gmail.com',
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
@@ -61,7 +61,7 @@ class ProviderManagementTest extends BaseTest
 
         $crawler = $client->request(
             'GET',
-            $this->generatePath('front_edit', ['entity'=>'provider','id'=> $providerToEdit->getId()])
+            $this->generatePath('front_edit', ['entity' => 'provider', 'id' => $providerToEdit->getId()])
         );
 
         $provider = [
@@ -88,8 +88,8 @@ class ProviderManagementTest extends BaseTest
 
         /** @var Client $product */
         $product = $this->getRepository(Provider::class)->findOneBy(['name' => 'Test Provider']);
-        $url = $this->generatePath('front_delete', ['entity'=>'provider','id'=>$product->getId()]);
-        $client->request('GET',$url);
+        $url = $this->generatePath('front_delete', ['entity' => 'provider', 'id' => $product->getId()]);
+        $client->request('GET', $url);
 
         self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }

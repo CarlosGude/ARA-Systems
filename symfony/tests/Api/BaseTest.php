@@ -46,7 +46,6 @@ abstract class BaseTest extends ApiTestCase
     }
 
     /**
-     * @param DateTime $dateTime
      * @throws Exception
      */
     protected function assertRecentlyDateTime(DateTime $dateTime): void
@@ -73,8 +72,6 @@ abstract class BaseTest extends ApiTestCase
 
     /**
      * @param $email
-     * @return User|null
-     * @return User|null
      */
     protected function getUserByEmail(string $email): ?User
     {
@@ -132,9 +129,7 @@ abstract class BaseTest extends ApiTestCase
     }
 
     /**
-     * @param Company|null $company
      * @param string $reference
-     * @return Purchase|null
      */
     protected function getPurchase(Company $company = null, $reference = 'reference'): ?Purchase
     {
@@ -152,9 +147,7 @@ abstract class BaseTest extends ApiTestCase
     }
 
     /**
-     * @param Product $product
      * @param string $reference
-     * @return PurchaseLine|null
      */
     protected function getPurchaseLine(Product $product, $reference = 'reference'): ?PurchaseLine
     {
@@ -172,11 +165,11 @@ abstract class BaseTest extends ApiTestCase
     }
 
     /**
-     * @param Company|null $company
      * @param string $name
+     *
      * @return PurchaseLine|null
      */
-    protected function getPurchaseClient($name = 'The Client', Company $company=null): ?Client
+    protected function getPurchaseClient($name = 'The Client', Company $company = null): ?Client
     {
         (!$company && $company = $this->getCompany());
 

@@ -14,12 +14,12 @@ class ManipulateQuantityTest extends BaseTest
 
         $crawler = $client->request(
             'GET',
-            $this->generatePath('front_edit', ['entity'=>'purchase','id'=>$purchase->getId()])
+            $this->generatePath('front_edit', ['entity' => 'purchase', 'id' => $purchase->getId()])
         );
 
         $product = $this->getRepository(Product::class)->findOneBy([
             'name' => 'Product 1',
-            'company'=> $this->getCompany('The Company')
+            'company' => $this->getCompany('The Company'),
         ]);
 
         $line = [
@@ -59,12 +59,12 @@ class ManipulateQuantityTest extends BaseTest
 
         $crawler = $client->request(
             'GET',
-            $this->generatePath('front_edit', ['entity'=>'purchase','id'=>$purchase->getId()])
+            $this->generatePath('front_edit', ['entity' => 'purchase', 'id' => $purchase->getId()])
         );
 
         $product = $this->getRepository(Product::class)->findOneBy([
             'name' => 'Product 1',
-            'company'=> $this->getCompany('The Company')
+            'company' => $this->getCompany('The Company'),
         ]);
 
         $line = [
@@ -108,12 +108,12 @@ class ManipulateQuantityTest extends BaseTest
 
         $crawler = $client->request(
             'GET',
-            $this->generatePath('front_edit', ['entity'=>'purchase','id'=>$purchase->getId()])
+            $this->generatePath('front_edit', ['entity' => 'purchase', 'id' => $purchase->getId()])
         );
 
         $product = $this->getRepository(Product::class)->findOneBy([
             'name' => 'Product 1',
-            'company'=> $this->getCompany('The Company')
+            'company' => $this->getCompany('The Company'),
         ]);
 
         $line = [

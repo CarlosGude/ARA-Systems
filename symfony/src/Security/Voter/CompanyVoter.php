@@ -26,8 +26,6 @@ class CompanyVoter extends Voter
     /**
      * @param $attribute string
      * @param $subject User
-     * @return bool
-     * @return bool
      */
     protected function supports($attribute, $subject): bool
     {
@@ -39,10 +37,8 @@ class CompanyVoter extends Voter
     }
 
     /**
-     * @param string $attribute
+     * @param string    $attribute
      * @param User|null $subject
-     * @param TokenInterface $token
-     * @return bool
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
@@ -59,7 +55,6 @@ class CompanyVoter extends Voter
         if (in_array(User::ROLE_GOD, $user->getRoles(), true)) {
             return true;
         }
-
 
         return false;
     }

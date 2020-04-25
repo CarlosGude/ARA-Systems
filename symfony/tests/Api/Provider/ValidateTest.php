@@ -91,7 +91,7 @@ class ValidateTest extends ManagementTest
         $provider = [
             'name' => 'test',
             'description' => 'test',
-            'email' => 'fake@gmail.com'
+            'email' => 'fake@gmail.com',
         ];
 
         $response = static::createClient()->request('POST', parent::API.'providers', [

@@ -2,7 +2,9 @@
 
 namespace App;
 
+use function dirname;
 use Exception;
+use const PHP_VERSION_ID;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Exception\LoaderLoadException;
 use Symfony\Component\Config\Loader\LoaderInterface;
@@ -10,8 +12,6 @@ use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
-use function dirname;
-use const PHP_VERSION_ID;
 
 /**
  * Class Kernel.

@@ -83,7 +83,6 @@ class Client implements EntityInterface
         return $this;
     }
 
-
     public function getId(): ?string
     {
         return $this->id;
@@ -161,36 +160,22 @@ class Client implements EntityInterface
         return $this;
     }
 
-    /**
-     * @return DateTime
-     */
     public function getCreatedAt(): DateTime
     {
         return $this->createdAt;
     }
 
-    /**
-     * @param DateTime $createdAt
-     * @return Client
-     */
     public function setCreatedAt(DateTime $createdAt): Client
     {
         $this->createdAt = $createdAt;
         return $this;
     }
 
-    /**
-     * @return DateTime
-     */
     public function getUpdatedAt(): DateTime
     {
         return $this->updatedAt;
     }
 
-    /**
-     * @param DateTime $updatedAt
-     * @return Client
-     */
     public function setUpdatedAt(DateTime $updatedAt): Client
     {
         $this->updatedAt = $updatedAt;

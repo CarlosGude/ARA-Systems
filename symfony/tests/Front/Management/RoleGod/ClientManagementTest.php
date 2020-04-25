@@ -11,7 +11,7 @@ class ClientManagementTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_GOD);
 
-        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity'=> 'client']));
+        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity' => 'client']));
 
         $count = $crawler->filter('.client-tr')->count();
         $total = $crawler->filter('.table')->first()->attr('data-total');
@@ -24,7 +24,7 @@ class ClientManagementTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_GOD);
 
-        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'client']));
+        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'client']));
 
         $clientData = [
             'name' => 'Test Client',
@@ -65,7 +65,7 @@ class ClientManagementTest extends BaseTest
             'GET',
             $this->generatePath(
                 'front_edit',
-                ['entity'=>'client','id'=>$clientToEdit->getId()]
+                ['entity' => 'client', 'id' => $clientToEdit->getId()]
             )
         );
 
@@ -91,7 +91,7 @@ class ClientManagementTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_GOD);
 
-        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity'=> 'client']));
+        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity' => 'client']));
 
         $client->request('POST', $crawler->filter('.delete')->first()->attr('data-href'));
 

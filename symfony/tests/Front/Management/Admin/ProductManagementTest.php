@@ -18,7 +18,7 @@ class ProductManagementTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_ADMIN);
 
-        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity'=> 'product']));
+        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity' => 'product']));
 
         $count = $crawler->filter('.product-tr')->count();
         $total = $crawler->filter('.table')->first()->attr('data-total');
@@ -31,11 +31,11 @@ class ProductManagementTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_ADMIN);
 
-        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=> 'product']));
+        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'product']));
 
         $category = $this->getRepository(Category::class)->findOneBy([
             'name' => 'Category 1',
-            'company' => $this->getCompany('Another Company')
+            'company' => $this->getCompany('Another Company'),
         ]);
 
         $product = [
@@ -77,12 +77,12 @@ class ProductManagementTest extends BaseTest
         /** @var Product $categoryToEdit */
         $productToEdit = $this->getRepository(Product::class)->findOneBy([
             'name' => 'Product 1',
-            'company' => $this->getCompany('Another company')
+            'company' => $this->getCompany('Another company'),
         ]);
 
         $crawler = $client->request(
             'GET',
-            $this->generatePath('front_edit', ['entity'=>'product','id'=>$productToEdit->getId()])
+            $this->generatePath('front_edit', ['entity' => 'product', 'id' => $productToEdit->getId()])
         );
 
         $product = [

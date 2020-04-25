@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Security\Voter;
 
 use App\Entity\User;
@@ -19,27 +18,26 @@ abstract class AbstractVoter extends Voter
         return in_array(User::ROLE_GOD, $roles, true);
     }
 
-    protected function isRoleAdmin(array $roles,User $user, $entity, string $attribute): bool
+    protected function isRoleAdmin(array $roles, User $user, $entity, string $attribute): bool
     {
-        if (!$entity instanceof EntityInterface && !$entity instanceof User)
-        {
+        if (!$entity instanceof EntityInterface && !$entity instanceof User) {
             return false;
         }
 
         if (in_array(User::ROLE_ADMIN, $user->getRoles(), true)) {
-            if($attribute === self::READ){
+            if (self::READ === $attribute) {
                 return true;
             }
 
-            if ($attribute === self::CREATE) {
+            if (self::CREATE === $attribute) {
                 return true;
             }
 
-            if ($attribute===self::UPDATE && $entity->getCompany() === $user->getCompany()){
+            if (self::UPDATE === $attribute && $entity->getCompany() === $user->getCompany()) {
                 return true;
             }
 
-            if ($attribute===self::DELETE && $entity->getCompany() === $user->getCompany()){
+            if (self::DELETE === $attribute && $entity->getCompany() === $user->getCompany()) {
                 return true;
             }
         }

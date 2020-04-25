@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Tests\Front\Validation;
 
 use App\Entity\Provider;
@@ -12,10 +11,10 @@ class ProviderValidationTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_GOD);
 
-        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'provider']));
+        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'provider']));
 
         $provider = [
-            'email' => 'fake@gmail.com'
+            'email' => 'fake@gmail.com',
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
@@ -37,7 +36,7 @@ class ProviderValidationTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_GOD);
 
-        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'provider']));
+        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'provider']));
 
         $provider = [
             'name' => 'Test Provider',
@@ -62,11 +61,11 @@ class ProviderValidationTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_GOD);
 
-        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'provider']));
+        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'provider']));
 
         $provider = [
             'name' => 'Test Provider',
-            'email' => 'fake'
+            'email' => 'fake',
         ];
 
         $form = $crawler->selectButton('Guardar')->form();

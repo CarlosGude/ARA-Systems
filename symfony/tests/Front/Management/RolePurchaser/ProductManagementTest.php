@@ -19,7 +19,7 @@ class ProductManagementTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_PURCHASER);
 
-        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity'=> 'product']));
+        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity' => 'product']));
 
         $count = $crawler->filter('.product-tr')->count();
         $total = $crawler->filter('.table')->first()->attr('data-total');
@@ -32,11 +32,11 @@ class ProductManagementTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_PURCHASER);
 
-        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=> 'product']));
+        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'product']));
 
         $category = $this->getRepository(Category::class)->findOneBy([
             'name' => 'Category 1',
-            'company' => $this->getCompany('The Company')
+            'company' => $this->getCompany('The Company'),
         ]);
 
         $product = [
@@ -78,12 +78,12 @@ class ProductManagementTest extends BaseTest
         /** @var Product $categoryToEdit */
         $productToEdit = $this->getRepository(Product::class)->findOneBy([
             'name' => 'Product 1',
-            'company' => $this->getCompany('Another company')
+            'company' => $this->getCompany('Another company'),
         ]);
 
         $crawler = $client->request(
             'GET',
-            $this->generatePath('front_edit', ['entity'=>'product','id'=>$productToEdit->getId()])
+            $this->generatePath('front_edit', ['entity' => 'product', 'id' => $productToEdit->getId()])
         );
 
         $product = [
@@ -104,14 +104,14 @@ class ProductManagementTest extends BaseTest
         );
     }
 
-    public function testProductRemove():void
+    public function testProductRemove(): void
     {
         $client = $this->login(parent::LOGIN_PURCHASER);
 
         /** @var Client $product */
         $product = $this->getRepository(Product::class)->findOneBy(['name' => 'Test Product']);
-        $url = $this->generatePath('front_delete', ['entity'=>'product','id'=>$product->getId()]);
-        $client->request('GET',$url);
+        $url = $this->generatePath('front_delete', ['entity' => 'product', 'id' => $product->getId()]);
+        $client->request('GET', $url);
 
         self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }

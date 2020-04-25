@@ -21,7 +21,7 @@ class PurchaseManagementTest extends BaseTest
 
         $crawler = $client->request(
             'GET',
-            $this->generatePath('front_list', ['entity'=>'purchase','sort'=>'reference'])
+            $this->generatePath('front_list', ['entity' => 'purchase', 'sort' => 'reference'])
         );
 
         $count = $crawler->filter('.purchase-tr')->count();
@@ -35,7 +35,7 @@ class PurchaseManagementTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_PURCHASER);
 
-        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity'=>'purchase']));
+        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'purchase']));
 
         $purchase = [
             'reference' => 'Test',
@@ -68,10 +68,10 @@ class PurchaseManagementTest extends BaseTest
         /** @var Purchase $purchase */
         $purchase = $this->getRepository(Purchase::class)->findOneBy([
             'reference' => 'Test',
-            'company'=> $this->getCompany('The Company')
+            'company' => $this->getCompany('The Company'),
         ]);
 
-        $url =  $this->generatePath('front_delete', ['entity'=>'purchase','id'=>$purchase->getId()]);
+        $url = $this->generatePath('front_delete', ['entity' => 'purchase', 'id' => $purchase->getId()]);
         $client->request('POST', $url);
 
         self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
