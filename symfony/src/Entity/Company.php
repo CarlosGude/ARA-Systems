@@ -102,6 +102,11 @@ class Company
         $this->clients = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return $this->getName() ?? '';
+    }
+
     /**
      * @ORM\PreUpdate
      */
@@ -122,7 +127,7 @@ class Company
         return $this;
     }
 
-    public function getName(): string
+    public function getName():? string
     {
         return $this->name;
     }

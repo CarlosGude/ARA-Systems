@@ -22,7 +22,7 @@ class ProviderManagementTest extends BaseTest
 
     public function testCreateProvider(): void
     {
-        $client = $this->login(parent::LOGIN_GOD);
+        $client = $this->login(parent::LOGIN_ADMIN);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'provider']));
 
@@ -52,7 +52,7 @@ class ProviderManagementTest extends BaseTest
 
     public function testProviderEdited(): void
     {
-        $client = $this->login(parent::LOGIN_GOD);
+        $client = $this->login(parent::LOGIN_ADMIN);
 
         /** @var Provider $providerToEdit */
         $providerToEdit = $this->getRepository(Provider::class)->findOneBy(['name' => 'Another Provider']);
@@ -82,7 +82,7 @@ class ProviderManagementTest extends BaseTest
 
     public function testRemoveProvider(): void
     {
-        $client = $this->login(parent::LOGIN_GOD);
+        $client = $this->login(parent::LOGIN_ADMIN);
 
         $crawler = $client->request('GET', $this->generatePath('front_list', ['entity' => 'provider']));
 

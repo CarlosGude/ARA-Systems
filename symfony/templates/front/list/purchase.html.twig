@@ -14,6 +14,11 @@
             <th{% if pagination.isSorted('a.reference') %} class="sorted"{% endif %}>
                 {{ knp_pagination_sortable(pagination, 'purchase.reference' | trans, 'name') }}
             </th>
+            {% if is_granted('ROLE_GOD')  %}
+                <th{% if pagination.isSorted('a.company') %} class="sorted"{% endif %}>
+                    {{ knp_pagination_sortable(pagination, 'companyTh' | trans, 'companyTh') }}
+                </th>
+            {% endif %}
             <th{% if pagination.isSorted('a.provider') %} class="sorted"{% endif %}>
                 {{ knp_pagination_sortable(pagination, 'purchase.provider' | trans, 'name') }}
             </th>
@@ -37,6 +42,9 @@
             <tr class="{{ entity }}-tr" id="{{ element.id }}">
                 {% set delete =  path('front_delete',{'entity': entity, 'id': element.id}) %}
                 <td>{{ element.reference }}</td>
+                {% if is_granted('ROLE_GOD')  %}
+                    <td>{{ element.company }}</td>
+                {% endif %}
                 <td>{{ element.provider }}</td>
                 <td>{{ element.total | number_format(2,',',' ')}}€</td>
                 <td>{{ element.taxes | number_format(2,',',' ') }}€</td>

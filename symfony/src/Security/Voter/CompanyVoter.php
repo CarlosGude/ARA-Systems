@@ -9,12 +9,8 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
 
-class CompanyVoter extends Voter
+class CompanyVoter extends AbstractVoter
 {
-    protected const CREATE = 'CREATE';
-    protected const UPDATE = 'UPDATE';
-    protected const DELETE = 'DELETE';
-    protected const READ = 'READ';
     /** @var Security */
     protected $security;
 
@@ -37,8 +33,10 @@ class CompanyVoter extends Voter
     }
 
     /**
-     * @param string    $attribute
+     * @param string $attribute
      * @param User|null $subject
+     * @param TokenInterface $token
+     * @return bool
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
@@ -46,13 +44,14 @@ class CompanyVoter extends Voter
             return false;
         }
 
+        /** @var User $user */
         $user = $token->getUser();
 
-        if (!$user instanceof User) {
-            throw new UnauthorizedHttpException('Need to login');
+        if ($this->isRoleGod($user->getRoles())) {
+            return true;
         }
 
-        if (in_array(User::ROLE_GOD, $user->getRoles(), true)) {
+        if (self::UPDATE === $attribute && in_array(User::ROLE_ADMIN, $user->getRoles(), true)) {
             return true;
         }
 

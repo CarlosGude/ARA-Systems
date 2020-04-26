@@ -24,7 +24,7 @@ class ProductManagementTest extends BaseTest
         $total = $crawler->filter('.table')->first()->attr('data-total');
 
         self::assertEquals(10, $count);
-        self::assertEquals(11, $total);
+        self::assertEquals(22, $total);
     }
 
     public function testCreateProduct(): void

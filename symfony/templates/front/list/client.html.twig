@@ -14,6 +14,11 @@
             <th{% if pagination.isSorted('a.name') %} class="sorted"{% endif %}>
                 {{ knp_pagination_sortable(pagination, 'client.name' | trans, 'name') }}
             </th>
+            {% if is_granted('ROLE_GOD')  %}
+                <th{% if pagination.isSorted('a.company') %} class="sorted"{% endif %}>
+                    {{ knp_pagination_sortable(pagination, 'companyTh' | trans, 'companyTh') }}
+                </th>
+            {% endif %}
             <th{% if pagination.isSorted('a.tax') %} class="sorted"{% endif %}>
                 {{ knp_pagination_sortable(pagination, 'client.identification' | trans, 'email') }}
             </th>
@@ -31,6 +36,9 @@
         <tr class="{{ entity }}-tr">
             {% set delete =  path('front_delete',{'entity': entity, 'id': element.id}) %}
             <td>{{ element.name }}</td>
+            {% if is_granted('ROLE_GOD')  %}
+                <td>{{ element.company }}</td>
+            {% endif %}
             <td>{{ element.identification }}</td>
             <td>{{ element.email }}</td>
             <td>{{ element.address }}</td>

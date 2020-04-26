@@ -22,7 +22,7 @@ class ClientManagementTest extends BaseTest
 
     public function testCreateClient(): void
     {
-        $client = $this->login(parent::LOGIN_GOD);
+        $client = $this->login(parent::LOGIN_ADMIN);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'client']));
 
@@ -89,7 +89,7 @@ class ClientManagementTest extends BaseTest
 
     public function testRemoveClient(): void
     {
-        $client = $this->login(parent::LOGIN_GOD);
+        $client = $this->login(parent::LOGIN_ADMIN);
 
         $crawler = $client->request('GET', $this->generatePath('front_list', ['entity' => 'client']));
 

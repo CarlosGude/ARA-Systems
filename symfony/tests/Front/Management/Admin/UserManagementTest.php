@@ -9,15 +9,15 @@ class UserManagementTest extends BaseTest
 {
     public function testListUsers(): void
     {
-        $client = $this->login(parent::LOGIN_GOD);
+        $client = $this->login(parent::LOGIN_ADMIN);
 
         $crawler = $client->request('GET', $this->generatePath('front_list', ['entity' => 'user']));
 
         $count = $crawler->filter('.user-tr')->count();
         $total = $crawler->filter('.table')->first()->attr('data-total');
 
-        self::assertEquals(10, $count);
-        self::assertEquals(12, $total);
+        self::assertEquals(9, $count);
+        self::assertEquals(9, $total);
     }
 
     public function testRemoveUsers(): void
@@ -33,7 +33,7 @@ class UserManagementTest extends BaseTest
 
     public function testCreateUser(): void
     {
-        $client = $this->login(parent::LOGIN_GOD);
+        $client = $this->login(parent::LOGIN_ADMIN);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'user']));
 
@@ -67,7 +67,7 @@ class UserManagementTest extends BaseTest
 
     public function testUserEdited(): void
     {
-        $client = $this->login(parent::LOGIN_GOD);
+        $client = $this->login(parent::LOGIN_ADMIN);
 
         /** @var User $userToEdit */
         $userToEdit = $this->getRepository(User::class)->findOneBy(['email' => 'fake2@email.com']);

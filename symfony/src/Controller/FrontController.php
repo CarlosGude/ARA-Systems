@@ -7,6 +7,7 @@ use App\Entity\Purchase;
 use App\Entity\PurchaseLine;
 use App\Entity\User;
 use App\Interfaces\EntityInterface;
+use App\Security\AbstractUserRoles;
 use App\Security\Voter\AbstractVoter;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -187,11 +188,11 @@ class FrontController extends AbstractController
             throw new RuntimeException('The class is not valid.');
         }
 
-        $pagination = $paginator->paginate(
-            $em->getRepository($class)->findBy(['company' => $user->getCompany()], [$sort => $direction]), /* query NOT result */
-            $page, /*page number*/
-            10 /*limit per page*/
-        );
+        $data = ($this->isGranted(AbstractUserRoles::ROLE_GOD))
+            ? $em->getRepository($class)->findAll()
+            : $em->getRepository($class)->findBy(['company' => $user->getCompany()], [$sort => $direction]);
+
+        $pagination = $paginator->paginate($data, $page, 10);
 
         return $this->render('front/list/'.$entity.'.html.twig', [
             'action' => 'list',

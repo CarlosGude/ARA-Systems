@@ -30,42 +30,70 @@
                                 {{ 'dashboard.nemu' | trans}}
                             </a>
                         </li>
+                        {% if is_granted('ROLE_GOD') %}
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{{ path('front_list',{'entity':'company'}) }}">
+                                <span data-feather="home"></span>
+                                {{ 'dashboard.companies' | trans}}
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{{ path('front_edit',{'entity':'company','id':app.user.company.id}) }}">
+                                    <span data-feather="home"></span>
+                                    {{ app.user.company.name}}
+                                </a>
+                            </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_GOD') or is_granted('ROLE_ADMIN') or is_granted('ROLE_READ_USER')  %}
                         <li class="nav-item">
                             <a class="nav-link active" href="{{ path('front_list',{'entity':'user'}) }}">
                                 <span data-feather="home"></span>
                                 {{ 'user.menu' | trans}}
                             </a>
                         </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_GOD') or is_granted('ROLE_ADMIN') or is_granted('ROLE_READ_PROVIDER')  %}
                         <li class="nav-item">
                             <a class="nav-link active" href="{{ path('front_list',{'entity':'provider'}) }}">
                                 <span data-feather="home"></span>
                                 {{ 'provider.menu' | trans}}
                             </a>
                         </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_GOD') or is_granted('ROLE_ADMIN') or is_granted('ROLE_READ_CLIENT')  %}
                         <li class="nav-item">
                             <a class="nav-link active" href="{{ path('front_list',{'entity':'client'}) }}">
                                 <span data-feather="home"></span>
                                 {{ 'client.menu' | trans}}
                             </a>
                         </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_GOD') or is_granted('ROLE_ADMIN') or is_granted('ROLE_READ_CATEGORY')  %}
                         <li class="nav-item">
                             <a class="nav-link active" href="{{ path('front_list',{'entity':'category'}) }}">
                                 <span data-feather="home"></span>
                                 {{ 'category.menu' | trans}}
                             </a>
                         </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_GOD') or is_granted('ROLE_ADMIN') or is_granted('ROLE_READ_PRODUCT')  %}
                         <li class="nav-item">
                             <a class="nav-link active" href="{{ path('front_list',{'entity':'product'}) }}">
                                 <span data-feather="home"></span>
                                 {{ 'product.menu' | trans}}
                             </a>
                         </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_GOD') or is_granted('ROLE_ADMIN') or is_granted('ROLE_READ_PURCHASE')  %}
                         <li class="nav-item">
                             <a class="nav-link active" href="{{ path('front_list',{'entity':'purchase','sort':'reference'}) }}">
                                 <span data-feather="home"></span>
                                 {{ 'purchase.menu' | trans}}
                             </a>
                         </li>
+                        {% endif %}
                     </ul>
                 </div>
             </nav>

@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Category;
 use App\Entity\Product;
 use App\Entity\Provider;
+use App\Repository\ProviderRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -20,6 +21,8 @@ class ProductType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        /** @var Product $product */
+        $product = $options['data'];
         $builder
             ->add('name', TextType::class, ['label' => 'product.name'])
             ->add('description', TextareaType::class, ['label' => 'product.description'])
@@ -51,6 +54,9 @@ class ProductType extends AbstractType
             ])
             ->add('providers', EntityType::class, [
                 'class' => Provider::class,
+                'query_builder' => static function (ProviderRepository $repository) use ($product) {
+                    return $repository->findByCompany($product->getCompany());
+                },
                 'label' => 'product.providers',
                 'multiple' => true,
                 'expanded' => true,

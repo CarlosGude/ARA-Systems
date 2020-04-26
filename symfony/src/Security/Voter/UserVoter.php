@@ -41,6 +41,30 @@ class UserVoter extends AbstractVoter
         /** @var User $user */
         $user = $token->getUser();
 
-        return ($this->isRoleGod($user->getRoles())) || $this->isRoleAdmin($user->getRoles(), $user, $subject, $attribute);
+        if ($this->isRoleGod($user->getRoles())) {
+            return true;
+        }
+
+        if ($this->isRoleAdmin($user->getRoles(), $user, $subject, $attribute)) {
+            return true;
+        }
+
+        if (parent::DELETE === $attribute && in_array(User::ROLE_DELETE_USER, $user->getRoles(), true)) {
+            return true;
+        }
+
+        if (parent::READ === $attribute && in_array(User::ROLE_READ_USER, $user->getRoles(), true)) {
+            return true;
+        }
+
+        if (parent::CREATE === $attribute && in_array(User::ROLE_CREATE_USER, $user->getRoles(), true)) {
+            return true;
+        }
+
+        if (parent::UPDATE === $attribute && in_array(User::ROLE_UPDATE_USER, $user->getRoles(), true)) {
+            return true;
+        }
+
+        return false;
     }
 }

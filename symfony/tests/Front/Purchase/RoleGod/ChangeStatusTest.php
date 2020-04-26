@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Front\Purchase;
+namespace App\Tests\Front\Purchase\RoleGod;
 
 use App\Entity\Purchase;
 use App\Tests\Front\BaseTest;
@@ -49,7 +49,7 @@ class ChangeStatusTest extends BaseTest
 
         $incomingButton = $crawler->filter('.cancelled');
 
-        self::assertEquals(3, $incomingButton->count());
+        self::assertEquals(4, $incomingButton->count());
 
         $url = $incomingButton->first()->attr('data-href');
         $client->request('POST', $url);
@@ -76,7 +76,7 @@ class ChangeStatusTest extends BaseTest
 
         $incomingButton = $crawler->filter('.success');
 
-        self::assertEquals(3, $incomingButton->count());
+        self::assertEquals(4, $incomingButton->count());
 
         $url = $incomingButton->first()->attr('data-href');
 

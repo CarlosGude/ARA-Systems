@@ -1,0 +1,15 @@
+{% extends 'front/base.html.twig' %}
+
+{% block title %}{{ 'project' | trans }}: {{ element.name }}{% endblock %}
+{% block content %}
+    <h1>
+        {% if is_granted('ROLE_GOD') %}
+        <a title="{{ 'back' | trans }}" href="{{ path('front_list',{'entity':entity}) }}" class="btn btn-info">
+            <i class="fas fa-backward"></i>
+        </a>
+        {% endif %}
+        {{ element.name }}
+    </h1>
+
+    {{ form(form) }}
+{% endblock %}

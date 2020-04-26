@@ -10,7 +10,7 @@ class CategoryManagementTest extends BaseTest
 {
     public function testListCategories(): void
     {
-        $client = $this->login(parent::LOGIN_PURCHASER);
+        $client = $this->login(parent::LOGIN_SELLER);
 
         $crawler = $client->request('GET', $this->generatePath('front_list', ['entity' => 'category']));
         $count = $crawler->filter('.category-tr')->count();
@@ -22,7 +22,7 @@ class CategoryManagementTest extends BaseTest
 
     public function testRemoveCategory(): void
     {
-        $client = $this->login(parent::LOGIN_PURCHASER);
+        $client = $this->login(parent::LOGIN_SELLER);
 
         /** @var Category $category */
         $category = $this->getRepository(Category::class)->findOneBy([
@@ -39,7 +39,7 @@ class CategoryManagementTest extends BaseTest
 
     public function testCreateCategory(): void
     {
-        $client = $this->login(parent::LOGIN_PURCHASER);
+        $client = $this->login(parent::LOGIN_SELLER);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'category']));
         $category = [
@@ -72,7 +72,7 @@ class CategoryManagementTest extends BaseTest
 
     public function testCategoryEdited(): void
     {
-        $client = $this->login(parent::LOGIN_PURCHASER);
+        $client = $this->login(parent::LOGIN_SELLER);
 
         /** @var Category $categoryToEdit */
         $categoryToEdit = $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']);

@@ -17,7 +17,7 @@ class ProductManagementTest extends BaseTest
 
     public function testListProducts(): void
     {
-        $client = $this->login(parent::LOGIN_PURCHASER);
+        $client = $this->login(parent::LOGIN_SELLER);
 
         $crawler = $client->request('GET', $this->generatePath('front_list', ['entity' => 'product']));
 
@@ -30,7 +30,7 @@ class ProductManagementTest extends BaseTest
 
     public function testCreateProduct(): void
     {
-        $client = $this->login(parent::LOGIN_PURCHASER);
+        $client = $this->login(parent::LOGIN_SELLER);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'product']));
 
@@ -73,7 +73,7 @@ class ProductManagementTest extends BaseTest
 
     public function testProductEdited(): void
     {
-        $client = $this->login(parent::LOGIN_PURCHASER);
+        $client = $this->login(parent::LOGIN_SELLER);
 
         /** @var Product $categoryToEdit */
         $productToEdit = $this->getRepository(Product::class)->findOneBy([
@@ -106,7 +106,7 @@ class ProductManagementTest extends BaseTest
 
     public function testProductRemove(): void
     {
-        $client = $this->login(parent::LOGIN_PURCHASER);
+        $client = $this->login(parent::LOGIN_SELLER);
 
         /** @var Client $product */
         $product = $this->getRepository(Product::class)->findOneBy(['name' => 'Test Product']);

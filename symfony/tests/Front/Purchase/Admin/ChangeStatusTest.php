@@ -67,7 +67,7 @@ class ChangeStatusTest extends BaseTest
 
     public function testChangeStatusToSuccessAndVerifiedUpdateStock(): void
     {
-        $client = $this->login(parent::LOGIN_GOD);
+        $client = $this->login(parent::LOGIN_ADMIN);
 
         $crawler = $client->request(
             'GET',
@@ -76,7 +76,7 @@ class ChangeStatusTest extends BaseTest
 
         $incomingButton = $crawler->filter('.success');
 
-        self::assertEquals(3, $incomingButton->count());
+        self::assertEquals(1, $incomingButton->count());
 
         $url = $incomingButton->first()->attr('data-href');
 

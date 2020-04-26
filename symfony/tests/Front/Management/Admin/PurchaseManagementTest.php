@@ -5,6 +5,7 @@ namespace App\Tests\Front\Roles\Admin;
 use App\Entity\Provider;
 use App\Entity\Purchase;
 use App\Tests\Front\BaseTest;
+use Symfony\Component\HttpFoundation\Response;
 
 class PurchaseManagementTest extends BaseTest
 {
@@ -16,7 +17,7 @@ class PurchaseManagementTest extends BaseTest
 
     public function testListPurchases(): void
     {
-        $client = $this->login(parent::LOGIN_GOD);
+        $client = $this->login(parent::LOGIN_ADMIN);
 
         $crawler = $client->request(
             'GET',
@@ -26,13 +27,13 @@ class PurchaseManagementTest extends BaseTest
         $count = $crawler->filter('.purchase-tr')->count();
         $total = $crawler->filter('.table')->first()->attr('data-total');
 
-        self::assertEquals(4, $count);
-        self::assertEquals(4, $total);
+        self::assertEquals(1, $count);
+        self::assertEquals(1, $total);
     }
 
     public function testCreatePurchase(): void
     {
-        $client = $this->login(parent::LOGIN_GOD);
+        $client = $this->login(parent::LOGIN_ADMIN);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'purchase']));
 
@@ -62,30 +63,12 @@ class PurchaseManagementTest extends BaseTest
 
     public function testRemovePurchase(): void
     {
-        $client = $this->login(parent::LOGIN_GOD);
-        $this->createPurchase('carlos.sgude@gmail.com', 'Another Provider', 'test');
-        $crawler = $client->request(
-            'GET',
-            $this->generatePath('front_list', ['entity' => 'purchase', 'sort' => 'reference'])
-        );
+        $client = $this->login(parent::LOGIN_ADMIN);
+        $purchase = $this->createPurchase('carlos.sgude@gmail.com', 'Another Provider', 'test');
+        $url = $this->generatePath('front_delete', ['id' => $purchase->getId(), 'entity' => 'purchase'])
+        ;
+        $client->request('GET', $url);
 
-        $count = $crawler->filter('.purchase-tr')->count();
-        $total = $crawler->filter('.table')->first()->attr('data-total');
-
-        self::assertEquals(5, $count);
-        self::assertEquals(5, $total);
-
-        $delete = $crawler->filter('.delete');
-        $client->request('POST', $delete->first()->attr('data-href'));
-        $crawler = $client->request(
-            'GET',
-            $this->generatePath('front_list', ['entity' => 'purchase', 'sort' => 'reference'])
-        );
-
-        $count = $crawler->filter('.purchase-tr')->count();
-        $total = $crawler->filter('.table')->first()->attr('data-total');
-
-        self::assertEquals(4, $count);
-        self::assertEquals(4, $total);
+        self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 }

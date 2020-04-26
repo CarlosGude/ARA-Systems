@@ -50,6 +50,7 @@ class PurchaseLineVoter extends AbstractVoter
             return true;
         }
 
+
         if ($this->isRoleAdmin($user->getRoles(), $user, $subject, $attribute)) {
             return true;
         }

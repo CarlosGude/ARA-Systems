@@ -7,6 +7,7 @@ PROFILE_GOD: Super administrador
 PROFILE_SELLER: Responsable de ventas
 PROFILE_PURCHASER: Responsable de compras
 PROFILE_ADMIN: Administrador
+companyTh: Empresa
 
 login:
   welcome: ¡Bienvenido a ARA-System!
@@ -20,6 +21,7 @@ dashboard:
   purchases: Últimas compras
   solds: Últimas ventas
   stock: Productos sin stock
+  companies: Empresas
 
 user:
   name: Nombre
@@ -32,6 +34,15 @@ user:
   edited: Se ha editado el usuario {{element}} correctamente.
   profile: Permisos
   profileChoose: Elija un perfil
+
+company:
+  name: Nombre
+  list: Listado de empresas
+  menu: Empresas
+  create: Crear empresa
+  description: Descripción
+  created: Se ha creado la empresa {{element}} correctamente.
+  edited: Se ha editado la empresa {{element}} correctamente.
 
 category:
   name: Nombre
@@ -77,7 +88,7 @@ purchase:
   status: Estado
   menu: Compras
   list: Listado de compras
-  create: Crear una nueva venta
+  create: Crear una nueva compra
   delete: Borrar compar con la referencia
   created: Se ha creado una nueva compra con la referencia {{element}}.
   update: Se ha actualizado el estado de la compra con la referencia {{reference}} a {{status}}
