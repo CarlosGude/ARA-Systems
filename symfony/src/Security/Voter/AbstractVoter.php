@@ -8,10 +8,10 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 abstract class AbstractVoter extends Voter
 {
-    protected const CREATE = 'CREATE';
-    protected const UPDATE = 'UPDATE';
-    protected const DELETE = 'DELETE';
-    protected const READ = 'READ';
+    public const CREATE = 'CREATE';
+    public const UPDATE = 'UPDATE';
+    public const DELETE = 'DELETE';
+    public const READ = 'READ';
 
     protected function isRoleGod(array $roles): bool
     {

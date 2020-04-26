@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Company;
 use App\Entity\Purchase;
 use App\Entity\PurchaseLine;
 use App\Entity\User;
 use App\Interfaces\EntityInterface;
+use App\Security\Voter\AbstractVoter;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use RuntimeException;
@@ -37,6 +39,12 @@ class FrontController extends AbstractController
 
     /**
      * @Route("/create/{entity}/{purchase}", name="create")
+     * @param string $entity
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @param TranslatorInterface $translator
+     * @param string|null $purchase
+     * @return Response
      */
     public function create(
         string $entity,
@@ -60,13 +68,15 @@ class FrontController extends AbstractController
 
         $element = new $class();
 
-        if (!$element instanceof EntityInterface && !$element instanceof UserInterface) {
+        if ($this->isAValidEntity($class)) {
             throw new RuntimeException('The class is not valid.');
         }
 
-        $this->denyAccessUnlessGranted('CREATE', $element);
+        $this->denyAccessUnlessGranted(AbstractVoter::CREATE, $element);
 
-        $element->setCompany($user->getCompany());
+        if (property_exists($element, 'company')) {
+            $element->setCompany($user->getCompany());
+        }
 
         if (property_exists($element, 'user')) {
             $element->setUser($user);
@@ -126,11 +136,11 @@ class FrontController extends AbstractController
             throw new RuntimeException('Page not found.');
         }
 
-        if (!$element instanceof EntityInterface && !$element instanceof UserInterface) {
+        if ($this->isAValidEntity($class)) {
             throw new RuntimeException('The class is not valid.');
         }
 
-        $this->denyAccessUnlessGranted('UPDATE', $element);
+        $this->denyAccessUnlessGranted(AbstractVoter::UPDATE, $element);
 
         $form = $this->createForm($formClass, $element);
         $form->handleRequest($request);
@@ -151,6 +161,13 @@ class FrontController extends AbstractController
 
     /**
      * @Route("/list/{entity}/{sort}/{direction}/{page}", name="list")
+     * @param string $entity
+     * @param EntityManagerInterface $em
+     * @param PaginatorInterface $paginator
+     * @param string $sort
+     * @param string $direction
+     * @param int $page
+     * @return Response
      */
     public function list(
         string $entity,
@@ -164,14 +181,11 @@ class FrontController extends AbstractController
         /** @var User $user */
         $user = $this->getUser();
 
-        if (!class_exists($class)) {
-            throw new NotFoundHttpException('Page not found.');
-        }
+        $this->denyAccessUnlessGranted(AbstractVoter::READ, new $class());
 
-        if (!new $class() instanceof EntityInterface && !new $class() instanceof UserInterface) {
+        if ($this->isAValidEntity(new $class())) {
             throw new RuntimeException('The class is not valid.');
         }
-        $this->denyAccessUnlessGranted('READ', new $class());
 
         $pagination = $paginator->paginate(
             $em->getRepository($class)->findBy(['company' => $user->getCompany()], [$sort => $direction]), /* query NOT result */
@@ -188,6 +202,11 @@ class FrontController extends AbstractController
 
     /**
      * @Route("/delete/{entity}/{id}", name="delete")
+     * @param string $entity
+     * @param string $id
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @return Response
      */
     public function delete(string $entity, string $id, Request $request, EntityManagerInterface $em): Response
     {
@@ -203,11 +222,40 @@ class FrontController extends AbstractController
             throw new RuntimeException('Page not found.');
         }
 
-        $this->denyAccessUnlessGranted('DELETE', $element);
+        if ($this->isAValidEntity($class)) {
+            throw new RuntimeException('The class is not valid.');
+        }
+
+        $this->denyAccessUnlessGranted(AbstractVoter::DELETE, $element);
 
         $em->remove($element);
         $em->flush();
 
         return $this->redirect($request->headers->get('referer'));
+    }
+
+    /**
+     * @param $class
+     * @return bool
+     */
+    protected function isAValidEntity($class): bool
+    {
+        if (!is_object($class)){
+            return false;
+        }
+
+        if (!$class instanceof UserInterface){
+            return false;
+        }
+
+        if (!$class instanceof EntityInterface) {
+            return false;
+        }
+
+        if (!$class instanceof Company) {
+            return false;
+        }
+
+        return true;
     }
 }
