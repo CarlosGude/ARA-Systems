@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Tests\Api\PurchaseLine;
+namespace App\Tests\Api\Purchase;
 
-use App\Entity\PurchaseLine;
+use App\Entity\Purchase;
 use App\Tests\Api\BaseTest;
 use DateTime;
 use DateTimeZone;
@@ -12,9 +12,15 @@ use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
-class ManagementTest extends BaseTest
+/**
+ * Class ManagementTest.
+ */
+class PurhaseManagementTest extends BaseTest
 {
-    private $token;
+    /**
+     * @var array
+     */
+    protected $token;
 
     /**
      * @throws ClientExceptionInterface
@@ -34,9 +40,9 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testReadAllPurchaseLines(): void
+    public function testReadAllPurchases(): void
     {
-        $response = static::createClient()->request('GET', parent::API.'purchase_lines', [
+        $response = static::createClient()->request('GET', parent::API.'purchases', [
             'headers' => [
                 'Authorization' => 'Bearer '.$this->token['token'],
             ],
@@ -45,7 +51,7 @@ class ManagementTest extends BaseTest
         $response = json_decode($response->getContent(), true);
 
         $this->assertResponseIsSuccessfulAndInJson();
-        $this->assertEquals(12, $response['hydra:totalItems']);
+        $this->assertEquals(4, $response['hydra:totalItems']);
     }
 
     /**
@@ -54,29 +60,23 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testReadPurchaseLine(): void
+    public function testReadPurchase(): void
     {
-        /** @var PurchaseLine $purchaseLine */
-        $purchaseLine = static::$container->get('doctrine')
-            ->getRepository(PurchaseLine::class)
-            ->findOneBy(['product' => $this->getProduct()]);
+        /** @var Purchase $purchase */
+        $purchase = $this->getPurchase($this->getCompany());
 
-        $response = static::createClient()->request(
-            'GET',
-            parent::API.'purchase_lines/'.$purchaseLine->getId(),
-            [
-                'headers' => [
-                    'Authorization' => 'Bearer '.$this->token['token'],
-                ],
-            ]
-        );
+        $response = static::createClient()->request('GET', parent::API.'purchases/'.$purchase->getId(), [
+            'headers' => [
+                'Authorization' => 'Bearer '.$this->token['token'],
+            ],
+        ]);
 
         $response = json_decode($response->getContent(), true);
 
         $this->assertResponseIsSuccessfulAndInJson();
         $this->assertEquals(
-            $purchaseLine->getProduct()->getId(),
-            $response['product']['id']
+            $purchase->getReference(),
+            $response['reference']
         );
     }
 
@@ -86,20 +86,16 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testAddAPurchaseLine(): void
+    public function testAddAPurchase(): void
     {
-        $company = $this->getCompany();
-        $product = $this->getProduct();
-
         $purchase = [
-            'purchase' => parent::API.'purchases/'.$this->getPurchase($company)->getId(),
-            'product' => parent::API.'products/'.$product->getId(),
-            'company' => parent::API.'companies/'.$company->getId(),
+            'reference' => 'test',
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
             'provider' => parent::API.'providers/'.$this->getProvider()->getId(),
-            'quantity' => 1,
+            'status' => 'pending',
         ];
 
-        $response = static::createClient()->request('POST', parent::API.'purchase_lines', [
+        $response = static::createClient()->request('POST', parent::API.'purchases', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
             'body' => json_encode($purchase),
@@ -108,8 +104,8 @@ class ManagementTest extends BaseTest
         $response = json_decode($response->getContent(), true);
 
         $this->assertEquals(
-            $product->getId(),
-            $response['product']['id']
+            $purchase['reference'],
+            $response['reference']
         );
     }
 
@@ -120,26 +116,25 @@ class ManagementTest extends BaseTest
      * @throws TransportExceptionInterface
      * @throws Exception
      */
-    public function testEditAPurchaseLine(): void
+    public function testEditAPurchase(): void
     {
-        $product = $this->getProduct();
-        $purchaseLine = $this->getPurchaseLine($product);
+        /** @var Purchase $purchase */
+        $purchase = $this->getPurchase($this->getCompany());
 
-        $response = static::createClient()->request(
-            'PUT',
-            parent::API.'purchase_lines/'.$purchaseLine->getId(),
-            [
-                'headers' => [
-                    'Authorization' => 'Bearer '.$this->token['token'],
-                    'Content-Type' => 'application/json',
-                ],
-                'body' => json_encode(['quantity' => 2]),
-            ]
-        );
+        $response = static::createClient()->request('PUT', parent::API.'purchases/'.$purchase->getId(), [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
+
+            'body' => json_encode([
+                'reference' => 'test',
+            ]),
+        ]);
         $this->assertResponseIsSuccessfulAndInJson();
         $response = json_decode($response->getContent(), true);
 
-        $this->assertEquals(2, $response['quantity']);
+        $this->assertEquals(
+            'test',
+            $response['reference']
+        );
         $this->assertRecentlyDateTime(new DateTime($response['updatedAt'], new DateTimeZone('UTC')));
     }
 
@@ -148,10 +143,10 @@ class ManagementTest extends BaseTest
      */
     public function testDeleteAPurchase(): void
     {
-        $product = $this->getProduct();
-        $purchaseLine = $this->getPurchaseLine($product);
+        /** @var Purchase $purchase */
+        $purchase = $this->getPurchase($this->getCompany());
 
-        static::createClient()->request('DELETE', parent::API.'purchase_lines/'.$purchaseLine->getId(), [
+        static::createClient()->request('DELETE', parent::API.'purchases/'.$purchase->getId(), [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
         ]);
 

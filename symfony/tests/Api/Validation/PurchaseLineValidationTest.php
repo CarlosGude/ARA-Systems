@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Api\PurchaseLine;
+namespace App\Tests\Api\Validation;
 
 use App\Tests\Api\BaseTest;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
@@ -8,7 +8,7 @@ use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
-class ValidationTest extends BaseTest
+class PurchaseLineValidationTest extends BaseTest
 {
     private $token;
 

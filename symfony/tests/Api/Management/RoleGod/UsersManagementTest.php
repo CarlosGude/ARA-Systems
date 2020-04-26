@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Tests\Api\Category;
+namespace App\Tests\Api\User;
 
-use App\Entity\Category;
+use App\Entity\User;
 use App\Tests\Api\BaseTest;
 use DateTime;
 use DateTimeZone;
@@ -15,7 +15,7 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 /**
  * Class ManagementTest.
  */
-class ManagementTest extends BaseTest
+class UsersManagementTest extends BaseTest
 {
     /**
      * @var array
@@ -40,16 +40,18 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testReadAllCategories(): void
+    public function testReadAllUsers(): void
     {
-        $response = static::createClient()->request('GET', parent::API.'categories', [
-            'headers' => ['Authorization' => 'Bearer '.$this->token['token']],
+        $response = static::createClient()->request('GET', parent::API.'users', [
+            'headers' => [
+                'Authorization' => 'Bearer '.$this->token['token'],
+            ],
         ]);
 
         $response = json_decode($response->getContent(), true);
 
         $this->assertResponseIsSuccessfulAndInJson();
-        $this->assertEquals(11, $response['hydra:totalItems']);
+        $this->assertEquals(12, $response['hydra:totalItems']);
     }
 
     /**
@@ -58,21 +60,24 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testReadACategory(): void
+    public function testReadAUser(): void
     {
-        $category = $this->getCategory();
+        /** @var User $user */
+        $user = $this->getGodUser();
 
-        $response = static::createClient()->request('GET', parent::API.'categories/'.$category->getId(), [
-            'headers' => ['Authorization' => 'Bearer '.$this->token['token']],
+        $response = static::createClient()->request('GET', parent::API.'users/'.$user->getId(), [
+            'headers' => [
+                'Authorization' => 'Bearer '.$this->token['token'],
+            ],
         ]);
 
         $response = json_decode($response->getContent(), true);
 
         $this->assertResponseIsSuccessfulAndInJson();
         $this->assertEquals(
-            $category->getName(),
-            $response['name'],
-            'The expected name was '.$response['name'].' but '.$category->getName().' has found'
+            $user->getEmail(),
+            $response['email'],
+            'The expected email was '.$response['email'].' but '.$user->getEmail().' has found'
         );
     }
 
@@ -82,26 +87,29 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testAddAnCategory(): void
+    public function testAddAnUser(): void
     {
-        $category = [
+        $user = [
+            'email' => 'test@email.com',
             'name' => 'test',
-            'description' => 'test',
+            'profile' => User::PROFILE_ADMIN,
+            'password' => 'test',
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
-            'tax' => 21,
         ];
 
-        $response = static::createClient()->request('POST', parent::API.'categories', [
+        $response = static::createClient()->request('POST', parent::API.'users', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
-            'body' => json_encode($category),
+
+            'body' => json_encode($user),
         ]);
-        $this->assertResponseIsSuccessfulAndInJson();
+
         $response = json_decode($response->getContent(), true);
 
+        $this->assertResponseIsSuccessfulAndInJson();
         $this->assertEquals(
-            $category['name'],
-            $response['name'],
-            'The expected name was '.$response['name'].' but '.$response['name'].' has found'
+            $user['email'],
+            $response['email'],
+            'The expected email was '.$response['email'].' but '.$user['email'].' has found'
         );
     }
 
@@ -112,37 +120,36 @@ class ManagementTest extends BaseTest
      * @throws TransportExceptionInterface
      * @throws Exception
      */
-    public function testEditACategory(): void
+    public function testEditAUser(): void
     {
-        /** @var Category $category */
-        $category = $this->getCategory();
+        /** @var User $randomUser */
+        $randomUser = $this->getGodUser();
 
-        $response = static::createClient()->request('PUT', parent::API.'categories/'.$category->getId(), [
+        $response = static::createClient()->request('PUT', parent::API.'users/'.$randomUser->getId(), [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
-            'body' => json_encode(['name' => 'Fake Category']),
+
+            'body' => json_encode(['name' => 'Fake User']),
         ]);
 
         $response = json_decode($response->getContent(), true);
 
         $this->assertResponseIsSuccessfulAndInJson();
         $this->assertEquals(
-            'Fake Category',
+            'Fake User',
             $response['name'],
-            'The expected name was '.$response['name'].' but '.$category->getName().' has found'
+            'The expected email was '.$response['email'].' but '.$randomUser->getEmail().' has found'
         );
-
         $this->assertRecentlyDateTime(new DateTime($response['updatedAt'], new DateTimeZone('UTC')));
     }
 
     /**
      * @throws TransportExceptionInterface
      */
-    public function testDeleteACategory(): void
+    public function testDeleteAUser(): void
     {
-        /** @var Category $category */
-        $category = $this->getCategory('Another Category');
+        $user = $this->getUserByEmail('another_user@fakemail.com');
 
-        static::createClient()->request('DELETE', parent::API.'categories/'.$category->getId(), [
+        static::createClient()->request('DELETE', parent::API.'users/'.$user->getId(), [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token']],
         ]);
 

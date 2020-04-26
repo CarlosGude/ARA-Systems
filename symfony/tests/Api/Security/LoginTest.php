@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Api\User;
+namespace App\Tests\Api\Security;
 
 use App\Tests\Api\BaseTest;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;

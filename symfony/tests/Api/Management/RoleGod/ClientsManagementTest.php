@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Api\Client;
+namespace App\Tests\Api\Management\RoleGod;
 
 use App\Entity\Client;
 use App\Tests\Api\BaseTest;
@@ -15,7 +15,7 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 /**
  * Class ManagementTest.
  */
-class ManagementTest extends BaseTest
+class ClientsManagementTest extends BaseTest
 {
     /**
      * @var array

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Tests\Api\User;
+namespace App\Tests\Api\Management\RoleGod;
 
-use App\Entity\User;
+use App\Entity\Company;
 use App\Tests\Api\BaseTest;
 use DateTime;
 use DateTimeZone;
@@ -15,7 +15,7 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 /**
  * Class ManagementTest.
  */
-class ManagementTest extends BaseTest
+class CompaniesManagementTest extends BaseTest
 {
     /**
      * @var array
@@ -40,18 +40,16 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testReadAllUsers(): void
+    public function testReadAllCompanies(): void
     {
-        $response = static::createClient()->request('GET', parent::API.'users', [
-            'headers' => [
-                'Authorization' => 'Bearer '.$this->token['token'],
-            ],
+        $response = static::createClient()->request('GET', parent::API.'companies', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token']],
         ]);
 
         $response = json_decode($response->getContent(), true);
 
         $this->assertResponseIsSuccessfulAndInJson();
-        $this->assertEquals(12, $response['hydra:totalItems']);
+        $this->assertEquals(3, $response['hydra:totalItems']);
     }
 
     /**
@@ -60,24 +58,22 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testReadAUser(): void
+    public function testReadACompany(): void
     {
-        /** @var User $user */
-        $user = $this->getGodUser();
+        /** @var Company $company */
+        $company = $this->getCompany();
 
-        $response = static::createClient()->request('GET', parent::API.'users/'.$user->getId(), [
-            'headers' => [
-                'Authorization' => 'Bearer '.$this->token['token'],
-            ],
+        $response = static::createClient()->request('GET', parent::API.'companies/'.$company->getId(), [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token']],
         ]);
 
         $response = json_decode($response->getContent(), true);
 
         $this->assertResponseIsSuccessfulAndInJson();
         $this->assertEquals(
-            $user->getEmail(),
-            $response['email'],
-            'The expected email was '.$response['email'].' but '.$user->getEmail().' has found'
+            $company->getName(),
+            $response['name'],
+            'The expected name was '.$response['name'].' but '.$company->getName().' has found'
         );
     }
 
@@ -87,29 +83,21 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testAddAnUser(): void
+    public function testAddAnCompany(): void
     {
-        $user = [
-            'email' => 'test@email.com',
-            'name' => 'test',
-            'profile' => User::PROFILE_ADMIN,
-            'password' => 'test',
-            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
-        ];
+        $company = ['name' => 'test', 'description' => 'test'];
 
-        $response = static::createClient()->request('POST', parent::API.'users', [
+        $response = static::createClient()->request('POST', parent::API.'companies', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
-
-            'body' => json_encode($user),
+            'body' => json_encode($company),
         ]);
-
+        $this->assertResponseIsSuccessfulAndInJson();
         $response = json_decode($response->getContent(), true);
 
-        $this->assertResponseIsSuccessfulAndInJson();
         $this->assertEquals(
-            $user['email'],
-            $response['email'],
-            'The expected email was '.$response['email'].' but '.$user['email'].' has found'
+            $company['name'],
+            $response['name'],
+            'The expected name was '.$response['name'].' but '.$response['name'].' has found'
         );
     }
 
@@ -120,24 +108,23 @@ class ManagementTest extends BaseTest
      * @throws TransportExceptionInterface
      * @throws Exception
      */
-    public function testEditAUser(): void
+    public function testEditACompany(): void
     {
-        /** @var User $randomUser */
-        $randomUser = $this->getGodUser();
+        /** @var Company $company */
+        $company = $this->getCompany();
 
-        $response = static::createClient()->request('PUT', parent::API.'users/'.$randomUser->getId(), [
+        $response = static::createClient()->request('PUT', parent::API.'companies/'.$company->getId(), [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
-
-            'body' => json_encode(['name' => 'Fake User']),
+            'body' => json_encode(['name' => 'Fake Company']),
         ]);
 
         $response = json_decode($response->getContent(), true);
 
         $this->assertResponseIsSuccessfulAndInJson();
         $this->assertEquals(
-            'Fake User',
+            'Fake Company',
             $response['name'],
-            'The expected email was '.$response['email'].' but '.$randomUser->getEmail().' has found'
+            'The expected name was '.$response['name'].' but '.$company->getName().' has found'
         );
         $this->assertRecentlyDateTime(new DateTime($response['updatedAt'], new DateTimeZone('UTC')));
     }
@@ -145,11 +132,12 @@ class ManagementTest extends BaseTest
     /**
      * @throws TransportExceptionInterface
      */
-    public function testDeleteAUser(): void
+    public function testDeleteACompany(): void
     {
-        $user = $this->getUserByEmail('another_user@fakemail.com');
+        /** @var Company $company */
+        $company = $this->getCompany('The Company 3');
 
-        static::createClient()->request('DELETE', parent::API.'users/'.$user->getId(), [
+        static::createClient()->request('DELETE', parent::API.'companies/'.$company->getId(), [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token']],
         ]);
 

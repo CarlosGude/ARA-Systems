@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Api\Purchase;
+namespace App\Tests\Api\EventSubscriber\RoleGod;
 
 use App\Entity\Purchase;
 use App\Tests\Api\BaseTest;
@@ -9,7 +9,7 @@ use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
-class EventSubscriberTest extends BaseTest
+class PurchaseEventSubscriberTest extends BaseTest
 {
     /**
      * @var array

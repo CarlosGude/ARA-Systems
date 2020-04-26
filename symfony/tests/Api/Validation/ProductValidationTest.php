@@ -1,18 +1,36 @@
 <?php
 
-namespace App\Tests\Api\Product;
+namespace App\Tests\Api\Validation;
 
-use App\Tests\Api\User\ManagementTest;
+use App\Tests\Api\BaseTest;
+use App\Tests\Api\User\UsersManagementTest;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
- * Class ValidateTest.
+ * Class ValidationTest.
  */
-class ValidateTest extends ManagementTest
+class ProductValidationTest extends BaseTest
 {
+    /**
+     * @var array
+     */
+    protected $token;
+
+    /**
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->token = $this->getToken();
+    }
+
     /**
      * @throws TransportExceptionInterface
      */
@@ -191,7 +209,7 @@ class ValidateTest extends ManagementTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testValidateInherit(): void
+    public function testValidationInherit(): void
     {
         $category = $this->getCategory();
 

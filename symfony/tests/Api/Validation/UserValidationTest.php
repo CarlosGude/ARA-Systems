@@ -1,16 +1,35 @@
 <?php
 
-namespace App\Tests\Api\Company;
+namespace App\Tests\Api\Validation;
 
-use App\Tests\Api\User\ManagementTest;
+use App\Tests\Api\BaseTest;
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
-class ValidateTest extends ManagementTest
+class UserValidationTest extends BaseTest
 {
+    /**
+     * @var array
+     */
+    protected $token;
+
+    /**
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->token = $this->getToken();
+    }
     /**
      * @throws TransportExceptionInterface
      */
-    public function tesNameRequired(): void
+    public function testNameRequired(): void
     {
         $company = ['user' => parent::API.'users/'.$this->getGodUser()->getId()];
 

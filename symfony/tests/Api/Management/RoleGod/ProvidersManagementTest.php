@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Tests\Api\Product;
-
-use App\Entity\Product;
+namespace App\Tests\Api\Management\RoleGod;
+use App\Entity\Provider;
 use App\Tests\Api\BaseTest;
 use DateTime;
 use DateTimeZone;
@@ -15,7 +14,7 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 /**
  * Class ManagementTest.
  */
-class ManagementTest extends BaseTest
+class ProvidersManagementTest extends BaseTest
 {
     /**
      * @var array
@@ -40,9 +39,9 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testReadAllProducts(): void
+    public function testReadAllProviders(): void
     {
-        $response = static::createClient()->request('GET', parent::API.'products', [
+        $response = static::createClient()->request('GET', parent::API.'providers', [
             'headers' => [
                 'Authorization' => 'Bearer '.$this->token['token'],
             ],
@@ -60,12 +59,12 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testReadAProduct(): void
+    public function testReadAProvider(): void
     {
-        /** @var Product $product */
-        $product = $this->getProduct();
+        /** @var Provider $provider */
+        $provider = $this->getProvider();
 
-        $response = static::createClient()->request('GET', parent::API.'products/'.$product->getId(), [
+        $response = static::createClient()->request('GET', parent::API.'providers/'.$provider->getId(), [
             'headers' => [
                 'Authorization' => 'Bearer '.$this->token['token'],
             ],
@@ -75,9 +74,9 @@ class ManagementTest extends BaseTest
 
         $this->assertResponseIsSuccessfulAndInJson();
         $this->assertEquals(
-            $product->getName(),
+            $provider->getName(),
             $response['name'],
-            'The expected name was '.$response['name'].' but '.$product->getName().' has found'
+            'The expected name was '.$response['name'].' but '.$provider->getName().' has found'
         );
     }
 
@@ -87,30 +86,25 @@ class ManagementTest extends BaseTest
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function testAddAnProduct(): void
+    public function testAddAnProvider(): void
     {
-        $product = [
+        $provider = [
             'name' => 'test',
             'description' => 'test',
-            'tax' => 21,
-            'price' => 21,
-            'minStock' => 0,
-            'maxStock' => 999,
-            'user' => parent::API.'users/'.$this->getGodUser()->getId(),
+            'email' => 'fake@gmail.com',
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
-            'category' => parent::API.'categories/'.$this->getCategory()->getId(),
         ];
 
-        $response = static::createClient()->request('POST', parent::API.'products', [
+        $response = static::createClient()->request('POST', parent::API.'providers', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
 
-            'body' => json_encode($product),
+            'body' => json_encode($provider),
         ]);
         $this->assertResponseIsSuccessfulAndInJson();
         $response = json_decode($response->getContent(), true);
 
         $this->assertEquals(
-            $product['name'],
+            $provider['name'],
             $response['name'],
             'The expected name was '.$response['name'].' but '.$response['name'].' has found'
         );
@@ -123,26 +117,24 @@ class ManagementTest extends BaseTest
      * @throws TransportExceptionInterface
      * @throws Exception
      */
-    public function testEditAProduct(): void
+    public function testEditAProvider(): void
     {
-        /** @var Product $product */
-        $product = $this->getProduct();
+        /** @var Provider $provider */
+        $provider = $this->getProvider();
 
-        $response = static::createClient()->request(
-            'PUT',
-            parent::API.'products/'.$product->getId(),
-            ['headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
-                'body' => json_encode(['name' => 'Fake Product']),
-            ]
-        );
+        $response = static::createClient()->request('PUT', parent::API.'providers/'.$provider->getId(), [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
+
+            'body' => json_encode(['name' => 'Fake Provider']),
+        ]);
 
         $response = json_decode($response->getContent(), true);
 
         $this->assertResponseIsSuccessfulAndInJson();
         $this->assertEquals(
-            'Fake Product',
+            'Fake Provider',
             $response['name'],
-            'The expected name was '.$response['name'].' but '.$product->getName().' has found'
+            'The expected name was '.$response['name'].' but '.$provider->getName().' has found'
         );
         $this->assertRecentlyDateTime(new DateTime($response['updatedAt'], new DateTimeZone('UTC')));
     }
@@ -150,42 +142,15 @@ class ManagementTest extends BaseTest
     /**
      * @throws TransportExceptionInterface
      */
-    public function testDeleteAProduct(): void
+    public function testDeleteProvider(): void
     {
-        /** @var Product $product */
-        $product = $this->getProduct('Product 1', $this->getCompany('Another company'));
+        /** @var Provider $provider */
+        $provider = $this->getProvider('Provider 1');
 
-        static::createClient()->request('DELETE', parent::API.'products/'.$product->getId(), [
+        static::createClient()->request('DELETE', parent::API.'providers/'.$provider->getId(), [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token']],
         ]);
 
         self::assertResponseStatusCodeSame(204, 'The response is not 204');
-    }
-
-    /**
-     * @throws ClientExceptionInterface
-     * @throws RedirectionExceptionInterface
-     * @throws ServerExceptionInterface
-     * @throws TransportExceptionInterface
-     */
-    public function testAddProvider(): void
-    {
-        $response = static::createClient()->request('PUT', parent::API.'products/'.$this->getProduct()->getId(), [
-            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
-
-            'body' => json_encode([
-                'providers' => [parent::API.'providers/'.$this->getProvider()->getId()],
-                'user' => parent::API.'users/'.$this->getGodUser()->getId(),
-            ]),
-        ]);
-
-        $response = json_decode($response->getContent(), true);
-
-        $this->assertResponseIsSuccessfulAndInJson();
-        $this->assertEquals(
-            $this->getProvider()->getName(),
-            $response['providers'][0]['name'],
-            'The expected name was '.$response['providers'][0]['name'].' but '.$this->getProvider()->getName().' has found'
-        );
     }
 }

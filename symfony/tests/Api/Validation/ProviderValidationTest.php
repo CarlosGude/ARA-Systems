@@ -1,15 +1,36 @@
 <?php
 
-namespace App\Tests\Api\Provider;
+namespace App\Tests\Api\Validation;
 
-use App\Tests\Api\User\ManagementTest;
+use App\Tests\Api\BaseTest;
+use App\Tests\Api\User\UsersManagementTest;
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
  * Class ValidateTest.
  */
-class ValidateTest extends ManagementTest
+class ProviderValidationTest extends BaseTest
 {
+    /**
+     * @var array
+     */
+    protected $token;
+
+    /**
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->token = $this->getToken();
+    }
+
     /**
      * @throws TransportExceptionInterface
      */
