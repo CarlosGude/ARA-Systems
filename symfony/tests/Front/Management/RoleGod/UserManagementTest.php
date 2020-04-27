@@ -15,7 +15,7 @@ class UserManagementTest extends BaseTest
         $crawler = $client->request('GET', $this->generatePath('front_list', ['entity' => 'user']));
         $client->request('POST', $crawler->filter('.delete')->first()->attr('data-href'));
 
-        self::assertEquals(21, $client->getCrawler()->filter('.table')->first()->attr('data-total'));
+        self::assertEquals(20, $client->getCrawler()->filter('.table')->first()->attr('data-total'));
     }
 
     public function testListUsers(): void
@@ -28,7 +28,7 @@ class UserManagementTest extends BaseTest
         $total = $crawler->filter('.table')->first()->attr('data-total');
 
         self::assertEquals(10, $count);
-        self::assertEquals(21, $total);
+        self::assertEquals(20, $total);
     }
 
     public function testCreateUser(): void
