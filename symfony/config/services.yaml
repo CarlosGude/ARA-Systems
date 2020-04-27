@@ -32,22 +32,22 @@ services:
     tags:
       - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: onJWTCreated }
 
-  App\Subscribers\UserSubscriber:
+  App\EventSubscriber\UserSubscriber:
     tags:
       - { name: 'doctrine.event_subscriber' }
 
-  App\Subscribers\CategorySubscriber:
+  App\EventSubscriber\CategorySubscriber:
     tags:
       - { name: 'doctrine.event_subscriber' }
 
-  App\Subscribers\ProductSubscriber:
+  App\EventSubscriber\ProductSubscriber:
     tags:
       - { name: 'doctrine.event_subscriber' }
 
-  App\Subscribers\PurchaseSubscriber:
+  App\EventSubscriber\PurchaseSubscriber:
     tags:
       - { name: 'doctrine.event_subscriber' }
 
-  App\Subscribers\PurchaseLineSubscriber:
+  App\EventSubscriber\PurchaseLineSubscriber:
     tags:
       - { name: 'doctrine.event_subscriber' }

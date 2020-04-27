@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Subscribers;
+namespace App\EventSubscriber;
 
 use ApiPlatform\Core\EventListener\EventPriorities;
 use ApiPlatform\Core\Util\RequestAttributesExtractor;
