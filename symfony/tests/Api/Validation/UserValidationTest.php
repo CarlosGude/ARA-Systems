@@ -26,6 +26,7 @@ class UserValidationTest extends BaseTest
         parent::setUp();
         $this->token = $this->getToken();
     }
+
     /**
      * @throws TransportExceptionInterface
      */

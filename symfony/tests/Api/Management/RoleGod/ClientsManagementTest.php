@@ -49,7 +49,7 @@ class ClientsManagementTest extends BaseTest
         $response = json_decode($response->getContent(), true);
 
         $this->assertResponseIsSuccessfulAndInJson();
-        $this->assertEquals(10, $response['hydra:totalItems']);
+        $this->assertEquals(20, $response['hydra:totalItems']);
     }
 
     /**

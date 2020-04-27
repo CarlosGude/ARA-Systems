@@ -22,3 +22,11 @@ App\Entity\PurchaseLine:
     provider: '@the_provider'
     product: '@another_product'
     quantity: 10
+
+  another_purchase_line:
+    purchase: '@another_purchase'
+    user: '@the_user'
+    company: '@another_company'
+    provider: '@another_provider'
+    product: '@another_product'
+    quantity: 10

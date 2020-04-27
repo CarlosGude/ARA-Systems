@@ -4,6 +4,7 @@ namespace App\Tests\Front\Roles\Admin;
 
 use App\Entity\Category;
 use App\Tests\Front\BaseTest;
+use Symfony\Component\HttpFoundation\Response;
 
 class CategoryManagementTest extends BaseTest
 {
@@ -93,6 +94,6 @@ class CategoryManagementTest extends BaseTest
 
         $client->request('POST', $crawler->filter('.delete')->first()->attr('data-href'));
 
-        self::assertEquals(9, $client->getCrawler()->filter('.category-tr')->count());
+        self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 }

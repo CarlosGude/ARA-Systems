@@ -38,7 +38,7 @@ abstract class AbstractVoter extends Voter
             }
 
             if (self::DELETE === $attribute && $entity->getCompany() === $user->getCompany()) {
-                return true;
+                return false;
             }
         }
 

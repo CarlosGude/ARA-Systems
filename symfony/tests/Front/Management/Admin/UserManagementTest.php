@@ -4,6 +4,7 @@ namespace App\Tests\Front\Roles\Admin;
 
 use App\Entity\User;
 use App\Tests\Front\BaseTest;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserManagementTest extends BaseTest
 {
@@ -28,7 +29,7 @@ class UserManagementTest extends BaseTest
 
         $client->request('POST', $crawler->filter('.delete')->first()->attr('data-href'));
 
-        self::assertEquals(8, $client->getCrawler()->filter('.table')->first()->attr('data-total'));
+        self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
     public function testCreateUser(): void

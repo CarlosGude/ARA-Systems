@@ -49,7 +49,7 @@ class CategoriesManagementTest extends BaseTest
         $response = json_decode($response->getContent(), true);
 
         $this->assertResponseIsSuccessfulAndInJson();
-        $this->assertEquals(11, $response['hydra:totalItems']);
+        $this->assertEquals(20, $response['hydra:totalItems']);
     }
 
     /**

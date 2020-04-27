@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Tests\Api\Management\RoleGod;
+
 use App\Entity\Provider;
 use App\Tests\Api\BaseTest;
 use DateTime;
@@ -50,7 +51,7 @@ class ProvidersManagementTest extends BaseTest
         $response = json_decode($response->getContent(), true);
 
         $this->assertResponseIsSuccessfulAndInJson();
-        $this->assertEquals(11, $response['hydra:totalItems']);
+        $this->assertEquals(22, $response['hydra:totalItems']);
     }
 
     /**

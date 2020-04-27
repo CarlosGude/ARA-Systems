@@ -4,6 +4,7 @@ namespace App\Tests\Front\Management\Admin;
 
 use App\Entity\Provider;
 use App\Tests\Front\BaseTest;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProviderManagementTest extends BaseTest
 {
@@ -88,6 +89,6 @@ class ProviderManagementTest extends BaseTest
 
         $client->request('POST', $crawler->filter('.delete')->first()->attr('data-href'));
 
-        self::assertEquals(10, $client->getCrawler()->filter('.provider-tr')->count());
+        self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 }

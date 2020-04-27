@@ -51,7 +51,7 @@ class ProductsManagementTest extends BaseTest
         $response = json_decode($response->getContent(), true);
 
         $this->assertResponseIsSuccessfulAndInJson();
-        $this->assertEquals(11, $response['hydra:totalItems']);
+        $this->assertEquals(22, $response['hydra:totalItems']);
     }
 
     /**
@@ -160,32 +160,5 @@ class ProductsManagementTest extends BaseTest
         ]);
 
         self::assertResponseStatusCodeSame(204, 'The response is not 204');
-    }
-
-    /**
-     * @throws ClientExceptionInterface
-     * @throws RedirectionExceptionInterface
-     * @throws ServerExceptionInterface
-     * @throws TransportExceptionInterface
-     */
-    public function testAddProvider(): void
-    {
-        $response = static::createClient()->request('PUT', parent::API.'products/'.$this->getProduct()->getId(), [
-            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
-
-            'body' => json_encode([
-                'providers' => [parent::API.'providers/'.$this->getProvider()->getId()],
-                'user' => parent::API.'users/'.$this->getGodUser()->getId(),
-            ]),
-        ]);
-
-        $response = json_decode($response->getContent(), true);
-
-        $this->assertResponseIsSuccessfulAndInJson();
-        $this->assertEquals(
-            $this->getProvider()->getName(),
-            $response['providers'][0]['name'],
-            'The expected name was '.$response['providers'][0]['name'].' but '.$this->getProvider()->getName().' has found'
-        );
     }
 }

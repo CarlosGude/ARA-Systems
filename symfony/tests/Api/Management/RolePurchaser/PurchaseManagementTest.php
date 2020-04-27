@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Api\Purchase;
+namespace App\Tests\Api\Management\RolePurchaser;
 
 use App\Entity\Purchase;
 use App\Tests\Api\BaseTest;
@@ -15,25 +15,8 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 /**
  * Class ManagementTest.
  */
-class PurhaseManagementTest extends BaseTest
+class PurchaseManagementTest extends BaseTest
 {
-    /**
-     * @var array
-     */
-    protected $token;
-
-    /**
-     * @throws ClientExceptionInterface
-     * @throws RedirectionExceptionInterface
-     * @throws ServerExceptionInterface
-     * @throws TransportExceptionInterface
-     */
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->token = $this->getToken();
-    }
-
     /**
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface
@@ -42,9 +25,10 @@ class PurhaseManagementTest extends BaseTest
      */
     public function testReadAllPurchases(): void
     {
+        $token = $this->getToken(parent::LOGIN_PURCHASER);
         $response = static::createClient()->request('GET', parent::API.'purchases', [
             'headers' => [
-                'Authorization' => 'Bearer '.$this->token['token'],
+                'Authorization' => 'Bearer '.$token['token'],
             ],
         ]);
 
@@ -62,12 +46,13 @@ class PurhaseManagementTest extends BaseTest
      */
     public function testReadPurchase(): void
     {
+        $token = $this->getToken(parent::LOGIN_PURCHASER);
         /** @var Purchase $purchase */
-        $purchase = $this->getPurchase($this->getCompany());
+        $purchase = $this->getPurchase($this->getCompany('Another Company'), 'pending');
 
         $response = static::createClient()->request('GET', parent::API.'purchases/'.$purchase->getId(), [
             'headers' => [
-                'Authorization' => 'Bearer '.$this->token['token'],
+                'Authorization' => 'Bearer '.$token['token'],
             ],
         ]);
 
@@ -88,15 +73,16 @@ class PurhaseManagementTest extends BaseTest
      */
     public function testAddAPurchase(): void
     {
+        $token = $this->getToken(parent::LOGIN_PURCHASER);
         $purchase = [
             'reference' => 'test',
-            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
-            'provider' => parent::API.'providers/'.$this->getProvider()->getId(),
+            'company' => parent::API.'companies/'.$this->getCompany('Another Company')->getId(),
+            'provider' => parent::API.'providers/'.$this->getProvider('Another Provider')->getId(),
             'status' => 'pending',
         ];
 
         $response = static::createClient()->request('POST', parent::API.'purchases', [
-            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
+            'headers' => ['Authorization' => 'Bearer '.$token['token'], 'Content-Type' => 'application/json'],
 
             'body' => json_encode($purchase),
         ]);
@@ -118,38 +104,43 @@ class PurhaseManagementTest extends BaseTest
      */
     public function testEditAPurchase(): void
     {
+        $token = $this->getToken(parent::LOGIN_PURCHASER);
         /** @var Purchase $purchase */
-        $purchase = $this->getPurchase($this->getCompany());
+        $purchase = $this->getPurchase($this->getCompany('Another Company'), 'pending');
 
         $response = static::createClient()->request('PUT', parent::API.'purchases/'.$purchase->getId(), [
-            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
+            'headers' => ['Authorization' => 'Bearer '.$token['token'], 'Content-Type' => 'application/json'],
 
             'body' => json_encode([
-                'reference' => 'test',
+                'reference' => 'test up',
             ]),
         ]);
         $this->assertResponseIsSuccessfulAndInJson();
         $response = json_decode($response->getContent(), true);
 
         $this->assertEquals(
-            'test',
+            'test up',
             $response['reference']
         );
         $this->assertRecentlyDateTime(new DateTime($response['updatedAt'], new DateTimeZone('UTC')));
     }
 
     /**
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
     public function testDeleteAPurchase(): void
     {
+        $token = $this->getToken(parent::LOGIN_PURCHASER);
         /** @var Purchase $purchase */
-        $purchase = $this->getPurchase($this->getCompany());
+        $purchase = $this->getPurchase($this->getCompany('Another Company'), 'pending');
 
         static::createClient()->request('DELETE', parent::API.'purchases/'.$purchase->getId(), [
-            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
+            'headers' => ['Authorization' => 'Bearer '.$token['token'], 'Content-Type' => 'application/json'],
         ]);
 
-        self::assertResponseStatusCodeSame(204, 'The response is not 204');
+        self::assertResponseStatusCodeSame(400);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Api\User;
+namespace App\Tests\Api\Management\RoleGod;
 
 use App\Entity\User;
 use App\Tests\Api\BaseTest;
@@ -51,7 +51,7 @@ class UsersManagementTest extends BaseTest
         $response = json_decode($response->getContent(), true);
 
         $this->assertResponseIsSuccessfulAndInJson();
-        $this->assertEquals(12, $response['hydra:totalItems']);
+        $this->assertEquals(21, $response['hydra:totalItems']);
     }
 
     /**

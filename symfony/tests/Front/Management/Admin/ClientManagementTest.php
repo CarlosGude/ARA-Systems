@@ -4,6 +4,7 @@ namespace App\Tests\Front\Roles\Admin;
 
 use App\Entity\Client;
 use App\Tests\Front\BaseTest;
+use Symfony\Component\HttpFoundation\Response;
 
 class ClientManagementTest extends BaseTest
 {
@@ -95,6 +96,6 @@ class ClientManagementTest extends BaseTest
 
         $client->request('POST', $crawler->filter('.delete')->first()->attr('data-href'));
 
-        self::assertEquals(10, $client->getCrawler()->filter('.client-tr')->count());
+        self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 }

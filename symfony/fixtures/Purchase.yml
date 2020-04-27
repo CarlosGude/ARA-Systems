@@ -33,3 +33,24 @@ App\Entity\Purchase:
     company: '@the_company'
     provider: '@the_provider'
     status: 'incoming'
+
+  another_purchase:
+    reference: 'pending'
+    user: '@the_user'
+    company: '@another_company'
+    provider: '@another_provider'
+    status: 'pending'
+
+  another_cancelled_purchase:
+    reference: 'cancelled'
+    user: '@the_user'
+    company: '@another_company'
+    provider: '@another_provider'
+    status: 'cancelled'
+
+  another_incoming_purchase:
+    reference: 'incoming'
+    user: '@the_user'
+    company: '@another_company'
+    provider: '@another_provider'
+    status: 'incoming'

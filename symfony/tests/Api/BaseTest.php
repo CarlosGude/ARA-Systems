@@ -27,20 +27,24 @@ abstract class BaseTest extends ApiTestCase
 {
     use RefreshDatabaseTrait;
 
+    protected const LOGIN_ADMIN = ['email' => 'user@fakemail.com', 'password' => 'thepass'];
+    protected const LOGIN_GOD = ['email' => 'carlos.sgude@gmail.com', 'password' => 'pasalacabra'];
+    protected const LOGIN_PURCHASER = ['email' => 'purchaser@fakemail.com', 'password' => 'thepass'];
+    protected const LOGIN_SELLER = ['email' => 'seller@fakemail.com', 'password' => 'thepass'];
+
     protected const API = '/api/v1/';
 
     /**
+     * @param string[] $login
+     *
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    protected function getToken(): array
+    protected function getToken($login = self::LOGIN_GOD): array
     {
-        $response = static::createClient()->request('POST', '/authentication_token', ['json' => [
-            'email' => 'carlos.sgude@gmail.com',
-            'password' => 'pasalacabra',
-        ]]);
+        $response = static::createClient()->request('POST', '/authentication_token', ['json' => $login]);
 
         return json_decode($response->getContent(), true);
     }
@@ -93,18 +97,20 @@ abstract class BaseTest extends ApiTestCase
         return $company;
     }
 
-    protected function getCategory(string $name = 'The Category'): ?Category
+    protected function getCategory(string $name = 'The Category', Company $company = null): ?Category
     {
+        (!$company && $company = $this->getCompany());
         /** @var Category $category */
         $category = static::$container->get('doctrine')
             ->getRepository(Category::class)
-            ->findOneBy(['name' => $name]);
+            ->findOneBy(['name' => $name, 'company' => $company]);
 
         return $category;
     }
 
-    protected function getProvider(string $name = 'The Provider'): ?Provider
+    protected function getProvider(string $name = 'The Provider', Company $company = null): ?Provider
     {
+        (!$company && $company = $this->getCompany());
         /** @var Provider $provider */
         $provider = static::$container->get('doctrine')
             ->getRepository(Provider::class)

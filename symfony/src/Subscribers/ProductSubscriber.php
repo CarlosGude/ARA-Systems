@@ -30,7 +30,10 @@ class ProductSubscriber implements EventSubscriber
             return;
         }
 
-        if ($product->getCompany() !== $product->getCategory()->getCompany()) {
+        if ($product->getCompany() !== $product->getCategory()->getCompany()
+            && $product->getUser()->getCompany() === $product->getCompany()
+            && $product->getUser()->getCompany() === $product->getCategory()->getCompany()
+        ) {
             throw new RuntimeException('The category of product must be owned by the company');
         }
 

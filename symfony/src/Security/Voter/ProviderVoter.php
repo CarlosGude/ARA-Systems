@@ -47,10 +47,6 @@ class ProviderVoter extends AbstractVoter
             throw new UnauthorizedHttpException('Need to login');
         }
 
-        if (!$user instanceof User) {
-            throw new UnauthorizedHttpException('Need to login');
-        }
-
         if ($this->isRoleGod($user->getRoles())) {
             return true;
         }

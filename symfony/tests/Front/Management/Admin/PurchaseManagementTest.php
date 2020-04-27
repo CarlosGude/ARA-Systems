@@ -27,8 +27,8 @@ class PurchaseManagementTest extends BaseTest
         $count = $crawler->filter('.purchase-tr')->count();
         $total = $crawler->filter('.table')->first()->attr('data-total');
 
-        self::assertEquals(1, $count);
-        self::assertEquals(1, $total);
+        self::assertEquals(4, $count);
+        self::assertEquals(4, $total);
     }
 
     public function testCreatePurchase(): void

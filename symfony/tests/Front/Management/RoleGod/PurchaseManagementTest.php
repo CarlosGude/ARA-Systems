@@ -26,8 +26,8 @@ class PurchaseManagementTest extends BaseTest
         $count = $crawler->filter('.purchase-tr')->count();
         $total = $crawler->filter('.table')->first()->attr('data-total');
 
-        self::assertEquals(5, $count);
-        self::assertEquals(5, $total);
+        self::assertEquals(8, $count);
+        self::assertEquals(8, $total);
     }
 
     public function testCreatePurchase(): void
@@ -72,8 +72,8 @@ class PurchaseManagementTest extends BaseTest
         $count = $crawler->filter('.purchase-tr')->count();
         $total = $crawler->filter('.table')->first()->attr('data-total');
 
-        self::assertEquals(6, $count);
-        self::assertEquals(6, $total);
+        self::assertEquals(9, $count);
+        self::assertEquals(9, $total);
 
         $delete = $crawler->filter('.delete');
         $client->request('POST', $delete->first()->attr('data-href'));
@@ -85,7 +85,7 @@ class PurchaseManagementTest extends BaseTest
         $count = $crawler->filter('.purchase-tr')->count();
         $total = $crawler->filter('.table')->first()->attr('data-total');
 
-        self::assertEquals(5, $count);
-        self::assertEquals(5, $total);
+        self::assertEquals(8, $count);
+        self::assertEquals(8, $total);
     }
 }

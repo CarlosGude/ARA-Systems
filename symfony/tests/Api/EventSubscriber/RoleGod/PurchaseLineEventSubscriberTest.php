@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Tests\Api\EventSubscriber\RoleGod;
 
 use App\Entity\Purchase;

@@ -50,9 +50,22 @@ class PurchaseLineVoter extends AbstractVoter
             return true;
         }
 
+        if (in_array(User::ROLE_ADMIN, $user->getRoles(), true)) {
+            if (self::READ === $attribute) {
+                return true;
+            }
 
-        if ($this->isRoleAdmin($user->getRoles(), $user, $subject, $attribute)) {
-            return true;
+            if (self::CREATE === $attribute) {
+                return true;
+            }
+
+            if (self::UPDATE === $attribute && $subject->getCompany() === $user->getCompany()) {
+                return true;
+            }
+
+            if (self::DELETE === $attribute && $subject->getCompany() === $user->getCompany()) {
+                return true;
+            }
         }
 
         if (parent::DELETE === $attribute && in_array(User::ROLE_DELETE_PURCHASE_LINE, $user->getRoles(), true)) {

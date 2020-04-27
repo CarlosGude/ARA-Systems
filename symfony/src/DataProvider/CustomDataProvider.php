@@ -9,6 +9,7 @@ use ApiPlatform\Core\DataProvider\CollectionDataProviderInterface;
 use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
 use App\Entity\Company;
 use App\Entity\User;
+use App\Security\AbstractUserRoles;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -64,8 +65,13 @@ class CustomDataProvider implements CollectionDataProviderInterface, RestrictedD
             ->getManagerForClass($resourceClass)
             ->getRepository($resourceClass)
             ->createQueryBuilder('u')
-            ->where('u.company = :company')
-            ->setParameter('company', $user->getCompany());
+        ;
+
+        if (!in_array(AbstractUserRoles::ROLE_GOD, $user->getRoles(), true)) {
+            $queryBuilder
+                ->where('u.company = :company')
+                ->setParameter('company', $user->getCompany());
+        }
 
         if (array_key_exists('order', $parameters)) {
             $order = key($parameters['order']);
@@ -79,7 +85,6 @@ class CustomDataProvider implements CollectionDataProviderInterface, RestrictedD
             $operationName,
             $this->context
         );
-
         if ($this->paginationExtension instanceof QueryResultCollectionExtensionInterface
             && $this->paginationExtension->supportsResult($resourceClass, $operationName, $this->context)) {
             return $this->paginationExtension->getResult($queryBuilder, $resourceClass, $operationName, $this->context);

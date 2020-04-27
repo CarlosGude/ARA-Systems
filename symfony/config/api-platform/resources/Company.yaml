@@ -18,11 +18,11 @@ App\Entity\Company:
   itemOperations:
     get:
       method: 'GET'
-      security: 'is_granted("CREATED", object)'
+      security: 'is_granted("CREATE", object)'
 
     put:
       method: 'PUT'
-      security: 'is_granted("EDITED", object)'
+      security: 'is_granted("UPDATE", object)'
 
     delete:
       method: 'DELETE'

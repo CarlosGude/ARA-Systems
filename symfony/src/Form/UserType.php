@@ -19,7 +19,7 @@ class UserType extends AbstractType
         /** @var User $user */
         $user = $options['data'];
 
-        $profiles =[
+        $profiles = [
             User::PROFILE_ADMIN => User::PROFILE_ADMIN,
             User::PROFILE_SELLER => User::PROFILE_SELLER,
             User::PROFILE_PURCHASER => User::PROFILE_PURCHASER,

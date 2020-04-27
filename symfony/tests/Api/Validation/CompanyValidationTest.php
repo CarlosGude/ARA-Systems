@@ -3,7 +3,6 @@
 namespace App\Tests\Api\Validation;
 
 use App\Tests\Api\BaseTest;
-use App\Tests\Api\User\UsersManagementTest;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
@@ -30,6 +29,7 @@ class CompanyValidationTest extends BaseTest
         parent::setUp();
         $this->token = $this->getToken();
     }
+
     /**
      * @throws TransportExceptionInterface
      */

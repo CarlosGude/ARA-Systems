@@ -20,7 +20,7 @@ class ManipulateQuantityTest extends BaseTest
         $line = [
             'product' => $this->getRepository(Product::class)->findOneBy([
                 'name' => 'Another Product',
-                'company'=> $this->getCompany('Another Company')
+                'company' => $this->getCompany('Another Company'),
             ]),
         ];
 
@@ -63,7 +63,7 @@ class ManipulateQuantityTest extends BaseTest
         $line = [
             'product' => $this->getRepository(Product::class)->findOneBy([
                 'name' => 'Product 1',
-                'company'=> $this->getCompany('Another Company')
+                'company' => $this->getCompany('Another Company'),
             ]),
         ];
 
@@ -110,7 +110,7 @@ class ManipulateQuantityTest extends BaseTest
         $line = [
             'product' => $this->getRepository(Product::class)->findOneBy([
                 'name' => 'Another Product',
-                'company'=> $this->getCompany('Another Company')
+                'company' => $this->getCompany('Another Company'),
             ]),
         ];
 

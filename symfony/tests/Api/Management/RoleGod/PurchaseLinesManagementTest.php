@@ -45,7 +45,7 @@ class PurchaseLinesManagementTest extends BaseTest
         $response = json_decode($response->getContent(), true);
 
         $this->assertResponseIsSuccessfulAndInJson();
-        $this->assertEquals(12, $response['hydra:totalItems']);
+        $this->assertEquals(13, $response['hydra:totalItems']);
     }
 
     /**

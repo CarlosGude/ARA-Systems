@@ -29,7 +29,7 @@ class ChangeStatusTest extends BaseTest
 
         $count = $client->getCrawler()->filter('.status-incoming')->count();
 
-        self::assertEquals(1, $count);
+        self::assertEquals(2, $count);
 
         $id = explode('/', $url)[4];
         /** @var Purchase $purchase */
@@ -49,14 +49,14 @@ class ChangeStatusTest extends BaseTest
 
         $incomingButton = $crawler->filter('.cancelled');
 
-        self::assertEquals(1, $incomingButton->count());
+        self::assertEquals(3, $incomingButton->count());
 
         $url = $incomingButton->first()->attr('data-href');
         $client->request('POST', $url);
 
         $count = $client->getCrawler()->filter('.status-cancelled')->count();
 
-        self::assertEquals(1, $count);
+        self::assertEquals(2, $count);
 
         $id = explode('/', $url)[4];
         /** @var Purchase $purchase */
@@ -76,7 +76,7 @@ class ChangeStatusTest extends BaseTest
 
         $incomingButton = $crawler->filter('.success');
 
-        self::assertEquals(1, $incomingButton->count());
+        self::assertEquals(3, $incomingButton->count());
 
         $url = $incomingButton->first()->attr('data-href');
 

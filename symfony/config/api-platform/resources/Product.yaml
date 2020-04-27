@@ -9,20 +9,20 @@ App\Entity\Product:
   collectionOperations:
     get:
       method: 'GET'
-      security: 'is_granted("ROLE_READ_PRODUCT") or is_granted("ROLE_GOD")'
+      security: 'is_granted("ROLE_READ_PRODUCT") or is_granted("ROLE_GOD") or is_granted("ROLE_ADMIN")'
 
     post:
       menthod: 'POST'
-      security: 'is_granted("ROLE_CREATE_PRODUCT") or is_granted("ROLE_GOD")'
+      security: 'is_granted("ROLE_CREATE_PRODUCT") or is_granted("ROLE_GOD") or is_granted("ROLE_ADMIN")'
 
   itemOperations:
     get:
       method: 'GET'
-      security: 'is_granted("CREATED", object)'
+      security: 'is_granted("CREATE", object)'
 
     put:
       method: 'PUT'
-      security: 'is_granted("EDITED", object)'
+      security: 'is_granted("UPDATE", object)'
 
     delete:
       method: 'DELETE'

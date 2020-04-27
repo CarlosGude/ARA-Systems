@@ -4,9 +4,7 @@ namespace App\Security\Voter;
 
 use App\Entity\Company;
 use App\Entity\User;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
 
 class CompanyVoter extends AbstractVoter
@@ -33,10 +31,8 @@ class CompanyVoter extends AbstractVoter
     }
 
     /**
-     * @param string $attribute
+     * @param string    $attribute
      * @param User|null $subject
-     * @param TokenInterface $token
-     * @return bool
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {

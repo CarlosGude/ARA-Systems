@@ -2,7 +2,6 @@
 
 namespace App\Tests\Front\Validation;
 
-use App\Entity\Category;
 use App\Tests\Front\BaseTest;
 
 class CompanyValidationTest extends BaseTest
