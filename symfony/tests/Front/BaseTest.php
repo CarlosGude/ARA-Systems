@@ -10,6 +10,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectRepository;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 abstract class BaseTest extends WebTestCase
 {
@@ -27,6 +28,14 @@ abstract class BaseTest extends WebTestCase
     protected function generatePath(string $name, array $parameters)
     {
         return static::$container->get('router')->generate($name, $parameters);
+    }
+
+    protected function createFile(): UploadedFile
+    {
+        $file = tempnam(sys_get_temp_dir(), 'upl'); // create file
+        imagepng(imagecreatetruecolor(10, 10), $file); // create and write image/png to it
+
+        return new UploadedFile($file, 'new_image.png');
     }
 
     protected function getRepository(string $class): ObjectRepository

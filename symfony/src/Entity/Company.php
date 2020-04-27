@@ -31,7 +31,7 @@ class Company
     /**
      * @var MediaObject|null
      *
-     * @ORM\ManyToOne(targetEntity=MediaObject::class)
+     * @ORM\ManyToOne(targetEntity=MediaObject::class,cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
     public $image;

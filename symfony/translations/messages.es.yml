@@ -41,6 +41,7 @@ company:
   menu: Empresas
   create: Crear empresa
   description: Descripción
+  logo: Logo
   created: Se ha creado la empresa {{element}} correctamente.
   edited: Se ha editado la empresa {{element}} correctamente.
 

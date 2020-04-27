@@ -52,7 +52,7 @@ class CompanyManagementTest extends BaseTest
         $client = $this->login(parent::LOGIN_GOD);
 
         /** @var Category $company */
-        $company = $this->getRepository(Company::class)->findOneBy(['name' => 'Another Company']);
+        $company = $this->getRepository(Company::class)->findOneBy(['name' => 'The Company']);
 
         $crawler = $client->request(
             'GET',
