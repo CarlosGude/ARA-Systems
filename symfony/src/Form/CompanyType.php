@@ -22,7 +22,7 @@ class CompanyType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, ['label' => 'company.name'])
-            ->add('logo',FileType::class,[
+            ->add('image',FileType::class,[
                 'label'=>'company.logo',
                 'mapped'=>false,
                 'required'=> false,

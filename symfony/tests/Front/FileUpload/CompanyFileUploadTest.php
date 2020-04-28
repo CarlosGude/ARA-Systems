@@ -36,7 +36,7 @@ class CompanyFileUploadTest extends BaseTest
         ]));
 
         self::assertInstanceOf(Company::class,$company);
-        self::assertInstanceOf(MediaObject::class, $company->getImage());
         self::assertEquals(1,$crawler->filter('img#logo')->count());
+        self::assertInstanceOf(MediaObject::class, $company->getImage());
     }
 }
