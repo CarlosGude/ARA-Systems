@@ -22,7 +22,7 @@ class ClientType extends AbstractType
             ->add('name', TextType::class, ['label' => 'client.name'])
             ->add('identification', TextType::class, ['label' => 'client.identification'])
             ->add('image',FileType::class,[
-                'label'=>'company.logo',
+                'label'=>'client.image',
                 'mapped'=>false,
                 'required'=> false,
                 'constraints' => [new Image()]

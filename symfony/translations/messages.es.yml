@@ -128,3 +128,4 @@ client:
   create: Crear cliente
   created: Se ha creado el cliente {{element}} correctamente.
   edited: Se ha editado el cliente {{element}} correctamente.
+  image: Foto
