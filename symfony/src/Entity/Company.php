@@ -301,7 +301,7 @@ class Company implements ImageInterface
         return $this->image;
     }
 
-    public function setImage(?MediaObject $image): Company
+    public function setImage(?MediaObject $image): ImageInterface
     {
         $this->image = $image;
         return $this;
