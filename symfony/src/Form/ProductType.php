@@ -31,7 +31,7 @@ class ProductType extends AbstractType
             ->add('name', TextType::class, ['label' => 'product.name'])
             ->add('description', TextareaType::class, ['label' => 'product.description'])
             ->add('image',FileType::class,[
-                'label'=>'image.principal',
+                'label'=>'product.principal',
                 'mapped'=>false,
                 'required'=> false,
                 'constraints' => [new Image()]
