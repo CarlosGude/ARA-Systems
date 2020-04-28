@@ -14,11 +14,10 @@ class CompanyFileUploadTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_GOD);
 
-
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'company']));
         $company = [
             'name' => 'Test Company',
-            'logo' => $this->createFile()
+            'logo' => $this->createFile('logo.png','company.png')
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
@@ -31,7 +30,13 @@ class CompanyFileUploadTest extends BaseTest
         /** @var Company $company */
         $company = $this->getRepository(Company::class)->findOneBy(['name' => 'Test Company']);
 
+        $crawler = $client->request('GET', $this->generatePath('front_edit', [
+            'entity' => 'company',
+            'id' => $company->getId()
+        ]));
+
         self::assertInstanceOf(Company::class,$company);
         self::assertInstanceOf(MediaObject::class, $company->getImage());
+        self::assertEquals(1,$crawler->filter('img#logo')->count());
     }
 }

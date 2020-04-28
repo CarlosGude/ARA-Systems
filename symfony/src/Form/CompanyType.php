@@ -22,7 +22,12 @@ class CompanyType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, ['label' => 'company.name'])
-            ->add('logo',FileType::class,['label'=>'company.logo','mapped'=>false,'required'=> false])
+            ->add('logo',FileType::class,[
+                'label'=>'company.logo',
+                'mapped'=>false,
+                'required'=> false,
+                'constraints' => [new Image()]
+            ])
             ->add('description', TextareaType::class, ['label' => 'company.description', 'required' => false])
             ->add('submit', SubmitType::class, ['label' => 'save'])
             ->addEventListener(FormEvents::POST_SUBMIT,[CompanyFormSubscriber::class,'postSubmit'])

@@ -42,7 +42,7 @@ class CompanyFormSubscriber implements EventSubscriberInterface
         }
 
         $media = new MediaObject();
-        $media->setFile($logo);
+        $media->setFile($logo)->setFilePath('jamon.png');
         $company->setImage($media);
     }
 

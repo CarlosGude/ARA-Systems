@@ -30,12 +30,11 @@ abstract class BaseTest extends WebTestCase
         return static::$container->get('router')->generate($name, $parameters);
     }
 
-    protected function createFile(): UploadedFile
+    protected function  createFile(string $file,string $name): UploadedFile
     {
-        $file = tempnam(sys_get_temp_dir(), 'upl'); // create file
-        imagepng(imagecreatetruecolor(10, 10), $file); // create and write image/png to it
+        $file = static::$kernel->getProjectDir().'\tests\Front\FileUpload\example\\'.$file;
 
-        return new UploadedFile($file, 'new_image.png');
+        return new UploadedFile($file, $name);
     }
 
     protected function getRepository(string $class): ObjectRepository
