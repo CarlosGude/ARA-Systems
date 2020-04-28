@@ -74,6 +74,7 @@ product:
   created: Se ha creado el producto {{element}} correctamente.
   edited: Se ha editado el producto {{element}} correctamente.
   taxes: Elija el IVA
+  principal: Imagen principal
 
 purchase:
   product: Producto
@@ -117,6 +118,7 @@ provider:
   create: Crear proveedor
   created: Se ha creado el proveedor {{element}} correctamente.
   edited: Se ha editado el proveedor {{element}} correctamente.
+  image: Logo
 
 client:
   name: Nombre

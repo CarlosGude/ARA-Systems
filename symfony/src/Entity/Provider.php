@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Interfaces\EntityInterface;
+use App\Interfaces\ImageInterface;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -12,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="App\Repository\ProviderRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class Provider implements EntityInterface
+class Provider implements EntityInterface, ImageInterface
 {
     /**
      * @var string
@@ -31,7 +32,7 @@ class Provider implements EntityInterface
     /**
      * @var MediaObject|null
      *
-     * @ORM\ManyToOne(targetEntity=MediaObject::class)
+     * @ORM\ManyToOne(targetEntity=MediaObject::class,cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
     public $image;
@@ -200,7 +201,7 @@ class Provider implements EntityInterface
         return $this->image;
     }
 
-    public function setImage(?MediaObject $image): Provider
+    public function setImage(?MediaObject $image): ImageInterface
     {
         $this->image = $image;
         return $this;
