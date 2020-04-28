@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Provider;
 use App\Entity\Purchase;
+use App\Repository\ProviderRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -15,9 +16,18 @@ class PurchaseType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        /** @var Purchase $purchase */
+        $purchase = $options['data'];
         $builder
             ->add('reference', TextType::class, ['label' => 'purchase.reference'])
-            ->add('provider', EntityType::class, ['label' => 'purchase.provider', 'class' => Provider::class])
+            ->add('provider', EntityType::class, [
+                'class' => Provider::class,
+                'attr' => ['class' => 'select'],
+                'query_builder' => static function (ProviderRepository $repository) use ($purchase) {
+                    return $repository->findByCompany($purchase->getCompany());
+                },
+                'label' => 'purchase.provider',
+            ])
             ->add('submit', SubmitType::class, ['label' => 'save'])
         ;
     }
