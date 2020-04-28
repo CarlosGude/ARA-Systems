@@ -3,6 +3,8 @@
 namespace App\Tests\Front\Validation;
 
 use App\Entity\Category;
+use App\Entity\MediaObject;
+use App\Entity\Product;
 use App\Tests\Front\BaseTest;
 
 class ProductValidationTest extends BaseTest
@@ -161,5 +163,39 @@ class ProductValidationTest extends BaseTest
         $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
 
         self::assertEquals('Este valor debería ser mayor o igual que 100.', $errorSpan->html());
+    }
+
+    public function testCreateProductWithPrincipalImage(): void
+    {
+        $client = $this->login(parent::LOGIN_GOD);
+
+        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'product']));
+
+        $product = [
+            'name' => 'Test Product',
+            'tax' => Product::IVA_8,
+            'price' => '20.00',
+            'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
+            'minStock' => 1,
+            'maxStock' => 100,
+            'image' => $this->getFile('document.pdf','document.pdf')
+        ];
+
+        $form = $crawler->selectButton('Guardar')->form();
+
+        $form['product[name]']->setValue($product['name']);
+        $form['product[image]']->setValue($product['image']);
+        $form['product[tax]']->setValue($product['tax']);
+        $form['product[price]']->setValue($product['price']);
+        $form['product[category]']->setValue($product['category']->getId());
+        $form['product[minStock]']->setValue($product['minStock']);
+        $form['product[maxStock]']->setValue($product['maxStock']);
+
+        $client->submit($form);
+
+        $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
+
+        self::assertEquals(0,$crawler->filter('img#avatar')->count());
+        self::assertEquals('El archivo no es una imagen válida.', $errorSpan->html());
     }
 }

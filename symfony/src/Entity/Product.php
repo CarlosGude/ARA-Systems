@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Interfaces\EntityInterface;
+use App\Interfaces\ImageInterface;
 use DateTime;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -13,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class Product implements EntityInterface
+class Product implements EntityInterface, ImageInterface
 {
     public const IVA_8 = 8;
     public const IVA_10 = 10;
@@ -43,6 +44,14 @@ class Product implements EntityInterface
      * @ORM\JoinColumn(nullable=true)
      */
     private $user;
+
+    /**
+     * @var MediaObject|null
+     *
+     * @ORM\ManyToOne(targetEntity=MediaObject::class,cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    public $image;
 
     /**
      * @ORM\Column(type="datetime")
@@ -383,4 +392,24 @@ class Product implements EntityInterface
 
         return $this;
     }
+
+    /**
+     * @return MediaObject|null
+     */
+    public function getImage(): ?MediaObject
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param MediaObject|null $image
+     * @return Product
+     */
+    public function setImage(?MediaObject $image): ImageInterface
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+
 }

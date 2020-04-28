@@ -5,17 +5,21 @@ namespace App\Form;
 use App\Entity\Category;
 use App\Entity\Product;
 use App\Entity\Provider;
+use App\EventSubscriber\ImageFormSubscriber;
 use App\Repository\ProviderRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Image;
 
 class ProductType extends AbstractType
 {
@@ -26,6 +30,12 @@ class ProductType extends AbstractType
         $builder
             ->add('name', TextType::class, ['label' => 'product.name'])
             ->add('description', TextareaType::class, ['label' => 'product.description'])
+            ->add('image',FileType::class,[
+                'label'=>'image.principal',
+                'mapped'=>false,
+                'required'=> false,
+                'constraints' => [new Image()]
+            ])
             ->add('tax', ChoiceType::class, [
                 'label' => 'category.tax',
                 'choices' => $this->getTaxes(),
@@ -62,6 +72,8 @@ class ProductType extends AbstractType
                 'expanded' => true,
             ])
             ->add('submit', SubmitType::class, ['label' => 'save'])
+            ->add('submit', SubmitType::class, ['label' => 'save'])
+            ->addEventListener(FormEvents::POST_SUBMIT,[ImageFormSubscriber::class,'postSubmit'])
         ;
     }
 
