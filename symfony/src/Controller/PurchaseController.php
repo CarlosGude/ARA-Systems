@@ -4,10 +4,15 @@ namespace App\Controller;
 
 use App\Entity\Purchase;
 use App\Entity\PurchaseLine;
+use App\Entity\User;
+use App\Form\PurchaseLineType;
+use App\Security\Voter\AbstractVoter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -58,5 +63,42 @@ class PurchaseController extends AbstractController
         $em->flush();
 
         return $this->redirect($request->headers->get('referer'));
+    }
+
+    /**
+     * @Route("/create/providerLine/{purchase}", name="add_line")
+     */
+    public function addLine(
+        Request $request,
+        EntityManagerInterface $em,
+        TranslatorInterface $translator,
+        Purchase $purchase
+    ): Response {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $this->denyAccessUnlessGranted(AbstractVoter::CREATE, $line = new PurchaseLine());
+
+        $line
+            ->setUser($user)
+            ->setPurchase($purchase)
+            ->setCompany($user->getCompany());
+
+        $form = $this->createForm(PurchaseLineType::class, $line);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($line);
+            $em->flush();
+
+            $this->addFlash('success', $translator->trans('purchaseLine.created', ['{{element}}' => $line]));
+
+            return $this->redirect($request->headers->get('referer'));
+        }
+
+        return $this->render('front/create/purchaseLine.html.twig', [
+            'purchase' => $purchase,
+            'form' => $form->createView(),
+        ]);
     }
 }

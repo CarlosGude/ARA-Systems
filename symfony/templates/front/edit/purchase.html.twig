@@ -137,8 +137,8 @@
                 </div>
                 <div class="modal-body">
                     {{ render(controller(
-                        'App\\Controller\\FrontController::create',
-                        { 'entity': 'purchaseLine','purchase': element.id }
+                        'App\\Controller\\PurchaseController::addLine',
+                        {'purchase': element.id }
                     )) }}
                 </div>
             </div>

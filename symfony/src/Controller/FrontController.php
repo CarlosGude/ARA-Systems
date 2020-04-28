@@ -39,14 +39,13 @@ class FrontController extends AbstractController
     }
 
     /**
-     * @Route("/create/{entity}/{purchase}", name="create")
+     * @Route("/create/{entity}", name="create")
      */
     public function create(
         string $entity,
         Request $request,
         EntityManagerInterface $em,
-        TranslatorInterface $translator,
-        string $purchase = null
+        TranslatorInterface $translator
     ): Response {
         /** @var User $user */
         $user = $this->getUser();
@@ -77,11 +76,6 @@ class FrontController extends AbstractController
             $element->setUser($user);
         }
 
-        if ($purchase && $element instanceof PurchaseLine) {
-            $purchase = $em->getRepository(Purchase::class)->find($purchase);
-            $element->setPurchase($purchase);
-        }
-
         $form = $this->createForm($formClass, $element);
         $form->handleRequest($request);
 
@@ -91,14 +85,11 @@ class FrontController extends AbstractController
 
             $this->addFlash('success', $translator->trans($entity.'.created', ['{{element}}' => $element]));
 
-            return ($purchase)
-                ? $this->redirect($request->headers->get('referer'))
-                : $this->redirectToRoute('front_edit', ['entity' => $entity, 'id' => $element->getId()]);
+            return $this->redirectToRoute('front_edit', ['entity' => $entity, 'id' => $element->getId()]);
         }
 
         return $this->render('front/create/'.$entity.'.html.twig', [
             'action' => 'create',
-            'purchase' => $purchase,
             'entity' => $entity,
             'form' => $form->createView(),
         ]);
