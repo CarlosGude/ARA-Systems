@@ -43,16 +43,10 @@ class ClientManagementTest extends BaseTest
 
         $client->submit($form);
 
-        $successLabel = $client->getCrawler()->filter('.alert-success')->first();
-
-        self::assertEquals(
-            'Se ha creado el cliente Test Client correctamente.',
-            trim($successLabel->html())
-        );
-
         $client = $this->getRepository(Client::class)->findOneBy(['name' => 'Test Client']);
 
         self::assertNotNull($client);
+        self::assertInstanceOf(Client::class,$client);
     }
 
     public function testClientEdited(): void
