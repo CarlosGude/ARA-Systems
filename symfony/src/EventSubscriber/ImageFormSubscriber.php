@@ -46,7 +46,7 @@ class ImageFormSubscriber implements EventSubscriberInterface
         }
 
         $media = new MediaObject();
-        $media->setFile($image)->setFilePath('jamon.png');
+        $media->setFile($image);
         $data->setImage($media);
     }
 
