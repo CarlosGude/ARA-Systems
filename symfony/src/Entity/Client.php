@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Interfaces\EntityInterface;
+use App\Interfaces\ImageInterface;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
  */
-class Client implements EntityInterface
+class Client implements EntityInterface, ImageInterface
 {
     /**
      * @var string
@@ -25,6 +26,14 @@ class Client implements EntityInterface
      * @ORM\Column(type="string", length=255)
      */
     private $name;
+
+    /**
+     * @var MediaObject|null
+     *
+     * @ORM\ManyToOne(targetEntity=MediaObject::class,cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    public $image;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -181,4 +190,24 @@ class Client implements EntityInterface
         $this->updatedAt = $updatedAt;
         return $this;
     }
+
+    /**
+     * @return MediaObject|null
+     */
+    public function getImage(): ?MediaObject
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param MediaObject|null $image
+     * @return Client
+     */
+    public function setImage(?MediaObject $image): ImageInterface
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+
 }

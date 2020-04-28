@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Company;
-use App\EventSubscriber\CompanyFormSubscriber;
+use App\EventSubscriber\ImageFormSubscriber;
 use EasyCorp\Bundle\EasyAdminBundle\Form\Type\FileUploadType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -30,7 +30,7 @@ class CompanyType extends AbstractType
             ])
             ->add('description', TextareaType::class, ['label' => 'company.description', 'required' => false])
             ->add('submit', SubmitType::class, ['label' => 'save'])
-            ->addEventListener(FormEvents::POST_SUBMIT,[CompanyFormSubscriber::class,'postSubmit'])
+            ->addEventListener(FormEvents::POST_SUBMIT,[ImageFormSubscriber::class,'postSubmit'])
         ;
     }
 

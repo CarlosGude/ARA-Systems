@@ -30,7 +30,7 @@ abstract class BaseTest extends WebTestCase
         return static::$container->get('router')->generate($name, $parameters);
     }
 
-    protected function  createFile(string $file,string $name): UploadedFile
+    protected function  getFile(string $file, string $name): UploadedFile
     {
         $file = static::$kernel->getProjectDir().'\tests\Front\FileUpload\example\\'.$file;
 

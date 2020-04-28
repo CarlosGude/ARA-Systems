@@ -2,6 +2,8 @@
 
 namespace App\Tests\Front\Validation;
 
+use App\Entity\Client;
+use App\Entity\MediaObject;
 use App\Tests\Front\BaseTest;
 
 class ClientValidationTest extends BaseTest
@@ -160,5 +162,34 @@ class ClientValidationTest extends BaseTest
         $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
 
         self::assertEquals('Este valor ya se ha utilizado.', $errorSpan->html());
+    }
+
+    public function testTheAvatarMustBeAnImage(): void
+    {
+        $client = $this->login(parent::LOGIN_GOD);
+
+        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'client']));
+
+        $clientData = [
+            'name' => 'Test Client',
+            'image' => $this->getFile('document.pdf','company.pdf'),
+            'email' => 'fake@email.com',
+            'identification' => 333225,
+            'address' => 'Fake street 123',
+        ];
+
+        $form = $crawler->selectButton('Guardar')->form();
+
+        $form['client[name]']->setValue($clientData['name']);
+        $form['client[image]']->setValue($clientData['image']);
+        $form['client[email]']->setValue($clientData['email']);
+        $form['client[identification]']->setValue($clientData['identification']);
+        $form['client[address]']->setValue($clientData['address']);
+
+        $client->submit($form);
+        $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
+
+        self::assertEquals(0,$crawler->filter('img#avatar')->count());
+        self::assertEquals('El archivo no es una imagen válida.', $errorSpan->html());
     }
 }

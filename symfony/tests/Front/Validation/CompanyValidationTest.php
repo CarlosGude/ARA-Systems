@@ -32,13 +32,13 @@ class CompanyValidationTest extends BaseTest
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'company']));
         $company = [
             'name' => 'Test Company',
-            'logo' => $this->createFile('document.pdf','company.pdf')
+            'logo' => $this->getFile('document.pdf','company.pdf')
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['company[name]']->setValue($company['name']);
-        $form['company[logo]']->setValue($company['logo']);
+        $form['company[image]']->setValue($company['logo']);
 
         $client->submit($form);
         $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();

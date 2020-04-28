@@ -4,13 +4,14 @@ namespace App\EventSubscriber;
 
 use App\Entity\Company;
 use App\Entity\MediaObject;
+use App\Interfaces\ImageInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class CompanyFormSubscriber implements EventSubscriberInterface
+class ImageFormSubscriber implements EventSubscriberInterface
 {
     /**
      * @var string
@@ -31,19 +32,22 @@ class CompanyFormSubscriber implements EventSubscriberInterface
 
     public static function postSubmit(FormEvent $event): void
     {
-        /** @var Company $company */
-        $company = $event->getData();
+        /** @var ImageInterface $data */
+        $data = $event->getData();
+        if (!$data instanceof ImageInterface) {
+            return;
+        }
 
         $form = $event->getForm();
 
-        $logo = $form->get('logo')->getData();
-        if (!$logo instanceof UploadedFile){
+        $image = $form->get('image')->getData();
+        if (!$image instanceof UploadedFile){
             return;
         }
 
         $media = new MediaObject();
-        $media->setFile($logo)->setFilePath('jamon.png');
-        $company->setImage($media);
+        $media->setFile($image)->setFilePath('jamon.png');
+        $data->setImage($media);
     }
 
 }
