@@ -8,6 +8,7 @@ PROFILE_SELLER: Responsable de ventas
 PROFILE_PURCHASER: Responsable de compras
 PROFILE_ADMIN: Administrador
 companyTh: Empresa
+removeImage: Eliminar imagen
 
 login:
   welcome: ¡Bienvenido a ARA-System!
@@ -75,6 +76,8 @@ product:
   edited: Se ha editado el producto {{element}} correctamente.
   taxes: Elija el IVA
   principal: Imagen principal
+  basic: Datos del producto
+  priceData: Precio y stock
 
 purchase:
   product: Producto

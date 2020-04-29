@@ -1,6 +1,6 @@
 App\Entity\Company:
   another_company:
-    name: 'Another company'
+    name: 'Another Company'
     createdAt: '<dateTimeBetween("-200 days", "now")>'
     updatedAt: '<dateTimeBetween($createdAt, "now")>'
 

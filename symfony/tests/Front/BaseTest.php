@@ -100,7 +100,6 @@ abstract class BaseTest extends WebTestCase
     {
         /** @var Company $company */
         $company = $this->getRepository(Company::class)->findOneBy(['name' => $name]);
-
         return $company;
     }
 }

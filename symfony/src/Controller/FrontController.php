@@ -7,9 +7,12 @@ use App\Entity\Purchase;
 use App\Entity\PurchaseLine;
 use App\Entity\User;
 use App\Interfaces\EntityInterface;
+use App\Interfaces\ImageInterface;
 use App\Security\AbstractUserRoles;
 use App\Security\Voter\AbstractVoter;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\OptimisticLockException;
 use Knp\Component\Pager\PaginatorInterface;
 use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -203,6 +206,43 @@ class FrontController extends AbstractController
         $this->denyAccessUnlessGranted(AbstractVoter::DELETE, $element);
 
         $em->remove($element);
+        $em->flush();
+
+        return $this->redirect($request->headers->get('referer'));
+    }
+
+    /**
+     * @param string $entity
+     * @param string $id
+     * @param EntityManager $em
+     * @param Request $request
+     * @return Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws OptimisticLockException
+     *  @Route("/remove-image/{entity}/{id}", name="delete_image")
+     */
+    public function removeImage(string $entity,string $id, EntityManagerInterface $em, Request $request): Response
+    {
+        $class = self::ENTITY_NAMESPACE.ucfirst($entity);
+
+        if (!class_exists($class)) {
+            throw new NotFoundHttpException('Page not found.');
+        }
+
+        $element = $em->getRepository($class)->find($id);
+
+        if (!$element) {
+            throw new RuntimeException('Page not found.');
+        }
+
+        if (!$element instanceof ImageInterface || $this->isAValidEntity($class)) {
+            throw new RuntimeException('The class is not valid.');
+        }
+
+        $this->denyAccessUnlessGranted(AbstractVoter::DELETE, $element);
+
+        $element->setImage(null);
+
         $em->flush();
 
         return $this->redirect($request->headers->get('referer'));

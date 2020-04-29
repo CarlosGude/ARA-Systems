@@ -5,6 +5,7 @@ namespace App\Tests\Front\Roles\Admin;
 use App\Entity\Category;
 use App\Entity\Product;
 use App\Tests\Front\BaseTest;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProductManagementTest extends BaseTest
 {
@@ -40,21 +41,15 @@ class ProductManagementTest extends BaseTest
 
         $product = [
             'name' => 'Test Product',
-            'tax' => Product::IVA_8,
             'price' => '20.00',
             'category' => $category,
-            'minStock' => 1,
-            'maxStock' => 100,
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['product[name]']->setValue($product['name']);
-        $form['product[tax]']->setValue($product['tax']);
         $form['product[price]']->setValue($product['price']);
         $form['product[category]']->setValue($product['category']->getId());
-        $form['product[minStock]']->setValue($product['minStock']);
-        $form['product[maxStock]']->setValue($product['maxStock']);
 
         $client->submit($form);
 
@@ -77,7 +72,7 @@ class ProductManagementTest extends BaseTest
         /** @var Product $categoryToEdit */
         $productToEdit = $this->getRepository(Product::class)->findOneBy([
             'name' => 'Product 1',
-            'company' => $this->getCompany('Another company'),
+            'company' => $this->getCompany('Another Company'),
         ]);
 
         $crawler = $client->request(
@@ -101,5 +96,27 @@ class ProductManagementTest extends BaseTest
             'Se ha editado el producto Test Product correctamente.',
             trim($successLabel->html())
         );
+    }
+
+    public function testProductRemoved(): void
+    {
+        $client = $this->login(parent::LOGIN_ADMIN);
+
+        /** @var Product $categoryToEdit */
+        $productToEdit = $this->getRepository(Product::class)->findOneBy([
+            'name' => 'Product 1',
+            'company' => $this->getCompany('Another Company'),
+        ]);
+
+        $client->request(
+            'GET',
+            $this->generatePath('front_list', ['entity' => 'product'])
+        );
+        $client->request(
+            'GET',
+            $this->generatePath('front_delete', ['entity' => 'product', 'id' => $productToEdit->getId()])
+        );
+
+        self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 }

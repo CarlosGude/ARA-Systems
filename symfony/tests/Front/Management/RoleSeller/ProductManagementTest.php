@@ -41,21 +41,16 @@ class ProductManagementTest extends BaseTest
 
         $product = [
             'name' => 'Test Product',
-            'tax' => Product::IVA_8,
             'price' => '20.00',
             'category' => $category,
-            'minStock' => 1,
-            'maxStock' => 100,
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['product[name]']->setValue($product['name']);
-        $form['product[tax]']->setValue($product['tax']);
         $form['product[price]']->setValue($product['price']);
         $form['product[category]']->setValue($product['category']->getId());
-        $form['product[minStock]']->setValue($product['minStock']);
-        $form['product[maxStock]']->setValue($product['maxStock']);
+
 
         $client->submit($form);
 

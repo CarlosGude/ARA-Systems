@@ -8,6 +8,16 @@
         </a>
         {{ 'product.create' | trans }}
     </h1>
-
-    {{ form(form) }}
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col-md-3">{{ form_row(form.name) }}</div>
+        <div class="col-md-2">{{ form_row(form.image) }}</div>
+        <div class="col-md-3">{{ form_row(form.category) }}</div>
+        <div class="col-md-2">{{ form_row(form.price) }}</div>
+        <div class="col-md-2">{{ form_row(form.stockAct) }}</div>
+    </div>
+    <div class="row">
+        {{ form_row(form.submit) }}
+    </div>
+    {{ form_end(form) }}
 {% endblock %}

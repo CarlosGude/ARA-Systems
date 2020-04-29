@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Entity\Product;
 use App\Entity\Provider;
 use App\EventSubscriber\ImageFormSubscriber;
+use App\Repository\CategoryRepository;
 use App\Repository\ProviderRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -27,51 +28,63 @@ class ProductType extends AbstractType
     {
         /** @var Product $product */
         $product = $options['data'];
+
         $builder
             ->add('name', TextType::class, ['label' => 'product.name'])
-            ->add('description', TextareaType::class, ['label' => 'product.description'])
             ->add('image',FileType::class,[
                 'label'=>'product.principal',
                 'mapped'=>false,
                 'required'=> false,
                 'constraints' => [new Image()]
             ])
-            ->add('tax', ChoiceType::class, [
-                'label' => 'category.tax',
-                'choices' => $this->getTaxes(),
-                'placeholder' => 'product.taxes',
-                'required' => true,
-            ])
-            ->add('minStock', IntegerType::class, [
-                'label' => 'product.minStock',
-                'required' => true,
-                'attr' => ['min' => 1],
-            ])
-            ->add('maxStock', IntegerType::class, [
-                'label' => 'product.maxStock',
-                'required' => true,
-                'attr' => ['min' => 1],
-            ])
-            ->add('stockAct', IntegerType::class, [
-                'label' => 'product.stockAct',
-                'attr' => ['min' => 1],
-            ])
-            ->add('price', MoneyType::class, ['label' => 'product.price'])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
+                'attr' => ['class'=>'select'],
+                'query_builder' => static function (CategoryRepository $repository) use ($product) {
+                    return $repository->findByCompany($product->getCompany());
+                },
                 'label' => 'product.category',
                 'required' => true,
             ])
-            ->add('providers', EntityType::class, [
-                'class' => Provider::class,
-                'query_builder' => static function (ProviderRepository $repository) use ($product) {
-                    return $repository->findByCompany($product->getCompany());
-                },
-                'label' => 'product.providers',
-                'multiple' => true,
-                'expanded' => true,
+            ->add('stockAct', IntegerType::class, [
+                'label' => 'product.stockAct',
+                'attr' => ['min' => 0],
             ])
-            ->add('submit', SubmitType::class, ['label' => 'save'])
+            ->add('price', MoneyType::class, ['label' => 'product.price'])
+        ;
+
+        if($product->getId()){
+            $builder
+                ->add('description', TextareaType::class, ['label' => 'product.description','required'=> false])
+                ->add('tax', ChoiceType::class, [
+                    'label' => 'category.tax',
+                    'choices' => $this->getTaxes(),
+                    'placeholder' => 'product.taxes',
+                    'required' => true,
+                ])
+                ->add('minStock', IntegerType::class, [
+                    'label' => 'product.minStock',
+                    'required' => true,
+                    'attr' => ['min' => 1],
+                ])
+                ->add('maxStock', IntegerType::class, [
+                    'label' => 'product.maxStock',
+                    'required' => true,
+                    'attr' => ['min' => 1],
+                ])
+
+                ->add('providers', EntityType::class, [
+                    'class' => Provider::class,
+                    'query_builder' => static function (ProviderRepository $repository) use ($product) {
+                        return $repository->findByCompany($product->getCompany());
+                    },
+                    'label' => 'product.providers',
+                    'multiple' => true,
+                    'expanded' => true,
+                ])
+            ;
+        }
+        $builder
             ->add('submit', SubmitType::class, ['label' => 'save'])
             ->addEventListener(FormEvents::POST_SUBMIT,[ImageFormSubscriber::class,'postSubmit'])
         ;

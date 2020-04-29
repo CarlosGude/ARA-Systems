@@ -53,10 +53,8 @@ App\Entity\Product:
       - GreaterThan: 0
       - Choice: { callback: getIvas }
     minStock:
-      - NotBlank: ~
       - GreaterThanOrEqual: 0
     maxStock:
-      - NotBlank: ~
       - GreaterThanOrEqual: { propertyPath: minStock }
     price:
       - GreaterThan: 0

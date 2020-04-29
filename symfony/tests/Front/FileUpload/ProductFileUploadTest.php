@@ -20,11 +20,8 @@ class ProductFileUploadTest extends BaseTest
 
         $product = [
             'name' => 'Test Product',
-            'tax' => Product::IVA_8,
             'price' => '20.00',
             'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
-            'minStock' => 1,
-            'maxStock' => 100,
             'image' => $this->getFile('logo.png','principal.png')
         ];
 
@@ -32,11 +29,8 @@ class ProductFileUploadTest extends BaseTest
 
         $form['product[name]']->setValue($product['name']);
         $form['product[image]']->setValue($product['image']);
-        $form['product[tax]']->setValue($product['tax']);
         $form['product[price]']->setValue($product['price']);
         $form['product[category]']->setValue($product['category']->getId());
-        $form['product[minStock]']->setValue($product['minStock']);
-        $form['product[maxStock]']->setValue($product['maxStock']);
 
         $client->submit($form);
 
@@ -52,5 +46,20 @@ class ProductFileUploadTest extends BaseTest
         self::assertInstanceOf(Product::class,$product);
         self::assertEquals(1,$client->getCrawler()->filter('img#principal')->count());
         self::assertInstanceOf(MediaObject::class, $product->getImage());
+    }
+
+    public function testRemovePrincipalImage(): void
+    {
+        $client = $this->login(parent::LOGIN_GOD);
+
+        /** @var Product $product */
+        $product = $this->getRepository(Product::class)->findOneBy(['name' => 'Test Product']);
+        $url = $this->generatePath('front_edit', ['entity' => 'product','id'=> $product->getId()]);
+        $crawler = $client->request('GET', $url);
+        $removeImage = $crawler->filter('a.delete')->first();
+        $client->request('POST',$removeImage->attr('data-href'));
+
+        self::assertInstanceOf(Product::class,$product);
+        self::assertEquals(0,$client->getCrawler()->filter('img#principal')->count());
     }
 }

@@ -23,17 +23,11 @@ class ProductValidationTest extends BaseTest
         $product = [
             'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
             'price' => 100,
-            'tax' => Category::IVA_8,
-            'minStock' => 1,
-            'maxStock' => 100,
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['product[price]']->setValue($product['price']);
-        $form['product[tax]']->setValue($product['tax']);
-        $form['product[minStock]']->setValue($product['minStock']);
-        $form['product[maxStock]']->setValue($product['maxStock']);
         $form['product[category]']->setValue($product['category']->getId());
 
         $client->submit($form);
@@ -52,17 +46,11 @@ class ProductValidationTest extends BaseTest
         $product = [
             'name' => 'Product Name',
             'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
-            'tax' => Category::IVA_8,
-            'minStock' => 1,
-            'maxStock' => 100,
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['product[name]']->setValue($product['name']);
-        $form['product[tax]']->setValue($product['tax']);
-        $form['product[minStock]']->setValue($product['minStock']);
-        $form['product[maxStock]']->setValue($product['maxStock']);
         $form['product[category]']->setValue($product['category']->getId());
 
         $client->submit($form);
@@ -76,25 +64,17 @@ class ProductValidationTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_GOD);
 
-        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'product']));
+        /** @var Product $product */
+        $product = $this->getRepository(Product::class)->findOneBy(['name' => 'The Product']);
+        $url =$this->generatePath('front_edit', ['entity' => 'product','id' => $product->getId()]);
+        $crawler = $client->request('GET', $url);
 
-        $product = [
-            'name' => 'The Name',
-            'tax' => Category::IVA_8,
-            'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
-            'maxStock' => 1,
-            'minStock' => '-1',
-            'price' => 20,
-        ];
+        $product = ['minStock' => '-1','maxStock'=> 100];
 
         $form = $crawler->selectButton('Guardar')->form();
 
-        $form['product[price]']->setValue($product['price']);
-        $form['product[name]']->setValue($product['name']);
-        $form['product[tax]']->setValue($product['tax']);
         $form['product[maxStock]']->setValue($product['maxStock']);
         $form['product[minStock]']->setValue($product['minStock']);
-        $form['product[category]']->setValue($product['category']->getId());
 
         $client->submit($form);
 
@@ -107,56 +87,42 @@ class ProductValidationTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_GOD);
 
-        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'product']));
+        /** @var Product $product */
+        $product = $this->getRepository(Product::class)->findOneBy(['name' => 'The Product']);
+        $url =$this->generatePath('front_edit', ['entity' => 'product','id' => $product->getId()]);
+        $crawler = $client->request('GET', $url);
 
-        $product = [
-            'name' => 'The Name',
-            'tax' => Category::IVA_8,
-            'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
-            'maxStock' => '-1',
-            'minStock' => 1,
-            'price' => 20,
-        ];
+        $product = ['maxStock' => '-1',];
 
         $form = $crawler->selectButton('Guardar')->form();
 
-        $form['product[name]']->setValue($product['name']);
-        $form['product[price]']->setValue($product['price']);
-        $form['product[tax]']->setValue($product['tax']);
         $form['product[maxStock]']->setValue($product['maxStock']);
-        $form['product[minStock]']->setValue($product['minStock']);
-        $form['product[category]']->setValue($product['category']->getId());
 
         $client->submit($form);
 
         $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
 
-        self::assertEquals('Este valor debería ser mayor o igual que 1.', $errorSpan->html());
+        self::assertEquals('Este valor debería ser mayor o igual que 10.', $errorSpan->html());
     }
 
     public function testMaxStockLowerThanMinStockRequired(): void
     {
         $client = $this->login(parent::LOGIN_GOD);
 
-        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'product']));
+        /** @var Product $product */
+        $product = $this->getRepository(Product::class)->findOneBy(['name' => 'The Product']);
+        $url =$this->generatePath('front_edit', ['entity' => 'product','id' => $product->getId()]);
+        $crawler = $client->request('GET', $url);
 
         $product = [
-            'name' => 'The Name',
-            'tax' => Category::IVA_8,
-            'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
             'maxStock' => 1,
             'minStock' => 100,
-            'price' => 20,
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
 
-        $form['product[name]']->setValue($product['name']);
-        $form['product[price]']->setValue($product['price']);
-        $form['product[tax]']->setValue($product['tax']);
         $form['product[maxStock]']->setValue($product['maxStock']);
         $form['product[minStock]']->setValue($product['minStock']);
-        $form['product[category]']->setValue($product['category']->getId());
 
         $client->submit($form);
 
@@ -173,11 +139,8 @@ class ProductValidationTest extends BaseTest
 
         $product = [
             'name' => 'Test Product',
-            'tax' => Product::IVA_8,
             'price' => '20.00',
             'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
-            'minStock' => 1,
-            'maxStock' => 100,
             'image' => $this->getFile('document.pdf','document.pdf')
         ];
 
@@ -185,11 +148,8 @@ class ProductValidationTest extends BaseTest
 
         $form['product[name]']->setValue($product['name']);
         $form['product[image]']->setValue($product['image']);
-        $form['product[tax]']->setValue($product['tax']);
         $form['product[price]']->setValue($product['price']);
         $form['product[category]']->setValue($product['category']->getId());
-        $form['product[minStock]']->setValue($product['minStock']);
-        $form['product[maxStock]']->setValue($product['maxStock']);
 
         $client->submit($form);
 
