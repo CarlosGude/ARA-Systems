@@ -25,9 +25,13 @@ class UserManagementTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_ADMIN);
 
-        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity' => 'user']));
-
-        $client->request('POST', $crawler->filter('.delete')->first()->attr('data-href'));
+        $client->request('GET', $this->generatePath('front_list', ['entity' => 'client']));
+        /** @var User $user */
+        $user = $this->getRepository(User::class)->findOneBy(['name' => 'Another User']);
+        $client->request('GET', $this->generatePath('front_delete', [
+            'entity' => 'user',
+            'id' => $user->getId()
+        ]));
 
         self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }

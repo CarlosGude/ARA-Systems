@@ -90,9 +90,13 @@ class CategoryManagementTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_ADMIN);
 
-        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity' => 'category']));
-
-        $client->request('POST', $crawler->filter('.delete')->first()->attr('data-href'));
+        $client->request('GET', $this->generatePath('front_list', ['entity' => 'category']));
+        /** @var Category $category */
+        $category = $this->getRepository(Category::class)->findOneBy(['name' => 'Another Category']);
+        $client->request('GET', $this->generatePath('front_delete', [
+            'entity' => 'category',
+            'id' => $category->getId()
+        ]));
 
         self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }

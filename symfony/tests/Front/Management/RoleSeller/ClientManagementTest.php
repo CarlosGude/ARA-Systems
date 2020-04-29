@@ -92,12 +92,14 @@ class ClientManagementTest extends BaseTest
     {
         $client = $this->login(parent::LOGIN_SELLER);
 
-        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity' => 'client']));
+        $client->request('GET', $this->generatePath('front_list', ['entity' => 'client']));
+        /** @var Client $clientData */
+        $clientData = $this->getRepository(Client::class)->findOneBy(['name' => 'Another Client']);
+        $client->request('GET', $this->generatePath('front_delete', [
+            'entity' => 'client',
+            'id' => $clientData->getId()
+        ]));
 
-        $client->request('POST', $crawler->filter('.delete')->first()->attr('data-href'));
-
-        $response = $client->getResponse();
-
-        self::assertEquals(Response::HTTP_FORBIDDEN, $response->getStatusCode());
+        self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 }
