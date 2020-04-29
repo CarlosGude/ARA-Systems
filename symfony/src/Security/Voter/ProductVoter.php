@@ -55,19 +55,19 @@ class ProductVoter extends AbstractVoter
             return true;
         }
 
-        if (parent::DELETE === $attribute && in_array(User::ROLE_DELETE_CATEGORY, $user->getRoles(), true)) {
+        if (parent::DELETE === $attribute && in_array(User::ROLE_DELETE_PRODUCT, $user->getRoles(), true)) {
             return true;
         }
 
-        if (parent::READ === $attribute && in_array(User::ROLE_READ_CATEGORY, $user->getRoles(), true)) {
+        if (parent::READ === $attribute && in_array(User::ROLE_READ_PRODUCT, $user->getRoles(), true)) {
             return true;
         }
 
-        if (parent::CREATE === $attribute && in_array(User::ROLE_CREATE_CATEGORY, $user->getRoles(), true)) {
+        if (parent::CREATE === $attribute && in_array(User::ROLE_CREATE_PRODUCT, $user->getRoles(), true)) {
             return true;
         }
 
-        if (parent::UPDATE === $attribute && in_array(User::ROLE_UPDATE_CATEGORY, $user->getRoles(), true)) {
+        if (parent::UPDATE === $attribute && in_array(User::ROLE_UPDATE_PRODUCT, $user->getRoles(), true)) {
             return true;
         }
 
