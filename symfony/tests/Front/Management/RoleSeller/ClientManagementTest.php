@@ -94,7 +94,7 @@ class ClientManagementTest extends BaseTest
 
         $client->request('GET', $this->generatePath('front_list', ['entity' => 'client']));
         /** @var Client $clientData */
-        $clientData = $this->getRepository(Client::class)->findOneBy(['name' => 'Another Client']);
+        $clientData = $this->getRepository(Client::class)->findOneBy(['name' => 'The Client']);
         $client->request('GET', $this->generatePath('front_delete', [
             'entity' => 'client',
             'id' => $clientData->getId()
