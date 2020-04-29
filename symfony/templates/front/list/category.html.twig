@@ -16,7 +16,7 @@
             </th>
             {% if is_granted('ROLE_GOD')  %}
             <th{% if pagination.isSorted('a.company') %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(pagination, 'companyTh' | trans, 'companyTh') }}
+                {{ knp_pagination_sortable(pagination, 'companyTh' | trans, 'company') }}
             </th>
             {% endif %}
             <th{% if pagination.isSorted('a.tax') %} class="sorted"{% endif %}>
@@ -51,7 +51,7 @@
                 </a>
             </td>
             <td>
-                {% if element.products.count == 0 %}
+                {% if element.products.count == 0 and is_granted('ROLE_GOD') %}
                     <a
                     href="#"
                     title="{{ 'delete' | trans }} {{ element.name }}"

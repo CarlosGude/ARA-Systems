@@ -63,14 +63,16 @@
                 </a>
             </td>
             <td>
-                <a
-                href="#"
-                title="{{ 'delete' | trans }} {{ element.name }}"
-                data-href="{{ delete }}"
-                onclick="myFunction('{{ delete }}')"
-                class="btn btn-danger delete">
-                    <i class="fas fa-trash edit"></i>
-                </a>
+                {% if is_granted('ROLE_GOD') %}
+                    <a
+                            href="#"
+                            title="{{ 'delete' | trans }} {{ element.name }}"
+                            data-href="{{ delete }}"
+                            onclick="myFunction('{{ delete }}')"
+                            class="btn btn-danger delete">
+                        <i class="fas fa-trash edit"></i>
+                    </a>
+                {% endif %}
             </td>
         </tr>
         {% endfor %}

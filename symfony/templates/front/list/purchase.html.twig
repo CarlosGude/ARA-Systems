@@ -16,23 +16,23 @@
             </th>
             {% if is_granted('ROLE_GOD')  %}
                 <th{% if pagination.isSorted('a.company') %} class="sorted"{% endif %}>
-                    {{ knp_pagination_sortable(pagination, 'companyTh' | trans, 'companyTh') }}
+                    {{ knp_pagination_sortable(pagination, 'companyTh' | trans, 'company') }}
                 </th>
             {% endif %}
             <th{% if pagination.isSorted('a.provider') %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(pagination, 'purchase.provider' | trans, 'name') }}
+                {{ knp_pagination_sortable(pagination, 'purchase.provider' | trans, 'provider') }}
             </th>
             <th{% if pagination.isSorted('a.total') %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(pagination, 'purchase.totalWithoutTaxes' | trans, 'name') }}
+                {{ knp_pagination_sortable(pagination, 'purchase.totalWithoutTaxes' | trans, 'total') }}
             </th>
             <th{% if pagination.isSorted('a.taxes') %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(pagination, 'purchase.taxes' | trans, 'email') }}
+                {{ knp_pagination_sortable(pagination, 'purchase.taxes' | trans, 'taxes') }}
             </th>
             <th>
                 {{ 'purchase.total' | trans}}
             </th>
             <th{% if pagination.isSorted('a.status') %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(pagination, 'purchase.status' | trans, 'email') }}
+                {{ knp_pagination_sortable(pagination, 'purchase.status' | trans, 'status') }}
             </th>
             <th scope="col" colspan="2"></th>
         </tr>

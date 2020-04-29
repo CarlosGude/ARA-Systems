@@ -16,7 +16,7 @@
             </th>
             {% if is_granted('ROLE_GOD')  %}
                 <th{% if pagination.isSorted('a.company') %} class="sorted"{% endif %}>
-                    {{ knp_pagination_sortable(pagination, 'companyTh' | trans, 'companyTh') }}
+                    {{ knp_pagination_sortable(pagination, 'companyTh' | trans, 'company') }}
                 </th>
             {% endif %}
             <th{% if pagination.isSorted('a.email') %} class="sorted"{% endif %}>
@@ -30,6 +30,7 @@
         <tr class="{{ entity }}-tr">
             {% set delete =  path('front_delete',{'entity': entity, 'id': element.id}) %}
             <td>{{ element.name }}</td>
+            <td>{{ element.email }}</td>
             {% if is_granted('ROLE_GOD')  %}
                 <td>{{ element.company }}</td>
             {% endif %}
@@ -40,6 +41,16 @@
                     class="btn btn-primary">
                     <i class="fas fa-edit edit"></i>
                 </a>
+                {% if is_granted('ROLE_GOD') %}
+                    <a
+                            href="#"
+                            title="{{ 'delete' | trans }} {{ element.name }}"
+                            data-href="{{ delete }}"
+                            onclick="myFunction('{{ delete }}')"
+                            class="btn btn-danger delete">
+                        <i class="fas fa-trash edit"></i>
+                    </a>
+                {% endif %}
             </td>
         </tr>
         {% endfor %}

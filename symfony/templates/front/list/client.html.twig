@@ -16,17 +16,17 @@
             </th>
             {% if is_granted('ROLE_GOD')  %}
                 <th{% if pagination.isSorted('a.company') %} class="sorted"{% endif %}>
-                    {{ knp_pagination_sortable(pagination, 'companyTh' | trans, 'companyTh') }}
+                    {{ knp_pagination_sortable(pagination, 'companyTh' | trans, 'company') }}
                 </th>
             {% endif %}
             <th{% if pagination.isSorted('a.tax') %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(pagination, 'client.identification' | trans, 'email') }}
+                {{ knp_pagination_sortable(pagination, 'client.identification' | trans, 'tax') }}
             </th>
             <th{% if pagination.isSorted('a.minStock') %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(pagination, 'client.email' | trans, 'email') }}
+                {{ knp_pagination_sortable(pagination, 'client.email' | trans, 'minStock') }}
             </th>
             <th{% if pagination.isSorted('a.maxStock') %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(pagination, 'client.address' | trans, 'email') }}
+                {{ knp_pagination_sortable(pagination, 'client.address' | trans, 'maxStock') }}
             </th>
             <th scope="col" colspan="2"></th>
         </tr>
@@ -51,6 +51,7 @@
                 </a>
             </td>
             <td>
+                {% if is_granted('ROLE_GOD') %}
                 <a
                 href="#"
                 title="{{ 'delete' | trans }} {{ element.name }}"
@@ -59,6 +60,7 @@
                 class="btn btn-danger delete">
                     <i class="fas fa-trash edit"></i>
                 </a>
+                {% endif %}
             </td>
         </tr>
         {% endfor %}
