@@ -37,13 +37,11 @@ class PurchaseManagementTest extends BaseTest
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'purchase']));
 
         $purchase = [
-            'reference' => 'Test',
             'provider' => $this->getRepository(Provider::class)->findOneBy(['name' => 'The Provider']),
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
 
-        $form['purchase[reference]']->setValue($purchase['reference']);
         $form['purchase[provider]']->setValue($purchase['provider']->getId());
 
         $client->submit($form);
@@ -51,11 +49,11 @@ class PurchaseManagementTest extends BaseTest
         $successLabel = $client->getCrawler()->filter('.alert-success')->first();
 
         self::assertEquals(
-            'Se ha creado una nueva compra con la referencia Test.',
+            'Se ha creado una nueva compra con la referencia 0000000004.',
             trim($successLabel->html())
         );
 
-        $provider = $this->getRepository(Purchase::class)->findOneBy(['reference' => 'Test']);
+        $provider = $this->getRepository(Purchase::class)->findOneBy(['reference' => '0000000004']);
 
         self::assertNotNull($provider);
     }

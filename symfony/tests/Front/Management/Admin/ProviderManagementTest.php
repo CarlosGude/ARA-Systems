@@ -87,8 +87,7 @@ class ProviderManagementTest extends BaseTest
 
         $crawler = $client->request('GET', $this->generatePath('front_list', ['entity' => 'provider']));
 
-        $client->request('POST', $crawler->filter('.delete')->first()->attr('data-href'));
-
-        self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
+        $count = $crawler->filter('.delete')->count();
+        self::assertEquals(0,$count);
     }
 }

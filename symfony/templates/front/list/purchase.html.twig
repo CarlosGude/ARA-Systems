@@ -12,7 +12,7 @@
         <thead>
         <tr>
             <th{% if pagination.isSorted('a.reference') %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(pagination, 'purchase.reference' | trans, 'name') }}
+                {{ knp_pagination_sortable(pagination, 'purchase.reference' | trans, 'reference') }}
             </th>
             {% if is_granted('ROLE_GOD')  %}
                 <th{% if pagination.isSorted('a.company') %} class="sorted"{% endif %}>

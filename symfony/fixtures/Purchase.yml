@@ -1,55 +1,55 @@
 App\Entity\Purchase:
   the_purchase:
-    reference: 'reference'
+    reference: '0000000001'
     user: '@the_user'
     company: '@the_company'
     provider: '@the_provider'
     status: 'pending'
 
   multi_line_purchase:
-    reference: 'm_l_pur'
+    reference: '0000000002'
     user: '@the_user'
     company: '@the_company'
     provider: '@the_provider'
     status: 'pending'
 
   multi_quantity_purchase:
-    reference: 'm_q_pur'
+    reference: '0000000003'
     user: '@the_user'
     company: '@another_company'
     provider: '@the_provider'
     status: 'pending'
 
   cancelled_purchase:
-    reference: 'cancelled'
+    reference: '0000000004'
     user: '@the_user'
     company: '@the_company'
     provider: '@the_provider'
     status: 'cancelled'
 
   incoming_purchase:
-    reference: 'incoming'
+    reference: '0000000005'
     user: '@the_user'
     company: '@the_company'
     provider: '@the_provider'
     status: 'incoming'
 
   another_purchase:
-    reference: 'pending'
+    reference: '0000000001'
     user: '@the_user'
     company: '@another_company'
     provider: '@another_provider'
     status: 'pending'
 
   another_cancelled_purchase:
-    reference: 'cancelled'
+    reference: '0000000002'
     user: '@the_user'
     company: '@another_company'
     provider: '@another_provider'
     status: 'cancelled'
 
   another_incoming_purchase:
-    reference: 'incoming'
+    reference: '0000000003'
     user: '@the_user'
     company: '@another_company'
     provider: '@another_provider'

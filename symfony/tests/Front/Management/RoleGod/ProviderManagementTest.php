@@ -4,6 +4,7 @@ namespace App\Tests\Front\Roles\RoleGod;
 
 use App\Entity\Provider;
 use App\Tests\Front\BaseTest;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProviderManagementTest extends BaseTest
 {
@@ -80,14 +81,4 @@ class ProviderManagementTest extends BaseTest
         );
     }
 
-    public function testRemoveProvider(): void
-    {
-        $client = $this->login(parent::LOGIN_GOD);
-
-        $crawler = $client->request('GET', $this->generatePath('front_list', ['entity' => 'provider']));
-
-        $client->request('POST', $crawler->filter('.delete')->first()->attr('data-href'));
-
-        self::assertEquals(10, $client->getCrawler()->filter('.provider-tr')->count());
-    }
 }

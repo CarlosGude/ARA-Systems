@@ -87,7 +87,6 @@ abstract class BaseTest extends WebTestCase
             ->setUser($user)
             ->setCompany($user->getCompany())
             ->setProvider($provider)
-            ->setReference($reference)
             ;
 
         $manager->persist($purchase);

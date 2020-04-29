@@ -95,8 +95,7 @@ class PurchaseLinesManagementTest extends BaseTest
     public function testEditAPurchaseLine(): void
     {
         $token = $this->getToken(parent::LOGIN_SELLER);
-        $product = $this->getProduct('Another Product', $this->getCompany('Another Company'));
-        $purchaseLine = $this->getPurchaseLine($product, 'pending');
+        $purchaseLine = $this->getPurchaseLine($this->getCompany(),'pending');
 
         static::createClient()->request(
             'PUT',
@@ -121,8 +120,7 @@ class PurchaseLinesManagementTest extends BaseTest
     public function testDeleteAPurchase(): void
     {
         $token = $this->getToken(parent::LOGIN_SELLER);
-        $product = $this->getProduct('Another Product', $this->getCompany('Another Company'));
-        $purchaseLine = $this->getPurchaseLine($product, 'pending');
+        $purchaseLine = $this->getPurchaseLine($this->getCompany(),'pending');
 
         static::createClient()->request('DELETE', parent::API.'purchase_lines/'.$purchaseLine->getId(), [
             'headers' => ['Authorization' => 'Bearer '.$token['token'], 'Content-Type' => 'application/json'],

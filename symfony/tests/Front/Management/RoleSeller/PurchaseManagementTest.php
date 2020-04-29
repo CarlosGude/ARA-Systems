@@ -42,12 +42,7 @@ class PurchaseManagementTest extends BaseTest
     public function testRemovePurchase(): void
     {
         $client = $this->login(parent::LOGIN_SELLER);
-        $this->createPurchase('carlos.sgude@gmail.com', 'The Provider', 'test');
-        /** @var Purchase $purchase */
-        $purchase = $this->getRepository(Purchase::class)->findOneBy([
-            'reference' => 'Test',
-            'company' => $this->getCompany('The Company'),
-        ]);
+        $purchase = $this->createPurchase('carlos.sgude@gmail.com', 'The Provider', 'test');
 
         $url = $this->generatePath('front_delete', ['entity' => 'purchase', 'id' => $purchase->getId()]);
         $client->request('POST', $url);

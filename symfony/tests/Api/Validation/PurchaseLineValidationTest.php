@@ -134,7 +134,7 @@ class PurchaseLineValidationTest extends BaseTest
     public function testProductShouldNotBeUpdated(): void
     {
         $product = $this->getProduct();
-        $purchaseLine = $this->getPurchaseLine($product);
+        $purchaseLine = $this->getPurchaseLine($this->getCompany(),'pending');
         $newProduct = $this->getProduct('Product 1');
 
         $response = static::createClient()->request(

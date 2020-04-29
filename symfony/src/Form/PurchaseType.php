@@ -19,7 +19,6 @@ class PurchaseType extends AbstractType
         /** @var Purchase $purchase */
         $purchase = $options['data'];
         $builder
-            ->add('reference', TextType::class, ['label' => 'purchase.reference'])
             ->add('provider', EntityType::class, [
                 'class' => Provider::class,
                 'attr' => ['class' => 'select'],

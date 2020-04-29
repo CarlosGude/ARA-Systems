@@ -122,8 +122,7 @@ class PurchaseLinesManagementTest extends BaseTest
      */
     public function testEditAPurchaseLine(): void
     {
-        $product = $this->getProduct();
-        $purchaseLine = $this->getPurchaseLine($product);
+        $purchaseLine = $this->getPurchaseLine($this->getCompany());
 
         $response = static::createClient()->request(
             'PUT',
@@ -148,8 +147,8 @@ class PurchaseLinesManagementTest extends BaseTest
      */
     public function testDeleteAPurchase(): void
     {
-        $product = $this->getProduct();
-        $purchaseLine = $this->getPurchaseLine($product);
+
+        $purchaseLine = $this->getPurchaseLine($this->getCompany());
 
         static::createClient()->request('DELETE', parent::API.'purchase_lines/'.$purchaseLine->getId(), [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],

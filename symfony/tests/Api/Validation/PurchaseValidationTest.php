@@ -86,50 +86,6 @@ class PurchaseValidationTest extends BaseTest
     /**
      * @throws TransportExceptionInterface
      */
-    public function testReferenceIsRequired(): void
-    {
-        $purchase = $this->getPurchaseData();
-        unset($purchase['reference']);
-
-        $response = static::createClient()->request('POST', parent::API.'purchases', [
-            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
-
-            'body' => json_encode($purchase),
-        ]);
-        $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
-
-        self::assertResponseStatusCodeSame(400, 'The response is not 400');
-        $this->assertEquals(
-            'reference: Este valor no debería estar vacío.',
-            $response['hydra:description']
-        );
-    }
-
-    /**
-     * @throws TransportExceptionInterface
-     */
-    public function testTotalShouldNotBeZero(): void
-    {
-        $purchase = $this->getPurchaseData();
-        unset($purchase['reference']);
-
-        $response = static::createClient()->request('POST', parent::API.'purchases', [
-            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
-
-            'body' => json_encode($purchase),
-        ]);
-        $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
-
-        self::assertResponseStatusCodeSame(400, 'The response is not 400');
-        $this->assertEquals(
-            'reference: Este valor no debería estar vacío.',
-            $response['hydra:description']
-        );
-    }
-
-    /**
-     * @throws TransportExceptionInterface
-     */
     public function testStatusShouldBeValid(): void
     {
         $purchase = $this->getPurchaseData();

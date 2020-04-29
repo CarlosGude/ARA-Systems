@@ -50,6 +50,7 @@ abstract class BaseTest extends ApiTestCase
     }
 
     /**
+     * @param DateTime $dateTime
      * @throws Exception
      */
     protected function assertRecentlyDateTime(DateTime $dateTime): void
@@ -135,9 +136,11 @@ abstract class BaseTest extends ApiTestCase
     }
 
     /**
-     * @param string $reference
+     * @param Company|null $company
+     * @param string $status
+     * @return Purchase|null
      */
-    protected function getPurchase(Company $company = null, $reference = 'reference'): ?Purchase
+    protected function getPurchase(Company $company = null, string $status = 'pending'): ?Purchase
     {
         (!$company && $company = $this->getCompany());
 
@@ -146,33 +149,28 @@ abstract class BaseTest extends ApiTestCase
             ->getRepository(Purchase::class)
             ->findOneBy([
                 'company' => $company,
-                'reference' => $reference,
+                'status' => $status,
             ]);
 
         return $purchase;
     }
 
     /**
-     * @param string $reference
+     * @param Company $company
+     * @param string $status
+     * @return PurchaseLine|null
      */
-    protected function getPurchaseLine(Product $product, $reference = 'reference'): ?PurchaseLine
+    protected function getPurchaseLine(Company $company, string $status = 'pending'): ?PurchaseLine
     {
-        $purchase = $this->getPurchase($product->getCompany(), $reference);
+        $purchase = $this->getPurchase($company, $status);
 
-        /** @var PurchaseLine $purchaseLine */
-        $purchaseLine = static::$container->get('doctrine')
-            ->getRepository(PurchaseLine::class)
-            ->findOneBy([
-                'product' => $product,
-                'purchase' => $purchase,
-            ]);
-
-        return $purchaseLine;
+        return $purchase->getPurchaseLines()->first();
     }
 
     /**
      * @param string $name
      *
+     * @param Company|null $company
      * @return PurchaseLine|null
      */
     protected function getPurchaseClient($name = 'The Client', Company $company = null): ?Client

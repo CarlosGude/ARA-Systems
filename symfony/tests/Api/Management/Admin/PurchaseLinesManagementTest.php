@@ -47,7 +47,7 @@ class PurchaseLinesManagementTest extends BaseTest
         /** @var PurchaseLine $purchaseLine */
         $purchaseLine = static::$container->get('doctrine')
             ->getRepository(PurchaseLine::class)
-            ->findOneBy(['product' => $this->getProduct('Another Product', $this->getCompany('Another Company'))]);
+            ->findOneBy(['company' => $this->getCompany('Another Company')]);
 
         $response = static::createClient()->request(
             'GET',
@@ -112,8 +112,9 @@ class PurchaseLinesManagementTest extends BaseTest
     public function testEditAPurchaseLine(): void
     {
         $token = $this->getToken(parent::LOGIN_ADMIN);
-        $product = $this->getProduct('Another Product', $this->getCompany('Another Company'));
-        $purchaseLine = $this->getPurchaseLine($product, 'pending');
+        $purchaseLine = static::$container->get('doctrine')
+            ->getRepository(PurchaseLine::class)
+            ->findOneBy(['company' => $this->getCompany('Another Company')]);
 
         $response = static::createClient()->request(
             'PUT',
@@ -142,8 +143,10 @@ class PurchaseLinesManagementTest extends BaseTest
     public function testDeleteAPurchaseLine(): void
     {
         $token = $this->getToken(parent::LOGIN_ADMIN);
-        $product = $this->getProduct('Another Product', $this->getCompany('Another Company'));
-        $purchaseLine = $this->getPurchaseLine($product, 'pending');
+
+        $purchaseLine = static::$container->get('doctrine')
+            ->getRepository(PurchaseLine::class)
+            ->findOneBy(['company' => $this->getCompany('Another Company')]);
 
         static::createClient()->request('DELETE', parent::API.'purchase_lines/'.$purchaseLine->getId(), [
             'headers' => ['Authorization' => 'Bearer '.$token['token'], 'Content-Type' => 'application/json'],

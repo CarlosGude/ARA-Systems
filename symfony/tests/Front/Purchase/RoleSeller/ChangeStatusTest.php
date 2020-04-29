@@ -20,7 +20,7 @@ class ChangeStatusTest extends BaseTest
 
         /** @var Purchase $purchase */
         $purchase = $this->getRepository(Purchase::class)->findOneBy([
-            'reference' => 'reference',
+            'reference' => '0000000001',
             'company' => $this->getCompany('The Company'),
         ]);
 
@@ -39,7 +39,7 @@ class ChangeStatusTest extends BaseTest
 
         /** @var Purchase $purchase */
         $purchase = $this->getRepository(Purchase::class)->findOneBy([
-            'reference' => 'reference',
+            'reference' => '0000000001',
             'company' => $this->getCompany('The Company'),
         ]);
 
@@ -58,7 +58,7 @@ class ChangeStatusTest extends BaseTest
 
         /** @var Purchase $purchase */
         $purchase = $this->getRepository(Purchase::class)->findOneBy([
-            'reference' => 'm_l_pur',
+            'reference' => '0000000001',
             'company' => $this->getCompany('The Company'),
         ]);
 
