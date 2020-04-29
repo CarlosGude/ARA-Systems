@@ -170,8 +170,8 @@ class FrontController extends AbstractController
         }
 
         $data = ($this->isGranted(AbstractUserRoles::ROLE_GOD))
-            ? $em->getRepository($class)->findAll()
-            : $em->getRepository($class)->findBy(['company' => $user->getCompany()], [$sort => $direction]);
+            ? $em->getRepository($class)->findBy([], [$sort => strtoupper($direction)])
+            : $em->getRepository($class)->findBy(['company' => $user->getCompany()], [$sort => strtoupper($direction)]);
 
         $pagination = $paginator->paginate($data, $page, 10);
 
