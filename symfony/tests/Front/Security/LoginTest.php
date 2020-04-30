@@ -2,6 +2,7 @@
 
 namespace App\Tests\Front\Security;
 
+use App\Entity\Company;
 use App\Tests\Front\BaseTest;
 
 class LoginTest extends BaseTest
@@ -30,5 +31,15 @@ class LoginTest extends BaseTest
         $errorSpan = $client->getCrawler()->filter('.alert-danger')->first();
 
         self::assertEquals('Credenciales no válidas.', $errorSpan->html());
+    }
+
+    public function testCompanyPersonalizedLogin(): void
+    {
+        /** @var Company $company */
+        $company = $this->getRepository(Company::class)->findOneBy(['name'=> 'The Company']);
+        $this->login(parent::LOGIN_GOD, $company);
+
+        self::assertResponseIsSuccessful();
+        self::assertSelectorTextContains('h1', 'Hola, carlos.sgude@gmail.com.');
     }
 }

@@ -45,12 +45,18 @@ abstract class BaseTest extends WebTestCase
         return $manager->getRepository($class);
     }
 
-    protected function login(array $user): KernelBrowser
+    protected function login(array $user,Company $company = null): KernelBrowser
     {
         $client = static::createClient();
         $client->followRedirects();
 
-        $crawler = $client->request('GET', $this->generatePath('app_login', []));
+        $url = $company
+            ? $this->generatePath('app_login_company',[
+                'company' => $company->getSlug()
+            ])
+            : $this->generatePath('app_login', []);
+
+        $crawler = $client->request('GET', $url);
 
         $form = $crawler->selectButton('Acceder')->form();
 
