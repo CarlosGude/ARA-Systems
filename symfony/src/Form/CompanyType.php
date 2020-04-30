@@ -6,6 +6,7 @@ use App\Entity\Company;
 use App\EventSubscriber\ImageFormSubscriber;
 use EasyCorp\Bundle\EasyAdminBundle\Form\Type\FileUploadType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -28,6 +29,10 @@ class CompanyType extends AbstractType
                 'required'=> false,
                 'constraints' => [new Image()]
             ])
+            ->add('phone',TextType::class,['label'=> 'company.phone'])
+            ->add('email',EmailType::class,['label'=> 'company.email'])
+            ->add('address',EmailType::class,['label'=> 'company.address'])
+            ->add('cif',EmailType::class,['label'=> 'company.cif'])
             ->add('description', TextareaType::class, ['label' => 'company.description', 'required' => false])
             ->add('submit', SubmitType::class, ['label' => 'save'])
             ->addEventListener(FormEvents::POST_SUBMIT,[ImageFormSubscriber::class,'postSubmit'])

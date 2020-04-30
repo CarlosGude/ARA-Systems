@@ -1,15 +1,27 @@
 App\Entity\Company:
   another_company:
     name: 'Another Company'
+    email: '<email()>'
+    phone: '666666666'
+    address: 'Fake st 123'
+    cif: '78451236q'
     createdAt: '<dateTimeBetween("-200 days", "now")>'
     updatedAt: '<dateTimeBetween($createdAt, "now")>'
 
   the_company:
     name: 'The Company'
+    email: '<email()>'
+    phone: '666666666'
+    address: 'Fake st 123'
+    cif: '78451236q'
     createdAt: '<dateTimeBetween("-200 days", "now")>'
     updatedAt: '<dateTimeBetween($createdAt, "now")>'
 
   the_company_3:
     name: 'The Company 3'
+    email: '<email()>'
+    phone: '666666666'
+    address: 'Fake st 123'
+    cif: '78451236q'
     createdAt: '<dateTimeBetween("-200 days", "now")>'
     updatedAt: '<dateTimeBetween($createdAt, "now")>'

@@ -9,7 +9,16 @@ App\Entity\Company:
     description:
       groups: ['company_read', 'company_write']
 
-    image:
+    email:
+      groups: ['company_read', 'company_write']
+
+    phone:
+      groups: ['company_read', 'company_write']
+
+    address:
+      groups: ['company_read', 'company_write']
+
+    cif:
       groups: ['company_read', 'company_write']
 
     createdAt:

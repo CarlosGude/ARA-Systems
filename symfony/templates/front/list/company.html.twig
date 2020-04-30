@@ -12,8 +12,19 @@
         <thead>
         <tr>
             <th{% if pagination.isSorted('a.name') %} class="sorted"{% endif %}>
-                {{ knp_pagination_sortable(pagination, 'category.name' | trans, 'name') }}
+                {{ knp_pagination_sortable(pagination, 'company.name' | trans, 'name') }}
             </th>
+            <th{% if pagination.isSorted('a.name') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'company.email' | trans, 'email') }}
+            </th>
+            <th{% if pagination.isSorted('a.name') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'company.phone' | trans, 'phone') }}
+            </th>
+            <th{% if pagination.isSorted('a.name') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'company.cif' | trans, 'cif') }}
+            </th>
+            <th{% if pagination.isSorted('a.name') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'company.address' | trans, 'address') }}
             </th>
             <th scope="col" colspan="2"></th>
         </tr>
@@ -23,6 +34,10 @@
         <tr class="{{ entity }}-tr">
             {% set delete =  path('front_delete',{'entity': entity, 'id': element.id}) %}
             <td>{{ element.name }}</td>
+            <td>{{ element.email }}</td>
+            <td>{{ element.phone }}</td>
+            <td>{{ element.cif }}</td>
+            <td>{{ element.address }}</td>
             <td>
                 <a
                     title="{{ 'edit' | trans }} {{ element.name }}"

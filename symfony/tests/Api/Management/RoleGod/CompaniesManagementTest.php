@@ -85,7 +85,14 @@ class CompaniesManagementTest extends BaseTest
      */
     public function testAddAnCompany(): void
     {
-        $company = ['name' => 'test', 'description' => 'test'];
+        $company = [
+            'name' => 'test',
+            'description' => 'test',
+            'email' => 'fake@email.com',
+            'phone' => '698745321',
+            'address' => 'Fake st 123',
+            'cif' => '36521478J',
+        ];
 
         $response = static::createClient()->request('POST', parent::API.'companies', [
             'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],

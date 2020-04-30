@@ -97,6 +97,26 @@ class Company implements ImageInterface
      */
     private $clients;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $address;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $cif;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $phone;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $email;
+
     public function __construct()
     {
         $this->createdAt = new DateTime();
@@ -415,6 +435,54 @@ class Company implements ImageInterface
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getCif(): ?string
+    {
+        return $this->cif;
+    }
+
+    public function setCif(string $cif): self
+    {
+        $this->cif = $cif;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }

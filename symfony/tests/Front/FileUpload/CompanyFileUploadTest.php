@@ -17,12 +17,22 @@ class CompanyFileUploadTest extends BaseTest
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'company']));
         $company = [
             'name' => 'Test Company',
+            'description' => 'test',
+            'email' => 'fake@email.com',
+            'phone' => '987456321',
+            'address' => 'Fake st 123',
+            'cif' => '32145678J',
             'image' => $this->getFile('logo.png','company.png')
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['company[name]']->setValue($company['name']);
+        $form['company[description]']->setValue($company['description']);
+        $form['company[email]']->setValue($company['email']);
+        $form['company[phone]']->setValue($company['phone']);
+        $form['company[address]']->setValue($company['address']);
+        $form['company[cif]']->setValue($company['cif']);
         $form['company[image]']->setValue($company['image']);
 
         $client->submit($form);

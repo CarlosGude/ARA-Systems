@@ -27,11 +27,21 @@ class CompanyManagementTest extends BaseTest
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'company']));
         $company = [
             'name' => 'Test Company',
+            'description' => 'test',
+            'email' => 'fake@email.com',
+            'phone' => '698745321',
+            'address' => 'Fake st 123',
+            'cif' => '36521478J',
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['company[name]']->setValue($company['name']);
+        $form['company[description]']->setValue($company['description']);
+        $form['company[email]']->setValue($company['email']);
+        $form['company[phone]']->setValue($company['phone']);
+        $form['company[address]']->setValue($company['address']);
+        $form['company[cif]']->setValue($company['cif']);
 
         $client->submit($form);
 
