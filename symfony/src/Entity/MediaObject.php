@@ -52,7 +52,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * )
  * @Vich\Uploadable
  */
-class MediaObject
+class MediaObject implements \Serializable
 {
     /**
      * @var string|null
@@ -164,4 +164,21 @@ class MediaObject
 
         return $this;
     }
+
+    /** @see \Serializable::serialize() */
+    public function serialize(): string
+    {
+        return serialize(array(
+            $this->id,
+            $this->filePath,
+
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+
+    }
+
 }
