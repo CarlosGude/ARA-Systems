@@ -18,6 +18,8 @@ security:
       security: false
 
     api:
+      logout:
+        path: app_logout
       pattern: ^/api/v1
       stateless: true
       anonymous: true
@@ -27,7 +29,7 @@ security:
     main:
       anonymous: true
       logout:
-        path: logout
+        path: app_logout
       json_login:
         check_path: /authentication_token
         provider: app_user_provider

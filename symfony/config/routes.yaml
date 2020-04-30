@@ -2,5 +2,6 @@ authentication_token:
   path: /authentication_token
   methods: ['POST']
 
-logout:
+app_logout:
   path: /logout
+  methods: GET

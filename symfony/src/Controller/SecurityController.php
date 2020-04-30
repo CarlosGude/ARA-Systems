@@ -11,10 +11,12 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/{company}", name="app_login")
+     * @Route("/", name="app_login")
+     * @Route("/company/{company}", name="app_login_company")
      */
     public function login(AuthenticationUtils $authenticationUtils, string $company = null): Response
     {
+
         if ($this->getUser()) {
             return $this->redirectToRoute('front_dashboard');
         }

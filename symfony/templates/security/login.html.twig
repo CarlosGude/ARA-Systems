@@ -8,10 +8,10 @@
 <div class="wrapper fadeInDown">
     <div id="formContent">
         <div class="fadeIn first">
-            {% if company is not null %}
+            {% if company is null %}
             <img class="img" style="margin: 10px" src="{{ asset('assets/img/logo.jpg') }}" id="icon" alt="User Icon" />
             {% elseif company.image is not null %}
-            <img id="logo" src="{{ vich_uploader_asset(company.image, 'file') }}" alt="{{ element }}" width="100%"/>
+            <img id="logo" src="{{ vich_uploader_asset(company.image, 'file') }}" alt="{{ company }}" width="100%"/>
             {% endif %}
         </div>
         <form method="post">
