@@ -8,14 +8,25 @@
 <div class="wrapper fadeInDown">
     <div id="formContent">
         <div class="fadeIn first">
+            {% if company is not null %}
             <img class="img" style="margin: 10px" src="{{ asset('assets/img/logo.jpg') }}" id="icon" alt="User Icon" />
+            {% elseif company.image is not null %}
+            <img id="logo" src="{{ vich_uploader_asset(company.image, 'file') }}" alt="{{ element }}" width="100%"/>
+            {% endif %}
         </div>
         <form method="post">
             {% if error %}
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
 
-            <h1 class="h3 mb-3 font-weight-normal">{{ 'login.welcome' | trans }}</h1>
+            <h1 class="h3 mb-3 font-weight-normal">
+                {% if company is not null %}
+                    {{ company }}
+                {% else %}
+                    {{ 'login.welcome' | trans }}
+                {% endif %}
+            </h1>
+
             <input type="email" id="email" value="{{ last_username }}" class="fadeIn second" name="email" placeholder="{{ 'user.email' | trans }}"  required autofocus>
             <input type="password" id="password" required class="fadeIn third" name="password" placeholder="{{ 'user.password' | trans }}">
 
