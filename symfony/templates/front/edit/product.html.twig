@@ -19,6 +19,12 @@
                     {{ form_row(form.description) }}
                     {{ form_row(form.category) }}
                     {{ form_row(form.image) }}
+                    <div class="row">
+                        <div class="col-md-4">{{ form_row(form.productHeight) }}</div>
+                        <div class="col-md-4">{{ form_row(form.productLength) }}</div>
+                        <div class="col-md-4">{{ form_row(form.productWidth) }}</div>
+                        <div class="col-md-12">{{ form_row(form.kilograms) }}</div>
+                    </div>
                     {% if element.image is not null %}
                         <img id="principal" src="{{ vich_uploader_asset(element.image, 'file') }}" alt="{{ element }}" width="70%"/>
                         <a
@@ -43,7 +49,7 @@
                     {{ form_row(form.tax) }}
                 </div>
             </div>
-            <div class="card col-md-4">
+            <div class="card col-md-3" style="margin-right: -10px">
                 <div class="card-body">
                     <h5 class="card-title">{{ 'product.providers' | trans }}</h5>
                     {{ form_row(form.providers) }}

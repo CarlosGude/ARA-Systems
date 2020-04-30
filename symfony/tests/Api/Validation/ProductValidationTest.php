@@ -196,10 +196,7 @@ class ProductValidationTest extends BaseTest
 
         $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
 
-        $this->assertEquals(
-            'price: Este valor debería ser mayor que 0.',
-            $response['hydra:description']
-        );
+        $this->assertEquals('price: Este valor debería ser mayor que 0.', $response['hydra:description']);
     }
 
     /**
@@ -219,8 +216,6 @@ class ProductValidationTest extends BaseTest
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
             'category' => parent::API.'categories/'.$category->getId(),
             'user' => parent::API.'users/'.$this->getGodUser()->getId(),
-            'minStock' => 0,
-            'maxStock' => 100,
         ];
 
         $response = static::createClient()->request('POST', parent::API.'products', [
@@ -249,5 +244,269 @@ class ProductValidationTest extends BaseTest
             $response['tax'],
             'The expected name was '.$category->getTax().' but '.$response['tax'].' has found'
         );
+    }
+
+    /**
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
+    public function testProductLengthShouldBeAFloat(): void
+    {
+        $category = $this->getCategory();
+
+        $product = [
+            'name' => 'test',
+            'description' => 'test',
+            'price' => 20,
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
+            'category' => parent::API.'categories/'.$category->getId(),
+            'user' => parent::API.'users/'.$this->getGodUser()->getId(),
+            'productLength'=> 'invalid'
+        ];
+
+        $response = static::createClient()->request('POST', parent::API.'products', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
+
+            'body' => json_encode($product),
+        ]);
+
+        $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
+
+        self::assertResponseStatusCodeSame(400, 'The response is not 204');
+
+        $this->assertEquals('The type of the "productLength" attribute must be "float", "string" given.', $response['hydra:description']);
+    }
+
+    /**
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
+    public function testProductHeightShouldBeAFloat(): void
+    {
+        $category = $this->getCategory();
+
+        $product = [
+            'name' => 'test',
+            'description' => 'test',
+            'price' => 20,
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
+            'category' => parent::API.'categories/'.$category->getId(),
+            'user' => parent::API.'users/'.$this->getGodUser()->getId(),
+            'productHeight'=> 'invalid'
+        ];
+
+        $response = static::createClient()->request('POST', parent::API.'products', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
+
+            'body' => json_encode($product),
+        ]);
+
+        $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
+
+        self::assertResponseStatusCodeSame(400, 'The response is not 204');
+
+        $this->assertEquals('The type of the "productHeight" attribute must be "float", "string" given.', $response['hydra:description']);
+    }
+
+    /**
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
+    public function testProductWidthShouldBeAFloat(): void
+    {
+        $category = $this->getCategory();
+
+        $product = [
+            'name' => 'test',
+            'description' => 'test',
+            'price' => 20,
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
+            'category' => parent::API.'categories/'.$category->getId(),
+            'user' => parent::API.'users/'.$this->getGodUser()->getId(),
+            'productWidth'=> 'invalid'
+        ];
+
+        $response = static::createClient()->request('POST', parent::API.'products', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
+
+            'body' => json_encode($product),
+        ]);
+
+        $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
+
+        self::assertResponseStatusCodeSame(400, 'The response is not 204');
+
+        $this->assertEquals('The type of the "productWidth" attribute must be "float", "string" given.', $response['hydra:description']);
+    }
+
+    /**
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
+    public function testProductWidthShouldBeAPositiveFloat(): void
+    {
+        $category = $this->getCategory();
+
+        $product = [
+            'name' => 'test',
+            'description' => 'test',
+            'price' => 20,
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
+            'category' => parent::API.'categories/'.$category->getId(),
+            'user' => parent::API.'users/'.$this->getGodUser()->getId(),
+            'productWidth'=> '-2'
+        ];
+
+        $response = static::createClient()->request('POST', parent::API.'products', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
+
+            'body' => json_encode($product),
+        ]);
+
+        $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
+
+        self::assertResponseStatusCodeSame(400, 'The response is not 204');
+
+        $this->assertEquals('The type of the "productWidth" attribute must be "float", "string" given.', $response['hydra:description']);
+    }
+
+    /**
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
+    public function testProductLengthShouldBeAPositiveFloat(): void
+    {
+        $category = $this->getCategory();
+
+        $product = [
+            'name' => 'test',
+            'description' => 'test',
+            'price' => 20,
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
+            'category' => parent::API.'categories/'.$category->getId(),
+            'user' => parent::API.'users/'.$this->getGodUser()->getId(),
+            'productLength'=> '-1'
+        ];
+
+        $response = static::createClient()->request('POST', parent::API.'products', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
+
+            'body' => json_encode($product),
+        ]);
+
+        $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
+
+        self::assertResponseStatusCodeSame(400, 'The response is not 204');
+
+        $this->assertEquals('The type of the "productLength" attribute must be "float", "string" given.', $response['hydra:description']);
+    }
+
+    /**
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
+    public function testProductHeightShouldBeAPositiveFloat(): void
+    {
+        $category = $this->getCategory();
+
+        $product = [
+            'name' => 'test',
+            'description' => 'test',
+            'price' => 20,
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
+            'category' => parent::API.'categories/'.$category->getId(),
+            'user' => parent::API.'users/'.$this->getGodUser()->getId(),
+            'productHeight'=> '-3'
+        ];
+
+        $response = static::createClient()->request('POST', parent::API.'products', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
+
+            'body' => json_encode($product),
+        ]);
+
+        $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
+
+        self::assertResponseStatusCodeSame(400, 'The response is not 204');
+
+        $this->assertEquals('The type of the "productHeight" attribute must be "float", "string" given.', $response['hydra:description']);
+    }
+
+    /**
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
+    public function testProductKilogramsShouldBeAPositiveFloat(): void
+    {
+        $category = $this->getCategory();
+
+        $product = [
+            'name' => 'test',
+            'description' => 'test',
+            'price' => 20,
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
+            'category' => parent::API.'categories/'.$category->getId(),
+            'user' => parent::API.'users/'.$this->getGodUser()->getId(),
+            'kilograms'=> '-3'
+        ];
+
+        $response = static::createClient()->request('POST', parent::API.'products', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
+
+            'body' => json_encode($product),
+        ]);
+
+        $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
+
+        self::assertResponseStatusCodeSame(400, 'The response is not 204');
+
+        $this->assertEquals('The type of the "kilograms" attribute must be "float", "string" given.', $response['hydra:description']);
+    }
+
+    /**
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
+    public function testProductKilogramsShouldBeAFloat(): void
+    {
+        $category = $this->getCategory();
+
+        $product = [
+            'name' => 'test',
+            'description' => 'test',
+            'price' => 20,
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
+            'category' => parent::API.'categories/'.$category->getId(),
+            'user' => parent::API.'users/'.$this->getGodUser()->getId(),
+            'kilograms'=> 'integer'
+        ];
+
+        $response = static::createClient()->request('POST', parent::API.'products', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
+
+            'body' => json_encode($product),
+        ]);
+
+        $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
+
+        self::assertResponseStatusCodeSame(400, 'The response is not 204');
+
+        $this->assertEquals('The type of the "kilograms" attribute must be "float", "string" given.', $response['hydra:description']);
     }
 }

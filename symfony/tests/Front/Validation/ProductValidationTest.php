@@ -158,4 +158,116 @@ class ProductValidationTest extends BaseTest
         self::assertEquals(0,$crawler->filter('img#avatar')->count());
         self::assertEquals('El archivo no es una imagen válida.', $errorSpan->html());
     }
+
+    public function testProductSizesShouldBeFloat(): void
+    {
+        $client = $this->login(parent::LOGIN_GOD);
+        /** @var Product $product */
+        $product = $this->getRepository(Product::class)->findOneBy(['name' => 'The Product']);
+
+        $crawler = $client->request(
+            'GET',
+            $this->generatePath('front_edit', ['entity' => 'product','id' => $product->getId()]
+            ));
+
+        $product = [
+            'productHeight' => 'Test',
+            'productLength' => 'Test',
+            'productWidth' => 'Test',
+        ];
+
+        $form = $crawler->selectButton('Guardar')->form();
+
+        $form['product[productHeight]']->setValue($product['productHeight']);
+        $form['product[productLength]']->setValue($product['productLength']);
+        $form['product[productWidth]']->setValue($product['productWidth']);
+
+        $client->submit($form);
+
+        $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
+
+        self::assertEquals('Este valor no es válido.', $errorSpan->html());
+    }
+
+    public function testProductSizesShouldBePositiveFloat(): void
+    {
+        $client = $this->login(parent::LOGIN_GOD);
+        /** @var Product $product */
+        $product = $this->getRepository(Product::class)->findOneBy(['name' => 'The Product']);
+
+        $crawler = $client->request(
+            'GET',
+            $this->generatePath('front_edit', ['entity' => 'product','id' => $product->getId()]
+            ));
+
+        $product = [
+            'productHeight' => '-20',
+            'productLength' => '-20',
+            'productWidth' => '-20',
+        ];
+
+        $form = $crawler->selectButton('Guardar')->form();
+
+        $form['product[productHeight]']->setValue($product['productHeight']);
+        $form['product[productLength]']->setValue($product['productLength']);
+        $form['product[productWidth]']->setValue($product['productWidth']);
+
+        $client->submit($form);
+
+        $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
+
+        self::assertEquals('Este valor debería ser mayor que 0.', $errorSpan->html());
+    }
+
+    public function testProductWeightShouldBeFloat(): void
+    {
+        $client = $this->login(parent::LOGIN_GOD);
+        /** @var Product $product */
+        $product = $this->getRepository(Product::class)->findOneBy(['name' => 'The Product']);
+
+        $crawler = $client->request(
+            'GET',
+            $this->generatePath('front_edit', ['entity' => 'product','id' => $product->getId()]
+            ));
+
+        $product = [
+            'kilograms' => 'Test',
+        ];
+
+        $form = $crawler->selectButton('Guardar')->form();
+
+        $form['product[kilograms]']->setValue($product['kilograms']);
+
+        $client->submit($form);
+
+        $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
+
+        self::assertEquals('Este valor no es válido.', $errorSpan->html());
+    }
+
+    public function testProductWeightShouldBePositiveFloat(): void
+    {
+        $client = $this->login(parent::LOGIN_GOD);
+        /** @var Product $product */
+        $product = $this->getRepository(Product::class)->findOneBy(['name' => 'The Product']);
+
+        $crawler = $client->request(
+            'GET',
+            $this->generatePath('front_edit', ['entity' => 'product','id' => $product->getId()]
+            ));
+
+        $product = [
+            'kilograms' => '-20',
+        ];
+
+        $form = $crawler->selectButton('Guardar')->form();
+
+        $form['product[kilograms]']->setValue($product['kilograms']);
+
+        $client->submit($form);
+
+        $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
+
+        self::assertEquals('Este valor debería ser mayor que 0.', $errorSpan->html());
+    }
 }

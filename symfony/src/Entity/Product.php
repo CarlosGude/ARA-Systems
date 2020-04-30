@@ -122,6 +122,26 @@ class Product implements EntityInterface, ImageInterface
      */
     private $purchaseLines;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $productLength;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $productHeight;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $productWidth;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $kilograms;
+
     public function __construct()
     {
         $this->createdAt = new DateTime();
@@ -426,6 +446,54 @@ class Product implements EntityInterface, ImageInterface
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getProductLength(): ?float
+    {
+        return $this->productLength;
+    }
+
+    public function setProductLength(float $productLength): self
+    {
+        $this->productLength = $productLength;
+
+        return $this;
+    }
+
+    public function getProductHeight(): ?float
+    {
+        return $this->productHeight;
+    }
+
+    public function setProductHeight(?float $productHeight): self
+    {
+        $this->productHeight = $productHeight;
+
+        return $this;
+    }
+
+    public function getProductWidth(): ?float
+    {
+        return $this->productWidth;
+    }
+
+    public function setProductWidth(?float $productWidth): self
+    {
+        $this->productWidth = $productWidth;
+
+        return $this;
+    }
+
+    public function getKilograms(): ?float
+    {
+        return $this->kilograms;
+    }
+
+    public function setKilograms(?float $kilograms): self
+    {
+        $this->kilograms = $kilograms;
 
         return $this;
     }

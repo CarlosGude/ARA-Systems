@@ -32,6 +32,18 @@ App\Entity\Product:
     company:
       groups: ['product_read', 'product_write']
 
+    productHeight:
+      groups: ['product_read', 'product_write']
+
+    productWidth:
+      groups: ['product_read', 'product_write']
+
+    productLength:
+      groups: ['product_read', 'product_write']
+
+    kilograms:
+      groups: ['product_read', 'product_write']
+
     providers:
       groups: ['product_read', 'product_write']
 

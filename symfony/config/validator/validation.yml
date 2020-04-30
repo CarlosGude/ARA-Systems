@@ -12,6 +12,7 @@ App\Entity\User:
     profile:
       - NotBlank: ~
       - Choice: { callback: getProfiles }
+
 App\Entity\Category:
   properties:
     name:
@@ -73,7 +74,14 @@ App\Entity\Product:
       - GreaterThanOrEqual: { propertyPath: minStock }
     price:
       - GreaterThan: 0
-
+    kilograms:
+      - GreaterThan: 0
+    productHeight:
+      - GreaterThan: 0
+    productLength:
+      - GreaterThan: 0
+    productWidth:
+      - GreaterThan: 0
 App\Entity\Purchase:
   properties:
     provider:

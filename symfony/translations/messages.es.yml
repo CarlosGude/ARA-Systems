@@ -82,6 +82,12 @@ product:
   principal: Imagen principal
   basic: Datos del producto
   priceData: Precio y stock
+  productLength: Largo
+  productHeight: Alto
+  productWidth: Ancho
+  sizeHelp: Debe de ser indicado en metros.
+  kilograms: Peso
+  kilogramsHelp: El peso debe ser indicado en KG
 
 purchase:
   product: Producto
