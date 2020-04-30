@@ -9,5 +9,14 @@
         {{ element.name }}
     </h1>
 
-    {{ form(form) }}
+    <div class="row">
+        <div class="col-md-10">
+            {{ form(form) }}
+        </div>
+        {% if element.image is not null %}
+            <div class="col-md-2">
+                <img id="avatar" src="{{ vich_uploader_asset(element.image, 'file') }}" alt="{{ element }}" width="100%"/>
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}

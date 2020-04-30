@@ -30,11 +30,12 @@ user:
   password: Password
   list: Listado de usuarios
   menu: Usuarios
-  create: Crear usario
+  create: Crear usuario
   created: Se ha creado el usuario {{element}} correctamente.
   edited: Se ha editado el usuario {{element}} correctamente.
   profile: Permisos
   profileChoose: Elija un perfil
+  avatar: Avatar
 
 company:
   name: Nombre

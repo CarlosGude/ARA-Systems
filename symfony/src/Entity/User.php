@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Interfaces\ImageInterface;
 use App\Security\AbstractUserRoles;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -15,7 +16,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity("email")
  */
-class User extends AbstractUserRoles implements UserInterface
+class User extends AbstractUserRoles implements UserInterface, ImageInterface
 {
     public const PROFILE_GOD = 'PROFILE_GOD';
     public const PROFILE_ADMIN = 'PROFILE_ADMIN';
@@ -40,7 +41,7 @@ class User extends AbstractUserRoles implements UserInterface
     /**
      * @var MediaObject|null
      *
-     * @ORM\ManyToOne(targetEntity=MediaObject::class)
+     * @ORM\ManyToOne(targetEntity=MediaObject::class,cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
     public $image;
@@ -336,9 +337,12 @@ class User extends AbstractUserRoles implements UserInterface
         return $this->image;
     }
 
-    public function setImage(?MediaObject $image): User
+    public function setImage(?MediaObject $image): ImageInterface
     {
         $this->image = $image;
+        if($image){
+            $this->setUpdatedAt(new DateTime());
+        }
         return $this;
     }
 

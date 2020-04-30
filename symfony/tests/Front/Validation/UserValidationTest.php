@@ -140,4 +140,33 @@ class UserValidationTest extends BaseTest
         self::assertEquals(1, $errorSpan->count());
         self::assertEquals('Este valor no debería estar vacío.', $errorSpan->first()->html());
     }
+
+    public function testCreateClientWithAvatar(): void
+    {
+        $client = $this->login(parent::LOGIN_GOD);
+
+        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'user']));
+
+        $user = [
+            'name' => 'Another Test User',
+            'email' => 'fake2@email.com',
+            'image' => $this->getFile('document.pdf','company.pdf'),
+            'profile' => User::PROFILE_ADMIN,
+            'password' => 'password',
+        ];
+
+        $form = $crawler->selectButton('Guardar')->form();
+
+        $form['user[name]']->setValue($user['name']);
+        $form['user[email]']->setValue($user['email']);
+        $form['user[profile]']->setValue($user['profile']);
+        $form['user[password]']->setValue($user['password']);
+        $form['user[image]']->setValue($user['image']);
+
+        $client->submit($form);
+        $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
+
+        self::assertEquals(0,$crawler->filter('img#logo')->count());
+        self::assertEquals('El archivo no es una imagen válida.', $errorSpan->html());
+    }
 }
