@@ -40,19 +40,19 @@ abstract class BaseTest extends WebTestCase
     protected function getRepository(string $class): ObjectRepository
     {
         /** @var ManagerRegistry $manager */
-        $manager = static::$container->get('doctrine');
+        $manager = static::$kernel->getContainer()->get('doctrine');
 
         return $manager->getRepository($class);
     }
 
-    protected function login(array $user,Company $company = null): KernelBrowser
+    protected function login(array $user,array $company = null): KernelBrowser
     {
         $client = static::createClient();
         $client->followRedirects();
 
         $url = $company
             ? $this->generatePath('app_login_company',[
-                'company' => $company->getSlug()
+                'company' => $this->getRepository(Company::class)->findOneBy($company)->getSlug()
             ])
             : $this->generatePath('app_login', []);
 
