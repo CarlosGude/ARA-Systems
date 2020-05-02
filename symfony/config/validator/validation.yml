@@ -131,4 +131,3 @@ App\Entity\PurchaseLine:
     quantity:
       - NotBlank: ~
       - GreaterThanOrEqual: 1
-      - LessThanOrEqual: { propertyPath: stockAvailability }

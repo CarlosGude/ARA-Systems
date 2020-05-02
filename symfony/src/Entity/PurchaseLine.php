@@ -228,17 +228,6 @@ class PurchaseLine implements EntityInterface
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getStockAvailability(): ?int
-    {
-        if (!$this->getProduct()) {
-            return null;
-        }
-        return $this->getProduct()->getStockAct();
-    }
-
     public function getProduct(): ?Product
     {
         return $this->product;

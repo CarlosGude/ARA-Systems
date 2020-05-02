@@ -104,30 +104,7 @@ class PurchaseLineValidationTest extends BaseTest
             $response['hydra:description']
         );
     }
-
-    /**
-     * @throws TransportExceptionInterface
-     */
-    public function testQuantityLessThanOrEqualToStockAvailability(): void
-    {
-        $purchaseLine = $this->getPurchaseData();
-        $purchaseLine['quantity'] = 1000;
-
-        $response = static::createClient()->request('POST', parent::API.'purchase_lines', [
-            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
-
-            'body' => json_encode($purchaseLine),
-        ]);
-
-        $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
-
-        self::assertResponseStatusCodeSame(400, 'The response is not 400');
-        $this->assertEquals(
-            'quantity: Este valor debería ser menor o igual que 100.',
-            $response['hydra:description']
-        );
-    }
-
+    
     /**
      * @throws TransportExceptionInterface
      */
