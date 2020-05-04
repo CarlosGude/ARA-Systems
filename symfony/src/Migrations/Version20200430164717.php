@@ -14,7 +14,7 @@ final class Version20200430164717 extends AbstractMigration
 {
     public function getDescription() : string
     {
-        return '';
+        return 'Add width to products';
     }
 
     public function up(Schema $schema) : void
