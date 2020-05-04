@@ -6,6 +6,8 @@ use App\Entity\Category;
 use App\Entity\Product;
 use App\Entity\Provider;
 use App\EventSubscriber\ImageFormSubscriber;
+use App\EventSubscriber\MultipleImageFormSubscriber;
+use App\Interfaces\MultipleImagesInterface;
 use App\Repository\CategoryRepository;
 use App\Repository\ProviderRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -40,6 +42,7 @@ class ProductType extends AbstractType
                 'required' => false,
                 'constraints' => [new Image()],
             ])
+
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'attr' => ['class' => 'select'],
@@ -54,6 +57,12 @@ class ProductType extends AbstractType
                 'attr' => ['min' => 0],
             ])
             ->add('price', MoneyType::class, ['label' => 'product.price'])
+            ->add('images', FileType::class, [
+                'label' => 'product.images',
+                'mapped' => false,
+                'required' => false,
+                'multiple' => true,
+            ])
         ;
 
         if ($product->getId()) {
@@ -114,6 +123,7 @@ class ProductType extends AbstractType
         $builder
             ->add('submit', SubmitType::class, ['label' => 'save'])
             ->addEventListener(FormEvents::POST_SUBMIT, [ImageFormSubscriber::class, 'postSubmit'])
+            ->addEventListener(FormEvents::POST_SUBMIT, [MultipleImageFormSubscriber::class, 'postSubmit'])
         ;
     }
 

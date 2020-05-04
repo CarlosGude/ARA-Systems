@@ -82,14 +82,15 @@ class MediaObject implements \Serializable
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
     private $id;
+
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Product", mappedBy="images")
+     * @ORM\OneToMany(targetEntity="App\Entity\ProductMediaObject", mappedBy="mediaObject")
      */
-    private $products;
+    private $productMediaObjects;
 
     public function __construct()
     {
-        $this->products = new ArrayCollection();
+        $this->productMediaObjects = new ArrayCollection();
     }
 
     public function getId(): string
@@ -136,34 +137,6 @@ class MediaObject implements \Serializable
         return $this;
     }
 
-    /**
-     * @return Collection|Product[]
-     */
-    public function getProducts(): Collection
-    {
-        return $this->products;
-    }
-
-    public function addProduct(Product $product): self
-    {
-        if (!$this->products->contains($product)) {
-            $this->products[] = $product;
-            $product->addImage($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProduct(Product $product): self
-    {
-        if ($this->products->contains($product)) {
-            $this->products->removeElement($product);
-            $product->removeImage($this);
-        }
-
-        return $this;
-    }
-
     /** @see \Serializable::serialize() */
     public function serialize(): string
     {
@@ -176,5 +149,36 @@ class MediaObject implements \Serializable
     /** @see \Serializable::unserialize() */
     public function unserialize($serialized)
     {
+    }
+
+    /**
+     * @return Collection|ProductMediaObject[]
+     */
+    public function getProductMediaObjects(): Collection
+    {
+        return $this->productMediaObjects;
+    }
+
+    public function addProductMediaObject(ProductMediaObject $productMediaObject): self
+    {
+        if (!$this->productMediaObjects->contains($productMediaObject)) {
+            $this->productMediaObjects[] = $productMediaObject;
+            $productMediaObject->setMediaObject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductMediaObject(ProductMediaObject $productMediaObject): self
+    {
+        if ($this->productMediaObjects->contains($productMediaObject)) {
+            $this->productMediaObjects->removeElement($productMediaObject);
+            // set the owning side to null (unless already changed)
+            if ($productMediaObject->getMediaObject() === $this) {
+                $productMediaObject->setMediaObject(null);
+            }
+        }
+
+        return $this;
     }
 }

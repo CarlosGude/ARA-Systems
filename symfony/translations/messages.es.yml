@@ -124,6 +124,7 @@ product:
   location: Localización
   reference: Refrencia
   barcode: código de barras
+  images: Imagenes
 
 purchase:
   product: Producto

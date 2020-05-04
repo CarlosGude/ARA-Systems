@@ -47,7 +47,7 @@
         {% for element in pagination %}
         <tr class="{{ entity }}-tr">
             {% set delete =  path('front_delete',{'entity': entity, 'id': element.id}) %}
-            <td>{{ element.reference | number_format(0,' ',' ') }}</td>
+            <td>{{ element.reference }}</td>
             <td>{{ element.name }}</td>
             {% if is_granted('ROLE_GOD')  %}
                 <td>{{ element.company }}</td>

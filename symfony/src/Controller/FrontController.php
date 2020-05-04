@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Company;
+use App\Entity\ProductMediaObject;
 use App\Entity\User;
 use App\Interfaces\EntityInterface;
 use App\Interfaces\ImageInterface;
@@ -40,6 +41,45 @@ class FrontController extends AbstractController
     }
 
     /**
+     * @param EntityManager $em
+     *
+     * @return Response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws OptimisticLockException
+     * @Route("/remove-image/{entity}/{id}", name="delete_image")
+     */
+    public function removeImage(string $entity, string $id, EntityManagerInterface $em, Request $request): Response
+    {
+        $class = self::ENTITY_NAMESPACE.ucfirst($entity);
+
+        if (!class_exists($class)) {
+            throw new NotFoundHttpException('Page not found.');
+        }
+
+        $element = $em->getRepository($class)->find($id);
+
+        if (!$element) {
+            throw new RuntimeException('Page not found.');
+        }
+
+        if ( !$element instanceof ImageInterface && !$element instanceof ProductMediaObject) {
+            throw new RuntimeException('The class is not valid.');
+        }
+
+        $this->denyAccessUnlessGranted(AbstractVoter::DELETE, $element);
+
+        if($element instanceof ProductMediaObject){
+            $em->remove($element);
+        }else{
+            $element->setImage(null);
+        }
+        $em->flush();
+
+        return $this->redirect($request->headers->get('referer'));
+    }
+
+    /**
      * @Route("/delete-{entity}/{id}", name="delete")
      */
     public function delete(string $entity, string $id, Request $request, EntityManagerInterface $em): Response
@@ -63,42 +103,6 @@ class FrontController extends AbstractController
         $this->denyAccessUnlessGranted(AbstractVoter::DELETE, $element);
 
         $em->remove($element);
-        $em->flush();
-
-        return $this->redirect($request->headers->get('referer'));
-    }
-
-    /**
-     * @param EntityManager $em
-     *
-     * @return Response
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws OptimisticLockException
-     * @Route("/remove-image/{entity}/{id}", name="delete_image")
-     */
-    public function removeImage(string $entity, string $id, EntityManagerInterface $em, Request $request): Response
-    {
-        $class = self::ENTITY_NAMESPACE.ucfirst($entity);
-
-        if (!class_exists($class)) {
-            throw new NotFoundHttpException('Page not found.');
-        }
-
-        $element = $em->getRepository($class)->find($id);
-
-        if (!$element) {
-            throw new RuntimeException('Page not found.');
-        }
-
-        if (!$element instanceof ImageInterface || $this->isAValidEntity($class)) {
-            throw new RuntimeException('The class is not valid.');
-        }
-
-        $this->denyAccessUnlessGranted(AbstractVoter::DELETE, $element);
-
-        $element->setImage(null);
-
         $em->flush();
 
         return $this->redirect($request->headers->get('referer'));

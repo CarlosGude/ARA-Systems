@@ -1,5 +1,6 @@
 {% extends 'front/base.html.twig' %}
 {% set delete = path('front_delete_image',{'entity':entity,'id':element.id}) %}
+
 {% block title %}{{ 'project' | trans }}: {{ element.name }}{% endblock %}
 {% block content %}
     <h1>
@@ -18,8 +19,10 @@
                     {{ form_row(form.name) }}
                     {{ form_row(form.barcode) }}
                     {{ form_row(form.description) }}
+                    {{ form_row(form.tax) }}
                     {{ form_row(form.category) }}
                     {{ form_row(form.image) }}
+                    {{ form_row(form.images) }}
                     <div class="row">
                         <div class="col-md-4">{{ form_row(form.productHeight) }}</div>
                         <div class="col-md-4">{{ form_row(form.productLength) }}</div>
@@ -38,6 +41,24 @@
                             {{ 'removeImage' | trans }}
                         </a>
                     {% endif %}
+
+                    <div class="row">
+                        {% for image in element.productMediaObjects %}
+                            {% set deleteImage = path('front_delete_image',{'entity':'productMediaObject','id':image.id}) %}
+                        <div class="col-md-6">
+                            <img src="{{ vich_uploader_asset(image.mediaObject, 'file') }}" alt="{{ element }}" width="50%"/>
+                            <a
+                                    href="#"
+                                    title="{{ 'delete' | trans }} {{ element.name }}"
+                                    data-href="{{ deleteImage }}"
+                                    onclick="myFunction('{{ deleteImage }}')"
+                                    class="btn btn-danger delete">
+                                <i class="fas fa-trash edit"></i>
+                                {{ 'removeImage' | trans }}
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
             <div class="card col-md-4">

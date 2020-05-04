@@ -112,10 +112,6 @@ class Product implements EntityInterface, ImageInterface
      */
     private $providers;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\MediaObject", inversedBy="products")
-     */
-    private $images;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\PurchaseLine", mappedBy="product")
@@ -157,6 +153,11 @@ class Product implements EntityInterface, ImageInterface
      */
     private $barcode;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ProductMediaObject", mappedBy="product",cascade={"persist"})
+     */
+    private $productMediaObjects;
+
     public function __construct()
     {
         $this->createdAt = new DateTime();
@@ -164,6 +165,7 @@ class Product implements EntityInterface, ImageInterface
         $this->providers = new ArrayCollection();
         $this->images = new ArrayCollection();
         $this->purchaseLines = new ArrayCollection();
+        $this->productMediaObjects = new ArrayCollection();
     }
 
     public function getIvas(): array
@@ -367,32 +369,6 @@ class Product implements EntityInterface, ImageInterface
         return $this;
     }
 
-    /**
-     * @return Collection|MediaObject[]
-     */
-    public function getImages(): Collection
-    {
-        return $this->images;
-    }
-
-    public function addImage(MediaObject $image): self
-    {
-        if (!$this->images->contains($image)) {
-            $this->images[] = $image;
-        }
-
-        return $this;
-    }
-
-    public function removeImage(MediaObject $image): self
-    {
-        if ($this->images->contains($image)) {
-            $this->images->removeElement($image);
-        }
-
-        return $this;
-    }
-
     public function getPrice(): int
     {
         return $this->price;
@@ -544,6 +520,37 @@ class Product implements EntityInterface, ImageInterface
     public function setBarcode(int $barcode): self
     {
         $this->barcode = $barcode;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProductMediaObject[]
+     */
+    public function getProductMediaObjects(): Collection
+    {
+        return $this->productMediaObjects;
+    }
+
+    public function addProductMediaObject(ProductMediaObject $productMediaObject): self
+    {
+        if (!$this->productMediaObjects->contains($productMediaObject)) {
+            $this->productMediaObjects[] = $productMediaObject;
+            $productMediaObject->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductMediaObject(ProductMediaObject $productMediaObject): self
+    {
+        if ($this->productMediaObjects->contains($productMediaObject)) {
+            $this->productMediaObjects->removeElement($productMediaObject);
+            // set the owning side to null (unless already changed)
+            if ($productMediaObject->getProduct() === $this) {
+                $productMediaObject->setProduct(null);
+            }
+        }
 
         return $this;
     }
