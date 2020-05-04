@@ -121,6 +121,8 @@ product:
   kilograms: Peso
   kilogramsHelp: El peso debe ser indicado en KG
   size: Tamaño
+  location: Localización
+  reference: Refrencia
 
 purchase:
   product: Producto

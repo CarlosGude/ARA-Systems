@@ -20,10 +20,14 @@
             {% endif %}
         </div>
         <div class="col-md-9"style="border: 1px solid">
+            <span class="block strong">{{ 'product.reference' | trans }}:</span>
+            <span class="block"><p>{{ element.reference | number_format(0,' ',' ') }}</p></span>
             <span class="block strong">{{ 'product.name' | trans }}:</span>
             <span class="block">{{ element.name }}</span>
             <span class="block strong">{{ 'product.description' | trans }}:</span>
             <span class="block"><p>{{ element.description }}</p></span>
+            <span class="block strong">{{ 'product.location' | trans }}:</span>
+            <span class="block"><p>{{ element.location }}</p></span>
             <span class="block strong">{{ 'product.category' | trans }}:</span>
             <span class="block">
                 {{ element.category }}
@@ -49,6 +53,15 @@
             <span class="block">{{ element.price | number_format(2,',',' ') }}€</span>
             <span class="block strong">{{ 'product.tax' | trans }}:</span>
             <span class="block">{{ element.tax }}%</span>
+            <div class="row">
+                <div class="col-md-6">
+                    <img width="50%" src="{{ qr_code_url(element.reference, { writer: 'png' }) }}" />
+                </div>
+                <div class="col-md-6">
+                    {{ barcode.generate(element.reference) | raw }}
+                </div>
+            </div>
+
         </div>
     </div>
 {% endblock %}

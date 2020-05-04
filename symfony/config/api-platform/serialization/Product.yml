@@ -44,6 +44,12 @@ App\Entity\Product:
     kilograms:
       groups: ['product_read', 'product_write']
 
+    reference:
+      groups: ['product_read', 'product_write']
+
+    location:
+      groups: ['product_read', 'product_write']
+
     providers:
       groups: ['product_read', 'product_write']
 

@@ -3,6 +3,8 @@ App\Entity\Product:
     name: 'Product <current()>'
     category: '@the_category'
     company: '@the_company'
+    location: 'Location'
+    reference: '<numberBetween(10000,9999999)>'
     tax: 21
     price: 100
     MaxStock: 21
@@ -15,6 +17,8 @@ App\Entity\Product:
     name: 'Another Product'
     category: '@another_category_another_company'
     company: '@another_company'
+    location: 'Location'
+    reference: '<numberBetween(10000,9999999)>'
     tax: 21
     price: 100
     stockAct: 100
@@ -27,6 +31,8 @@ App\Entity\Product:
     name: 'The Product'
     category: '@the_category'
     company: '@the_company'
+    location: 'Location'
+    reference: '<numberBetween(10000,9999999)>'
     tax: 21
     price: 100
     stockAct: 100
@@ -39,6 +45,8 @@ App\Entity\Product:
     name: 'Product <current()>'
     category: '@another_category_another_company'
     company: '@another_company'
+    location: 'Location'
+    reference: '<numberBetween(10000,9999999)>'
     tax: 21
     price: 21
     stockAct: 100

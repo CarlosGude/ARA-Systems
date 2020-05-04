@@ -83,6 +83,8 @@ class ProductsManagementTest extends BaseTest
             'price' => 21,
             'minStock' => 0,
             'maxStock' => 999,
+            'reference' => random_int(10000,9999999),
+            'location' => 'Location',
             'user' => parent::API.'users/'.$this->getUserByEmail('user@fakemail.com')->getId(),
             'company' => parent::API.'companies/'.$company->getId(),
             'category' => parent::API.'categories/'.$this->getCategory('Category 1', $company)->getId(),

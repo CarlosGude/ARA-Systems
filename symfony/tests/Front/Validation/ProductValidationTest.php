@@ -23,6 +23,8 @@ class ProductValidationTest extends BaseTest
         $product = [
             'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
             'price' => 100,
+            'reference' => random_int(10000,9999999),
+            'location' => 'Location',
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
@@ -46,11 +48,15 @@ class ProductValidationTest extends BaseTest
         $product = [
             'name' => 'Product Name',
             'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
+            'reference' => random_int(10000,9999999),
+            'location' => 'Location',
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['product[name]']->setValue($product['name']);
+        $form['product[reference]']->setValue($product['reference']);
+        $form['product[location]']->setValue($product['location']);
         $form['product[category]']->setValue($product['category']->getId());
 
         $client->submit($form);
@@ -58,6 +64,89 @@ class ProductValidationTest extends BaseTest
         $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
 
         self::assertEquals('Este valor debería ser mayor que 0.', $errorSpan->html());
+    }
+
+    public function testLocationIsRequired(): void
+    {
+        $client = $this->login(parent::LOGIN_GOD);
+
+        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'product']));
+
+        $product = [
+            'name' => 'Product Name',
+            'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
+            'reference' => random_int(10000,9999999),
+            'price' => '20'
+        ];
+
+        $form = $crawler->selectButton('Guardar')->form();
+
+        $form['product[name]']->setValue($product['name']);
+        $form['product[reference]']->setValue($product['reference']);
+        $form['product[price]']->setValue($product['price']);
+        $form['product[category]']->setValue($product['category']->getId());
+
+        $client->submit($form);
+
+        $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
+
+        self::assertEquals('Este valor no debería estar vacío.', $errorSpan->html());
+    }
+
+    public function testReferenceIsRequired(): void
+    {
+        $client = $this->login(parent::LOGIN_GOD);
+
+        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'product']));
+
+        $product = [
+            'name' => 'Product Name',
+            'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
+            'location' => 'location',
+            'price' => '20'
+        ];
+
+        $form = $crawler->selectButton('Guardar')->form();
+
+        $form['product[name]']->setValue($product['name']);
+        $form['product[location]']->setValue($product['location']);
+        $form['product[price]']->setValue($product['price']);
+        $form['product[category]']->setValue($product['category']->getId());
+
+        $client->submit($form);
+
+        $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
+
+        self::assertEquals('Este valor no debería estar vacío.', $errorSpan->html());
+    }
+
+    public function testReferenceShouldBeAInt(): void
+    {
+        $client = $this->login(parent::LOGIN_GOD);
+
+        $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'product']));
+
+        $product = [
+            'name' => 'Product Name',
+            'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
+            'location' => 'location',
+            'reference' => 'reference',
+            'price' => '20'
+        ];
+
+        $form = $crawler->selectButton('Guardar')->form();
+
+        $form['product[name]']->setValue($product['name']);
+        $form['product[location]']->setValue($product['location']);
+        $form['product[reference]']->setValue($product['reference']);
+        $form['product[price]']->setValue($product['price']);
+        $form['product[category]']->setValue($product['category']->getId());
+
+        $client->submit($form);
+
+        $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
+
+        self::assertEquals('Este valor no es válido.', $errorSpan->html());
     }
 
     public function testMinStockGreaterThanOne(): void
@@ -75,6 +164,7 @@ class ProductValidationTest extends BaseTest
 
         $form['product[maxStock]']->setValue($product['maxStock']);
         $form['product[minStock]']->setValue($product['minStock']);
+
 
         $client->submit($form);
 
@@ -141,7 +231,9 @@ class ProductValidationTest extends BaseTest
             'name' => 'Test Product',
             'price' => '20.00',
             'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
-            'image' => $this->getFile('document.pdf','document.pdf')
+            'image' => $this->getFile('document.pdf','document.pdf'),
+            'reference' => random_int(10000,9999999),
+            'location' => 'Location',
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
@@ -149,6 +241,8 @@ class ProductValidationTest extends BaseTest
         $form['product[name]']->setValue($product['name']);
         $form['product[image]']->setValue($product['image']);
         $form['product[price]']->setValue($product['price']);
+        $form['product[reference]']->setValue($product['reference']);
+        $form['product[location]']->setValue($product['location']);
         $form['product[category]']->setValue($product['category']->getId());
 
         $client->submit($form);

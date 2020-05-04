@@ -16,6 +16,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ 'product.basic' | trans }}</h5>
                     {{ form_row(form.name) }}
+                    {{ form_row(form.reference) }}
                     {{ form_row(form.description) }}
                     {{ form_row(form.category) }}
                     {{ form_row(form.image) }}
@@ -42,11 +43,19 @@
             <div class="card col-md-4">
                 <div class="card-body">
                     <h5 class="card-title">{{ 'product.priceData' | trans }}</h5>
+                    {{ form_row(form.location) }}
                     {{ form_row(form.stockAct) }}
                     {{ form_row(form.minStock) }}
                     {{ form_row(form.maxStock) }}
                     {{ form_row(form.price) }}
-                    {{ form_row(form.tax) }}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img width="50%" src="{{ qr_code_url(element.reference, { writer: 'png' }) }}" />
+                        </div>
+                        <div class="col-md-6">
+                            {{ barcode.generate(element.reference) | raw }}
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="card col-md-3" style="margin-right: -10px">

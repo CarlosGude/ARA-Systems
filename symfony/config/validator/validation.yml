@@ -58,6 +58,8 @@ App\Entity\Provider:
       - NotBlank: ~
 
 App\Entity\Product:
+  constraints:
+    - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: reference
   properties:
     name:
       - NotBlank: ~
@@ -82,6 +84,10 @@ App\Entity\Product:
       - GreaterThan: 0
     productWidth:
       - GreaterThan: 0
+    reference:
+      - NotBlank: ~
+    location:
+      - NotBlank: ~
 App\Entity\Purchase:
   properties:
     provider:

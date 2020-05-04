@@ -142,6 +142,16 @@ class Product implements EntityInterface, ImageInterface
      */
     private $kilograms;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $location;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $reference;
+
     public function __construct()
     {
         $this->createdAt = new DateTime();
@@ -494,6 +504,30 @@ class Product implements EntityInterface, ImageInterface
     public function setKilograms(?float $kilograms): self
     {
         $this->kilograms = $kilograms;
+
+        return $this;
+    }
+
+    public function getLocation(): ?string
+    {
+        return $this->location;
+    }
+
+    public function setLocation(?string $location): self
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    public function getReference(): ?int
+    {
+        return $this->reference;
+    }
+
+    public function setReference(int $reference): self
+    {
+        $this->reference = $reference;
 
         return $this;
     }

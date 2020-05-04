@@ -32,6 +32,7 @@ class ProductValidationTest extends BaseTest
 
     /**
      * @throws TransportExceptionInterface
+     * @throws \Exception
      */
     public function testNameRequired(): void
     {
@@ -42,6 +43,8 @@ class ProductValidationTest extends BaseTest
             'price' => 20,
             'minStock' => 0,
             'maxStock' => 100,
+            'reference' => random_int(10000,9999999),
+            'location' => 'Location',
         ];
 
         $response = static::createClient()->request('POST', parent::API.'products', [
@@ -60,6 +63,7 @@ class ProductValidationTest extends BaseTest
 
     /**
      * @throws TransportExceptionInterface
+     * @throws \Exception
      */
     public function testCategoryRequired(): void
     {
@@ -71,6 +75,8 @@ class ProductValidationTest extends BaseTest
             'price' => 20,
             'minStock' => 0,
             'maxStock' => 100,
+            'reference' => random_int(10000,9999999),
+            'location' => 'Location',
         ];
 
         $response = static::createClient()->request('POST', parent::API.'products', [
@@ -89,6 +95,7 @@ class ProductValidationTest extends BaseTest
 
     /**
      * @throws TransportExceptionInterface
+     * @throws \Exception
      */
     public function testCompanyRequired(): void
     {
@@ -100,6 +107,8 @@ class ProductValidationTest extends BaseTest
             'price' => 22,
             'minStock' => 0,
             'maxStock' => 100,
+            'reference' => random_int(10000,9999999),
+            'location' => 'Location',
         ];
 
         $response = static::createClient()->request('POST', parent::API.'products', [
@@ -118,6 +127,7 @@ class ProductValidationTest extends BaseTest
 
     /**
      * @throws TransportExceptionInterface
+     * @throws \Exception
      */
     public function testStockMaxLowerThanMinStock(): void
     {
@@ -129,6 +139,8 @@ class ProductValidationTest extends BaseTest
             'maxStock' => 0,
             'minStock' => 100,
             'price' => 100,
+            'reference' => random_int(10000,9999999),
+            'location' => 'Location',
         ];
 
         $response = static::createClient()->request('POST', parent::API.'products', [
@@ -147,6 +159,7 @@ class ProductValidationTest extends BaseTest
 
     /**
      * @throws TransportExceptionInterface
+     * @throws \Exception
      */
     public function testPriceIsRequired(): void
     {
@@ -157,6 +170,8 @@ class ProductValidationTest extends BaseTest
             'category' => parent::API.'categories/'.$this->getCategory()->getId(),
             'minStock' => 0,
             'maxStock' => 100,
+            'reference' => random_int(10000,9999999),
+            'location' => 'Location',
         ];
 
         $response = static::createClient()->request('POST', parent::API.'products', [
@@ -175,6 +190,7 @@ class ProductValidationTest extends BaseTest
 
     /**
      * @throws TransportExceptionInterface
+     * @throws \Exception
      */
     public function testPriceIsGreaterThanZero(): void
     {
@@ -186,6 +202,8 @@ class ProductValidationTest extends BaseTest
             'minStock' => 0,
             'maxStock' => 100,
             'price' => -100,
+            'reference' => random_int(10000,9999999),
+            'location' => 'Location',
         ];
 
         $response = static::createClient()->request('POST', parent::API.'products', [
@@ -204,6 +222,7 @@ class ProductValidationTest extends BaseTest
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
+     * @throws \Exception
      */
     public function testValidationInherit(): void
     {
@@ -216,6 +235,8 @@ class ProductValidationTest extends BaseTest
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
             'category' => parent::API.'categories/'.$category->getId(),
             'user' => parent::API.'users/'.$this->getGodUser()->getId(),
+            'reference' => random_int(10000,9999999),
+            'location' => 'Location',
         ];
 
         $response = static::createClient()->request('POST', parent::API.'products', [
@@ -251,6 +272,7 @@ class ProductValidationTest extends BaseTest
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
+     * @throws \Exception
      */
     public function testProductLengthShouldBeAFloat(): void
     {
@@ -263,7 +285,9 @@ class ProductValidationTest extends BaseTest
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
             'category' => parent::API.'categories/'.$category->getId(),
             'user' => parent::API.'users/'.$this->getGodUser()->getId(),
-            'productLength'=> 'invalid'
+            'productLength'=> 'invalid',
+            'reference' => random_int(10000,9999999),
+            'location' => 'Location',
         ];
 
         $response = static::createClient()->request('POST', parent::API.'products', [
@@ -284,6 +308,7 @@ class ProductValidationTest extends BaseTest
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
+     * @throws \Exception
      */
     public function testProductHeightShouldBeAFloat(): void
     {
@@ -296,7 +321,9 @@ class ProductValidationTest extends BaseTest
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
             'category' => parent::API.'categories/'.$category->getId(),
             'user' => parent::API.'users/'.$this->getGodUser()->getId(),
-            'productHeight'=> 'invalid'
+            'productHeight'=> 'invalid',
+            'reference' => random_int(10000,9999999),
+            'location' => 'Location',
         ];
 
         $response = static::createClient()->request('POST', parent::API.'products', [
@@ -317,6 +344,7 @@ class ProductValidationTest extends BaseTest
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
+     * @throws \Exception
      */
     public function testProductWidthShouldBeAFloat(): void
     {
@@ -329,7 +357,9 @@ class ProductValidationTest extends BaseTest
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
             'category' => parent::API.'categories/'.$category->getId(),
             'user' => parent::API.'users/'.$this->getGodUser()->getId(),
-            'productWidth'=> 'invalid'
+            'productWidth'=> 'invalid',
+            'reference' => random_int(10000,9999999),
+            'location' => 'Location',
         ];
 
         $response = static::createClient()->request('POST', parent::API.'products', [
@@ -350,6 +380,7 @@ class ProductValidationTest extends BaseTest
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
+     * @throws \Exception
      */
     public function testProductWidthShouldBeAPositiveFloat(): void
     {
@@ -362,7 +393,9 @@ class ProductValidationTest extends BaseTest
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
             'category' => parent::API.'categories/'.$category->getId(),
             'user' => parent::API.'users/'.$this->getGodUser()->getId(),
-            'productWidth'=> '-2'
+            'productWidth'=> '-2',
+            'reference' => random_int(10000,9999999),
+            'location' => 'Location',
         ];
 
         $response = static::createClient()->request('POST', parent::API.'products', [
@@ -383,6 +416,7 @@ class ProductValidationTest extends BaseTest
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
+     * @throws \Exception
      */
     public function testProductLengthShouldBeAPositiveFloat(): void
     {
@@ -395,7 +429,9 @@ class ProductValidationTest extends BaseTest
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
             'category' => parent::API.'categories/'.$category->getId(),
             'user' => parent::API.'users/'.$this->getGodUser()->getId(),
-            'productLength'=> '-1'
+            'productLength'=> '-1',
+            'reference' => random_int(10000,9999999),
+            'location' => 'Location',
         ];
 
         $response = static::createClient()->request('POST', parent::API.'products', [
@@ -416,6 +452,7 @@ class ProductValidationTest extends BaseTest
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
+     * @throws \Exception
      */
     public function testProductHeightShouldBeAPositiveFloat(): void
     {
@@ -428,7 +465,9 @@ class ProductValidationTest extends BaseTest
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
             'category' => parent::API.'categories/'.$category->getId(),
             'user' => parent::API.'users/'.$this->getGodUser()->getId(),
-            'productHeight'=> '-3'
+            'productHeight'=> '-3',
+            'reference' => random_int(10000,9999999),
+            'location' => 'Location',
         ];
 
         $response = static::createClient()->request('POST', parent::API.'products', [
@@ -449,6 +488,7 @@ class ProductValidationTest extends BaseTest
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
+     * @throws \Exception
      */
     public function testProductKilogramsShouldBeAPositiveFloat(): void
     {
@@ -461,7 +501,9 @@ class ProductValidationTest extends BaseTest
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
             'category' => parent::API.'categories/'.$category->getId(),
             'user' => parent::API.'users/'.$this->getGodUser()->getId(),
-            'kilograms'=> '-3'
+            'kilograms'=> '-3',
+            'reference' => random_int(10000,9999999),
+            'location' => 'Location',
         ];
 
         $response = static::createClient()->request('POST', parent::API.'products', [
@@ -482,6 +524,7 @@ class ProductValidationTest extends BaseTest
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
+     * @throws \Exception
      */
     public function testProductKilogramsShouldBeAFloat(): void
     {
@@ -494,7 +537,114 @@ class ProductValidationTest extends BaseTest
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
             'category' => parent::API.'categories/'.$category->getId(),
             'user' => parent::API.'users/'.$this->getGodUser()->getId(),
-            'kilograms'=> 'integer'
+            'kilograms'=> 'integer',
+            'reference' => random_int(10000,9999999),
+            'location' => 'Location',
+        ];
+
+        $response = static::createClient()->request('POST', parent::API.'products', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
+
+            'body' => json_encode($product),
+        ]);
+
+        $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
+
+        self::assertResponseStatusCodeSame(400, 'The response is not 204');
+
+        $this->assertEquals('The type of the "kilograms" attribute must be "float", "string" given.', $response['hydra:description']);
+    }
+
+    /**
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     * @throws \Exception
+     */
+    public function testProductReferenceIsRequired(): void
+    {
+        $category = $this->getCategory();
+
+        $product = [
+            'name' => 'test',
+            'description' => 'test',
+            'price' => 20,
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
+            'category' => parent::API.'categories/'.$category->getId(),
+            'user' => parent::API.'users/'.$this->getGodUser()->getId(),
+            'kilograms'=> '20',
+            'location' => 'Location',
+        ];
+
+        $response = static::createClient()->request('POST', parent::API.'products', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
+
+            'body' => json_encode($product),
+        ]);
+
+        $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
+
+        self::assertResponseStatusCodeSame(400, 'The response is not 204');
+
+        $this->assertEquals('The type of the "kilograms" attribute must be "float", "string" given.', $response['hydra:description']);
+    }
+
+    /**
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     * @throws \Exception
+     */
+    public function testProductLocationIsRequired(): void
+    {
+        $category = $this->getCategory();
+
+        $product = [
+            'name' => 'test',
+            'description' => 'test',
+            'price' => 20,
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
+            'category' => parent::API.'categories/'.$category->getId(),
+            'user' => parent::API.'users/'.$this->getGodUser()->getId(),
+            'kilograms'=> '20',
+            'reference' => random_int(10000,9999999),
+        ];
+
+        $response = static::createClient()->request('POST', parent::API.'products', [
+            'headers' => ['Authorization' => 'Bearer '.$this->token['token'], 'Content-Type' => 'application/json'],
+
+            'body' => json_encode($product),
+        ]);
+
+        $response = json_decode($response->getBrowserKitResponse()->getContent(), true);
+
+        self::assertResponseStatusCodeSame(400, 'The response is not 204');
+
+        $this->assertEquals('The type of the "kilograms" attribute must be "float", "string" given.', $response['hydra:description']);
+    }
+
+    /**
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     * @throws \Exception
+     */
+    public function testReferenceShouldBeAInteger(): void
+    {
+        $category = $this->getCategory();
+
+        $product = [
+            'name' => 'test',
+            'description' => 'test',
+            'price' => 20,
+            'company' => parent::API.'companies/'.$this->getCompany()->getId(),
+            'category' => parent::API.'categories/'.$category->getId(),
+            'user' => parent::API.'users/'.$this->getGodUser()->getId(),
+            'kilograms'=> '20',
+            'reference' => 'reference',
         ];
 
         $response = static::createClient()->request('POST', parent::API.'products', [

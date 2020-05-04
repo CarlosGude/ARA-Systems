@@ -43,12 +43,16 @@ class ProductManagementTest extends BaseTest
             'name' => 'Test Product',
             'price' => '20.00',
             'category' => $category,
+            'reference' => random_int(10000,9999999),
+            'location' => 'Location',
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['product[name]']->setValue($product['name']);
         $form['product[price]']->setValue($product['price']);
+        $form['product[reference]']->setValue($product['reference']);
+        $form['product[location]']->setValue($product['location']);
         $form['product[category]']->setValue($product['category']->getId());
 
         $client->submit($form);
