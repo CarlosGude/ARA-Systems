@@ -1,0 +1,54 @@
+{% extends 'front/base.html.twig' %}
+
+{% block title %}{{ 'project' | trans }}: {{ 'catalog.list' | trans }}{% endblock %}
+{% block content %}
+    <h1>
+        <a title="{{ 'back' | trans }}" href="{{ path('front_list',{'entity':'product','view':'catalog'}) }}" class="btn btn-info">
+            <i class="fas fa-backward"></i>
+        </a>
+        {{ element.name }}
+        <a title="{{ 'edit' | trans }}" href="{{ path('front_edit',{'entity':'product','id':element.id}) }}" class="btn btn-primary">
+            <i class="fas fa-pen"></i>
+        </a>
+    </h1>
+    <div class="row">
+        <div class="col-md-3" style="border: 1px solid">
+            {% if element.image %}
+                <img src="{{ vich_uploader_asset(element.image, 'file') }}" alt="{{ element.slug }}" width="90%"/>
+            {% else %}
+                <img src="https://via.placeholder.com/150" class="card-img-top" alt="{{ element.slug }}">
+            {% endif %}
+        </div>
+        <div class="col-md-9"style="border: 1px solid">
+            <span class="block strong">{{ 'product.name' | trans }}:</span>
+            <span class="block">{{ element.name }}</span>
+            <span class="block strong">{{ 'product.description' | trans }}:</span>
+            <span class="block"><p>{{ element.description }}</p></span>
+            <span class="block strong">{{ 'product.category' | trans }}:</span>
+            <span class="block">
+                {{ element.category }}
+                <a href="{{ path('front_edit',{'entity':'category','id':element.category.id}) }}" target="_blank">
+                    <i class="fas fa-external-link-alt"></i>
+                </a>
+            </span>
+            {% if element.productHeight is not null and element.productLength is not null and element.productWidth is not null  %}
+            <span class="block strong">{{ 'product.size' | trans }}:</span>
+            <span class="block">{{ element.productHeight }}x{{ element.productLength }}x{{ element.productWidth }}</span>
+            {% endif %}
+            {% if element.kilograms is not null %}
+            <span class="block strong">{{ 'product.kilograms' | trans }}:</span>
+            <span class="block">{{ element.kilograms }}KG</span>
+            {% endif %}
+            <span class="block strong">{{ 'product.stockAct' | trans }}:</span>
+            <span class="block">{{ element.stockAct }}</span>
+            <span class="block strong">{{ 'product.minStock' | trans }}:</span>
+            <span class="block">{{ element.minStock }}</span>
+            <span class="block strong">{{ 'product.maxStock' | trans }}:</span>
+            <span class="block">{{ element.maxStock }}</span>
+            <span class="block strong">{{ 'product.price' | trans }}:</span>
+            <span class="block">{{ element.price | number_format(2,',',' ') }}€</span>
+            <span class="block strong">{{ 'product.tax' | trans }}:</span>
+            <span class="block">{{ element.tax }}%</span>
+        </div>
+    </div>
+{% endblock %}

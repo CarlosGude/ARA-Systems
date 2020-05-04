@@ -99,9 +99,10 @@ class FrontController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{entity}/{id}", name="edit")
+     * @Route("/{view}/{entity}/{id}", name="edit")
      */
     public function edit(
+        string $view = 'edit',
         string $entity,
         string $id,
         Request $request,
@@ -140,7 +141,7 @@ class FrontController extends AbstractController
             return $this->redirectToRoute('front_edit', ['entity' => $entity, 'id' => $element->getId()]);
         }
 
-        return $this->render('front/edit/'.$entity.'.html.twig', [
+        return $this->render('front/'.$view.'/'.$entity.'.html.twig', [
             'action' => 'edit',
             'element' => $element,
             'entity' => $entity,
@@ -149,12 +150,13 @@ class FrontController extends AbstractController
     }
 
     /**
-     * @Route("/list/{entity}/{sort}/{direction}/{page}", name="list")
+     * @Route("/list/{entity}/{view}/{sort}/{direction}/{page}/", name="list")
      */
     public function list(
         string $entity,
         EntityManagerInterface $em,
         PaginatorInterface $paginator,
+        string $view = 'list',
         string $sort = 'name',
         string $direction = 'asc',
         int $page = 1
@@ -175,7 +177,7 @@ class FrontController extends AbstractController
 
         $pagination = $paginator->paginate($data, $page, 10);
 
-        return $this->render('front/list/'.$entity.'.html.twig', [
+        return $this->render('front/'.$view.'/'.$entity.'.html.twig', [
             'action' => 'list',
             'pagination' => $pagination,
             'entity' => $entity,

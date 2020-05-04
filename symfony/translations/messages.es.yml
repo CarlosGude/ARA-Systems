@@ -9,6 +9,7 @@ PROFILE_PURCHASER: Responsable de compras
 PROFILE_ADMIN: Administrador
 companyTh: Empresa
 removeImage: Eliminar imagen
+view: Ver
 
 login:
   welcome: ¡Bienvenido a ARA-System!
@@ -21,6 +22,9 @@ dashboard:
   nemu: Inicio
   solds: Últimas ventas
   stock: Productos sin stock
+  catalogs:
+    master: Catalogo
+    list: Listar prodcutos
   purchases:
     master: Compras
     add: Añadir compra
@@ -116,6 +120,7 @@ product:
   sizeHelp: Debe de ser indicado en metros.
   kilograms: Peso
   kilogramsHelp: El peso debe ser indicado en KG
+  size: Tamaño
 
 purchase:
   product: Producto
@@ -172,3 +177,6 @@ client:
   created: Se ha creado el cliente {{element}} correctamente.
   edited: Se ha editado el cliente {{element}} correctamente.
   image: Foto
+
+catalog:
+  list: Catálogo

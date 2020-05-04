@@ -127,3 +127,10 @@ body {
 .sub-item{
     padding-left: 30px;
 }
+
+.strong{
+    font-weight: bold;
+}
+.block{
+    display: block;
+}

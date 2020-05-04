@@ -150,15 +150,30 @@
                                 </a>
                             </li>
                         <li class="nav-item collapse" id="products">
-                            <a class="nav-link active" href="{{ path('front_create',{'entity':'product'}) }}">
+                            <a class="nav-link sub-item" href="{{ path('front_create',{'entity':'product'}) }}">
                                 <i class="fas fa-plus-square"></i>
                                 {{ 'dashboard.products.add' | trans}}
                             </a>
-                            <a class="nav-link active" href="{{ path('front_list',{'entity':'product'}) }}">
+                            <a class="nav-link sub-item" href="{{ path('front_list',{'entity':'product'}) }}">
                                 <i class="fas fa-th-list"></i>
                                 {{ 'dashboard.products.list' | trans}}
                             </a>
                         </li>
+                            <div class="dropdown-divider"></div>
+                        {% endif %}
+                        {% if is_granted('ROLE_GOD') or is_granted('ROLE_ADMIN') or is_granted('ROLE_READ_PRODUCT')  %}
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="collapse" href="#catalogs" role="button" aria-expanded="false" aria-controls="catalogs">
+                                    <i class="fas fa-book"></i>
+                                    {{ 'dashboard.catalogs.master' | trans}}
+                                </a>
+                            </li>
+                            <li class="nav-item collapse" id="catalogs">
+                                <a class="nav-link sub-item" href="{{ path('front_list',{'entity':'product','view':'catalog'}) }}">
+                                    <i class="fas fa-th-list"></i>
+                                    {{ 'dashboard.catalogs.list' | trans}}
+                                </a>
+                            </li>
                             <div class="dropdown-divider"></div>
                         {% endif %}
 

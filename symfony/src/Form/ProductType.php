@@ -90,12 +90,12 @@ class ProductType extends AbstractType
                 ->add('minStock', IntegerType::class, [
                     'label' => 'product.minStock',
                     'required' => true,
-                    'attr' => ['min' => 1],
+                    'attr' => ['min' => 0],
                 ])
                 ->add('maxStock', IntegerType::class, [
                     'label' => 'product.maxStock',
                     'required' => true,
-                    'attr' => ['min' => 1],
+                    'attr' => ['min' => 0],
                 ])
 
                 ->add('providers', EntityType::class, [
