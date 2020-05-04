@@ -19,10 +19,37 @@ login:
 dashboard:
   welcome: Hola,
   nemu: Inicio
-  purchases: Últimas compras
   solds: Últimas ventas
   stock: Productos sin stock
-  companies: Empresas
+  purchases:
+    master: Compras
+    add: Añadir compra
+    list: Listar compras
+    last: Últimas compras
+  products:
+    master: Productos
+    add: Añadir producto
+    list: Listar productos
+  categories:
+    master: Categorias
+    add: Añadir categoria
+    list: Listar categorias
+  clients:
+    master: Clientes
+    add: Añadir cliente
+    list: Listar clientes
+  providers:
+    master: Proveedores
+    add: Añadir proveedor
+    list: Listar proveedores
+  users:
+    master: Usuarios
+    add: Añadir usuario
+    list: Listar usuarios
+  companies:
+    master: Empresas
+    add: Añadir empresas
+    list: Listar empresas
 
 user:
   name: Nombre

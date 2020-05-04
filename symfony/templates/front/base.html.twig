@@ -32,74 +32,154 @@
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="{{ path('front_dashboard') }}">
-                                <span data-feather="home"></span>
+                            <a class="nav-link" href="{{ path('front_dashboard') }}">
+                                <i class="fas fa-tachometer-alt"></i>
                                 {{ 'dashboard.nemu' | trans}}
                             </a>
+                            <div class="dropdown-divider"></div>
                         </li>
                         {% if is_granted('ROLE_GOD') %}
-                        <li class="nav-item">
-                            <a class="nav-link active" href="{{ path('front_list',{'entity':'company'}) }}">
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="collapse" href="#companies" role="button" aria-expanded="false" aria-controls="companies">
+                                    <i class="fas fa-building"></i>
+                                    {{ 'dashboard.companies.master' | trans}}
+                                </a>
+                            </li>
+                        <li class="nav-item collapse" id="companies">
+                            <a class="nav-link sub-item" href="{{ path('front_create',{'entity':'company'}) }}">
+                                <i class="fas fa-plus-square"></i>
+                                {{ 'dashboard.companies.add' | trans}}
+                            </a>
+                            <a class="nav-link sub-item" href="{{ path('front_list',{'entity':'company'}) }}">
                                 <span data-feather="home"></span>
-                                {{ 'dashboard.companies' | trans}}
+                                <i class="fas fa-th-list"></i>
+                                {{ 'dashboard.companies.list' | trans}}
                             </a>
                         </li>
                         {% endif %}
+                        <div class="dropdown-divider"></div>
                         {% if is_granted('ROLE_ADMIN') %}
                             <li class="nav-item">
-                                <a class="nav-link active" href="{{ path('front_edit',{'entity':'company','id':app.user.company.id}) }}">
-                                    <span data-feather="home"></span>
+                                <a class="nav-link" href="{{ path('front_edit',{'entity':'company','id':app.user.company.id}) }}">
+                                    <i class="fas fa-building"></i>
                                     {{ app.user.company.name}}
                                 </a>
                             </li>
                         {% endif %}
                         {% if is_granted('ROLE_GOD') or is_granted('ROLE_ADMIN') or is_granted('ROLE_READ_USER')  %}
-                        <li class="nav-item">
-                            <a class="nav-link active" href="{{ path('front_list',{'entity':'user'}) }}">
-                                <span data-feather="home"></span>
-                                {{ 'user.menu' | trans}}
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="collapse" href="#users" role="button" aria-expanded="false" aria-controls="users">
+                                    <i class="fas fa-users"></i>
+                                    {{ 'dashboard.users.master' | trans}}
+                                </a>
+                            </li>
+                        <li class="nav-item collapse" id="users">
+                            <a class="nav-link sub-item" href="{{ path('front_create',{'entity':'user'}) }}">
+                                <i class="fas fa-plus-square"></i>
+                                {{ 'dashboard.users.add' | trans}}
+                            </a>
+                            <a class="nav-link sub-item" href="{{ path('front_list',{'entity':'user'}) }}">
+                                <i class="fas fa-th-list"></i>
+                                {{ 'dashboard.users.list' | trans}}
                             </a>
                         </li>
+                            <div class="dropdown-divider"></div>
                         {% endif %}
                         {% if is_granted('ROLE_GOD') or is_granted('ROLE_ADMIN') or is_granted('ROLE_READ_PROVIDER')  %}
-                        <li class="nav-item">
-                            <a class="nav-link active" href="{{ path('front_list',{'entity':'provider'}) }}">
-                                <span data-feather="home"></span>
-                                {{ 'provider.menu' | trans}}
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="collapse" href="#providers" role="button" aria-expanded="false" aria-controls="providers">
+                                    <i class="fas fa-globe"></i>
+                                    {{ 'dashboard.providers.master' | trans}}
+                                </a>
+                            </li>
+                        <li class="nav-item collapse" id="providers">
+                            <a class="nav-link sub-item" href="{{ path('front_create',{'entity':'provider'}) }}">
+                                <i class="fas fa-plus-square"></i>
+                                {{ 'dashboard.providers.add' | trans}}
+                            </a>
+                            <a class="nav-link sub-item" href="{{ path('front_list',{'entity':'provider'}) }}">
+                                <i class="fas fa-th-list"></i>
+                                {{ 'dashboard.providers.list' | trans}}
                             </a>
                         </li>
+                            <div class="dropdown-divider"></div>
                         {% endif %}
                         {% if is_granted('ROLE_GOD') or is_granted('ROLE_ADMIN') or is_granted('ROLE_READ_CLIENT')  %}
-                        <li class="nav-item">
-                            <a class="nav-link active" href="{{ path('front_list',{'entity':'client'}) }}">
-                                <span data-feather="home"></span>
-                                {{ 'client.menu' | trans}}
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="collapse" href="#clients" role="button" aria-expanded="false" aria-controls="clients">
+                                    <i class="fas fa-user-plus"></i>
+                                    {{ 'dashboard.clients.master' | trans}}
+                                </a>
+                            </li>
+                        <li class="nav-item collapse" id="clients">
+                            <a class="nav-link sub-item" href="{{ path('front_create',{'entity':'client'}) }}">
+                                <i class="fas fa-plus-square"></i>
+                                {{ 'dashboard.clients.add' | trans}}
+                            </a>
+                            <a class="nav-link sub-item" href="{{ path('front_list',{'entity':'client'}) }}">
+                                <i class="fas fa-th-list"></i>
+                                {{ 'dashboard.clients.list' | trans}}
                             </a>
                         </li>
+                            <div class="dropdown-divider"></div>
                         {% endif %}
                         {% if is_granted('ROLE_GOD') or is_granted('ROLE_ADMIN') or is_granted('ROLE_READ_CATEGORY')  %}
-                        <li class="nav-item">
-                            <a class="nav-link active" href="{{ path('front_list',{'entity':'category'}) }}">
-                                <span data-feather="home"></span>
-                                {{ 'category.menu' | trans}}
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="collapse" href="#categories" role="button" aria-expanded="false" aria-controls="categories">
+                                    <i class="fas fa-cubes"></i>
+                                    {{ 'dashboard.categories.master' | trans}}
+                                </a>
+                            </li>
+                        <li class="nav-item collapse" id="categories">
+                            <a class="nav-link sub-item" href="{{ path('front_create',{'entity':'category'}) }}">
+                                <i class="fas fa-plus-square"></i>
+                                {{ 'dashboard.categories.add' | trans}}
+                            </a>
+                            <a class="nav-link sub-item" href="{{ path('front_list',{'entity':'category'}) }}">
+                                <i class="fas fa-th-list"></i>
+                                {{ 'dashboard.categories.list' | trans}}
                             </a>
                         </li>
+                            <div class="dropdown-divider"></div>
                         {% endif %}
                         {% if is_granted('ROLE_GOD') or is_granted('ROLE_ADMIN') or is_granted('ROLE_READ_PRODUCT')  %}
-                        <li class="nav-item">
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="collapse" href="#products" role="button" aria-expanded="false" aria-controls="products">
+                                    <i class="fas fa-tag"></i>
+                                    {{ 'dashboard.products.master' | trans}}
+                                </a>
+                            </li>
+                        <li class="nav-item collapse" id="products">
+                            <a class="nav-link active" href="{{ path('front_create',{'entity':'product'}) }}">
+                                <i class="fas fa-plus-square"></i>
+                                {{ 'dashboard.products.add' | trans}}
+                            </a>
                             <a class="nav-link active" href="{{ path('front_list',{'entity':'product'}) }}">
-                                <span data-feather="home"></span>
-                                {{ 'product.menu' | trans}}
+                                <i class="fas fa-th-list"></i>
+                                {{ 'dashboard.products.list' | trans}}
                             </a>
                         </li>
+                            <div class="dropdown-divider"></div>
                         {% endif %}
+
                         {% if is_granted('ROLE_GOD') or is_granted('ROLE_ADMIN') or is_granted('ROLE_READ_PURCHASE')  %}
-                        <li class="nav-item">
-                            <a class="nav-link active" href="{{ path('front_list',{'entity':'purchase','sort':'reference'}) }}">
-                                <span data-feather="home"></span>
-                                {{ 'purchase.menu' | trans}}
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="collapse" href="#purchases" role="button" aria-expanded="false" aria-controls="purchases">
+                                    <i class="fas fa-cart-plus"></i>
+                                    {{ 'dashboard.purchases.master' | trans}}
+                                </a>
+                            </li>
+                        <li class="nav-item collapse" id="purchases">
+                            <a class="nav-link sub-item" href="{{ path('front_create',{'entity':'purchase'}) }}">
+                                <i class="fas fa-plus-square"></i>
+                                {{ 'dashboard.purchases.list' | trans}}
+                            </a>
+                            <a class="nav-link sub-item" href="{{ path('front_list',{'entity':'purchase','sort':'reference'}) }}">
+                                <i class="fas fa-th-list"></i>
+                                {{ 'dashboard.purchases.list' | trans}}
                             </a>
                         </li>
+                            <div class="dropdown-divider"></div>
                         {% endif %}
                     </ul>
                 </div>

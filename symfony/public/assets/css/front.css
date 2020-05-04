@@ -123,3 +123,7 @@ body {
         font-size: 3.5rem;
     }
 }
+
+.sub-item{
+    padding-left: 30px;
+}
