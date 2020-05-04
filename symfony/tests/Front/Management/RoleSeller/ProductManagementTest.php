@@ -43,7 +43,7 @@ class ProductManagementTest extends BaseTest
             'name' => 'Test Product',
             'price' => '20.00',
             'category' => $category,
-            'barcode' => random_int(10000,9999999),
+            'barcode' => random_int(10000, 9999999),
             'location' => 'Location',
         ];
 
@@ -54,7 +54,6 @@ class ProductManagementTest extends BaseTest
         $form['product[barcode]']->setValue($product['barcode']);
         $form['product[location]']->setValue($product['location']);
         $form['product[category]']->setValue($product['category']->getId());
-
 
         $client->submit($form);
 

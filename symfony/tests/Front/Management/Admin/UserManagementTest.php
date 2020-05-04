@@ -30,7 +30,7 @@ class UserManagementTest extends BaseTest
         $user = $this->getRepository(User::class)->findOneBy(['name' => 'Another User']);
         $client->request('GET', $this->generatePath('front_delete', [
             'entity' => 'user',
-            'id' => $user->getId()
+            'id' => $user->getId(),
         ]));
 
         self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);

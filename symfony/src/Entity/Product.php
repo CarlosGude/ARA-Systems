@@ -190,7 +190,7 @@ class Product implements EntityInterface, ImageInterface
         return $this;
     }
 
-    public function getId():? string
+    public function getId(): ? string
     {
         return $this->id;
     }
@@ -444,7 +444,6 @@ class Product implements EntityInterface, ImageInterface
     }
 
     /**
-     * @param MediaObject|null $image
      * @return Product
      */
     public function setImage(?MediaObject $image): ImageInterface
@@ -548,6 +547,4 @@ class Product implements EntityInterface, ImageInterface
 
         return $this;
     }
-
-
 }

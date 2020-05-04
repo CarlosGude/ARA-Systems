@@ -3,7 +3,6 @@
 namespace App\Tests\Front\Validation;
 
 use App\Entity\Category;
-use App\Entity\MediaObject;
 use App\Entity\Product;
 use App\Tests\Front\BaseTest;
 
@@ -23,7 +22,7 @@ class ProductValidationTest extends BaseTest
         $product = [
             'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
             'price' => 100,
-            'barcode' => random_int(10000,9999999),
+            'barcode' => random_int(10000, 9999999),
             'location' => 'Location',
         ];
 
@@ -48,7 +47,7 @@ class ProductValidationTest extends BaseTest
         $product = [
             'name' => 'Product Name',
             'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
-            'barcode' => random_int(10000,9999999),
+            'barcode' => random_int(10000, 9999999),
             'location' => 'Location',
         ];
 
@@ -75,8 +74,8 @@ class ProductValidationTest extends BaseTest
         $product = [
             'name' => 'Product Name',
             'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
-            'barcode' => random_int(10000,9999999),
-            'price' => '20'
+            'barcode' => random_int(10000, 9999999),
+            'price' => '20',
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
@@ -103,7 +102,7 @@ class ProductValidationTest extends BaseTest
             'name' => 'Product Name',
             'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
             'location' => 'location',
-            'price' => '20'
+            'price' => '20',
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
@@ -131,7 +130,7 @@ class ProductValidationTest extends BaseTest
             'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
             'location' => 'location',
             'barcode' => 'barcode',
-            'price' => '20'
+            'price' => '20',
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
@@ -155,16 +154,15 @@ class ProductValidationTest extends BaseTest
 
         /** @var Product $product */
         $product = $this->getRepository(Product::class)->findOneBy(['name' => 'The Product']);
-        $url =$this->generatePath('front_edit', ['entity' => 'product','id' => $product->getId()]);
+        $url = $this->generatePath('front_edit', ['entity' => 'product', 'id' => $product->getId()]);
         $crawler = $client->request('GET', $url);
 
-        $product = ['minStock' => '-1','maxStock'=> 100];
+        $product = ['minStock' => '-1', 'maxStock' => 100];
 
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['product[maxStock]']->setValue($product['maxStock']);
         $form['product[minStock]']->setValue($product['minStock']);
-
 
         $client->submit($form);
 
@@ -179,10 +177,10 @@ class ProductValidationTest extends BaseTest
 
         /** @var Product $product */
         $product = $this->getRepository(Product::class)->findOneBy(['name' => 'The Product']);
-        $url =$this->generatePath('front_edit', ['entity' => 'product','id' => $product->getId()]);
+        $url = $this->generatePath('front_edit', ['entity' => 'product', 'id' => $product->getId()]);
         $crawler = $client->request('GET', $url);
 
-        $product = ['maxStock' => '-1',];
+        $product = ['maxStock' => '-1'];
 
         $form = $crawler->selectButton('Guardar')->form();
 
@@ -201,7 +199,7 @@ class ProductValidationTest extends BaseTest
 
         /** @var Product $product */
         $product = $this->getRepository(Product::class)->findOneBy(['name' => 'The Product']);
-        $url =$this->generatePath('front_edit', ['entity' => 'product','id' => $product->getId()]);
+        $url = $this->generatePath('front_edit', ['entity' => 'product', 'id' => $product->getId()]);
         $crawler = $client->request('GET', $url);
 
         $product = [
@@ -231,8 +229,8 @@ class ProductValidationTest extends BaseTest
             'name' => 'Test Product',
             'price' => '20.00',
             'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
-            'image' => $this->getFile('document.pdf','document.pdf'),
-            'barcode' => random_int(10000,9999999),
+            'image' => $this->getFile('document.pdf', 'document.pdf'),
+            'barcode' => random_int(10000, 9999999),
             'location' => 'Location',
         ];
 
@@ -249,7 +247,7 @@ class ProductValidationTest extends BaseTest
 
         $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
 
-        self::assertEquals(0,$crawler->filter('img#avatar')->count());
+        self::assertEquals(0, $crawler->filter('img#avatar')->count());
         self::assertEquals('El archivo no es una imagen válida.', $errorSpan->html());
     }
 
@@ -261,7 +259,7 @@ class ProductValidationTest extends BaseTest
 
         $crawler = $client->request(
             'GET',
-            $this->generatePath('front_edit', ['entity' => 'product','id' => $product->getId()]
+            $this->generatePath('front_edit', ['entity' => 'product', 'id' => $product->getId()]
             ));
 
         $product = [
@@ -291,7 +289,7 @@ class ProductValidationTest extends BaseTest
 
         $crawler = $client->request(
             'GET',
-            $this->generatePath('front_edit', ['entity' => 'product','id' => $product->getId()]
+            $this->generatePath('front_edit', ['entity' => 'product', 'id' => $product->getId()]
             ));
 
         $product = [
@@ -321,7 +319,7 @@ class ProductValidationTest extends BaseTest
 
         $crawler = $client->request(
             'GET',
-            $this->generatePath('front_edit', ['entity' => 'product','id' => $product->getId()]
+            $this->generatePath('front_edit', ['entity' => 'product', 'id' => $product->getId()]
             ));
 
         $product = [
@@ -347,7 +345,7 @@ class ProductValidationTest extends BaseTest
 
         $crawler = $client->request(
             'GET',
-            $this->generatePath('front_edit', ['entity' => 'product','id' => $product->getId()]
+            $this->generatePath('front_edit', ['entity' => 'product', 'id' => $product->getId()]
             ));
 
         $product = [

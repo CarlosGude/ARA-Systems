@@ -2,7 +2,6 @@
 
 namespace App\Tests\Front\Roles\RoleSeller;
 
-use App\Entity\Purchase;
 use App\Tests\Front\BaseTest;
 use Symfony\Component\HttpFoundation\Response;
 

@@ -34,15 +34,15 @@ class ProductType extends AbstractType
             ->add('name', TextType::class, ['label' => 'product.name'])
             ->add('barcode', NumberType::class, ['label' => 'product.barcode'])
             ->add('location', TextType::class, ['label' => 'product.location'])
-            ->add('image',FileType::class,[
-                'label'=>'product.principal',
-                'mapped'=>false,
-                'required'=> false,
-                'constraints' => [new Image()]
+            ->add('image', FileType::class, [
+                'label' => 'product.principal',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [new Image()],
             ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
-                'attr' => ['class'=>'select'],
+                'attr' => ['class' => 'select'],
                 'query_builder' => static function (CategoryRepository $repository) use ($product) {
                     return $repository->findByCompany($product->getCompany());
                 },
@@ -56,33 +56,33 @@ class ProductType extends AbstractType
             ->add('price', MoneyType::class, ['label' => 'product.price'])
         ;
 
-        if($product->getId()){
+        if ($product->getId()) {
             $builder
                 ->add('productHeight', NumberType::class, [
                     'label' => 'product.productHeight',
                     'attr' => ['min' => 0],
                     'help' => 'product.sizeHelp',
-                    'required'=> false
+                    'required' => false,
                 ])
                 ->add('productLength', NumberType::class, [
                     'label' => 'product.productLength',
                     'attr' => ['min' => 0],
                     'help' => 'product.sizeHelp',
-                    'required'=> false
+                    'required' => false,
                 ])
                 ->add('productWidth', NumberType::class, [
                     'label' => 'product.productWidth',
                     'attr' => ['min' => 0],
                     'help' => 'product.sizeHelp',
-                    'required'=> false
+                    'required' => false,
                 ])
                 ->add('kilograms', NumberType::class, [
                     'label' => 'product.kilograms',
                     'attr' => ['min' => 0],
                     'help' => 'product.kilogramsHelp',
-                    'required'=> false
+                    'required' => false,
                 ])
-                ->add('description', TextareaType::class, ['label' => 'product.description','required'=> false])
+                ->add('description', TextareaType::class, ['label' => 'product.description', 'required' => false])
                 ->add('tax', ChoiceType::class, [
                     'label' => 'category.tax',
                     'choices' => $this->getTaxes(),
@@ -113,7 +113,7 @@ class ProductType extends AbstractType
         }
         $builder
             ->add('submit', SubmitType::class, ['label' => 'save'])
-            ->addEventListener(FormEvents::POST_SUBMIT,[ImageFormSubscriber::class,'postSubmit'])
+            ->addEventListener(FormEvents::POST_SUBMIT, [ImageFormSubscriber::class, 'postSubmit'])
         ;
     }
 

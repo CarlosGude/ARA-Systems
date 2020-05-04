@@ -21,16 +21,16 @@ class ProviderType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, ['label' => 'provider.name'])
-            ->add('image',FileType::class,[
-                'label'=>'provider.image',
-                'mapped'=>false,
-                'required'=> false,
-                'constraints' => [new Image()]
+            ->add('image', FileType::class, [
+                'label' => 'provider.image',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [new Image()],
             ])
             ->add('email', EmailType::class, ['label' => 'provider.email'])
             ->add('description', TextareaType::class, ['label' => 'provider.description', 'required' => false])
             ->add('submit', SubmitType::class, ['label' => 'save'])
-            ->addEventListener(FormEvents::POST_SUBMIT,[ImageFormSubscriber::class,'postSubmit'])
+            ->addEventListener(FormEvents::POST_SUBMIT, [ImageFormSubscriber::class, 'postSubmit'])
         ;
     }
 

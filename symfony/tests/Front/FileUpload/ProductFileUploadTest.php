@@ -1,11 +1,8 @@
 <?php
 
-
 namespace App\Tests\Front\FileUpload;
 
-
 use App\Entity\Category;
-use App\Entity\Company;
 use App\Entity\MediaObject;
 use App\Entity\Product;
 use App\Tests\Front\BaseTest;
@@ -21,10 +18,10 @@ class ProductFileUploadTest extends BaseTest
         $product = [
             'name' => 'Test Product',
             'price' => '20.00',
-            'barcode' => random_int(10000,9999999),
+            'barcode' => random_int(10000, 9999999),
             'location' => 'Location',
             'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
-            'image' => $this->getFile('logo.png','principal.png')
+            'image' => $this->getFile('logo.png', 'principal.png'),
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
@@ -47,8 +44,8 @@ class ProductFileUploadTest extends BaseTest
 
         $product = $this->getRepository(Product::class)->findOneBy(['name' => 'Test Product']);
 
-        self::assertInstanceOf(Product::class,$product);
-        self::assertEquals(1,$client->getCrawler()->filter('img#principal')->count());
+        self::assertInstanceOf(Product::class, $product);
+        self::assertEquals(1, $client->getCrawler()->filter('img#principal')->count());
         self::assertInstanceOf(MediaObject::class, $product->getImage());
     }
 
@@ -58,12 +55,12 @@ class ProductFileUploadTest extends BaseTest
 
         /** @var Product $product */
         $product = $this->getRepository(Product::class)->findOneBy(['name' => 'Test Product']);
-        $url = $this->generatePath('front_edit', ['entity' => 'product','id'=> $product->getId()]);
+        $url = $this->generatePath('front_edit', ['entity' => 'product', 'id' => $product->getId()]);
         $crawler = $client->request('GET', $url);
         $removeImage = $crawler->filter('a.delete')->first();
-        $client->request('POST',$removeImage->attr('data-href'));
+        $client->request('POST', $removeImage->attr('data-href'));
 
-        self::assertInstanceOf(Product::class,$product);
-        self::assertEquals(0,$client->getCrawler()->filter('img#principal')->count());
+        self::assertInstanceOf(Product::class, $product);
+        self::assertEquals(0, $client->getCrawler()->filter('img#principal')->count());
     }
 }

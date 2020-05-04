@@ -97,7 +97,7 @@ class ClientManagementTest extends BaseTest
         $clientData = $this->getRepository(Client::class)->findOneBy(['name' => 'The Client']);
         $client->request('GET', $this->generatePath('front_delete', [
             'entity' => 'client',
-            'id' => $clientData->getId()
+            'id' => $clientData->getId(),
         ]));
 
         self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);

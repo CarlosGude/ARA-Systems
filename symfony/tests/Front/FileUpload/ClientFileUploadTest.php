@@ -1,11 +1,8 @@
 <?php
 
-
 namespace App\Tests\Front\FileUpload;
 
-
 use App\Entity\Client;
-use App\Entity\Company;
 use App\Entity\MediaObject;
 use App\Tests\Front\BaseTest;
 
@@ -19,7 +16,7 @@ class ClientFileUploadTest extends BaseTest
 
         $clientData = [
             'name' => 'Test Client',
-            'image' => $this->getFile('logo.png','avatar.png'),
+            'image' => $this->getFile('logo.png', 'avatar.png'),
             'email' => 'fake@email.com',
             'identification' => 333225,
             'address' => 'Fake street 123',
@@ -44,8 +41,8 @@ class ClientFileUploadTest extends BaseTest
 
         $clientData = $this->getRepository(Client::class)->findOneBy(['name' => 'Test Client']);
 
-        self::assertInstanceOf(Client::class,$clientData);
+        self::assertInstanceOf(Client::class, $clientData);
         self::assertInstanceOf(MediaObject::class, $clientData->getImage());
-        self::assertEquals(1,$client->getCrawler()->filter('img#avatar')->count());
+        self::assertEquals(1, $client->getCrawler()->filter('img#avatar')->count());
     }
 }

@@ -50,7 +50,6 @@ abstract class BaseTest extends ApiTestCase
     }
 
     /**
-     * @param DateTime $dateTime
      * @throws Exception
      */
     protected function assertRecentlyDateTime(DateTime $dateTime): void
@@ -136,8 +135,6 @@ abstract class BaseTest extends ApiTestCase
     }
 
     /**
-     * @param Company|null $company
-     * @param string $status
      * @return Purchase|null
      */
     protected function getPurchase(Company $company = null, string $status = 'pending'): ?Purchase
@@ -156,8 +153,6 @@ abstract class BaseTest extends ApiTestCase
     }
 
     /**
-     * @param Company $company
-     * @param string $status
      * @return PurchaseLine|null
      */
     protected function getPurchaseLine(Company $company, string $status = 'pending'): ?PurchaseLine
@@ -170,7 +165,6 @@ abstract class BaseTest extends ApiTestCase
     /**
      * @param string $name
      *
-     * @param Company|null $company
      * @return PurchaseLine|null
      */
     protected function getPurchaseClient($name = 'The Client', Company $company = null): ?Client

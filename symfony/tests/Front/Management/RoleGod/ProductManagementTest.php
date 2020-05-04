@@ -36,7 +36,7 @@ class ProductManagementTest extends BaseTest
         $product = [
             'name' => 'Test Product',
             'price' => '20.00',
-            'barcode' => random_int(10000,9999999),
+            'barcode' => random_int(10000, 9999999),
             'location' => 'Location',
             'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
         ];

@@ -104,14 +104,14 @@ class PurchaseLineValidationTest extends BaseTest
             $response['hydra:description']
         );
     }
-    
+
     /**
      * @throws TransportExceptionInterface
      */
     public function testProductShouldNotBeUpdated(): void
     {
         $product = $this->getProduct();
-        $purchaseLine = $this->getPurchaseLine($this->getCompany(),'pending');
+        $purchaseLine = $this->getPurchaseLine($this->getCompany(), 'pending');
         $newProduct = $this->getProduct('Product 1');
 
         $response = static::createClient()->request(

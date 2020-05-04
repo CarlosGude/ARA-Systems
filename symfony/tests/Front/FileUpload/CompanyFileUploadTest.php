@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Tests\Front\FileUpload;
-
 
 use App\Entity\Company;
 use App\Entity\MediaObject;
@@ -22,7 +20,7 @@ class CompanyFileUploadTest extends BaseTest
             'phone' => '987456321',
             'address' => 'Fake st 123',
             'cif' => '32145678J',
-            'image' => $this->getFile('logo.png','company.png')
+            'image' => $this->getFile('logo.png', 'company.png'),
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
@@ -42,11 +40,11 @@ class CompanyFileUploadTest extends BaseTest
 
         $crawler = $client->request('GET', $this->generatePath('front_edit', [
             'entity' => 'company',
-            'id' => $company->getId()
+            'id' => $company->getId(),
         ]));
 
-        self::assertInstanceOf(Company::class,$company);
-        self::assertEquals(1,$crawler->filter('img#logo')->count());
+        self::assertInstanceOf(Company::class, $company);
+        self::assertEquals(1, $crawler->filter('img#logo')->count());
         self::assertInstanceOf(MediaObject::class, $company->getImage());
     }
 }

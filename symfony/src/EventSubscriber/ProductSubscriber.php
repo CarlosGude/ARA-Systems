@@ -43,12 +43,12 @@ class ProductSubscriber implements EventSubscriber
             ->setMinStock($product->getCategory()->getMinStock())
             ->setMaxStock($product->getCategory()->getMaxStock());
 
-        if($product->getReference()){
+        if ($product->getReference()) {
             return;
         }
 
         $count = count($args->getObjectManager()->getRepository(Product::class)->findBy([
-            'company' => $product->getCompany()
+            'company' => $product->getCompany(),
         ]));
 
         $product->setReference(str_pad($count, 10, '0', STR_PAD_LEFT));

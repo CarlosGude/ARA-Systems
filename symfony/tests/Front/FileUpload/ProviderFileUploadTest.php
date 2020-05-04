@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Tests\Front\FileUpload;
 
 use App\Entity\MediaObject;
@@ -18,7 +17,7 @@ class ProviderFileUploadTest extends BaseTest
         $provider = [
             'name' => 'Test Provider',
             'email' => 'fake2@gmail.com',
-            'image' => $this->getFile('logo.png','principal.png')
+            'image' => $this->getFile('logo.png', 'principal.png'),
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
@@ -38,8 +37,8 @@ class ProviderFileUploadTest extends BaseTest
 
         $provider = $this->getRepository(Provider::class)->findOneBy(['name' => 'Test Provider']);
 
-        self::assertInstanceOf(Provider::class,$provider);
+        self::assertInstanceOf(Provider::class, $provider);
         self::assertInstanceOf(MediaObject::class, $provider->getImage());
-        self::assertEquals(1,$client->getCrawler()->filter('img#logo')->count());
+        self::assertEquals(1, $client->getCrawler()->filter('img#logo')->count());
     }
 }

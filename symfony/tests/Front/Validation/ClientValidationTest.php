@@ -2,8 +2,6 @@
 
 namespace App\Tests\Front\Validation;
 
-use App\Entity\Client;
-use App\Entity\MediaObject;
 use App\Tests\Front\BaseTest;
 
 class ClientValidationTest extends BaseTest
@@ -172,7 +170,7 @@ class ClientValidationTest extends BaseTest
 
         $clientData = [
             'name' => 'Test Client',
-            'image' => $this->getFile('document.pdf','company.pdf'),
+            'image' => $this->getFile('document.pdf', 'company.pdf'),
             'email' => 'fake@email.com',
             'identification' => 333225,
             'address' => 'Fake street 123',
@@ -189,7 +187,7 @@ class ClientValidationTest extends BaseTest
         $client->submit($form);
         $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
 
-        self::assertEquals(0,$crawler->filter('img#avatar')->count());
+        self::assertEquals(0, $crawler->filter('img#avatar')->count());
         self::assertEquals('El archivo no es una imagen válida.', $errorSpan->html());
     }
 }

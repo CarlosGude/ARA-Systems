@@ -35,8 +35,8 @@ class LoginTest extends BaseTest
 
     public function testCompanyPersonalizedLogin(): void
     {
-        /** @var Company $company */
-        $this->login(parent::LOGIN_GOD, ['name'=> 'The Company']);
+        /* @var Company $company */
+        $this->login(parent::LOGIN_GOD, ['name' => 'The Company']);
 
         self::assertResponseIsSuccessful();
         self::assertSelectorTextContains('h1', 'Hola, carlos.sgude@gmail.com.');

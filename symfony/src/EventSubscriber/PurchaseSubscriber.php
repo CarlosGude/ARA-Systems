@@ -19,7 +19,7 @@ class PurchaseSubscriber implements EventSubscriber
     {
         return [
             Events::onFlush,
-            Events::prePersist
+            Events::prePersist,
         ];
     }
 
@@ -27,16 +27,16 @@ class PurchaseSubscriber implements EventSubscriber
     {
         $purchase = $args->getObject();
 
-        if(!$purchase instanceof Purchase){
+        if (!$purchase instanceof Purchase) {
             return;
         }
 
-        if($purchase->getReference()){
+        if ($purchase->getReference()) {
             return;
         }
 
         $count = count($args->getObjectManager()->getRepository(Purchase::class)->findBy([
-            'company' => $purchase->getCompany()
+            'company' => $purchase->getCompany(),
         ]));
 
         $purchase->setReference(str_pad($count, 10, '0', STR_PAD_LEFT));

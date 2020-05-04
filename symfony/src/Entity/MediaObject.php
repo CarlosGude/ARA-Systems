@@ -87,7 +87,6 @@ class MediaObject implements \Serializable
      */
     private $products;
 
-
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -168,17 +167,14 @@ class MediaObject implements \Serializable
     /** @see \Serializable::serialize() */
     public function serialize(): string
     {
-        return serialize(array(
+        return serialize([
             $this->id,
             $this->filePath,
-
-        ));
+        ]);
     }
 
     /** @see \Serializable::unserialize() */
     public function unserialize($serialized)
     {
-
     }
-
 }

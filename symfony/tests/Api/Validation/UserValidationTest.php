@@ -181,7 +181,6 @@ class UserValidationTest extends BaseTest
             'company' => parent::API.'companies/'.$this->getCompany('Another Company')->getId(),
         ];
 
-
         $response = static::createClient()->request(
             'POST',
             parent::API.'users',
@@ -211,7 +210,6 @@ class UserValidationTest extends BaseTest
             'company' => parent::API.'companies/'.$this->getCompany('Another Company')->getId(),
         ];
 
-
         $response = static::createClient()->request(
             'POST',
             parent::API.'users',
@@ -240,7 +238,6 @@ class UserValidationTest extends BaseTest
             'password' => 'password',
             'company' => parent::API.'companies/'.$this->getCompany('Another Company')->getId(),
         ];
-
 
         $response = static::createClient()->request(
             'POST',

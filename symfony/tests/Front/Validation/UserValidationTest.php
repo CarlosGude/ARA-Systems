@@ -150,7 +150,7 @@ class UserValidationTest extends BaseTest
         $user = [
             'name' => 'Another Test User',
             'email' => 'fake2@email.com',
-            'image' => $this->getFile('document.pdf','company.pdf'),
+            'image' => $this->getFile('document.pdf', 'company.pdf'),
             'profile' => User::PROFILE_ADMIN,
             'password' => 'password',
         ];
@@ -166,7 +166,7 @@ class UserValidationTest extends BaseTest
         $client->submit($form);
         $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
 
-        self::assertEquals(0,$crawler->filter('img#logo')->count());
+        self::assertEquals(0, $crawler->filter('img#logo')->count());
         self::assertEquals('El archivo no es una imagen válida.', $errorSpan->html());
     }
 }

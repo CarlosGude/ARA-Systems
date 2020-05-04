@@ -46,7 +46,7 @@ class ClientManagementTest extends BaseTest
         $client = $this->getRepository(Client::class)->findOneBy(['name' => 'Test Client']);
 
         self::assertNotNull($client);
-        self::assertInstanceOf(Client::class,$client);
+        self::assertInstanceOf(Client::class, $client);
     }
 
     public function testClientEdited(): void
@@ -91,7 +91,7 @@ class ClientManagementTest extends BaseTest
         $clientData = $this->getRepository(Client::class)->findOneBy(['name' => 'Another Client']);
         $client->request('GET', $this->generatePath('front_delete', [
             'entity' => 'client',
-            'id' => $clientData->getId()
+            'id' => $clientData->getId(),
         ]));
 
         self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);

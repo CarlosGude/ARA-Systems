@@ -30,7 +30,7 @@ abstract class BaseTest extends WebTestCase
         return static::$container->get('router')->generate($name, $parameters);
     }
 
-    protected function  getFile(string $file, string $name): UploadedFile
+    protected function getFile(string $file, string $name): UploadedFile
     {
         $file = static::$kernel->getProjectDir().'\tests\Front\FileUpload\example\\'.$file;
 
@@ -45,14 +45,14 @@ abstract class BaseTest extends WebTestCase
         return $manager->getRepository($class);
     }
 
-    protected function login(array $user,array $company = null): KernelBrowser
+    protected function login(array $user, array $company = null): KernelBrowser
     {
         $client = static::createClient();
         $client->followRedirects();
 
         $url = $company
-            ? $this->generatePath('app_login_company',[
-                'company' => $this->getRepository(Company::class)->findOneBy($company)->getSlug()
+            ? $this->generatePath('app_login_company', [
+                'company' => $this->getRepository(Company::class)->findOneBy($company)->getSlug(),
             ])
             : $this->generatePath('app_login', []);
 

@@ -3,8 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Company;
-use App\Entity\Purchase;
-use App\Entity\PurchaseLine;
 use App\Entity\User;
 use App\Interfaces\EntityInterface;
 use App\Interfaces\ImageInterface;
@@ -71,16 +69,15 @@ class FrontController extends AbstractController
     }
 
     /**
-     * @param string $entity
-     * @param string $id
      * @param EntityManager $em
-     * @param Request $request
+     *
      * @return Response
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws OptimisticLockException
-     *  @Route("/remove-image/{entity}/{id}", name="delete_image")
+     * @Route("/remove-image/{entity}/{id}", name="delete_image")
      */
-    public function removeImage(string $entity,string $id, EntityManagerInterface $em, Request $request): Response
+    public function removeImage(string $entity, string $id, EntityManagerInterface $em, Request $request): Response
     {
         $class = self::ENTITY_NAMESPACE.ucfirst($entity);
 

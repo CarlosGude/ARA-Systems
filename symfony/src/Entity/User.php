@@ -340,7 +340,7 @@ class User extends AbstractUserRoles implements UserInterface, ImageInterface
     public function setImage(?MediaObject $image): ImageInterface
     {
         $this->image = $image;
-        if($image){
+        if ($image) {
             $this->setUpdatedAt(new DateTime());
         }
         return $this;

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Interfaces;
-
 
 use App\Entity\MediaObject;
 
@@ -14,7 +12,6 @@ interface ImageInterface
     public function getImage(): ?MediaObject;
 
     /**
-     * @param MediaObject|null $image
      * @return ImageInterface
      */
     public function setImage(?MediaObject $image): ImageInterface;

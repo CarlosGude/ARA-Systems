@@ -95,7 +95,7 @@ class CategoryManagementTest extends BaseTest
         $category = $this->getRepository(Category::class)->findOneBy(['name' => 'Another Category']);
         $client->request('GET', $this->generatePath('front_delete', [
             'entity' => 'category',
-            'id' => $category->getId()
+            'id' => $category->getId(),
         ]));
 
         self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);

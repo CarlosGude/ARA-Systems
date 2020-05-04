@@ -147,7 +147,6 @@ class PurchaseLinesManagementTest extends BaseTest
      */
     public function testDeleteAPurchase(): void
     {
-
         $purchaseLine = $this->getPurchaseLine($this->getCompany());
 
         static::createClient()->request('DELETE', parent::API.'purchase_lines/'.$purchaseLine->getId(), [

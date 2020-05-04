@@ -2,13 +2,10 @@
 
 namespace App\Tests\Front\Validation;
 
-use App\Entity\MediaObject;
-use App\Entity\Provider;
 use App\Tests\Front\BaseTest;
 
 class PurchaseValidationTest extends BaseTest
 {
-
     public function testTheLogoMustBeAnImage(): void
     {
         $client = $this->login(parent::LOGIN_ADMIN);
@@ -18,7 +15,7 @@ class PurchaseValidationTest extends BaseTest
         $provider = [
             'name' => 'Test Provider',
             'email' => 'fake2@gmail.com',
-            'image' => $this->getFile('document.pdf','company.pdf'),
+            'image' => $this->getFile('document.pdf', 'company.pdf'),
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
@@ -31,7 +28,7 @@ class PurchaseValidationTest extends BaseTest
 
         $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
 
-        self::assertEquals(0,$crawler->filter('img#avatar')->count());
+        self::assertEquals(0, $crawler->filter('img#avatar')->count());
         self::assertEquals('El archivo no es una imagen válida.', $errorSpan->html());
     }
 }

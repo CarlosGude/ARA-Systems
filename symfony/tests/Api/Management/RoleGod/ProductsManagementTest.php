@@ -96,7 +96,7 @@ class ProductsManagementTest extends BaseTest
             'price' => 21,
             'minStock' => 0,
             'maxStock' => 999,
-            'barcode' => random_int(10000,9999999),
+            'barcode' => random_int(10000, 9999999),
             'location' => 'Location',
             'user' => parent::API.'users/'.$this->getGodUser()->getId(),
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),

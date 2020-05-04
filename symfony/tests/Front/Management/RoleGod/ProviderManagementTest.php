@@ -4,7 +4,6 @@ namespace App\Tests\Front\Roles\RoleGod;
 
 use App\Entity\Provider;
 use App\Tests\Front\BaseTest;
-use Symfony\Component\HttpFoundation\Response;
 
 class ProviderManagementTest extends BaseTest
 {
@@ -80,5 +79,4 @@ class ProviderManagementTest extends BaseTest
             trim($successLabel->html())
         );
     }
-
 }

@@ -2,7 +2,6 @@
 
 namespace App\EventSubscriber;
 
-use App\Entity\Company;
 use App\Entity\MediaObject;
 use App\Interfaces\ImageInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -26,7 +25,7 @@ class ImageFormSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-           FormEvents::POST_SUBMIT => 'postSubmit'
+           FormEvents::POST_SUBMIT => 'postSubmit',
         ];
     }
 
@@ -41,7 +40,7 @@ class ImageFormSubscriber implements EventSubscriberInterface
         $form = $event->getForm();
 
         $image = $form->get('image')->getData();
-        if (!$image instanceof UploadedFile){
+        if (!$image instanceof UploadedFile) {
             return;
         }
 
@@ -49,5 +48,4 @@ class ImageFormSubscriber implements EventSubscriberInterface
         $media->setFile($image);
         $data->setImage($media);
     }
-
 }

@@ -37,11 +37,11 @@ class UserType extends AbstractType
                 'placeholder' => 'user.profileChoose',
             ])
             ->add('email', EmailType::class, ['label' => 'user.email'])
-            ->add('image',FileType::class,[
-                'label'=>'user.avatar',
-                'mapped'=>false,
-                'required'=> false,
-                'constraints' => [new Image()]
+            ->add('image', FileType::class, [
+                'label' => 'user.avatar',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [new Image()],
             ])
         ;
 
@@ -53,7 +53,7 @@ class UserType extends AbstractType
 
         $builder
             ->add('submit', SubmitType::class, ['label' => 'save'])
-            ->addEventListener(FormEvents::POST_SUBMIT,[ImageFormSubscriber::class,'postSubmit']);
+            ->addEventListener(FormEvents::POST_SUBMIT, [ImageFormSubscriber::class, 'postSubmit']);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

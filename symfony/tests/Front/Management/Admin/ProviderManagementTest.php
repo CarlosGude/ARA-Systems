@@ -4,7 +4,6 @@ namespace App\Tests\Front\Management\Admin;
 
 use App\Entity\Provider;
 use App\Tests\Front\BaseTest;
-use Symfony\Component\HttpFoundation\Response;
 
 class ProviderManagementTest extends BaseTest
 {
@@ -88,6 +87,6 @@ class ProviderManagementTest extends BaseTest
         $crawler = $client->request('GET', $this->generatePath('front_list', ['entity' => 'provider']));
 
         $count = $crawler->filter('.delete')->count();
-        self::assertEquals(0,$count);
+        self::assertEquals(0, $count);
     }
 }

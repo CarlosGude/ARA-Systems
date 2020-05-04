@@ -203,16 +203,12 @@ class Client implements EntityInterface, ImageInterface
         return $this;
     }
 
-    /**
-     * @return MediaObject|null
-     */
     public function getImage(): ?MediaObject
     {
         return $this->image;
     }
 
     /**
-     * @param MediaObject|null $image
      * @return Client
      */
     public function setImage(?MediaObject $image): ImageInterface
@@ -244,6 +240,4 @@ class Client implements EntityInterface, ImageInterface
 
         return $this;
     }
-
-
 }

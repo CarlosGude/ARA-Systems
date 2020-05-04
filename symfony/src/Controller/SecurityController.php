@@ -16,13 +16,12 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils, string $company = null): Response
     {
-
         if ($this->getUser()) {
             return $this->redirectToRoute('front_dashboard');
         }
 
-        if($company){
-            $company = $this->getDoctrine()->getRepository(Company::class)->findOneBy(['slug'=>$company]);
+        if ($company) {
+            $company = $this->getDoctrine()->getRepository(Company::class)->findOneBy(['slug' => $company]);
         }
 
         // get the login error if there is one
@@ -33,7 +32,7 @@ class SecurityController extends AbstractController
         return $this->render('security/login.html.twig', [
             'last_username' => $lastUsername,
             'company' => $company,
-            'error' => $error
+            'error' => $error,
         ]);
     }
 }

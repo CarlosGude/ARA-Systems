@@ -43,7 +43,7 @@ class ProductManagementTest extends BaseTest
             'name' => 'Test Product',
             'price' => '20.00',
             'category' => $category,
-            'barcode' => random_int(10000,9999999),
+            'barcode' => random_int(10000, 9999999),
             'location' => 'Location',
         ];
 

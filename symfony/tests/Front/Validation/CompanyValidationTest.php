@@ -2,8 +2,6 @@
 
 namespace App\Tests\Front\Validation;
 
-use App\Entity\Company;
-use App\Entity\MediaObject;
 use App\Tests\Front\BaseTest;
 
 class CompanyValidationTest extends BaseTest
@@ -50,7 +48,7 @@ class CompanyValidationTest extends BaseTest
             'phone' => '698745321',
             'address' => 'Fake st 123',
             'cif' => '36521478J',
-            'logo' => $this->getFile('document.pdf','company.pdf')
+            'logo' => $this->getFile('document.pdf', 'company.pdf'),
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
@@ -67,7 +65,7 @@ class CompanyValidationTest extends BaseTest
         $client->submit($form);
         $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
 
-        self::assertEquals(0,$crawler->filter('img#logo')->count());
+        self::assertEquals(0, $crawler->filter('img#logo')->count());
         self::assertEquals('El archivo no es una imagen válida.', $errorSpan->html());
     }
 
@@ -96,7 +94,7 @@ class CompanyValidationTest extends BaseTest
         $client->submit($form);
         $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
 
-        self::assertEquals(0,$crawler->filter('img#logo')->count());
+        self::assertEquals(0, $crawler->filter('img#logo')->count());
         self::assertEquals('Este valor no debería estar vacío.', $errorSpan->html());
     }
 
@@ -125,7 +123,7 @@ class CompanyValidationTest extends BaseTest
         $client->submit($form);
         $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
 
-        self::assertEquals(0,$crawler->filter('img#logo')->count());
+        self::assertEquals(0, $crawler->filter('img#logo')->count());
         self::assertEquals('Este valor no debería estar vacío.', $errorSpan->html());
     }
 
@@ -154,7 +152,7 @@ class CompanyValidationTest extends BaseTest
         $client->submit($form);
         $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
 
-        self::assertEquals(0,$crawler->filter('img#logo')->count());
+        self::assertEquals(0, $crawler->filter('img#logo')->count());
         self::assertEquals('Este valor no debería estar vacío.', $errorSpan->html());
     }
 
@@ -183,7 +181,7 @@ class CompanyValidationTest extends BaseTest
         $client->submit($form);
         $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
 
-        self::assertEquals(0,$crawler->filter('img#logo')->count());
+        self::assertEquals(0, $crawler->filter('img#logo')->count());
         self::assertEquals('Este valor no debería estar vacío.', $errorSpan->html());
     }
 
@@ -199,7 +197,7 @@ class CompanyValidationTest extends BaseTest
             'email' => 'fake@email.com',
             'phone' => '698745321',
             'address' => 'Fake st 123',
-            'cif' => 'invalid'
+            'cif' => 'invalid',
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
@@ -214,7 +212,7 @@ class CompanyValidationTest extends BaseTest
         $client->submit($form);
         $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
 
-        self::assertEquals(0,$crawler->filter('img#logo')->count());
+        self::assertEquals(0, $crawler->filter('img#logo')->count());
         self::assertEquals('Este valor no es válido.', $errorSpan->html());
     }
 
@@ -230,7 +228,7 @@ class CompanyValidationTest extends BaseTest
             'email' => 'fake@email.com',
             'phone' => 'aaaaaaaaa',
             'address' => 'Fake st 123',
-            'cif' => 'invalid'
+            'cif' => 'invalid',
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
@@ -245,7 +243,7 @@ class CompanyValidationTest extends BaseTest
         $client->submit($form);
         $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
 
-        self::assertEquals(0,$crawler->filter('img#logo')->count());
+        self::assertEquals(0, $crawler->filter('img#logo')->count());
         self::assertEquals('Este valor no es válido.', $errorSpan->html());
     }
 
@@ -261,7 +259,7 @@ class CompanyValidationTest extends BaseTest
             'email' => 'fake@email.com',
             'phone' => '98745612',
             'address' => 'Fake st 123',
-            'cif' => 'invalid'
+            'cif' => 'invalid',
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
@@ -276,8 +274,7 @@ class CompanyValidationTest extends BaseTest
         $client->submit($form);
         $errorSpan = $client->getCrawler()->filter('.form-error-message')->first();
 
-        self::assertEquals(0,$crawler->filter('img#logo')->count());
+        self::assertEquals(0, $crawler->filter('img#logo')->count());
         self::assertEquals('Este valor debería tener exactamente 9 caracteres.', $errorSpan->html());
     }
-
 }
