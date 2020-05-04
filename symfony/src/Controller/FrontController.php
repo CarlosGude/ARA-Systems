@@ -42,6 +42,72 @@ class FrontController extends AbstractController
     }
 
     /**
+     * @Route("/delete-{entity}/{id}", name="delete")
+     */
+    public function delete(string $entity, string $id, Request $request, EntityManagerInterface $em): Response
+    {
+        $class = self::ENTITY_NAMESPACE.ucfirst($entity);
+
+        if (!class_exists($class)) {
+            throw new NotFoundHttpException('Page not found.');
+        }
+
+        $element = $em->getRepository($class)->find($id);
+
+        if (!$element) {
+            throw new RuntimeException('Page not found.');
+        }
+
+        if ($this->isAValidEntity($class)) {
+            throw new RuntimeException('The class is not valid.');
+        }
+
+        $this->denyAccessUnlessGranted(AbstractVoter::DELETE, $element);
+
+        $em->remove($element);
+        $em->flush();
+
+        return $this->redirect($request->headers->get('referer'));
+    }
+
+    /**
+     * @param string $entity
+     * @param string $id
+     * @param EntityManager $em
+     * @param Request $request
+     * @return Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws OptimisticLockException
+     *  @Route("/remove-image/{entity}/{id}", name="delete_image")
+     */
+    public function removeImage(string $entity,string $id, EntityManagerInterface $em, Request $request): Response
+    {
+        $class = self::ENTITY_NAMESPACE.ucfirst($entity);
+
+        if (!class_exists($class)) {
+            throw new NotFoundHttpException('Page not found.');
+        }
+
+        $element = $em->getRepository($class)->find($id);
+
+        if (!$element) {
+            throw new RuntimeException('Page not found.');
+        }
+
+        if (!$element instanceof ImageInterface || $this->isAValidEntity($class)) {
+            throw new RuntimeException('The class is not valid.');
+        }
+
+        $this->denyAccessUnlessGranted(AbstractVoter::DELETE, $element);
+
+        $element->setImage(null);
+
+        $em->flush();
+
+        return $this->redirect($request->headers->get('referer'));
+    }
+
+    /**
      * @Route("/create/{entity}", name="create")
      */
     public function create(
@@ -182,72 +248,6 @@ class FrontController extends AbstractController
             'pagination' => $pagination,
             'entity' => $entity,
         ]);
-    }
-
-    /**
-     * @Route("/delete/{entity}/{id}", name="delete")
-     */
-    public function delete(string $entity, string $id, Request $request, EntityManagerInterface $em): Response
-    {
-        $class = self::ENTITY_NAMESPACE.ucfirst($entity);
-
-        if (!class_exists($class)) {
-            throw new NotFoundHttpException('Page not found.');
-        }
-
-        $element = $em->getRepository($class)->find($id);
-
-        if (!$element) {
-            throw new RuntimeException('Page not found.');
-        }
-
-        if ($this->isAValidEntity($class)) {
-            throw new RuntimeException('The class is not valid.');
-        }
-
-        $this->denyAccessUnlessGranted(AbstractVoter::DELETE, $element);
-
-        $em->remove($element);
-        $em->flush();
-
-        return $this->redirect($request->headers->get('referer'));
-    }
-
-    /**
-     * @param string $entity
-     * @param string $id
-     * @param EntityManager $em
-     * @param Request $request
-     * @return Response
-     * @throws \Doctrine\ORM\ORMException
-     * @throws OptimisticLockException
-     *  @Route("/remove-image/{entity}/{id}", name="delete_image")
-     */
-    public function removeImage(string $entity,string $id, EntityManagerInterface $em, Request $request): Response
-    {
-        $class = self::ENTITY_NAMESPACE.ucfirst($entity);
-
-        if (!class_exists($class)) {
-            throw new NotFoundHttpException('Page not found.');
-        }
-
-        $element = $em->getRepository($class)->find($id);
-
-        if (!$element) {
-            throw new RuntimeException('Page not found.');
-        }
-
-        if (!$element instanceof ImageInterface || $this->isAValidEntity($class)) {
-            throw new RuntimeException('The class is not valid.');
-        }
-
-        $this->denyAccessUnlessGranted(AbstractVoter::DELETE, $element);
-
-        $element->setImage(null);
-
-        $em->flush();
-
-        return $this->redirect($request->headers->get('referer'));
     }
 
     /**
