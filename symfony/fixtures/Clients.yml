@@ -4,28 +4,33 @@ App\Entity\Client:
     email: 'client@email.com'
     identification: '666'
     company: '@the_company'
+    reference: '000000009'
 
   the_delete_client:
     name: 'The Client To Delete'
     email: 'clienttodelete@email.com'
     identification: '<numberBetween(1, 9999999999999999)>'
     company: '@the_company'
+    reference: '000000010'
 
   dummy_clients_{1..8}:
     name: '<firstName()> <lastName()>'
     email: '<email()>'
     identification: '<numberBetween(1, 9999999999999999)>'
     company: '@the_company'
+    reference: '00000000<current()>'
 
   dummy_clients_another_company{1..9}:
     name: '<firstName()> <lastName()>'
     email: '<email()>'
     identification: '<numberBetween(1, 9999999999999999)>'
     company: '@another_company'
+    reference: '00000000<current()>'
 
   another_client:
     name: 'Another Client'
     email: 'client2@email.com'
     identification: '000'
     company: '@another_company'
+    reference: '000000010'
 

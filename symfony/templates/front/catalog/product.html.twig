@@ -12,6 +12,7 @@
         {% for element in pagination %}
             <div class="col-md-3">
                 <div class="card" style="width: 18rem;margin-bottom: 20px">
+                    <div class="product-price">{{ element.price }}€</div>
                     {% if element.image %}
                         <img src="{{ vich_uploader_asset(element.image, 'file') }}" alt="{{ element.slug }}" width="90%"/>
                     {% else %}
@@ -21,7 +22,6 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ element }}</h5>
                         <p class="card-text">{{ element.description |easyadmin_truncate(100) }}</p>
-                        <p class="card-text">{{ element.price }}€</p>
                         <a href="{{ path('front_edit',{'entity':'product','id':element.id}) }}" class="btn btn-primary">
                             <i class="fas fa-pen"></i>
                             {{ 'edit' | trans }}

@@ -23,7 +23,7 @@ class ProductValidationTest extends BaseTest
         $product = [
             'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
             'price' => 100,
-            'reference' => random_int(10000,9999999),
+            'barcode' => random_int(10000,9999999),
             'location' => 'Location',
         ];
 
@@ -48,14 +48,14 @@ class ProductValidationTest extends BaseTest
         $product = [
             'name' => 'Product Name',
             'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
-            'reference' => random_int(10000,9999999),
+            'barcode' => random_int(10000,9999999),
             'location' => 'Location',
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['product[name]']->setValue($product['name']);
-        $form['product[reference]']->setValue($product['reference']);
+        $form['product[barcode]']->setValue($product['barcode']);
         $form['product[location]']->setValue($product['location']);
         $form['product[category]']->setValue($product['category']->getId());
 
@@ -75,14 +75,14 @@ class ProductValidationTest extends BaseTest
         $product = [
             'name' => 'Product Name',
             'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
-            'reference' => random_int(10000,9999999),
+            'barcode' => random_int(10000,9999999),
             'price' => '20'
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['product[name]']->setValue($product['name']);
-        $form['product[reference]']->setValue($product['reference']);
+        $form['product[barcode]']->setValue($product['barcode']);
         $form['product[price]']->setValue($product['price']);
         $form['product[category]']->setValue($product['category']->getId());
 
@@ -130,7 +130,7 @@ class ProductValidationTest extends BaseTest
             'name' => 'Product Name',
             'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
             'location' => 'location',
-            'reference' => 'reference',
+            'barcode' => 'barcode',
             'price' => '20'
         ];
 
@@ -138,7 +138,7 @@ class ProductValidationTest extends BaseTest
 
         $form['product[name]']->setValue($product['name']);
         $form['product[location]']->setValue($product['location']);
-        $form['product[reference]']->setValue($product['reference']);
+        $form['product[barcode]']->setValue($product['barcode']);
         $form['product[price]']->setValue($product['price']);
         $form['product[category]']->setValue($product['category']->getId());
 
@@ -232,7 +232,7 @@ class ProductValidationTest extends BaseTest
             'price' => '20.00',
             'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
             'image' => $this->getFile('document.pdf','document.pdf'),
-            'reference' => random_int(10000,9999999),
+            'barcode' => random_int(10000,9999999),
             'location' => 'Location',
         ];
 
@@ -241,7 +241,7 @@ class ProductValidationTest extends BaseTest
         $form['product[name]']->setValue($product['name']);
         $form['product[image]']->setValue($product['image']);
         $form['product[price]']->setValue($product['price']);
-        $form['product[reference]']->setValue($product['reference']);
+        $form['product[barcode]']->setValue($product['barcode']);
         $form['product[location]']->setValue($product['location']);
         $form['product[category]']->setValue($product['category']->getId());
 

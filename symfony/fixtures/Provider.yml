@@ -1,10 +1,11 @@
 App\Entity\Provider:
-  dummy_provider_{1..10}:
+  dummy_provider_{1..9}:
     name: 'Provider <current()>'
     company: '@the_company'
     email: '<email()>'
     createdAt: '<dateTimeBetween("-200 days", "now")>'
     updatedAt: '<dateTimeBetween($createdAt, "now")>'
+    reference: '00000000<current()>'
 
   the_provider:
     name: 'The Provider'
@@ -12,13 +13,15 @@ App\Entity\Provider:
     email: '<email()>'
     createdAt: '<dateTimeBetween("-200 days", "now")>'
     updatedAt: '<dateTimeBetween($createdAt, "now")>'
+    reference: '000000010'
 
-  another_dummy_provider_{1..10}:
+  another_dummy_provider_{1..9}:
     name: 'Provider <current()>'
     company: '@another_company'
     email: '<email()>'
     createdAt: '<dateTimeBetween("-200 days", "now")>'
     updatedAt: '<dateTimeBetween($createdAt, "now")>'
+    reference: '00000000<current()>'
 
   another_provider:
     name: 'Another Provider'
@@ -26,3 +29,4 @@ App\Entity\Provider:
     email: '<email()>'
     createdAt: '<dateTimeBetween("-200 days", "now")>'
     updatedAt: '<dateTimeBetween($createdAt, "now")>'
+    reference: '000000010'

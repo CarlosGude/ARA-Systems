@@ -32,7 +32,7 @@ class ProductType extends AbstractType
 
         $builder
             ->add('name', TextType::class, ['label' => 'product.name'])
-            ->add('reference', NumberType::class, ['label' => 'product.reference'])
+            ->add('barcode', NumberType::class, ['label' => 'product.barcode'])
             ->add('location', TextType::class, ['label' => 'product.location'])
             ->add('image',FileType::class,[
                 'label'=>'product.principal',

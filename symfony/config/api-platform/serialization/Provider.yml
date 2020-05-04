@@ -2,6 +2,8 @@ App\Entity\Provider:
   attributes:
     id:
       groups: ['provider_read']
+    reference:
+      groups: ['provider_read']
     name:
       groups: ['provider_read', 'provider_write', 'product_read' ]
 

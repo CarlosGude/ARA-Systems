@@ -51,7 +51,7 @@ class ProvidersManagementTest extends BaseTest
         $response = json_decode($response->getContent(), true);
 
         $this->assertResponseIsSuccessfulAndInJson();
-        $this->assertEquals(22, $response['hydra:totalItems']);
+        $this->assertEquals(20, $response['hydra:totalItems']);
     }
 
     /**

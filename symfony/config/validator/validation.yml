@@ -59,7 +59,7 @@ App\Entity\Provider:
 
 App\Entity\Product:
   constraints:
-    - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: reference
+    - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: barcode
   properties:
     name:
       - NotBlank: ~
@@ -84,7 +84,7 @@ App\Entity\Product:
       - GreaterThan: 0
     productWidth:
       - GreaterThan: 0
-    reference:
+    barcode:
       - NotBlank: ~
     location:
       - NotBlank: ~

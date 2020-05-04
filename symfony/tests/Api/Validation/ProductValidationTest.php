@@ -43,7 +43,7 @@ class ProductValidationTest extends BaseTest
             'price' => 20,
             'minStock' => 0,
             'maxStock' => 100,
-            'reference' => random_int(10000,9999999),
+            'barcode' => random_int(10000,9999999),
             'location' => 'Location',
         ];
 
@@ -75,7 +75,7 @@ class ProductValidationTest extends BaseTest
             'price' => 20,
             'minStock' => 0,
             'maxStock' => 100,
-            'reference' => random_int(10000,9999999),
+            'barcode' => random_int(10000,9999999),
             'location' => 'Location',
         ];
 
@@ -107,7 +107,7 @@ class ProductValidationTest extends BaseTest
             'price' => 22,
             'minStock' => 0,
             'maxStock' => 100,
-            'reference' => random_int(10000,9999999),
+            'barcode' => random_int(10000,9999999),
             'location' => 'Location',
         ];
 
@@ -139,7 +139,7 @@ class ProductValidationTest extends BaseTest
             'maxStock' => 0,
             'minStock' => 100,
             'price' => 100,
-            'reference' => random_int(10000,9999999),
+            'barcode' => random_int(10000,9999999),
             'location' => 'Location',
         ];
 
@@ -170,7 +170,7 @@ class ProductValidationTest extends BaseTest
             'category' => parent::API.'categories/'.$this->getCategory()->getId(),
             'minStock' => 0,
             'maxStock' => 100,
-            'reference' => random_int(10000,9999999),
+            'barcode' => random_int(10000,9999999),
             'location' => 'Location',
         ];
 
@@ -202,7 +202,7 @@ class ProductValidationTest extends BaseTest
             'minStock' => 0,
             'maxStock' => 100,
             'price' => -100,
-            'reference' => random_int(10000,9999999),
+            'barcode' => random_int(10000,9999999),
             'location' => 'Location',
         ];
 
@@ -235,7 +235,7 @@ class ProductValidationTest extends BaseTest
             'company' => parent::API.'companies/'.$this->getCompany()->getId(),
             'category' => parent::API.'categories/'.$category->getId(),
             'user' => parent::API.'users/'.$this->getGodUser()->getId(),
-            'reference' => random_int(10000,9999999),
+            'barcode' => random_int(10000,9999999),
             'location' => 'Location',
         ];
 
@@ -286,7 +286,7 @@ class ProductValidationTest extends BaseTest
             'category' => parent::API.'categories/'.$category->getId(),
             'user' => parent::API.'users/'.$this->getGodUser()->getId(),
             'productLength'=> 'invalid',
-            'reference' => random_int(10000,9999999),
+            'barcode' => random_int(10000,9999999),
             'location' => 'Location',
         ];
 
@@ -322,7 +322,7 @@ class ProductValidationTest extends BaseTest
             'category' => parent::API.'categories/'.$category->getId(),
             'user' => parent::API.'users/'.$this->getGodUser()->getId(),
             'productHeight'=> 'invalid',
-            'reference' => random_int(10000,9999999),
+            'barcode' => random_int(10000,9999999),
             'location' => 'Location',
         ];
 
@@ -358,7 +358,7 @@ class ProductValidationTest extends BaseTest
             'category' => parent::API.'categories/'.$category->getId(),
             'user' => parent::API.'users/'.$this->getGodUser()->getId(),
             'productWidth'=> 'invalid',
-            'reference' => random_int(10000,9999999),
+            'barcode' => random_int(10000,9999999),
             'location' => 'Location',
         ];
 
@@ -394,7 +394,7 @@ class ProductValidationTest extends BaseTest
             'category' => parent::API.'categories/'.$category->getId(),
             'user' => parent::API.'users/'.$this->getGodUser()->getId(),
             'productWidth'=> '-2',
-            'reference' => random_int(10000,9999999),
+            'barcode' => random_int(10000,9999999),
             'location' => 'Location',
         ];
 
@@ -430,7 +430,7 @@ class ProductValidationTest extends BaseTest
             'category' => parent::API.'categories/'.$category->getId(),
             'user' => parent::API.'users/'.$this->getGodUser()->getId(),
             'productLength'=> '-1',
-            'reference' => random_int(10000,9999999),
+            'barcode' => random_int(10000,9999999),
             'location' => 'Location',
         ];
 
@@ -466,7 +466,7 @@ class ProductValidationTest extends BaseTest
             'category' => parent::API.'categories/'.$category->getId(),
             'user' => parent::API.'users/'.$this->getGodUser()->getId(),
             'productHeight'=> '-3',
-            'reference' => random_int(10000,9999999),
+            'barcode' => random_int(10000,9999999),
             'location' => 'Location',
         ];
 
@@ -502,7 +502,7 @@ class ProductValidationTest extends BaseTest
             'category' => parent::API.'categories/'.$category->getId(),
             'user' => parent::API.'users/'.$this->getGodUser()->getId(),
             'kilograms'=> '-3',
-            'reference' => random_int(10000,9999999),
+            'barcode' => random_int(10000,9999999),
             'location' => 'Location',
         ];
 
@@ -538,7 +538,7 @@ class ProductValidationTest extends BaseTest
             'category' => parent::API.'categories/'.$category->getId(),
             'user' => parent::API.'users/'.$this->getGodUser()->getId(),
             'kilograms'=> 'integer',
-            'reference' => random_int(10000,9999999),
+            'barcode' => random_int(10000,9999999),
             'location' => 'Location',
         ];
 
@@ -609,7 +609,7 @@ class ProductValidationTest extends BaseTest
             'category' => parent::API.'categories/'.$category->getId(),
             'user' => parent::API.'users/'.$this->getGodUser()->getId(),
             'kilograms'=> '20',
-            'reference' => random_int(10000,9999999),
+            'barcode' => random_int(10000,9999999),
         ];
 
         $response = static::createClient()->request('POST', parent::API.'products', [

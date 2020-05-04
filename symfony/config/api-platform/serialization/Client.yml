@@ -3,6 +3,9 @@ App\Entity\Client:
     id:
       groups: ['client_read']
 
+    refrerence:
+      groups: ['client_read']
+
     name:
       groups: ['client_read', 'client_write','product_read']
 

@@ -25,7 +25,7 @@ class ProductManagementTest extends BaseTest
         $total = $crawler->filter('.table')->first()->attr('data-total');
 
         self::assertEquals(10, $count);
-        self::assertEquals(11, $total);
+        self::assertEquals(10, $total);
     }
 
     public function testCreateProduct(): void
@@ -43,7 +43,7 @@ class ProductManagementTest extends BaseTest
             'name' => 'Test Product',
             'price' => '20.00',
             'category' => $category,
-            'reference' => random_int(10000,9999999),
+            'barcode' => random_int(10000,9999999),
             'location' => 'Location',
         ];
 
@@ -51,7 +51,7 @@ class ProductManagementTest extends BaseTest
 
         $form['product[name]']->setValue($product['name']);
         $form['product[price]']->setValue($product['price']);
-        $form['product[reference]']->setValue($product['reference']);
+        $form['product[barcode]']->setValue($product['barcode']);
         $form['product[location]']->setValue($product['location']);
         $form['product[category]']->setValue($product['category']->getId());
 

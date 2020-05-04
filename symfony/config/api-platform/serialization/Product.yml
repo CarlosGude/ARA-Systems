@@ -44,8 +44,11 @@ App\Entity\Product:
     kilograms:
       groups: ['product_read', 'product_write']
 
-    reference:
+    barcode:
       groups: ['product_read', 'product_write']
+
+    reference:
+      groups: ['product_read',]
 
     location:
       groups: ['product_read', 'product_write']

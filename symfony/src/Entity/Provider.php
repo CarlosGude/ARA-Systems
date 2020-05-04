@@ -89,6 +89,11 @@ class Provider implements EntityInterface, ImageInterface
      */
     private $email;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $reference;
+
     public function __construct()
     {
         $this->createdAt = new DateTime();
@@ -308,6 +313,18 @@ class Provider implements EntityInterface, ImageInterface
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getReference(): ?string
+    {
+        return $this->reference;
+    }
+
+    public function setReference(string $reference): self
+    {
+        $this->reference = $reference;
 
         return $this;
     }

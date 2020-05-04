@@ -134,3 +134,16 @@ body {
 .block{
     display: block;
 }
+
+.product-price{
+    position: absolute;
+    text-align: left;
+    margin-left: 70%;
+    border: 1px solid;
+    padding: 5px 15px;
+    background: #afff0078;
+    font-weight: bold;
+    font-size: 21px;
+    margin-top: 5%;
+    border-radius: 6px;
+}

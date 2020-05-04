@@ -1,10 +1,11 @@
 App\Entity\Product:
-  dummy_products_{1..10}:
+  dummy_products_{1..9}:
     name: 'Product <current()>'
     category: '@the_category'
     company: '@the_company'
     location: 'Location'
-    reference: '<numberBetween(10000,9999999)>'
+    reference: '00000000<current()>'
+    barcode: '<numberBetween(10000,9999999)>'
     tax: 21
     price: 100
     MaxStock: 21
@@ -18,7 +19,8 @@ App\Entity\Product:
     category: '@another_category_another_company'
     company: '@another_company'
     location: 'Location'
-    reference: '<numberBetween(10000,9999999)>'
+    reference: '000000009'
+    barcode: '<numberBetween(10000,9999999)>'
     tax: 21
     price: 100
     stockAct: 100
@@ -32,7 +34,8 @@ App\Entity\Product:
     category: '@the_category'
     company: '@the_company'
     location: 'Location'
-    reference: '<numberBetween(10000,9999999)>'
+    reference: '000000010'
+    barcode: '<numberBetween(10000,9999999)>'
     tax: 21
     price: 100
     stockAct: 100
@@ -41,12 +44,13 @@ App\Entity\Product:
     createdAt: '<dateTimeBetween("-200 days", "now")>'
     updatedAt: '<dateTimeBetween($createdAt, "now")>'
 
-  dummy_products_another_company{1..10}:
+  dummy_products_another_company{1..9}:
     name: 'Product <current()>'
     category: '@another_category_another_company'
     company: '@another_company'
     location: 'Location'
-    reference: '<numberBetween(10000,9999999)>'
+    reference: '00000000<current()>'
+    barcode: '<numberBetween(10000,9999999)>'
     tax: 21
     price: 21
     stockAct: 100

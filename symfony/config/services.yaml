@@ -51,3 +51,11 @@ services:
   App\EventSubscriber\PurchaseLineSubscriber:
     tags:
       - { name: 'doctrine.event_subscriber' }
+
+  App\EventSubscriber\ClientSubscriber:
+    tags:
+      - { name: 'doctrine.event_subscriber' }
+
+  App\EventSubscriber\ProviderSubscriber:
+    tags:
+      - { name: 'doctrine.event_subscriber' }

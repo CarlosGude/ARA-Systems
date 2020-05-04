@@ -148,9 +148,14 @@ class Product implements EntityInterface, ImageInterface
     private $location;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
     private $reference;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $barcode;
 
     public function __construct()
     {
@@ -520,14 +525,26 @@ class Product implements EntityInterface, ImageInterface
         return $this;
     }
 
-    public function getReference(): ?int
+    public function getReference(): ?string
     {
         return $this->reference;
     }
 
-    public function setReference(int $reference): self
+    public function setReference(string $reference): self
     {
         $this->reference = $reference;
+
+        return $this;
+    }
+
+    public function getBarcode(): ?int
+    {
+        return $this->barcode;
+    }
+
+    public function setBarcode(int $barcode): self
+    {
+        $this->barcode = $barcode;
 
         return $this;
     }

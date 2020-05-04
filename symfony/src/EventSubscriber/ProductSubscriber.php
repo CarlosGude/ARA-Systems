@@ -42,6 +42,16 @@ class ProductSubscriber implements EventSubscriber
             ->setTax($product->getCategory()->getTax())
             ->setMinStock($product->getCategory()->getMinStock())
             ->setMaxStock($product->getCategory()->getMaxStock());
+
+        if($product->getReference()){
+            return;
+        }
+
+        $count = count($args->getObjectManager()->getRepository(Product::class)->findBy([
+            'company' => $product->getCompany()
+        ]));
+
+        $product->setReference(str_pad($count, 10, '0', STR_PAD_LEFT));
     }
 
     public function preUpdate(PreUpdateEventArgs $args): void

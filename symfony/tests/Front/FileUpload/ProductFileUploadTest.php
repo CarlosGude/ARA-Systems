@@ -21,7 +21,7 @@ class ProductFileUploadTest extends BaseTest
         $product = [
             'name' => 'Test Product',
             'price' => '20.00',
-            'reference' => random_int(10000,9999999),
+            'barcode' => random_int(10000,9999999),
             'location' => 'Location',
             'category' => $this->getRepository(Category::class)->findOneBy(['name' => 'The Category']),
             'image' => $this->getFile('logo.png','principal.png')
@@ -33,7 +33,7 @@ class ProductFileUploadTest extends BaseTest
         $form['product[image]']->setValue($product['image']);
         $form['product[price]']->setValue($product['price']);
         $form['product[location]']->setValue($product['location']);
-        $form['product[reference]']->setValue($product['reference']);
+        $form['product[barcode]']->setValue($product['barcode']);
         $form['product[category]']->setValue($product['category']->getId());
 
         $client->submit($form);

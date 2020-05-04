@@ -123,6 +123,7 @@ product:
   size: Tamaño
   location: Localización
   reference: Refrencia
+  barcode: código de barras
 
 purchase:
   product: Producto
@@ -167,6 +168,7 @@ provider:
   created: Se ha creado el proveedor {{element}} correctamente.
   edited: Se ha editado el proveedor {{element}} correctamente.
   image: Logo
+  reference: Referencia
 
 client:
   name: Nombre
@@ -179,6 +181,7 @@ client:
   created: Se ha creado el cliente {{element}} correctamente.
   edited: Se ha editado el cliente {{element}} correctamente.
   image: Foto
+  reference: Referencia
 
 catalog:
   list: Catálogo
