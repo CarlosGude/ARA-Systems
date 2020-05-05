@@ -10,6 +10,8 @@
     "endroid/qr-code-bundle": "^3.4",
     "knplabs/knp-paginator-bundle": "^5.1",
     "sensio/framework-extra-bundle": "^5.5",
+    "setasign/fpdf": "^1.8",
+    "setasign/fpdi": "^2.3",
     "stof/doctrine-extensions-bundle": "^1.4",
     "symfony/console": "5.0.*",
     "symfony/dotenv": "5.0.*",

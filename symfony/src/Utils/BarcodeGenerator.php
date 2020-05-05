@@ -16,15 +16,11 @@ class BarcodeGenerator
     {
         $barcode = new Barcode();
 
-        $bobj = $barcode->getBarcodeObj(
-            'CODABAR,H',                     // barcode type and additional comma-separated parameters
-            $code,         // data string to encode
-            200,                             // bar width (use absolute or negative value as multiplication factor)
-            50,                             // bar height (use absolute or negative value as multiplication factor)
-            'black',                        // foreground color
-            [5, 5, 5, 5]           // padding (use absolute or negative values as multiplication factors)
-        )->setBackgroundColor('white');
+        $bobj = $barcode
+            ->getBarcodeObj('CODABAR,H', $code, 200, 50, 'black')
+            ->setBackgroundColor('white')
+        ;
 
-        return $bobj->getHtmlDiv();
+        return $bobj->getSvg();
     }
 }

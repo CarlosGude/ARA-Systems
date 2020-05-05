@@ -10,6 +10,9 @@
         <a title="{{ 'edit' | trans }}" href="{{ path('front_edit',{'entity':'product','id':element.id}) }}" class="btn btn-primary">
             <i class="fas fa-pen"></i>
         </a>
+        <a title="{{ 'edit' | trans }}" href="{{ path('front_create_pdf',{'product':element.id}) }}" class="btn btn-primary">
+            <i class="fas fa-pen"></i>PDF
+        </a>
     </h1>
     <div class="row">
         <div class="col-md-3" style="border: 1px solid;padding-top: 10px">
@@ -42,7 +45,7 @@
         </div>
         <div class="col-md-9"style="border: 1px solid">
             <span class="block strong">{{ 'product.reference' | trans }}:</span>
-            <span class="block"><p>{{ element.reference | number_format(0,' ',' ') }}</p></span>
+            <span class="block"><p>{{ element.reference  }}</p></span>
             <span class="block strong">{{ 'product.name' | trans }}:</span>
             <span class="block">{{ element.name }}</span>
             <span class="block strong">{{ 'product.description' | trans }}:</span>
@@ -79,7 +82,7 @@
                     <img width="50%" src="{{ qr_code_url(element.reference, { writer: 'png' }) }}" />
                 </div>
                 <div class="col-md-6">
-                    {{ barcode.generate(element.reference) | raw }}
+                    {{ barcode.generate(element.reference)  }}
                 </div>
             </div>
 

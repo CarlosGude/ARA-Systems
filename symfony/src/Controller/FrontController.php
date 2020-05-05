@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Company;
+use App\Entity\Product;
 use App\Entity\ProductMediaObject;
 use App\Entity\User;
 use App\Interfaces\EntityInterface;
@@ -12,15 +13,20 @@ use App\Security\Voter\AbstractVoter;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\OptimisticLockException;
+use Endroid\QrCode\Factory\QrCodeFactory;
+use Endroid\QrCode\QrCode;
 use Knp\Component\Pager\PaginatorInterface;
 use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use setasign\Fpdi\Fpdi;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 /**
  * Class ManagementController.
@@ -249,6 +255,75 @@ class FrontController extends AbstractController
             'pagination' => $pagination,
             'entity' => $entity,
         ]);
+    }
+
+    /**
+     * @Route("/create-pdf-for-product/{product}", name="create_pdf")
+     */
+    public function createPdfWitProduct(Product $product, KernelInterface $kernel,Request $request, UploaderHelper $helper)
+    {
+        $pdf = new Fpdi('L','mm', array(54,85.6));
+
+        $pdf->AddPage();
+
+        $pdf->setSourceFile($kernel->getProjectDir().'/product.pdf');
+
+        $templateId = $pdf->importPage(1);
+
+        $pdf->useTemplate($templateId, ['adjustPageSize' => true]);
+        $pdf->SetFont('Helvetica');
+        $pdf->SetTextColor(0, 0, 0);
+
+        //Company name
+        $pdf->SetXY(15, 15);
+        if ($product->getCompany()->getImage()){
+            $file = $kernel->getProjectDir().'/public/'.$helper->asset($product->getCompany()->getImage(), 'file');
+            $pdf->Image($file,12,10,70,30);
+        }else{
+            $pdf->Write(0, utf8_decode($product->getCompany()->getName()));
+        }
+
+        if ($product->getImage()){
+            $file = $kernel->getProjectDir().'/public/'.$helper->asset($product->getImage(), 'file');
+            $pdf->Image($file,16,60,60,60);
+        }
+
+        //Company Info
+        $pdf->SetXY(140, 15);
+        $pdf->Write(0, utf8_decode($product->getCompany()->getName()));
+        $pdf->SetXY(140, 20);
+        $pdf->Write(0, utf8_decode($product->getCompany()->getCif()));
+        $pdf->SetXY(140, 25);
+        $pdf->Write(0, utf8_decode($product->getCompany()->getAddress()));
+        $pdf->SetXY(140, 30);
+        $pdf->Write(0, utf8_decode($product->getCompany()->getPhone()));
+        $pdf->SetXY(140, 35);
+        $pdf->Write(0, utf8_decode($product->getCompany()->getEmail()));
+
+        $pdf->SetXY(135, 50);
+        $pdf->Write(0, utf8_decode($product->getName()));
+
+        $pdf->SetXY(135, 63);
+        $pdf->Write(0, utf8_decode($product->getReference()));
+
+        $pdf->SetXY(130, 75);
+        $pdf->Write(0,utf8_decode( $product->getDescription()));
+
+        $pdf->SetXY(135, 120);
+        $pdf->Write(0, $product->getKilograms());
+
+        $pdf->SetXY(135, 127);
+        $pdf->Write(0, $product->getProductLength());
+
+        $pdf->SetXY(155, 127);
+        $pdf->Write(0, $product->getProductWidth());
+
+        $pdf->SetXY(170, 127);
+        $pdf->Write(0, $product->getProductHeight());
+
+        $pdf->Output('',$product->getSlug().'.pdf',true);
+
+        return $this->redirect($request->headers->get('referer'));
     }
 
     /**
