@@ -14,14 +14,17 @@
                 <div class="card" style="width: 18rem;margin-bottom: 20px">
                     <div class="product-price">{{ element.price }}€</div>
                     {% if element.image %}
-                        <img src="{{ vich_uploader_asset(element.image, 'file') }}" alt="{{ element.slug }}" width="90%"/>
+                        <img src="{{ vich_uploader_asset(element.image, 'file') }}" class="card-img-top" alt="{{ element.slug }}" height="286px" width="100%"/>
                     {% else %}
                         <img src="https://via.placeholder.com/150" class="card-img-top" alt="{{ element.slug }}">
                     {% endif %}
                     <div class="dropdown-divider"></div>
                     <div class="card-body">
                         <h5 class="card-title">{{ element }}</h5>
-                        <p class="card-text">{{ element.description |easyadmin_truncate(100) }}</p>
+                        <p>[<a href="{{ path('front_edit',{'entity':'category','id':element.category.id}) }}" target="_blank">
+                                {{ element.category }}
+                                <i class="fas fa-external-link-alt"></i>
+                            </a> ]</p>
                         <a href="{{ path('front_edit',{'entity':'product','id':element.id}) }}" class="btn btn-primary">
                             <i class="fas fa-pen"></i>
                             {{ 'edit' | trans }}

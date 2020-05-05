@@ -146,4 +146,5 @@ body {
     font-size: 21px;
     margin-top: 5%;
     border-radius: 6px;
+    z-index: 100;
 }

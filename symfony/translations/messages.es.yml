@@ -10,6 +10,8 @@ PROFILE_ADMIN: Administrador
 companyTh: Empresa
 removeImage: Eliminar imagen
 view: Ver
+previous: Anterior
+next: Siguiente
 
 login:
   welcome: ¡Bienvenido a ARA-System!
