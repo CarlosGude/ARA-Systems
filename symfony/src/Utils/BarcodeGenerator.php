@@ -21,6 +21,6 @@ class BarcodeGenerator
             ->setBackgroundColor('white')
         ;
 
-        return $bobj->getSvg();
+        return $bobj->getHtmlDiv();
     }
 }
