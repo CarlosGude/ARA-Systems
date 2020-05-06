@@ -41,6 +41,8 @@ services:
       - { name: 'doctrine.event_subscriber' }
 
   App\EventSubscriber\ProductSubscriber:
+    arguments:
+      - '@security.token_storage'
     tags:
       - { name: 'doctrine.event_subscriber' }
 

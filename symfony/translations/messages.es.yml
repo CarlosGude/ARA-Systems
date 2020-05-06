@@ -83,6 +83,8 @@ company:
   email: Email
   address: Dirección
   cif: CIF
+  label: Empresa
+  select: Seleccione empresa
 
 category:
   name: Nombre

@@ -3,14 +3,28 @@
 namespace App\EventSubscriber;
 
 use App\Entity\Product;
+use App\Security\AbstractUserRoles;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 use RuntimeException;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\UsageTrackingTokenStorage;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Security;
 
 class ProductSubscriber implements EventSubscriber
 {
+    /**
+     * @var UsageTrackingTokenStorage
+     */
+    private $token;
+
+    public function __construct(UsageTrackingTokenStorage $token)
+    {
+        $this->token = $token;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -28,13 +42,6 @@ class ProductSubscriber implements EventSubscriber
 
         if (!$product instanceof Product) {
             return;
-        }
-
-        if ($product->getCompany() !== $product->getCategory()->getCompany()
-            && $product->getUser()->getCompany() === $product->getCompany()
-            && $product->getUser()->getCompany() === $product->getCategory()->getCompany()
-        ) {
-            throw new RuntimeException('The category of product must be owned by the company');
         }
 
         /* The products inherit some values from the category */

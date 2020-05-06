@@ -43,6 +43,9 @@
         interval: 2000
     })
 
+    $('#company').on('change', function() {
+        window.location.replace(this.value );
+    });
 </script>
 
 {% block javascripts %}{% endblock %}

@@ -2,8 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Company;
 use App\Entity\User;
 use App\EventSubscriber\ImageFormSubscriber;
+use App\Security\AbstractUserRoles;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -14,26 +17,39 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Validator\Constraints\Image;
 
 class UserType extends AbstractType
 {
+    /**
+     * @var Security
+     */
+    private $security;
+
+    public function __construct(Security $security)
+    {
+
+        $this->security = $security;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         /** @var User $user */
         $user = $options['data'];
 
-        $profiles = [
-            User::PROFILE_ADMIN => User::PROFILE_ADMIN,
-            User::PROFILE_SELLER => User::PROFILE_SELLER,
-            User::PROFILE_PURCHASER => User::PROFILE_PURCHASER,
-        ];
+        /** @var User $currentUser */
+        $currentUser = $this->security->getUser();
+
+        if (!$user->getId() && in_array(AbstractUserRoles::ROLE_GOD, $currentUser->getRoles(), true)) {
+            $builder->add('company',EntityType::class,['label'=> 'company.label','class'=>Company::class]);
+        }
 
         $builder
             ->add('name', TextType::class, ['label' => 'user.name'])
             ->add('profile', ChoiceType::class, [
                 'label' => 'user.profile',
-                'choices' => $profiles,
+                'choices' => $this->getProfiles(),
                 'placeholder' => 'user.profileChoose',
             ])
             ->add('email', EmailType::class, ['label' => 'user.email'])
@@ -61,5 +77,14 @@ class UserType extends AbstractType
         $resolver->setDefaults([
             'data_class' => User::class,
         ]);
+    }
+
+    protected function getProfiles()
+    {
+        return [
+            User::PROFILE_ADMIN => User::PROFILE_ADMIN,
+            User::PROFILE_SELLER => User::PROFILE_SELLER,
+            User::PROFILE_PURCHASER => User::PROFILE_PURCHASER,
+        ];
     }
 }

@@ -113,10 +113,11 @@ class FrontController extends AbstractController
     }
 
     /**
-     * @Route("/create/{entity}", name="create")
+     * @Route("/create/{entity}/{company}", name="create")
      */
     public function create(
         string $entity,
+        Company $company = null,
         Request $request,
         EntityManagerInterface $em,
         TranslatorInterface $translator
@@ -144,6 +145,10 @@ class FrontController extends AbstractController
 
         if (property_exists($element, 'company')) {
             $element->setCompany($user->getCompany());
+        }
+
+        if($company && in_array(AbstractUserRoles::ROLE_GOD, $user->getRoles(), true)){
+            $element->setCompany($company);
         }
 
         if (property_exists($element, 'user')) {

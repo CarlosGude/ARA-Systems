@@ -74,7 +74,7 @@
                             <img width="50%" src="{{ qr_code_url(element.reference, { writer: 'png' }) }}" />
                         </div>
                         <div class="col-md-6">
-                            {{ barcode.generate(element.reference) | raw }}
+                            {{ twigUtils.barcode(element.reference) | raw }}
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,4 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
     globals:
-        barcode: '@App\Utils\BarcodeGenerator'
+        twigUtils: '@App\Utils\TwigUtils'
