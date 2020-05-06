@@ -25,6 +25,7 @@ class CategoryManagementTest extends BaseTest
         $client = $this->login(parent::LOGIN_ADMIN);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'category']));
+        self::assertCount(0, $crawler->filter('#category_company'));
         $category = [
             'name' => 'Test Category',
             'tax' => Category::IVA_8,

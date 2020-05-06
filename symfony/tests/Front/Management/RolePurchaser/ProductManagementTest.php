@@ -33,7 +33,7 @@ class ProductManagementTest extends BaseTest
         $client = $this->login(parent::LOGIN_PURCHASER);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'product']));
-
+        self::assertCount(0, $crawler->filter('#company_company'));
         $category = $this->getRepository(Category::class)->findOneBy([
             'name' => 'Category 1',
             'company' => $this->getCompany('The Company'),

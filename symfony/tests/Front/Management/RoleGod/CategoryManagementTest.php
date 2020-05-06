@@ -31,6 +31,8 @@ class CategoryManagementTest extends BaseTest
             'maxStock' => 100,
         ];
 
+        self::assertCount(1, $crawler->filter('#category_company'));
+
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['category[name]']->setValue($category['name']);

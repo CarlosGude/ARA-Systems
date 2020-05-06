@@ -37,6 +37,8 @@ class UserManagementTest extends BaseTest
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'user']));
 
+        self::assertCount(1, $crawler->filter('#user_company'));
+
         $user = [
             'name' => 'Test User',
             'email' => 'fake@email.com',

@@ -27,7 +27,7 @@ class ProviderManagementTest extends BaseTest
         $client = $this->login(parent::LOGIN_PURCHASER);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'provider']));
-
+        self::assertCount(0, $crawler->filter('#provider_company'));
         $provider = [
             'name' => 'Test Provider',
             'email' => 'fake2@gmail.com',

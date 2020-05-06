@@ -32,7 +32,7 @@ class ProductManagementTest extends BaseTest
         $client = $this->login(parent::LOGIN_GOD);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'product']));
-
+        self::assertCount(1, $crawler->filter('#company'));
         $product = [
             'name' => 'Test Product',
             'price' => '20.00',
@@ -74,6 +74,8 @@ class ProductManagementTest extends BaseTest
             'GET',
             $this->generatePath('front_edit', ['entity' => 'product', 'id' => $productToEdit->getId()])
         );
+
+
 
         $product = [
             'name' => 'Test Product',

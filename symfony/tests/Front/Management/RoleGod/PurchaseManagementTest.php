@@ -40,6 +40,7 @@ class PurchaseManagementTest extends BaseTest
             'provider' => $this->getRepository(Provider::class)->findOneBy(['name' => 'The Provider']),
         ];
 
+        self::assertCount(1, $crawler->filter('#company'));
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['purchase[provider]']->setValue($purchase['provider']->getId());

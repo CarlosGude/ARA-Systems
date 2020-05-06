@@ -26,7 +26,7 @@ class ClientManagementTest extends BaseTest
         $client = $this->login(parent::LOGIN_ADMIN);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'client']));
-
+        self::assertCount(0, $crawler->filter('#client_company'));
         $clientData = [
             'name' => 'Test Client',
             'email' => 'fake@email.com',

@@ -36,7 +36,7 @@ class PurchaseManagementTest extends BaseTest
         $client = $this->login(parent::LOGIN_PURCHASER);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'purchase']));
-
+        self::assertCount(0, $crawler->filter('#company'));
         $purchase = [
             'provider' => $this->getRepository(Provider::class)->findOneBy(['name' => 'The Provider']),
         ];

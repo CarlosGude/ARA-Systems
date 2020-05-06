@@ -9,17 +9,19 @@
         {{ 'product.create' | trans }}
     </h1>
 
-    <div class="row">
-        <div class="col-md-3">
-            <label for="company">{{ 'company.label' | trans }}</label>
-            <select class="form-control select" id="company">
-                <option value="">{{ 'company.select' | trans }}</option>
-                {% for company in twigUtils.getCompanies() %}
-                    <option value="{{ path('front_create',{'entity':entity,'company':company.id}) }}">{{ company }}</option>
-                {% endfor %}
-            </select>
+    {% if is_granted('ROLE_GOD') %}
+        <div class="row">
+            <div class="col-md-3">
+                <label for="company">{{ 'company.label' | trans }}</label>
+                <select class="form-control select" id="company">
+                    <option value="">{{ 'company.select' | trans }}</option>
+                    {% for company in twigUtils.getCompanies() %}
+                        <option value="{{ path('front_create',{'entity':entity,'company':company.id}) }}">{{ company }}</option>
+                    {% endfor %}
+                </select>
+            </div>
         </div>
-    </div>
+    {% endif %}
     {{ form_start(form) }}
     <div class="row">
         <div class="col-md-3">{{ form_row(form.name) }}</div>
