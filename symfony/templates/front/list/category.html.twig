@@ -3,7 +3,7 @@
 {% block title %}{{ 'project' | trans }}: {{ 'category.list' | trans }}{% endblock %}
 {% block content %}
     <h1>
-        <a title="{{ 'category.create' | trans }}" href="{{ path('front_create',{'entity':entity}) }}" class="btn btn-info">
+        <a title="{{ 'category.create' | trans }}" href="{{ path('front_create',{'entity':entity,'company':companyId}) }}" class="btn btn-info">
             <i class="far fa-plus-square"></i>
         </a>
         {{ 'category.list' | trans }}
@@ -35,6 +35,7 @@
         {% for element in pagination %}
         <tr class="{{ entity }}-tr">
             {% set delete =  path('front_delete',{'entity': entity, 'id': element.id}) %}
+
             <td>{{ element.name }}</td>
             {% if is_granted('ROLE_GOD')  %}
                 <td>{{ element.company }}</td>
@@ -45,7 +46,7 @@
             <td>
                 <a
                     title="{{ 'edit' | trans }} {{ element.name }}"
-                    href="{{ path('front_edit',{'entity': entity, 'id': element.id}) }}"
+                    href="{{ path('front_edit',{'entity': entity, 'id': element.id, 'company':companyId}) }}"
                     class="btn btn-primary">
                     <i class="fas fa-edit edit"></i>
                 </a>

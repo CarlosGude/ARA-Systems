@@ -26,8 +26,8 @@ class PurchaseManagementTest extends BaseTest
         $count = $crawler->filter('.purchase-tr')->count();
         $total = $crawler->filter('.table')->first()->attr('data-total');
 
-        self::assertEquals(8, $count);
-        self::assertEquals(8, $total);
+        self::assertEquals(4, $count);
+        self::assertEquals(4, $total);
     }
 
     public function testCreatePurchase(): void
@@ -40,7 +40,6 @@ class PurchaseManagementTest extends BaseTest
             'provider' => $this->getRepository(Provider::class)->findOneBy(['name' => 'The Provider']),
         ];
 
-        self::assertCount(1, $crawler->filter('#company'));
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['purchase[provider]']->setValue($purchase['provider']->getId());
@@ -71,8 +70,8 @@ class PurchaseManagementTest extends BaseTest
         $count = $crawler->filter('.purchase-tr')->count();
         $total = $crawler->filter('.table')->first()->attr('data-total');
 
-        self::assertEquals(9, $count);
-        self::assertEquals(9, $total);
+        self::assertEquals(5, $count);
+        self::assertEquals(5, $total);
 
         $delete = $crawler->filter('.delete');
         $client->request('POST', $delete->first()->attr('data-href'));
@@ -84,7 +83,7 @@ class PurchaseManagementTest extends BaseTest
         $count = $crawler->filter('.purchase-tr')->count();
         $total = $crawler->filter('.table')->first()->attr('data-total');
 
-        self::assertEquals(8, $count);
-        self::assertEquals(8, $total);
+        self::assertEquals(4, $count);
+        self::assertEquals(4, $total);
     }
 }

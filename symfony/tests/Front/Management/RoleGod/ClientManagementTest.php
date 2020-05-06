@@ -17,7 +17,7 @@ class ClientManagementTest extends BaseTest
         $total = $crawler->filter('.table')->first()->attr('data-total');
 
         self::assertEquals(10, $count);
-        self::assertEquals(20, $total);
+        self::assertEquals(10, $total);
     }
 
     public function testCreateClient(): void
@@ -26,7 +26,6 @@ class ClientManagementTest extends BaseTest
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'client']));
 
-        self::assertCount(1, $crawler->filter('#client_company'));
         $clientData = [
             'name' => 'Test Client',
             'email' => 'fakeAdmin@email.com',

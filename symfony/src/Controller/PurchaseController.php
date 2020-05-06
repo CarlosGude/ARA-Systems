@@ -16,12 +16,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * @Route("management/purchase", name="purchase_")
+ * @Route("management/purchase-", name="purchase_")
  */
 class PurchaseController extends AbstractController
 {
     /**
-     * @Route("/purchase-line/{line}/{quantity}", name="update_quantity")
+     * @Route("update-{quantity}-to-{line}/", name="update_quantity")
      */
     public function index(
         PurchaseLine $line,
@@ -42,7 +42,7 @@ class PurchaseController extends AbstractController
     }
 
     /**
-     * @Route("purchase/change-status/{purchase}/{status}", name="change_status")
+     * @Route("change-{status}/{purchase}", name="change_status")
      */
     public function changeStatus(
         Purchase $purchase,
@@ -65,7 +65,7 @@ class PurchaseController extends AbstractController
     }
 
     /**
-     * @Route("/create/providerLine/{purchase}", name="add_line")
+     * @Route("create-purchase-line/{purchase}", name="add_line")
      */
     public function addLine(
         Request $request,

@@ -3,7 +3,7 @@
 {% block title %}{{ 'project' | trans }}: {{ 'category.create' | trans }}{% endblock %}
 {% block content %}
     <h1>
-        <a title="{{ 'back' | trans }}" href="{{ path('front_list',{'entity':entity}) }}" class="btn btn-info">
+        <a title="{{ 'back' | trans }}" href="{{ path('front_list',{'entity':entity,'company':companyId}) }}" class="btn btn-info">
             <i class="fas fa-backward"></i>
         </a>
         {{ 'category.create' | trans }}

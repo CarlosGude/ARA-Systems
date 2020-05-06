@@ -17,7 +17,7 @@ class UserManagementTest extends BaseTest
         $total = $crawler->filter('.table')->first()->attr('data-total');
 
         self::assertEquals(10, $count);
-        self::assertEquals(21, $total);
+        self::assertEquals(12, $total);
     }
 
     public function testRemoveUsers(): void
@@ -28,7 +28,7 @@ class UserManagementTest extends BaseTest
         $crawler = $client->request('GET', $this->generatePath('front_list', ['entity' => 'user']));
         $client->request('POST', $crawler->filter('.delete')->first()->attr('data-href'));
 
-        self::assertEquals(21, $crawler->filter('.table')->first()->attr('data-total'));
+        self::assertEquals(12, $crawler->filter('.table')->first()->attr('data-total'));
     }
 
     public function testCreateUser(): void
@@ -36,8 +36,6 @@ class UserManagementTest extends BaseTest
         $client = $this->login(parent::LOGIN_GOD);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'user']));
-
-        self::assertCount(1, $crawler->filter('#user_company'));
 
         $user = [
             'name' => 'Test User',

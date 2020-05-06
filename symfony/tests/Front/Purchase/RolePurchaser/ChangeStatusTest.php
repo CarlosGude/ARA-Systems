@@ -31,9 +31,9 @@ class ChangeStatusTest extends BaseTest
 
         self::assertEquals(2, $count);
 
-        $id = explode('/', $url)[4];
+        $id = explode('/', $url);
         /** @var Purchase $purchase */
-        $purchase = $this->getRepository(Purchase::class)->find($id);
+        $purchase = $this->getRepository(Purchase::class)->find(end($id));
 
         self::assertEquals(Purchase::STATUS_INCOMING, $purchase->getStatus());
     }
@@ -58,9 +58,9 @@ class ChangeStatusTest extends BaseTest
 
         self::assertEquals(2, $count);
 
-        $id = explode('/', $url)[4];
+        $id = explode('/', $url);
         /** @var Purchase $purchase */
-        $purchase = $this->getRepository(Purchase::class)->find($id);
+        $purchase = $this->getRepository(Purchase::class)->find(end($id));
 
         self::assertEquals(Purchase::STATUS_CANCELLED, $purchase->getStatus());
     }
@@ -80,10 +80,10 @@ class ChangeStatusTest extends BaseTest
 
         $url = $incomingButton->first()->attr('data-href');
 
-        $id = explode('/', $url)[4];
+        $id = explode('/', $url);
 
         /** @var Purchase $purchase */
-        $purchase = $this->getRepository(Purchase::class)->find($id);
+        $purchase = $this->getRepository(Purchase::class)->find(end($id));
 
         $stockBefore = [];
         foreach ($purchase->getPurchaseLines() as $line) {
@@ -97,7 +97,7 @@ class ChangeStatusTest extends BaseTest
         $client->request('POST', $url);
 
         /** @var Purchase $purchase */
-        $purchase = $this->getRepository(Purchase::class)->find($id);
+        $purchase = $this->getRepository(Purchase::class)->find(end($id));
 
         $stockAfter = [];
         foreach ($purchase->getPurchaseLines() as $afterLine) {

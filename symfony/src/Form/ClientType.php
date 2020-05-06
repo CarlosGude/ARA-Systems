@@ -21,27 +21,9 @@ use Symfony\Component\Validator\Constraints\Image;
 
 class ClientType extends AbstractType
 {
-    /**
-     * @var Security
-     */
-    private $security;
-
-    public function __construct(Security $security)
-    {
-
-        $this->security = $security;
-    }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        /** @var Client $client */
-        $client = $options['data'];
-        /** @var User $user */
-        $user = $this->security->getUser();
-
-        if (!$client->getId() && in_array(AbstractUserRoles::ROLE_GOD, $user->getRoles(), true)) {
-            $builder->add('company',EntityType::class,['label'=> 'company.label','class'=>Company::class]);
-        }
 
         $builder
             ->add('name', TextType::class, ['label' => 'client.name'])

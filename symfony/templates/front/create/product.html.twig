@@ -3,7 +3,7 @@
 {% block title %}{{ 'project' | trans }}: {{ 'product.create' | trans }}{% endblock %}
 {% block content %}
     <h1>
-        <a title="{{ 'back' | trans }}" href="{{ path('front_list',{'entity':entity}) }}" class="btn btn-info">
+        <a title="{{ 'back' | trans }}" href="{{ path('front_list',{'entity':entity,'company':companyId}) }}" class="btn btn-info">
             <i class="fas fa-backward"></i>
         </a>
         {{ 'product.create' | trans }}
@@ -13,10 +13,10 @@
         <div class="row">
             <div class="col-md-3">
                 <label for="company">{{ 'company.label' | trans }}</label>
-                <select class="form-control select" id="company">
+                <select class="form-control select" id="company-select">
                     <option value="">{{ 'company.select' | trans }}</option>
                     {% for company in twigUtils.getCompanies() %}
-                        <option value="{{ path('front_create',{'entity':entity,'company':company.id}) }}">{{ company }}</option>
+                        <option value="{{ path('front_create',{'entity':'entity','company':companyId}) }}">{{ company }}</option>
                     {% endfor %}
                 </select>
             </div>

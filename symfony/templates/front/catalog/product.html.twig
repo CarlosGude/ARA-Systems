@@ -3,7 +3,7 @@
 {% block title %}{{ 'project' | trans }}: {{ 'catalog.list' | trans }}{% endblock %}
 {% block content %}
     <h1>
-        <a title="{{ 'product.create' | trans }}" href="{{ path('front_create',{'entity':entity}) }}" class="btn btn-info">
+        <a title="{{ 'product.create' | trans }}" href="{{ path('front_create',{'entity':entity,'company':companyId}) }}" class="btn btn-info">
             <i class="far fa-plus-square"></i>
         </a>
         {{ 'catalog.list' | trans }}
@@ -21,15 +21,15 @@
                     <div class="dropdown-divider"></div>
                     <div class="card-body">
                         <h5 class="card-title">{{ element }}</h5>
-                        <p>[<a href="{{ path('front_edit',{'entity':'category','id':element.category.id}) }}" target="_blank">
+                        <p>[<a href="{{ path('front_edit',{'entity':'category','id':element.category.id,'company':companyId}) }}" target="_blank">
                                 {{ element.category }}
                                 <i class="fas fa-external-link-alt"></i>
                             </a> ]</p>
-                        <a href="{{ path('front_edit',{'entity':'product','id':element.id}) }}" class="btn btn-primary">
+                        <a href="{{ path('front_edit',{'entity':'product','id':element.id,'company':companyId}) }}" class="btn btn-primary">
                             <i class="fas fa-pen"></i>
                             {{ 'edit' | trans }}
                         </a>
-                        <a href="{{ path('front_edit',{'view':'show','entity':'product','id':element.id}) }}" class="btn btn-info">
+                        <a href="{{ path('front_edit',{'view':'show','entity':'product','id':element.id,'company':companyId}) }}" class="btn btn-info">
                             <i class="far fa-eye"></i>
                             {{ 'view' | trans }}
                         </a>
@@ -37,5 +37,9 @@
                 </div>
             </div>
         {% endfor %}
+    </div>
+
+    <div class="row">
+        {{ knp_pagination_render(pagination) }}
     </div>
 {% endblock %}

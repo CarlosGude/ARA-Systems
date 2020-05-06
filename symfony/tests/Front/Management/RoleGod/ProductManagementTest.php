@@ -24,7 +24,7 @@ class ProductManagementTest extends BaseTest
         $total = $crawler->filter('.table')->first()->attr('data-total');
 
         self::assertEquals(10, $count);
-        self::assertEquals(20, $total);
+        self::assertEquals(10, $total);
     }
 
     public function testCreateProduct(): void
@@ -32,7 +32,7 @@ class ProductManagementTest extends BaseTest
         $client = $this->login(parent::LOGIN_GOD);
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'product']));
-        self::assertCount(1, $crawler->filter('#company'));
+
         $product = [
             'name' => 'Test Product',
             'price' => '20.00',

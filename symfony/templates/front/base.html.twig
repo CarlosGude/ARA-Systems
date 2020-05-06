@@ -7,13 +7,17 @@
 {% if form is defined %}
     {% form_theme form 'bootstrap_4_layout.html.twig' %}
 {% endif %}
+{% set companyId = null %}
+{% if is_granted('ROLE_GOD') %}
+    {% set companyId = company.id %}
+{% endif %}
 {% block body %}
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{{ path('front_dashboard') }}" title="{{ 'project'| trans}}">
             {% if is_granted("ROLE_GOD") %}
                 <img width="30%" src="{{ asset('assets/img/logo-alt.jpg') }}">
             {% elseif app.user.company.image is not null %}
-                <img id="{{ app.user.company }}" src="{{ vich_uploader_asset(app.user.company.image, 'file') }}" alt="{{ app.user.company }}" width="100%"/>
+                <img id="{{ app.user.company }}" src="{{ vich_uploader_asset(app.user.company.image, 'file') }}" alt="{{ app.user.company }}" width="20%"/>
             {% else %}
                 {{ app.user.company }}
             {% endif %}
@@ -40,17 +44,33 @@
                         </li>
                         {% if is_granted('ROLE_GOD') %}
                             <li class="nav-item">
+                                {% if is_granted('ROLE_GOD') %}
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="company">{{ 'company.label' | trans }}</label>
+                                            <select class="form-control select" id="company-select">
+                                                <option value="">{{ 'company.select' | trans }}</option>
+                                                {% for list in twigUtils.getCompanies() %}
+                                                    <option {% if list.id == companyId %} selected{% endif %}
+                                                            value="{{ path('front_dashboard',{'company':list.id}) }}">{{ list }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" data-toggle="collapse" href="#companies" role="button" aria-expanded="false" aria-controls="companies">
                                     <i class="fas fa-building"></i>
                                     {{ 'dashboard.companies.master' | trans}}
                                 </a>
                             </li>
                         <li class="nav-item collapse" id="companies">
-                            <a class="nav-link sub-item" href="{{ path('front_create',{'entity':'company'}) }}">
+                            <a class="nav-link sub-item" href="{{ path('front_create',{'entity':'company','company':company.id}) }}">
                                 <i class="fas fa-plus-square"></i>
                                 {{ 'dashboard.companies.add' | trans}}
                             </a>
-                            <a class="nav-link sub-item" href="{{ path('front_list',{'entity':'company'}) }}">
+                            <a class="nav-link sub-item" href="{{ path('front_list',{'entity':'company','company':companyId}) }}">
                                 <span data-feather="home"></span>
                                 <i class="fas fa-th-list"></i>
                                 {{ 'dashboard.companies.list' | trans}}
@@ -60,7 +80,7 @@
                         <div class="dropdown-divider"></div>
                         {% if is_granted('ROLE_ADMIN') %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ path('front_edit',{'entity':'company','id':app.user.company.id}) }}">
+                                <a class="nav-link" href="{{ path('front_edit',{'entity':'company','id':app.user.company.id,'company':companyId}) }}">
                                     <i class="fas fa-building"></i>
                                     {{ app.user.company.name}}
                                 </a>
@@ -74,11 +94,11 @@
                                 </a>
                             </li>
                         <li class="nav-item collapse" id="users">
-                            <a class="nav-link sub-item" href="{{ path('front_create',{'entity':'user'}) }}">
+                            <a class="nav-link sub-item" href="{{ path('front_create',{'entity':'user','company':companyId}) }}">
                                 <i class="fas fa-plus-square"></i>
                                 {{ 'dashboard.users.add' | trans}}
                             </a>
-                            <a class="nav-link sub-item" href="{{ path('front_list',{'entity':'user'}) }}">
+                            <a class="nav-link sub-item" href="{{ path('front_list',{'entity':'user','company':companyId}) }}">
                                 <i class="fas fa-th-list"></i>
                                 {{ 'dashboard.users.list' | trans}}
                             </a>
@@ -93,11 +113,11 @@
                                 </a>
                             </li>
                         <li class="nav-item collapse" id="providers">
-                            <a class="nav-link sub-item" href="{{ path('front_create',{'entity':'provider'}) }}">
+                            <a class="nav-link sub-item" href="{{ path('front_create',{'entity':'provider','company':companyId}) }}">
                                 <i class="fas fa-plus-square"></i>
                                 {{ 'dashboard.providers.add' | trans}}
                             </a>
-                            <a class="nav-link sub-item" href="{{ path('front_list',{'entity':'provider'}) }}">
+                            <a class="nav-link sub-item" href="{{ path('front_list',{'entity':'provider','company':companyId}) }}">
                                 <i class="fas fa-th-list"></i>
                                 {{ 'dashboard.providers.list' | trans}}
                             </a>
@@ -112,11 +132,11 @@
                                 </a>
                             </li>
                         <li class="nav-item collapse" id="clients">
-                            <a class="nav-link sub-item" href="{{ path('front_create',{'entity':'client'}) }}">
+                            <a class="nav-link sub-item" href="{{ path('front_create',{'entity':'client','company':companyId}) }}">
                                 <i class="fas fa-plus-square"></i>
                                 {{ 'dashboard.clients.add' | trans}}
                             </a>
-                            <a class="nav-link sub-item" href="{{ path('front_list',{'entity':'client'}) }}">
+                            <a class="nav-link sub-item" href="{{ path('front_list',{'entity':'client','company':companyId}) }}">
                                 <i class="fas fa-th-list"></i>
                                 {{ 'dashboard.clients.list' | trans}}
                             </a>
@@ -131,11 +151,11 @@
                                 </a>
                             </li>
                         <li class="nav-item collapse" id="categories">
-                            <a class="nav-link sub-item" href="{{ path('front_create',{'entity':'category'}) }}">
+                            <a class="nav-link sub-item" href="{{ path('front_create',{'entity':'category','company':companyId}) }}">
                                 <i class="fas fa-plus-square"></i>
                                 {{ 'dashboard.categories.add' | trans}}
                             </a>
-                            <a class="nav-link sub-item" href="{{ path('front_list',{'entity':'category'}) }}">
+                            <a class="nav-link sub-item" href="{{ path('front_list',{'entity':'category','company':companyId}) }}">
                                 <i class="fas fa-th-list"></i>
                                 {{ 'dashboard.categories.list' | trans}}
                             </a>
@@ -150,11 +170,11 @@
                                 </a>
                             </li>
                         <li class="nav-item collapse" id="products">
-                            <a class="nav-link sub-item" href="{{ path('front_create',{'entity':'product'}) }}">
+                              <a class="nav-link sub-item" href="{{ path('front_create',{'entity':'product','company':companyId}) }}">
                                 <i class="fas fa-plus-square"></i>
                                 {{ 'dashboard.products.add' | trans}}
                             </a>
-                            <a class="nav-link sub-item" href="{{ path('front_list',{'entity':'product'}) }}">
+                            <a class="nav-link sub-item" href="{{ path('front_list',{'entity':'product','company':companyId}) }}">
                                 <i class="fas fa-th-list"></i>
                                 {{ 'dashboard.products.list' | trans}}
                             </a>
@@ -169,7 +189,7 @@
                                 </a>
                             </li>
                             <li class="nav-item collapse" id="catalogs">
-                                <a class="nav-link sub-item" href="{{ path('front_list',{'entity':'product','view':'catalog'}) }}">
+                                <a class="nav-link sub-item" href="{{ path('front_list',{'entity':'product','view':'catalog','company':companyId}) }}">
                                     <i class="fas fa-th-list"></i>
                                     {{ 'dashboard.catalogs.list' | trans}}
                                 </a>
@@ -185,11 +205,11 @@
                                 </a>
                             </li>
                         <li class="nav-item collapse" id="purchases">
-                            <a class="nav-link sub-item" href="{{ path('front_create',{'entity':'purchase'}) }}">
+                            <a class="nav-link sub-item" href="{{ path('front_create',{'entity':'purchase','company':companyId}) }}">
                                 <i class="fas fa-plus-square"></i>
                                 {{ 'dashboard.purchases.add' | trans}}
                             </a>
-                            <a class="nav-link sub-item" href="{{ path('front_list',{'entity':'purchase','sort':'reference'}) }}">
+                            <a class="nav-link sub-item" href="{{ path('front_list',{'entity':'purchase','sort':'reference','company':companyId}) }}">
                                 <i class="fas fa-th-list"></i>
                                 {{ 'dashboard.purchases.list' | trans}}
                             </a>

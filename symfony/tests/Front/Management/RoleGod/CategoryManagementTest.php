@@ -16,7 +16,7 @@ class CategoryManagementTest extends BaseTest
         $total = $crawler->filter('.table')->first()->attr('data-total');
 
         self::assertEquals(10, $count);
-        self::assertEquals(20, $total);
+        self::assertEquals(11, $total);
     }
 
     public function testCreateCategory(): void
@@ -30,8 +30,6 @@ class CategoryManagementTest extends BaseTest
             'minStock' => 1,
             'maxStock' => 100,
         ];
-
-        self::assertCount(1, $crawler->filter('#category_company'));
 
         $form = $crawler->selectButton('Guardar')->form();
 

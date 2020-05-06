@@ -99,6 +99,7 @@ category:
   edited: Se ha editado la categoría {{element}} correctamente.
   taxes: Elija el IVA
 
+
 product:
   name: Nombre
   minStock: Stock (min)

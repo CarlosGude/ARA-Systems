@@ -7,12 +7,6 @@ use App\Tests\Front\BaseTest;
 
 class ChangeStatusTest extends BaseTest
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-        passthru(sprintf('php bin/console h:f:l -n --env=test -q'));
-    }
-
     public function testChangeStatusToIncoming(): void
     {
         $client = $this->login(parent::LOGIN_ADMIN);
@@ -31,9 +25,10 @@ class ChangeStatusTest extends BaseTest
 
         self::assertEquals(2, $count);
 
-        $id = explode('/', $url)[4];
+        $id = explode('/', $url);
+
         /** @var Purchase $purchase */
-        $purchase = $this->getRepository(Purchase::class)->find($id);
+        $purchase = $this->getRepository(Purchase::class)->find(end($id));
 
         self::assertEquals(Purchase::STATUS_INCOMING, $purchase->getStatus());
     }
@@ -58,9 +53,10 @@ class ChangeStatusTest extends BaseTest
 
         self::assertEquals(2, $count);
 
-        $id = explode('/', $url)[4];
+        $id = explode('/', $url);
+
         /** @var Purchase $purchase */
-        $purchase = $this->getRepository(Purchase::class)->find($id);
+        $purchase = $this->getRepository(Purchase::class)->find(end($id));
 
         self::assertEquals(Purchase::STATUS_CANCELLED, $purchase->getStatus());
     }
@@ -76,14 +72,14 @@ class ChangeStatusTest extends BaseTest
 
         $incomingButton = $crawler->filter('.success');
 
-        self::assertEquals(3, $incomingButton->count());
+        self::assertEquals(2, $incomingButton->count());
 
         $url = $incomingButton->first()->attr('data-href');
 
-        $id = explode('/', $url)[4];
+        $id = explode('/', $url);
 
         /** @var Purchase $purchase */
-        $purchase = $this->getRepository(Purchase::class)->find($id);
+        $purchase = $this->getRepository(Purchase::class)->find(end($id));
 
         $stockBefore = [];
         foreach ($purchase->getPurchaseLines() as $line) {
@@ -97,7 +93,7 @@ class ChangeStatusTest extends BaseTest
         $client->request('POST', $url);
 
         /** @var Purchase $purchase */
-        $purchase = $this->getRepository(Purchase::class)->find($id);
+        $purchase = $this->getRepository(Purchase::class)->find(end($id));
 
         $stockAfter = [];
         foreach ($purchase->getPurchaseLines() as $afterLine) {

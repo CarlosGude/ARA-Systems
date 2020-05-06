@@ -22,28 +22,11 @@ use Symfony\Component\Validator\Constraints\Image;
 
 class UserType extends AbstractType
 {
-    /**
-     * @var Security
-     */
-    private $security;
-
-    public function __construct(Security $security)
-    {
-
-        $this->security = $security;
-    }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         /** @var User $user */
         $user = $options['data'];
-
-        /** @var User $currentUser */
-        $currentUser = $this->security->getUser();
-
-        if (!$user->getId() && in_array(AbstractUserRoles::ROLE_GOD, $currentUser->getRoles(), true)) {
-            $builder->add('company',EntityType::class,['label'=> 'company.label','class'=>Company::class]);
-        }
 
         $builder
             ->add('name', TextType::class, ['label' => 'user.name'])

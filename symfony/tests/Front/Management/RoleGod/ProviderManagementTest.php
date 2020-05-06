@@ -17,7 +17,7 @@ class ProviderManagementTest extends BaseTest
         $total = $crawler->filter('.table')->first()->attr('data-total');
 
         self::assertEquals(10, $count);
-        self::assertEquals(20, $total);
+        self::assertEquals(10, $total);
     }
 
     public function testCreateProvider(): void
@@ -26,7 +26,6 @@ class ProviderManagementTest extends BaseTest
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'provider']));
 
-        self::assertCount(1, $crawler->filter('#provider_company'));
         $provider = [
             'name' => 'Test Provider',
             'email' => 'fake@gmail.com',

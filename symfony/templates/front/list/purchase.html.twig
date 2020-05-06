@@ -3,7 +3,7 @@
 {% block title %}{{ 'project' | trans }}: {{ 'purchase.list' | trans }}{% endblock %}
 {% block content %}
     <h1>
-        <a title="{{ 'purchase.create' | trans }}" href="{{ path('front_create',{'entity':entity}) }}" class="btn btn-info">
+        <a title="{{ 'purchase.create' | trans }}" href="{{ path('front_create',{'entity':entity,'company':companyId}) }}" class="btn btn-info">
             <i class="far fa-plus-square"></i>
         </a>
         {{ 'purchase.list' | trans }}
@@ -54,7 +54,7 @@
                     {% if element.status == 'pending' and element.purchaseLines.count > 0 %}
                         <a
                                 title="{{ 'edit' | trans }} {{ element.reference }}"
-                                href="{{ path('front_edit',{'entity': entity, 'id': element.id}) }}"
+                                href="{{ path('front_edit',{'entity': entity, 'id': element.id, 'company':companyId}) }}"
                                 class="btn btn-primary edit">
                             <i class="fas fa-edit"></i>
                         </a>
@@ -115,7 +115,7 @@
                     {% if element.status != 'pending' %}
                     <a
                             title="{{ 'edit' | trans }} {{ element.reference }}"
-                            href="{{ path('front_edit',{'entity': entity, 'id': element.id}) }}"
+                            href="{{ path('front_edit',{'entity': entity, 'id': element.id, 'company':companyId}) }}"
                             class="btn btn-primary edit">
                         <i class="fas fa-edit"></i>
                     </a>

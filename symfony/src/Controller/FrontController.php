@@ -37,11 +37,57 @@ class FrontController extends AbstractController
     public const FORM_NAMESPACE = 'App\Form\\';
 
     /**
-     * @Route("/dashboard", name="dashboard")
+     * @Route("/dashboard/{company}", name="dashboard")
      */
-    public function index(): Response
+    public function index(Company $company = null): Response
     {
-        return $this->render('front/dashboard.html.twig', []);
+        if(!$company && in_array(AbstractUserRoles::ROLE_GOD, $this->getUser()->getRoles(), true)){
+            $company = $this->getUser()->getCompany();
+        }
+        if(!in_array(AbstractUserRoles::ROLE_GOD, $this->getUser()->getRoles(), true)){
+            $company = $this->getUser()->getCompany();
+        }
+
+        return $this->render('front/dashboard.html.twig', ['company'=> $company]);
+    }
+
+    /**
+     * @Route("/list/{entity}/{view}/{sort}/{direction}/{page}/{company}", name="list")
+     */
+    public function list(
+        string $entity,
+        EntityManagerInterface $em,
+        PaginatorInterface $paginator,
+        string $view = 'list',
+        string $sort = 'name',
+        string $direction = 'asc',
+        int $page = 1,
+        Company $company = null
+    ): Response {
+        $class = self::ENTITY_NAMESPACE.ucfirst($entity);
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $this->denyAccessUnlessGranted(AbstractVoter::READ, new $class());
+
+        if ($this->isAValidEntity(new $class())) {
+            throw new RuntimeException('The class is not valid.');
+        }
+
+        $filter = ($class === Company::class) ? 'findAll' : 'findBy';
+
+        $data = ($this->isGranted(AbstractUserRoles::ROLE_GOD))
+            ? $em->getRepository($class)->$filter(['company' => $company ?? $user->getCompany()], [$sort => strtoupper($direction)])
+            : $em->getRepository($class)->findBy(['company' => $user->getCompany()], [$sort => strtoupper($direction)]);
+
+        $pagination = $paginator->paginate($data, $page, 10);
+
+        return $this->render('front/'.$view.'/'.$entity.'.html.twig', [
+            'action' => 'list',
+            'pagination' => $pagination,
+            'entity' => $entity,
+            'company' => $company ?? $user->getCompany(),
+        ]);
     }
 
     /**
@@ -143,12 +189,12 @@ class FrontController extends AbstractController
 
         $this->denyAccessUnlessGranted(AbstractVoter::CREATE, $element);
 
-        if (property_exists($element, 'company')) {
-            $element->setCompany($user->getCompany());
+        if(!$element instanceof Company && $company && in_array(AbstractUserRoles::ROLE_GOD, $user->getRoles(), true)) {
+            $element->setCompany($company);
         }
 
-        if($company && in_array(AbstractUserRoles::ROLE_GOD, $user->getRoles(), true)){
-            $element->setCompany($company);
+        if (property_exists($element, 'company')) {
+            $element->setCompany($user->getCompany());
         }
 
         if (property_exists($element, 'user')) {
@@ -164,21 +210,27 @@ class FrontController extends AbstractController
 
             $this->addFlash('success', $translator->trans($entity.'.created', ['{{element}}' => $element]));
 
-            return $this->redirectToRoute('front_edit', ['entity' => $entity, 'id' => $element->getId()]);
+            return $this->redirectToRoute('front_edit', [
+                'entity' => $entity,
+                'id' => $element->getId(),
+                'company' => $company ?? $user->getCompany(),
+                ]);
         }
 
         return $this->render('front/create/'.$entity.'.html.twig', [
             'action' => 'create',
             'entity' => $entity,
             'form' => $form->createView(),
+            'company' => $company ?? $user->getCompany()
         ]);
     }
 
     /**
-     * @Route("/{view}/{entity}/{id}", name="edit")
+     * @Route("/{view}/{entity}/{id}/{company}", name="edit")
      */
     public function edit(
         string $view = 'edit',
+        Company $company = null,
         string $entity,
         string $id,
         Request $request,
@@ -187,6 +239,8 @@ class FrontController extends AbstractController
     ): Response {
         $class = self::ENTITY_NAMESPACE.ucfirst($entity);
         $formClass = self::FORM_NAMESPACE.ucfirst($entity).'Type';
+        /** @var User $user */
+        $user = $this->getUser();
 
         if (!class_exists($class)) {
             throw new NotFoundHttpException('Page not found.');
@@ -214,7 +268,11 @@ class FrontController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
             $this->addFlash('success', $translator->trans($entity.'.edited', ['{{element}}' => $element]));
-            return $this->redirectToRoute('front_edit', ['entity' => $entity, 'id' => $element->getId()]);
+            return $this->redirectToRoute('front_edit', [
+                'entity' => $entity,
+                'id' => $element->getId(),
+                'company' => $company ?? $user->getCompany(),
+            ]);
         }
 
         return $this->render('front/'.$view.'/'.$entity.'.html.twig', [
@@ -222,41 +280,7 @@ class FrontController extends AbstractController
             'element' => $element,
             'entity' => $entity,
             'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/list/{entity}/{view}/{sort}/{direction}/{page}/", name="list")
-     */
-    public function list(
-        string $entity,
-        EntityManagerInterface $em,
-        PaginatorInterface $paginator,
-        string $view = 'list',
-        string $sort = 'name',
-        string $direction = 'asc',
-        int $page = 1
-    ): Response {
-        $class = self::ENTITY_NAMESPACE.ucfirst($entity);
-        /** @var User $user */
-        $user = $this->getUser();
-
-        $this->denyAccessUnlessGranted(AbstractVoter::READ, new $class());
-
-        if ($this->isAValidEntity(new $class())) {
-            throw new RuntimeException('The class is not valid.');
-        }
-
-        $data = ($this->isGranted(AbstractUserRoles::ROLE_GOD))
-            ? $em->getRepository($class)->findBy([], [$sort => strtoupper($direction)])
-            : $em->getRepository($class)->findBy(['company' => $user->getCompany()], [$sort => strtoupper($direction)]);
-
-        $pagination = $paginator->paginate($data, $page, 10);
-
-        return $this->render('front/'.$view.'/'.$entity.'.html.twig', [
-            'action' => 'list',
-            'pagination' => $pagination,
-            'entity' => $entity,
+            'company' => $company ?? $user->getCompany(),
         ]);
     }
 
