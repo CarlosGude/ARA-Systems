@@ -13,8 +13,6 @@ use App\Security\Voter\AbstractVoter;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\OptimisticLockException;
-use Endroid\QrCode\Factory\QrCodeFactory;
-use Endroid\QrCode\QrCode;
 use Knp\Component\Pager\PaginatorInterface;
 use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
