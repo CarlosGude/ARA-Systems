@@ -41,14 +41,11 @@ class FrontController extends AbstractController
      */
     public function index(Company $company = null): Response
     {
-        if(!$company && in_array(AbstractUserRoles::ROLE_GOD, $this->getUser()->getRoles(), true)){
-            $company = $this->getUser()->getCompany();
-        }
         if(!in_array(AbstractUserRoles::ROLE_GOD, $this->getUser()->getRoles(), true)){
-            $company = $this->getUser()->getCompany();
+            return $this->render('front/dashboard.html.twig', ['company'=> null]);
         }
 
-        return $this->render('front/dashboard.html.twig', ['company'=> $company]);
+        return $this->render('front/dashboard.html.twig', ['company'=> $company ?? $this->getUser()->getCompany()]);
     }
 
     /**
