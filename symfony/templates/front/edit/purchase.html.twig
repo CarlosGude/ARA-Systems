@@ -34,34 +34,58 @@
 
         </div>
         <div class="row">
-    {% if  element.purchaseLines.count > 0 and element.status == 'pending' %}
-        <div class="col-4 h4">
-            <a
-                    title="{{ 'purchase.cancelled' | trans }} {{ element.reference }}"
-                    data-href="{{ path('purchase_change_status',{'purchase': element.id, 'status': 'cancelled'}) }}"
-                    href="#"
-                    onclick="myFunction('{{ path('purchase_change_status',{'purchase': element.id, 'status': 'cancelled'}) }}')"
-                    class="btn btn-danger delete">
-                <i class="fas fa-trash"></i>
-            </a>
-            <a
-                    title="{{ 'purchase.success' | trans }} {{ element.reference }}"
-                    data-href="{{ path('purchase_change_status',{'purchase': element.id, 'status': 'success'}) }}"
-                    href="#"
-                    onclick="myFunction('{{ path('purchase_change_status',{'purchase': element.id, 'status': 'success'}) }}')"
-                    class="btn btn-success success">
-                <i class="fas fa-thumbs-up"></i>
-            </a>
-            <a
-                    title="{{ 'purchase.incoming' | trans }} {{ element.reference }}"
-                    data-href="{{ path('purchase_change_status',{'purchase': element.id, 'status': 'incoming'}) }}"
-                    href="#"
-                    onclick="myFunction('{{ path('purchase_change_status',{'purchase': element.id, 'status': 'incoming'}) }}')"
-                    class="btn btn-warning incoming">
-                <i class="fas fa-shipping-fast"></i>
-            </a>
-        </div>
-    {% endif %}
+            {% if element.status == 'pending' and element.purchaseLines.count > 0 %}
+                <a
+                        title="{{ 'edit' | trans }} {{ element.reference }}"
+                        href="{{ path('front_edit',{'entity': entity, 'id': element.id, 'company':companyId}) }}"
+                        class="btn btn-primary edit">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a
+                        title="{{ 'purchase.cancelled' | trans }} {{ element.reference }}"
+                        data-href="{{ path('purchase_change_status',{'purchase': element.id, 'status': 'cancelled'}) }}"
+                        href="#"
+                        onclick="myFunction('{{ path('purchase_change_status',{'purchase': element.id, 'status': 'cancelled'}) }}')"
+                        class="btn btn-danger cancelled">
+                    <i class="fas fa-trash"></i>
+                </a>
+                <a
+                        title="{{ 'purchase.incoming' | trans }} {{ element.reference }}"
+                        data-href="{{ path('purchase_change_status',{'purchase': element.id, 'status': 'incoming'}) }}"
+                        href="#"
+                        onclick="myFunction('{{ path('purchase_change_status',{'purchase': element.id, 'status': 'incoming'}) }}')"
+                        class="btn btn-warning incoming">
+                    <i class="fas fa-shipping-fast"></i>
+                </a>
+                <a
+                        title="{{ 'purchase.success' | trans }} {{ element.reference }}"
+                        data-href="{{ path('purchase_change_status',{'purchase': element.id, 'status': 'success'}) }}"
+                        href="#"
+                        onclick="myFunction('{{ path('purchase_change_status',{'purchase': element.id, 'status': 'success'}) }}')"
+                        class="btn btn-success success">
+                    <i class="fas fa-thumbs-up"></i>
+                </a>
+
+            {% endif %}
+            {% if element.status == 'incoming' %}
+                <a
+                        title="{{ 'purchase.cancelled' | trans }} {{ element.reference }}"
+                        data-href="{{ path('purchase_change_status',{'purchase': element.id, 'status': 'cancelled'}) }}"
+                        href="#"
+                        onclick="myFunction('{{ path('purchase_change_status',{'purchase': element.id, 'status': 'cancelled'}) }}')"
+                        class="btn btn-danger cancelled">
+                    <i class="fas fa-trash"></i>
+                </a>
+                <a
+                        title="{{ 'purchase.success' | trans }} {{ element.reference }}"
+                        data-href="{{ path('purchase_change_status',{'purchase': element.id, 'status': 'success'}) }}"
+                        href="#"
+                        onclick="myFunction('{{ path('purchase_change_status',{'purchase': element.id, 'status': 'success'}) }}')"
+                        class="btn btn-success success">
+                    <i class="fas fa-thumbs-up"></i>
+                </a>
+            {% endif %}
+
     </div>
     <table class="table" data-total="{{ element.purchaseLines.count }}">
         <thead>
