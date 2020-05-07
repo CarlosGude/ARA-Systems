@@ -58,32 +58,4 @@ class PurchaseManagementTest extends BaseTest
         self::assertNotNull($provider);
     }
 
-    public function testRemovePurchase(): void
-    {
-        $client = $this->login(parent::LOGIN_GOD);
-        $this->createPurchase('carlos.sgude@gmail.com', 'The Provider', 'test');
-        $crawler = $client->request(
-            'GET',
-            $this->generatePath('front_list', ['entity' => 'purchase', 'sort' => 'reference'])
-        );
-
-        $count = $crawler->filter('.purchase-tr')->count();
-        $total = $crawler->filter('.table')->first()->attr('data-total');
-
-        self::assertEquals(5, $count);
-        self::assertEquals(5, $total);
-
-        $delete = $crawler->filter('.delete');
-        $client->request('POST', $delete->first()->attr('data-href'));
-        $crawler = $client->request(
-            'GET',
-            $this->generatePath('front_list', ['entity' => 'purchase', 'sort' => 'reference'])
-        );
-
-        $count = $crawler->filter('.purchase-tr')->count();
-        $total = $crawler->filter('.table')->first()->attr('data-total');
-
-        self::assertEquals(4, $count);
-        self::assertEquals(4, $total);
-    }
 }
