@@ -62,11 +62,13 @@ class Product implements EntityInterface, ImageInterface
 
     /**
      * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
 
@@ -106,12 +108,6 @@ class Product implements EntityInterface, ImageInterface
      * @ORM\Column(type="float", nullable=false)
      */
     private $price = 0;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Provider", inversedBy="products")
-     */
-    private $providers;
-
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\PurchaseLine", mappedBy="product")
@@ -158,14 +154,18 @@ class Product implements EntityInterface, ImageInterface
      */
     private $productMediaObjects;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ProductProvider", mappedBy="product")
+     */
+    private $productProviders;
+
     public function __construct()
     {
         $this->createdAt = new DateTime();
         $this->updatedAt = new DateTime();
-        $this->providers = new ArrayCollection();
-        $this->images = new ArrayCollection();
         $this->purchaseLines = new ArrayCollection();
         $this->productMediaObjects = new ArrayCollection();
+        $this->productProviders = new ArrayCollection();
     }
 
     public function getIvas(): array
@@ -340,32 +340,6 @@ class Product implements EntityInterface, ImageInterface
     public function setStockAct(int $stockAct): Product
     {
         $this->stockAct = $stockAct;
-        return $this;
-    }
-
-    /**
-     * @return Collection|Provider[]
-     */
-    public function getProviders(): Collection
-    {
-        return $this->providers;
-    }
-
-    public function addProvider(Provider $provider): self
-    {
-        if (!$this->providers->contains($provider)) {
-            $this->providers[] = $provider;
-        }
-
-        return $this;
-    }
-
-    public function removeProvider(Provider $provider): self
-    {
-        if ($this->providers->contains($provider)) {
-            $this->providers->removeElement($provider);
-        }
-
         return $this;
     }
 
@@ -549,6 +523,37 @@ class Product implements EntityInterface, ImageInterface
             // set the owning side to null (unless already changed)
             if ($productMediaObject->getProduct() === $this) {
                 $productMediaObject->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProductProvider[]
+     */
+    public function getProductProviders(): Collection
+    {
+        return $this->productProviders;
+    }
+
+    public function addProductProvider(ProductProvider $productProvider): self
+    {
+        if (!$this->productProviders->contains($productProvider)) {
+            $this->productProviders[] = $productProvider;
+            $productProvider->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductProvider(ProductProvider $productProvider): self
+    {
+        if ($this->productProviders->contains($productProvider)) {
+            $this->productProviders->removeElement($productProvider);
+            // set the owning side to null (unless already changed)
+            if ($productProvider->getProduct() === $this) {
+                $productProvider->setProduct(null);
             }
         }
 

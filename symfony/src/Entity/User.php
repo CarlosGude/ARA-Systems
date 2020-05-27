@@ -73,12 +73,14 @@ class User extends AbstractUserRoles implements UserInterface, ImageInterface
     /**
      * @var string
      * @ORM\Column(type="datetime", nullable=false)
+     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
     /**
      * @var string
      * @ORM\Column(type="datetime", nullable=false)
+     * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
 

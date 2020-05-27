@@ -64,12 +64,14 @@ class Purchase implements EntityInterface
     /**
      * @var string
      * @ORM\Column(type="datetime", nullable=false)
+     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
     /**
      * @var string
      * @ORM\Column(type="datetime", nullable=false)
+     * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
 

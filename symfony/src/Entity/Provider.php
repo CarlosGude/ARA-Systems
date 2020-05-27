@@ -51,11 +51,13 @@ class Provider implements EntityInterface, ImageInterface
 
     /**
      * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
 
@@ -94,6 +96,11 @@ class Provider implements EntityInterface, ImageInterface
      */
     private $reference;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ProductProvider", mappedBy="provider")
+     */
+    private $productProviders;
+
     public function __construct()
     {
         $this->createdAt = new DateTime();
@@ -101,6 +108,7 @@ class Provider implements EntityInterface, ImageInterface
         $this->products = new ArrayCollection();
         $this->purchases = new ArrayCollection();
         $this->purchaseLines = new ArrayCollection();
+        $this->productProviders = new ArrayCollection();
     }
 
     public function __toString()
@@ -325,6 +333,37 @@ class Provider implements EntityInterface, ImageInterface
     public function setReference(string $reference): self
     {
         $this->reference = $reference;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProductProvider[]
+     */
+    public function getProductProviders(): Collection
+    {
+        return $this->productProviders;
+    }
+
+    public function addProductProvider(ProductProvider $productProvider): self
+    {
+        if (!$this->productProviders->contains($productProvider)) {
+            $this->productProviders[] = $productProvider;
+            $productProvider->setProvider($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductProvider(ProductProvider $productProvider): self
+    {
+        if ($this->productProviders->contains($productProvider)) {
+            $this->productProviders->removeElement($productProvider);
+            // set the owning side to null (unless already changed)
+            if ($productProvider->getProvider() === $this) {
+                $productProvider->setProvider(null);
+            }
+        }
 
         return $this;
     }

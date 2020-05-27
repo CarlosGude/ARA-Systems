@@ -53,12 +53,14 @@ class Company implements ImageInterface
     /**
      * @var DateTime
      * @ORM\Column(type="datetime", nullable=false)
+     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
     /**
      * @var DateTime
      * @ORM\Column(type="datetime", nullable=false)
+     * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
 
