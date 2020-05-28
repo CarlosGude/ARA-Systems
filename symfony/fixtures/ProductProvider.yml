@@ -1,0 +1,32 @@
+App\Entity\ProductProvider:
+  d_p_p_{1..9}:
+    product: '@dummy_products_<current()>'
+    provider: '@dummy_provider_<current()>'
+    price: '<numberBetween(1, 200)>'
+    createdAt: '<dateTimeBetween("-200 days", "now")>'
+    updatedAt: '<dateTimeBetween($createdAt, "now")>'
+    company: '@the_company'
+
+  d_the_product_provider:
+    product: '@the_product'
+    provider: '@the_provider'
+    price: '<numberBetween(1, 200)>'
+    createdAt: '<dateTimeBetween("-200 days", "now")>'
+    updatedAt: '<dateTimeBetween($createdAt, "now")>'
+    company: '@the_company'
+
+  d_another_product_provider:
+    product: '@another_product'
+    provider: '@another_provider'
+    price: '<numberBetween(1, 200)>'
+    createdAt: '<dateTimeBetween("-200 days", "now")>'
+    updatedAt: '<dateTimeBetween($createdAt, "now")>'
+    company: '@another_company'
+
+  d_products_another_company{1..9}:
+    product: '@dummy_products_another_company<current()>'
+    provider: '@another_dummy_provider_<current()>'
+    price: '<numberBetween(1, 200)>'
+    createdAt: '<dateTimeBetween("-200 days", "now")>'
+    updatedAt: '<dateTimeBetween($createdAt, "now")>'
+    company: '@another_company'

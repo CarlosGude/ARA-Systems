@@ -7,6 +7,7 @@ use App\Entity\Category;
 use App\Entity\Client;
 use App\Entity\Company;
 use App\Entity\Product;
+use App\Entity\ProductProvider;
 use App\Entity\Provider;
 use App\Entity\Purchase;
 use App\Entity\PurchaseLine;
@@ -132,6 +133,27 @@ abstract class BaseTest extends ApiTestCase
             ]);
 
         return $product;
+    }
+
+    protected function getProductProvider(
+        string $product = 'The Product',
+        string $provider = 'The Provider',
+        string $company = 'The Company'
+    ): ?ProductProvider {
+
+        $company = $this->getCompany($company);
+        $product = $this->getProduct($product,$company);
+        $provider = $this->getProvider($provider);
+
+        /** @var ProductProvider $productProvider */
+        $productProvider = static::$container->get('doctrine')
+            ->getRepository(ProductProvider::class)
+            ->findOneBy([
+                'product' => $product,
+                'provider' => $provider,
+            ]);
+
+        return $productProvider;
     }
 
     /**

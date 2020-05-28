@@ -91,6 +91,11 @@ class UserSubscriber implements EventSubscriber
                     User::ROLE_READ_PURCHASE_LINE,
                     User::ROLE_CREATE_PURCHASE_LINE,
                     User::ROLE_UPDATE_PURCHASE_LINE,
+
+                    User::ROLE_DELETE_PRODUCT_PROVIDER,
+                    User::ROLE_READ_PRODUCT_PROVIDER,
+                    User::ROLE_CREATE_PRODUCT_PROVIDER,
+                    User::ROLE_UPDATE_PRODUCT_PROVIDER,
                 ];
             case User::PROFILE_SELLER:
                 return [

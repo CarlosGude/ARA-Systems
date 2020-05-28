@@ -67,11 +67,6 @@ class Provider implements EntityInterface, ImageInterface
     private $company;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Product", mappedBy="providers")
-     */
-    private $products;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Purchase", mappedBy="provider")
      */
     private $purchases;
@@ -97,7 +92,7 @@ class Provider implements EntityInterface, ImageInterface
     private $reference;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ProductProvider", mappedBy="provider")
+     * @ORM\OneToMany(targetEntity="App\Entity\ProductProvider", mappedBy="provider", cascade={"remove"})
      */
     private $productProviders;
 
@@ -105,7 +100,6 @@ class Provider implements EntityInterface, ImageInterface
     {
         $this->createdAt = new DateTime();
         $this->updatedAt = new DateTime();
-        $this->products = new ArrayCollection();
         $this->purchases = new ArrayCollection();
         $this->purchaseLines = new ArrayCollection();
         $this->productProviders = new ArrayCollection();
@@ -184,34 +178,6 @@ class Provider implements EntityInterface, ImageInterface
     public function setCompany(?Company $company): self
     {
         $this->company = $company;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Product[]
-     */
-    public function getProducts(): Collection
-    {
-        return $this->products;
-    }
-
-    public function addProduct(Product $product): self
-    {
-        if (!$this->products->contains($product)) {
-            $this->products[] = $product;
-            $product->addProvider($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProduct(Product $product): self
-    {
-        if ($this->products->contains($product)) {
-            $this->products->removeElement($product);
-            $product->removeProvider($this);
-        }
 
         return $this;
     }

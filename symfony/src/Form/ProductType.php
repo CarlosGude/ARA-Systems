@@ -108,16 +108,6 @@ class ProductType extends AbstractType
                     'required' => true,
                     'attr' => ['min' => 0],
                 ])
-
-                ->add('providers', EntityType::class, [
-                    'class' => Provider::class,
-                    'query_builder' => static function (ProviderRepository $repository) use ($product) {
-                        return $repository->findByCompany($product->getCompany());
-                    },
-                    'label' => 'product.providers',
-                    'multiple' => true,
-                    'expanded' => true,
-                ])
             ;
         }
         $builder

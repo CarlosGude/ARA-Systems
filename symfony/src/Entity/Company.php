@@ -119,6 +119,11 @@ class Company implements ImageInterface
      */
     private $email;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ProductProvider", mappedBy="company")
+     */
+    private $productProviders;
+
     public function __construct()
     {
         $this->createdAt = new DateTime();
@@ -130,6 +135,7 @@ class Company implements ImageInterface
         $this->purchases = new ArrayCollection();
         $this->purchaseLines = new ArrayCollection();
         $this->clients = new ArrayCollection();
+        $this->productProviders = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -485,6 +491,37 @@ class Company implements ImageInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProductProvider[]
+     */
+    public function getProductProviders(): Collection
+    {
+        return $this->productProviders;
+    }
+
+    public function addProductProvider(ProductProvider $productProvider): self
+    {
+        if (!$this->productProviders->contains($productProvider)) {
+            $this->productProviders[] = $productProvider;
+            $productProvider->setCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductProvider(ProductProvider $productProvider): self
+    {
+        if ($this->productProviders->contains($productProvider)) {
+            $this->productProviders->removeElement($productProvider);
+            // set the owning side to null (unless already changed)
+            if ($productProvider->getCompany() === $this) {
+                $productProvider->setCompany(null);
+            }
+        }
 
         return $this;
     }

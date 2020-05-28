@@ -126,6 +126,11 @@ class User extends AbstractUserRoles implements UserInterface, ImageInterface
      */
     private $profile;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ProductProvider", mappedBy="user")
+     */
+    private $productProviders;
+
     public function __construct()
     {
         $this->createdAt = new DateTime();
@@ -137,6 +142,7 @@ class User extends AbstractUserRoles implements UserInterface, ImageInterface
         $this->purchaseLines = new ArrayCollection();
         $this->providers = new ArrayCollection();
         $this->clients = new ArrayCollection();
+        $this->productProviders = new ArrayCollection();
     }
 
     public function __toString()
@@ -481,6 +487,37 @@ class User extends AbstractUserRoles implements UserInterface, ImageInterface
     public function setProfile(string $profile): self
     {
         $this->profile = $profile;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProductProvider[]
+     */
+    public function getProductProviders(): Collection
+    {
+        return $this->productProviders;
+    }
+
+    public function addProductProvider(ProductProvider $productProvider): self
+    {
+        if (!$this->productProviders->contains($productProvider)) {
+            $this->productProviders[] = $productProvider;
+            $productProvider->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductProvider(ProductProvider $productProvider): self
+    {
+        if ($this->productProviders->contains($productProvider)) {
+            $this->productProviders->removeElement($productProvider);
+            // set the owning side to null (unless already changed)
+            if ($productProvider->getUser() === $this) {
+                $productProvider->setUser(null);
+            }
+        }
 
         return $this;
     }

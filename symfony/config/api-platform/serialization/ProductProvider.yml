@@ -1,0 +1,28 @@
+App\Entity\ProductProvider:
+  attributes:
+    id:
+      groups: ['product_provider_read']
+
+    product:
+      groups: ['product_provider_read', 'product_provider_write','product_read']
+
+    provider:
+      groups: ['product_provider_read', 'product_provider_write']
+
+    price:
+      groups: ['product_provider_read', 'product_provider_write']
+
+    isPreferedProvide:
+      groups: ['product_provider_read', 'product_provider_write']
+
+    user:
+      groups: ['product_provider_read', 'product_provider_write']
+
+    company:
+      groups: ['product_provider_read', 'product_provider_write']
+
+    createdAt:
+      groups: ['product_provider_read']
+
+    updatedAt:
+      groups: ['product_provider_read']

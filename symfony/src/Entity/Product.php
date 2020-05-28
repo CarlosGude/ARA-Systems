@@ -155,7 +155,7 @@ class Product implements EntityInterface, ImageInterface
     private $productMediaObjects;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ProductProvider", mappedBy="product")
+     * @ORM\OneToMany(targetEntity="App\Entity\ProductProvider", mappedBy="product", cascade={"remove"})
      */
     private $productProviders;
 

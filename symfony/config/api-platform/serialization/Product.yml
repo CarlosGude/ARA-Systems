@@ -3,7 +3,7 @@ App\Entity\Product:
     id:
       groups: ['product_read','purchase-line_read']
     name:
-      groups: ['product_read', 'product_write','purchase-line_read','purchase_read']
+      groups: ['product_read', 'product_write','purchase-line_read','purchase_read','product_provider_read']
 
     description:
       groups: ['product_read', 'product_write']
@@ -21,13 +21,13 @@ App\Entity\Product:
       groups: ['product_read', 'product_write']
 
     minStock:
-      groups: ['product_read', 'product_write']
+      groups: ['product_read', 'product_write','product_provider_read']
 
     maxStock:
-      groups: ['product_read', 'product_write']
+      groups: ['product_read', 'product_write','product_provider_read']
 
     stockAct:
-      groups: ['product_read', 'product_write']
+      groups: ['product_read', 'product_write','product_provider_read']
 
     company:
       groups: ['product_read', 'product_write']
@@ -48,12 +48,9 @@ App\Entity\Product:
       groups: ['product_read', 'product_write']
 
     reference:
-      groups: ['product_read',]
+      groups: ['product_read','product_provider_read']
 
     location:
-      groups: ['product_read', 'product_write']
-
-    providers:
       groups: ['product_read', 'product_write']
 
     createdAt:

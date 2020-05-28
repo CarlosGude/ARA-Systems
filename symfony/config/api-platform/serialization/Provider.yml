@@ -2,16 +2,18 @@ App\Entity\Provider:
   attributes:
     id:
       groups: ['provider_read']
+
     reference:
-      groups: ['provider_read']
+      groups: ['provider_read','product_provider_read']
+
     name:
-      groups: ['provider_read', 'provider_write', 'product_read' ]
+      groups: ['provider_read', 'provider_write', 'product_read','product_provider_read' ]
 
     email:
       groups: ['provider_read', 'provider_write' ]
 
     description:
-      groups: ['provider_read', 'provider_write']
+      groups: ['provider_read', 'provider_write','product_provider_read']
 
     company:
       groups: ['provider_read', 'provider_write']
