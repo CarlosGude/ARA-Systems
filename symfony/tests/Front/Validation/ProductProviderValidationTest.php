@@ -97,6 +97,7 @@ class ProductProviderValidationTest extends BaseTest
         $form = $crawler->selectButton('Guardar')->form();
 
         $form['product_provider[price]']->setValue($data['price']);
+        $form['product_provider[provider]']->setValue($data['provider']->getId());
 
         $client->submit($form);
 
