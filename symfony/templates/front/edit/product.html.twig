@@ -82,7 +82,7 @@
             <div class="card col-md-3" style="margin-right: -10px">
                 <div class="card-body">
                     <h5 class="card-title">{{ 'product.providers' | trans }}</h5>
-                    <table class="table">
+                    <table class="table" id="product_provider-table" data-total="{{ element.productProviders.count }}">
                         <thead>
                         <tr>
                             <th>{{ 'product.provider' | trans }}</th>
@@ -96,7 +96,7 @@
                         </thead>
                         <tbody>
                         {% for productProvider in element.productProviders %}
-                            <tr>
+                            <tr class="product_provider-tr">
                                 <td>{{ productProvider.provider }}</td>
                                 <td>{{ productProvider.price | number_format(2,',',' ') }}€</td>
                                 <td>

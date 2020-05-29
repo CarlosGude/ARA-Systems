@@ -176,6 +176,7 @@ provider:
   edited: Se ha editado el proveedor {{element}} correctamente.
   image: Logo
   reference: Referencia
+  select: Elija proveedor
 
 client:
   name: Nombre

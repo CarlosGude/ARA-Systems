@@ -45,6 +45,8 @@ class ProductProviderType extends AbstractType
             ->add('provider',EntityType::class,[
                 'class'=> Provider::class,
                 'label' => 'product.provider',
+                'required' => true,
+                'placeholder' => 'provider.select',
                 'attr' => ['class' => 'select'],
                 'query_builder' => static function(ProviderRepository $providerRepository) use ($productProvider){
                     return $providerRepository->findByCompany($productProvider->getCompany());
