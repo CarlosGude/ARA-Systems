@@ -108,6 +108,7 @@ product:
   price: Precio
   category: Categoria
   providers: Proveedores
+  provider: Proveedor
   tax: IVA(%)
   list: Listado de productos
   menu: Productos
@@ -194,3 +195,9 @@ catalog:
 
 line:
   create: Añadir línea
+
+productProvider:
+  create: Añadir proveedor al producto
+  edit: Editar precio de
+  created: Se ha añadido el precio al {{element}} correctamente.
+  edited: Se ha editado el precio al {{element}} correctamente.

@@ -160,10 +160,10 @@ class FrontController extends AbstractController
      */
     public function create(
         string $entity,
-        Company $company = null,
         Request $request,
         EntityManagerInterface $em,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        Company $company = null
     ): Response {
         /** @var User $user */
         $user = $this->getUser();
@@ -218,7 +218,8 @@ class FrontController extends AbstractController
             'action' => 'create',
             'entity' => $entity,
             'form' => $form->createView(),
-            'company' => $company ?? $user->getCompany()
+            'company' => $company ?? $user->getCompany(),
+            'element' => $element
         ]);
     }
 

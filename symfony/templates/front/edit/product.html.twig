@@ -82,6 +82,32 @@
             <div class="card col-md-3" style="margin-right: -10px">
                 <div class="card-body">
                     <h5 class="card-title">{{ 'product.providers' | trans }}</h5>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>{{ 'product.provider' | trans }}</th>
+                            <th>{{ 'product.price' | trans }}</th>
+                            <th>
+                                <a  href="{{ path('front_create',{'entity': 'productProvider', 'product': element.id, 'company':companyId}) }}" class="btn btn-success">
+                                    <i class="fas fa-plus"></i>
+                                </a>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for productProvider in element.productProviders %}
+                            <tr>
+                                <td>{{ productProvider.provider }}</td>
+                                <td>{{ productProvider.price | number_format(2,',',' ') }}€</td>
+                                <td>
+                                    <a  href="{{ path('front_edit',{'entity': 'productProvider', 'id': productProvider.id, 'company':companyId}) }}" class="btn btn-primary">
+                                        <i class="fas fa-edit edit"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
 
                 </div>
             </div>

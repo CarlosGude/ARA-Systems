@@ -69,6 +69,11 @@ class ProductProvider implements EntityInterface
         return $this->id;
     }
 
+    public function __toString()
+    {
+        return $this->getProduct()->getName();
+    }
+
     public function getProduct(): ?Product
     {
         return $this->product;
