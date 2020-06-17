@@ -28,10 +28,10 @@
         }
 
     }
-    $('.change-quantity').change(function(){
+    $('.change-value').change(function(){
         let url = this.getAttribute('data-href');
-        let quantity = this.value;
-        url = url.replace('quantity',quantity);
+        let value = this.value;
+        url = url.replace('value',value);
         window.location.href = url;
     });
 

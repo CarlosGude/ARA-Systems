@@ -115,15 +115,28 @@
             >
                 {% set delete =  path('front_delete',{'entity': 'purchaseLine', 'id': line.id}) %}
                 <td>{{ line.product }}</td>
-                <td>{{ line.price |number_format(2, ',', ' ') }}€</td>
+                <td>
+                    {% if element.status == 'pending' %}
+                        <input
+                                class="change-value form-control"
+                                value="{{ line.price }}"
+                                type="number"
+                                step="0.01"
+                                min="1"
+                                data-href="{{ path('purchase_update_line',{'line':line.id,'type':'price','value':'value'}) }}"
+                        >
+                    {% else %}
+                        {{ line.price |number_format(2, ',', ' ') }}€
+                    {% endif %}
+                </td>
                 <td>
                     {% if element.status == 'pending' %}
                     <input
-                            class="change-quantity form-control"
+                            class="change-value form-control"
                             value="{{line.quantity }}"
                             type="number"
                             min="1"
-                            data-href="{{ path('purchase_update_quantity',{'line':line.id,'quantity':'quantity'}) }}"
+                            data-href="{{ path('purchase_update_line',{'line':line.id,'type':'quantity','value':'value'}) }}"
                     >
                     {% else %}
                         {{ line.quantity |number_format(0, ',', ' ')  }}

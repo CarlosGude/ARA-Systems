@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Form\PurchaseLineType;
 use App\Security\Voter\AbstractVoter;
 use Doctrine\ORM\EntityManagerInterface;
+use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,18 +22,29 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class PurchaseController extends AbstractController
 {
     /**
-     * @Route("update-{quantity}-to-{line}/", name="update_quantity")
+     * @Route("update-{type}-to-{line}/{value}", name="update_line")
      */
     public function index(
         PurchaseLine $line,
-        int $quantity,
+        string $type,
+        float $value,
         EntityManagerInterface $em,
         Request $request,
         TranslatorInterface $translator
     ): RedirectResponse {
         $this->denyAccessUnlessGranted('UPDATE', $line);
 
-        $line->setQuantity($quantity);
+        if(!in_array($type,['price','quantity'],true)){
+            throw new RuntimeException('The value of type '.$type.' is not valid.');
+        }
+
+        if($type === 'quantity'){
+            $line->setQuantity($value);
+        }
+
+        if($type === 'price'){
+            $line->setPrice($value);
+        }
 
         $this->addFlash('success', $translator->trans('purchaseLine.added', ['{{product}}' => $line->getProduct()]));
 

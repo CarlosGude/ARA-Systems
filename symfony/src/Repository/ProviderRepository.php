@@ -24,7 +24,7 @@ class ProviderRepository extends ServiceEntityRepository
     public function findByCompany(Company $company): QueryBuilder
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.company = :company')
+            ->where('p.company = :company')
             ->setParameter('company', $company)
             ;
     }

@@ -160,7 +160,7 @@ purchase:
     incoming: De camino
 
 purchaseLine:
-  added: Se ha actualizado la cantidad del procudto {{product}}.
+  added: Se ha actualizado el procudto {{product}}.
   created: Se ha añadido el producto {{element}} correctamente.
   removed: Se ha elimiando el producto {{element}} correctamente.
   create: Añadir linea al pedido

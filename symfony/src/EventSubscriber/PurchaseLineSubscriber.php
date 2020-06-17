@@ -3,6 +3,7 @@
 namespace App\EventSubscriber;
 
 use App\Entity\Product;
+use App\Entity\ProductProvider;
 use App\Entity\Provider;
 use App\Entity\Purchase;
 use App\Entity\PurchaseLine;
@@ -76,9 +77,22 @@ class PurchaseLineSubscriber implements EventSubscriber
             }
         }
 
+        $price = 0;
+        $productProviders = $product
+            ->getProductProviders()
+            ->filter(static function (ProductProvider $productProvider) use ($provider){
+                return $productProvider->getProvider() === $provider;
+            });
+
+        if ($productProviders->count() === 1){
+            /** @var ProductProvider $productProvider */
+            $productProvider = $productProviders->first();
+            $price = $productProvider->getPrice();
+        }
+
         $line
             ->setProvider($purchase->getProvider())
-            ->setPrice($product->getPrice())
+            ->setPrice($price)
             ->setTax($product->getTax());
 
         $purchase
