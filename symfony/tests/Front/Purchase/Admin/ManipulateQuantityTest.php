@@ -76,7 +76,7 @@ class ManipulateQuantityTest extends BaseTest
         self::assertEquals(1, $client->getCrawler()->filter('.purchase-line-tr')->count());
 
         $url = $client->getCrawler()->filter('.change-quantity')->first()->attr('data-href');
-        $url = str_replace('quantity', 10, $url);
+        $url = str_replace('value', 10, $url);
 
         $client->request('GET', $url);
 
@@ -123,7 +123,7 @@ class ManipulateQuantityTest extends BaseTest
         self::assertEquals(1, $client->getCrawler()->filter('.purchase-line-tr')->count());
 
         $url = $client->getCrawler()->filter('.change-quantity')->first()->attr('data-href');
-        $url = str_replace('quantity', 0, $url);
+        $url = str_replace('value', 10, $url);
 
         $client->request('GET', $url);
 

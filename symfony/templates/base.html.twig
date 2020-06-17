@@ -28,7 +28,14 @@
         }
 
     }
-    $('.change-value').change(function(){
+    $('.change-price').change(function(){
+        let url = this.getAttribute('data-href');
+        let value = this.value;
+        url = url.replace('value',value);
+        window.location.href = url;
+    });
+
+    $('.change-quantity').change(function(){
         let url = this.getAttribute('data-href');
         let value = this.value;
         url = url.replace('value',value);

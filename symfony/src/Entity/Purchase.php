@@ -82,7 +82,7 @@ class Purchase implements EntityInterface
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\PurchaseLine", mappedBy="purchase", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\PurchaseLine", mappedBy="purchase", cascade={"remove","persist"})
      */
     private $purchaseLines;
 

@@ -24,7 +24,7 @@ class PurchaseLine implements EntityInterface
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Purchase", inversedBy="purchaseLines")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Purchase", inversedBy="purchaseLines",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $purchase;
