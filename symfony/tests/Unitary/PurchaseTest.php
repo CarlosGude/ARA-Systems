@@ -72,7 +72,7 @@ class PurchaseTest extends WebTestCase
     public function testChangeStatusToSuccessAndUpdateStock(): void
     {
         $purchase = $this->createPurchase('carlos.sgude@gmail.com','The Provider');
-
+        $this->manager->refresh($purchase);
         $stockBefore = [];
         foreach ($purchase->getPurchaseLines() as $line) {
             $product = $line->getProduct();

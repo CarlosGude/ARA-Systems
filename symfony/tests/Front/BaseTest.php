@@ -32,7 +32,13 @@ abstract class BaseTest extends WebTestCase
 
     protected function getFile(string $file, string $name): UploadedFile
     {
-        $file = static::$kernel->getProjectDir().'\tests\Front\FileUpload\example\\'.$file;
+        $file = static::$kernel->getProjectDir()
+            .DIRECTORY_SEPARATOR.'tests'.
+            DIRECTORY_SEPARATOR.'Front'.
+            DIRECTORY_SEPARATOR.'FileUpload'.
+            DIRECTORY_SEPARATOR.'example'.
+            DIRECTORY_SEPARATOR.$file
+        ;
 
         return new UploadedFile($file, $name);
     }
