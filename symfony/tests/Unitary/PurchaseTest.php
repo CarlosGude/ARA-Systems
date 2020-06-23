@@ -11,6 +11,8 @@ use App\Entity\Purchase;
 use App\Entity\PurchaseLine;
 use App\Entity\User;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -69,7 +71,11 @@ class PurchaseTest extends WebTestCase
         return $purchase;
     }
 
-    public function testChangeStatusToSuccessAndUpdateStock(): void
+    /**
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function testChangeStatusToSuccessUpdateStockAndProvidersPrice(): void
     {
         $purchase = $this->createPurchase('carlos.sgude@gmail.com','The Provider');
         $this->manager->refresh($purchase);
@@ -89,9 +95,16 @@ class PurchaseTest extends WebTestCase
         $stockAfter = [];
         foreach ($purchase->getPurchaseLines() as $afterLine) {
             $product = $afterLine->getProduct();
-            $stockAfter[$product->getId()] = [
-                'stockAct' => $product->getStockAct(),
-            ];
+            $this->manager->refresh($product);
+            $stockAfter[$product->getId()] = ['stockAct' => $product->getStockAct()];
+            $productProviders = $product->getProductProviders()->filter(function (ProductProvider $productProvider) use ($purchase) {
+                return $productProvider->getProvider() === $purchase->getProvider();
+            });
+
+            self::assertEquals(1,$productProviders->count());
+            /** @var ProductProvider $productProvider */
+            $productProvider = $productProviders->first();
+            self::assertEquals($afterLine->getPrice(),$productProvider->getPrice());
         }
 
         foreach ($stockAfter as $id => $stock) {
