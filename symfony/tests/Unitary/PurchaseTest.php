@@ -83,7 +83,7 @@ class PurchaseTest extends WebTestCase
         foreach ($purchase->getPurchaseLines() as $line) {
             $product = $line->getProduct();
             $stockBefore[$product->getId()] = [
-                'stockAct' => $product->getStockAct(),
+                'stock' => $product->getStockAct(),
                 'quantity' => $line->getQuantity(),
             ];
         }
@@ -96,7 +96,7 @@ class PurchaseTest extends WebTestCase
         foreach ($purchase->getPurchaseLines() as $afterLine) {
             $product = $afterLine->getProduct();
             $this->manager->refresh($product);
-            $stockAfter[$product->getId()] = ['stockAct' => $product->getStockAct()];
+            $stockAfter[$product->getId()] = ['stock' => $product->getStockAct()];
             $productProviders = $product->getProductProviders()->filter(function (ProductProvider $productProvider) use ($purchase) {
                 return $productProvider->getProvider() === $purchase->getProvider();
             });
@@ -108,7 +108,7 @@ class PurchaseTest extends WebTestCase
         }
 
         foreach ($stockAfter as $id => $stock) {
-            self::assertEquals($stock['stockAct'], $stockBefore[$id]['stockAct'] + $stockBefore[$id]['quantity']);
+            self::assertEquals($stock['stock'], $stockBefore[$id]['stock'] + $stockBefore[$id]['quantity']);
         }
     }
 }
