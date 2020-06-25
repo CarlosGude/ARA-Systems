@@ -208,4 +208,11 @@ productProvider:
   created: Se ha añadido el precio al {{element}} correctamente.
   edited: Se ha editado el precio al {{element}} correctamente.
 
+color:
+  name: Nombre
+  list: Listado de colores
+  menu: Colores
+  create: Crear color
+  created: Se ha creado el color {{element}} correctamente.
+  edited: Se ha editado el color {{element}} correctamente.
 
