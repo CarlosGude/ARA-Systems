@@ -56,6 +56,11 @@ class Color implements EntityInterface
      */
     private $updatedAt;
 
+    /**
+     * @ORM\Column(type="string", length=2)
+     */
+    private $reference;
+
     public function __toString()
     {
         return $this->getName() ? $this->getName() : '';
@@ -135,6 +140,18 @@ class Color implements EntityInterface
     public function setUser(?User $user): EntityInterface
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getReference(): ?string
+    {
+        return $this->reference;
+    }
+
+    public function setReference(string $reference): self
+    {
+        $this->reference = $reference;
 
         return $this;
     }

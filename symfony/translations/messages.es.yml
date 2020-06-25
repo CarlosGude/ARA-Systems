@@ -209,6 +209,7 @@ productProvider:
   edited: Se ha editado el precio al {{element}} correctamente.
 
 color:
+  reference: Referencia
   name: Nombre
   list: Listado de colores
   menu: Colores

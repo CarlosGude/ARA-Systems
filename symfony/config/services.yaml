@@ -61,3 +61,7 @@ services:
   App\EventSubscriber\ProviderSubscriber:
     tags:
       - { name: 'doctrine.event_subscriber' }
+
+  App\EventSubscriber\ColorSubscriber:
+    tags:
+      - { name: 'doctrine.event_subscriber' }

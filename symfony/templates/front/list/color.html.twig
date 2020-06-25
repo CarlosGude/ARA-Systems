@@ -11,6 +11,9 @@
     <table class="table" data-total="{{ pagination.getTotalItemCount }}">
         <thead>
         <tr>
+            <th{% if pagination.isSorted('a.reference') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'color.reference' | trans, 'reference') }}
+            </th>
             <th{% if pagination.isSorted('a.name') %} class="sorted"{% endif %}>
                 {{ knp_pagination_sortable(pagination, 'color.name' | trans, 'name') }}
             </th>
@@ -26,6 +29,7 @@
         {% for element in pagination %}
         <tr class="{{ entity }}-tr">
             {% set delete =  path('front_delete',{'entity': entity, 'id': element.id}) %}
+            <td>{{ element.reference }}</td>
             <td>{{ element.name }}</td>
             {% if is_granted('ROLE_GOD')  %}
                 <td>{{ element.company }}</td>
