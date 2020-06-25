@@ -150,3 +150,10 @@ App\Entity\ProductProvider:
       - LessThanOrEqual: { propertyPath: productPrice }
     company:
       - NotBlank: ~
+
+App\Entity\Color:
+  properties:
+    name:
+      - NotBlank: ~
+    company:
+      - NotBlank: ~

@@ -1,0 +1,29 @@
+App\Entity\Color:
+  attributes:
+    normalization_context:
+      groups: ['color_read']
+
+    denormalization_context:
+      groups: ['color_write']
+
+  collectionOperations:
+    get:
+      method: 'GET'
+      security: 'is_granted("ROLE_READ_COLOR") or is_granted("ROLE_GOD") or is_granted("ROLE_ADMIN")'
+
+    post:
+      menthod: 'POST'
+      security: 'is_granted("ROLE_CREATE_COLOR") or is_granted("ROLE_GOD") or is_granted("ROLE_ADMIN")'
+
+  itemOperations:
+    get:
+      method: 'GET'
+      security: 'is_granted("CREATE", object)'
+
+    put:
+      method: 'PUT'
+      security: 'is_granted("UPDATE", object)'
+
+    delete:
+      method: 'DELETE'
+      security: 'is_granted("DELETE", object)'

@@ -1,0 +1,17 @@
+App\Entity\Color:
+  the_color:
+    name: 'The Color'
+    company: '@the_company'
+
+  the_delete_color:
+    name: 'The Color To Delete'
+    company: '@the_company'
+
+  dummy_colors_{1..8}:
+    name: 'The Color <current()>'
+    company: '@the_company'
+
+  dummy_colors_another_company{1..9}:
+    name: 'Another Color <current()>'
+    company: '@another_company'
+

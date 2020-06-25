@@ -96,6 +96,10 @@ class UserSubscriber implements EventSubscriber
                     User::ROLE_READ_PRODUCT_PROVIDER,
                     User::ROLE_CREATE_PRODUCT_PROVIDER,
                     User::ROLE_UPDATE_PRODUCT_PROVIDER,
+
+                    User::ROLE_READ_COLOR,
+                    User::ROLE_CREATE_COLOR,
+                    User::ROLE_UPDATE_COLOR,
                 ];
             case User::PROFILE_SELLER:
                 return [

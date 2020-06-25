@@ -124,6 +124,11 @@ class Company implements ImageInterface
      */
     private $productProviders;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Color", mappedBy="company")
+     */
+    private $colors;
+
     public function __construct()
     {
         $this->createdAt = new DateTime();
@@ -136,6 +141,7 @@ class Company implements ImageInterface
         $this->purchaseLines = new ArrayCollection();
         $this->clients = new ArrayCollection();
         $this->productProviders = new ArrayCollection();
+        $this->colors = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -520,6 +526,37 @@ class Company implements ImageInterface
             // set the owning side to null (unless already changed)
             if ($productProvider->getCompany() === $this) {
                 $productProvider->setCompany(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Color[]
+     */
+    public function getColors(): Collection
+    {
+        return $this->colors;
+    }
+
+    public function addColor(Color $color): self
+    {
+        if (!$this->colors->contains($color)) {
+            $this->colors[] = $color;
+            $color->setCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeColor(Color $color): self
+    {
+        if ($this->colors->contains($color)) {
+            $this->colors->removeElement($color);
+            // set the owning side to null (unless already changed)
+            if ($color->getCompany() === $this) {
+                $color->setCompany(null);
             }
         }
 

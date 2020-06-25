@@ -131,6 +131,11 @@ class User extends AbstractUserRoles implements UserInterface, ImageInterface
      */
     private $productProviders;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Color", mappedBy="user")
+     */
+    private $colors;
+
     public function __construct()
     {
         $this->createdAt = new DateTime();
@@ -143,6 +148,7 @@ class User extends AbstractUserRoles implements UserInterface, ImageInterface
         $this->providers = new ArrayCollection();
         $this->clients = new ArrayCollection();
         $this->productProviders = new ArrayCollection();
+        $this->colors = new ArrayCollection();
     }
 
     public function __toString()
@@ -516,6 +522,37 @@ class User extends AbstractUserRoles implements UserInterface, ImageInterface
             // set the owning side to null (unless already changed)
             if ($productProvider->getUser() === $this) {
                 $productProvider->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Color[]
+     */
+    public function getColors(): Collection
+    {
+        return $this->colors;
+    }
+
+    public function addColor(Color $color): self
+    {
+        if (!$this->colors->contains($color)) {
+            $this->colors[] = $color;
+            $color->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeColor(Color $color): self
+    {
+        if ($this->colors->contains($color)) {
+            $this->colors->removeElement($color);
+            // set the owning side to null (unless already changed)
+            if ($color->getUser() === $this) {
+                $color->setUser(null);
             }
         }
 

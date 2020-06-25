@@ -5,6 +5,7 @@ namespace App\Tests\Api;
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
 use App\Entity\Category;
 use App\Entity\Client;
+use App\Entity\Color;
 use App\Entity\Company;
 use App\Entity\Product;
 use App\Entity\ProductProvider;
@@ -73,6 +74,17 @@ abstract class BaseTest extends ApiTestCase
             ->findOneBy(['roles' => ['ROLE_GOD']]);
 
         return $user;
+    }
+
+    protected function getColor(string $name = 'The Color', Company $company = null): ?Color
+    {
+        (!$company && $company = $this->getCompany());
+        /** @var Color $color */
+        $color = static::$container->get('doctrine')
+            ->getRepository(Color::class)
+            ->findOneBy(['name' => $name,'company' => $company]);
+
+        return $color;
     }
 
     /**

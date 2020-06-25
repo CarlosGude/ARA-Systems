@@ -1,0 +1,19 @@
+App\Entity\Color:
+  attributes:
+    id:
+      groups: ['color_read']
+
+    name:
+      groups: ['color_read', 'color_write']
+
+    user:
+      groups: ['color_read', 'color_write']
+
+    company:
+      groups: ['color_read', 'color_write']
+
+    createdAt:
+      groups: ['color_read']
+
+    updatedAt:
+      groups: ['color_read']
