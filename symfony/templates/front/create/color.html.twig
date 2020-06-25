@@ -1,0 +1,17 @@
+{% extends 'front/base.html.twig' %}
+
+{% block title %}{{ 'project' | trans }}: {{ 'color.create' | trans }}{% endblock %}
+{% block content %}
+    <h1>
+        <a title="{{ 'back' | trans }}" href="{{ path('front_list',{'entity':entity,'company':companyId}) }}" class="btn btn-info">
+            <i class="fas fa-backward"></i>
+        </a>
+        {{ 'color.create' | trans }}
+    </h1>
+
+
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.submit) }}
+    {{ form_end(form) }}
+{% endblock %}

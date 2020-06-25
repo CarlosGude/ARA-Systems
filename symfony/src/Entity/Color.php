@@ -56,6 +56,12 @@ class Color implements EntityInterface
      */
     private $updatedAt;
 
+    public function __toString()
+    {
+        return $this->getName() ? $this->getName() : '';
+    }
+
+
     public function getId(): ?string
     {
         return $this->id;

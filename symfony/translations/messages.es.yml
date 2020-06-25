@@ -56,6 +56,11 @@ dashboard:
     master: Empresas
     add: Añadir empresas
     list: Listar empresas
+  colors:
+    master: Colores
+    add: Añadir colores
+    list: Listar colores
+
 
 user:
   name: Nombre
@@ -202,3 +207,5 @@ productProvider:
   edit: Editar precio de
   created: Se ha añadido el precio al {{element}} correctamente.
   edited: Se ha editado el precio al {{element}} correctamente.
+
+
