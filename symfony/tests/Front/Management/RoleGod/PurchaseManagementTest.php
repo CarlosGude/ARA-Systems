@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Front\Roles\RoleGod;
+namespace App\Tests\Front\Management\RoleGod;
 
 use App\Entity\Provider;
 use App\Entity\Purchase;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Front\Roles\RolePurchaser;
+namespace App\Tests\Front\Management\RolePurchaser;
 
 use App\Entity\Client;
 use App\Tests\Front\BaseTest;

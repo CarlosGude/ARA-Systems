@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Front\Roles\Admin;
+namespace App\Tests\Front\Management\Admin;
 
 use App\Entity\Category;
 use App\Tests\Front\BaseTest;

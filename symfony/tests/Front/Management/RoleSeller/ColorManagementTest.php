@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Front\Roles\RoleSeller;
+namespace App\Tests\Front\Management\RoleSeller;
 
 use App\Entity\Color;
 use App\Tests\Front\BaseTest;

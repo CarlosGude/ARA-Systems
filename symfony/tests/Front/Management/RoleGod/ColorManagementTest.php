@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Front\Roles\Color;
+namespace App\Tests\Front\Management\Color;
 
 use App\Entity\Client;
 use App\Entity\Color;
