@@ -100,6 +100,12 @@ class UserSubscriber implements EventSubscriber
                     User::ROLE_READ_COLOR,
                     User::ROLE_CREATE_COLOR,
                     User::ROLE_UPDATE_COLOR,
+
+                    User::ROLE_READ_SIZE,
+                    User::ROLE_CREATE_SIZE,
+                    User::ROLE_UPDATE_SIZE,
+                    
+                    
                 ];
             case User::PROFILE_SELLER:
                 return [

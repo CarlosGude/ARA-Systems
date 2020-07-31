@@ -1,0 +1,22 @@
+App\Entity\Size:
+  attributes:
+    id:
+      groups: ['size_read']
+
+    name:
+      groups: ['size_read', 'size_write']
+
+    user:
+      groups: ['size_read', 'size_write']
+
+    type:
+      groups: ['size_read', 'size_write']
+
+    company:
+      groups: ['size_read', 'size_write']
+
+    createdAt:
+      groups: ['size_read']
+
+    updatedAt:
+      groups: ['size_read']

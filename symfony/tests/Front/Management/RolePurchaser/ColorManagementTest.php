@@ -28,13 +28,13 @@ class ColorManagementTest extends BaseTest
 
         $crawler = $client->request('GET', $this->generatePath('front_create', ['entity' => 'color']));
 
-        $clientData = [
+        $colorData = [
             'name' => 'Test color'
         ];
 
         $form = $crawler->selectButton('Guardar')->form();
 
-        $form['color[name]']->setValue($clientData['name']);
+        $form['color[name]']->setValue($colorData['name']);
 
         $client->submit($form);
 

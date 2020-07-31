@@ -157,3 +157,13 @@ App\Entity\Color:
       - NotBlank: ~
     company:
       - NotBlank: ~
+
+App\Entity\Size:
+  properties:
+    name:
+      - NotBlank: ~
+    company:
+      - NotBlank: ~
+    type:
+      - NotBlank: ~
+      - Choice: { callback: getTypes }

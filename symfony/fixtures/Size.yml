@@ -1,0 +1,25 @@
+App\Entity\Size:
+  the_size:
+    name: 'No size'
+    reference: '00'
+    type: 'clothing_size'
+    company: '@the_company'
+
+  the_delete_size:
+    name: 'The Size To Delete'
+    reference: '09'
+    type: 'clothing_size'
+    company: '@the_company'
+
+  dummy_sizes_{1..8}:
+    name: 'The Size <current()>'
+    reference: '0<current()>'
+    type: 'long'
+    company: '@the_company'
+
+  dummy_sizes_another_company{1..9}:
+    name: 'Another Size <current()>'
+    reference: '0<current()>'
+    type: 'long'
+    company: '@another_company'
+

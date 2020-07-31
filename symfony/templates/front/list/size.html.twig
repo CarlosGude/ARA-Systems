@@ -1,0 +1,66 @@
+{% extends 'front/base.html.twig' %}
+
+{% block title %}{{ 'project' | trans }}: {{ 'size.list' | trans }}{% endblock %}
+{% block content %}
+    <h1>
+        <a title="{{ 'size.create' | trans }}" href="{{ path('front_create',{'entity':entity,'company':companyId}) }}" class="btn btn-info">
+            <i class="far fa-plus-square"></i>
+        </a>
+        {{ 'size.list' | trans }}
+    </h1>
+    <table class="table" data-total="{{ pagination.getTotalItemCount }}">
+        <thead>
+        <tr>
+            <th{% if pagination.isSorted('a.reference') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'size.reference' | trans, 'reference') }}
+            </th>
+            <th{% if pagination.isSorted('a.name') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'size.name' | trans, 'name') }}
+            </th>
+            {% if is_granted('ROLE_GOD')  %}
+                <th{% if pagination.isSorted('a.company') %} class="sorted"{% endif %}>
+                    {{ knp_pagination_sortable(pagination, 'companyTh' | trans, 'company') }}
+                </th>
+            {% endif %}
+            <th scope="col" colspan="2"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for element in pagination %}
+        <tr class="{{ entity }}-tr">
+            {% set delete =  path('front_delete',{'entity': entity, 'id': element.id}) %}
+            <td>{{ element.reference }}</td>
+            <td>{{ element.name }}</td>
+            {% if is_granted('ROLE_GOD')  %}
+                <td>{{ element.company }}</td>
+            {% endif %}
+            <td>
+                <a
+                    title="{{ 'edit' | trans }} {{ element.name }}"
+                    href="{{ path('front_edit',{'entity': entity, 'id': element.id, 'company':companyId}) }}"
+                    class="btn btn-primary">
+                    <i class="fas fa-edit edit"></i>
+                </a>
+            </td>
+            <td>
+                {% if is_granted('ROLE_GOD') %}
+                <a
+                href="#"
+                title="{{ 'delete' | trans }} {{ element.name }}"
+                data-href="{{ delete }}"
+                onclick="myFunction('{{ delete }}')"
+                class="btn btn-danger delete">
+                    <i class="fas fa-trash edit"></i>
+                </a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="5">
+                {{ knp_pagination_render(pagination) }}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}

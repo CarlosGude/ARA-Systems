@@ -12,6 +12,7 @@ use App\Entity\ProductProvider;
 use App\Entity\Provider;
 use App\Entity\Purchase;
 use App\Entity\PurchaseLine;
+use App\Entity\Size;
 use App\Entity\User;
 use DateTime;
 use DateTimeZone;
@@ -87,8 +88,20 @@ abstract class BaseTest extends ApiTestCase
         return $color;
     }
 
+    protected function getSizeData(string $name = 'No Size', Company $company = null): ?Size
+    {
+        (!$company && $company = $this->getCompany());
+        /** @var Size $size */
+        $size = static::$container->get('doctrine')
+            ->getRepository(Size::class)
+            ->findOneBy(['name' => $name,'company' => $company]);
+
+        return $size;
+    }
+
     /**
      * @param $email
+     * @return User|null
      */
     protected function getUserByEmail(string $email): ?User
     {

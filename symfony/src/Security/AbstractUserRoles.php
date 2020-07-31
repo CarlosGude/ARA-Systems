@@ -56,4 +56,9 @@ abstract class AbstractUserRoles
     public const ROLE_READ_COLOR = 'ROLE_READ_COLOR';
     public const ROLE_CREATE_COLOR = 'ROLE_CREATE_COLOR';
     public const ROLE_UPDATE_COLOR = 'ROLE_UPDATE_COLOR';
+
+    public const ROLE_DELETE_SIZE = 'ROLE_DELETE_SIZE';
+    public const ROLE_READ_SIZE = 'ROLE_READ_SIZE';
+    public const ROLE_CREATE_SIZE = 'ROLE_CREATE_SIZE';
+    public const ROLE_UPDATE_SIZE = 'ROLE_UPDATE_SIZE';
 }

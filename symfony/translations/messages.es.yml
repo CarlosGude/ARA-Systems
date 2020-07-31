@@ -12,6 +12,8 @@ removeImage: Eliminar imagen
 view: Ver
 previous: Anterior
 next: Siguiente
+long: Largo
+clothing_size: Talla
 
 login:
   welcome: ¡Bienvenido a ARA-System!
@@ -60,6 +62,11 @@ dashboard:
     master: Colores
     add: Añadir colores
     list: Listar colores
+  sizes:
+    master: Tamaños/Tallas
+    add: Añadir tamaño/talla
+    list: Listar tamaños/tallas
+
 
 
 user:
@@ -216,4 +223,15 @@ color:
   create: Crear color
   created: Se ha creado el color {{element}} correctamente.
   edited: Se ha editado el color {{element}} correctamente.
+
+size:
+  typeChoose: Elija el tipo de tamaño
+  reference: Referencia
+  name: Nombre
+  type: Tipo
+  list: Listado de tamaños/tallas
+  menu: Tamaños/tallas
+  create: Crear tamaño/talla
+  created: Se ha creado el tamaño/talla {{element}} correctamente.
+  edited: Se ha editado el tamaño/talla {{element}} correctamente.
 
